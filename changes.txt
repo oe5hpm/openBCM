@@ -1,0 +1,2177 @@
+All changes since OpenBCM v1.00
+-------------------------------
+
+obcm 1.00 (10.09.2002):
+-----------------------
+- Bugfix fuer reject-editor (DF3VI)
+- Sperre fuer 7+/BIN Mails im Forward verfeinert (DO1MJJ):
+   -K keine BIN Bulletins
+   -L keine BIN Personal Mails
+   -N keine 7+ Bulletins
+   -M keine 7+ Personal Mails
+- diverse Leerzeichen zwischen @ und Boxcall u.a. bei DIR und
+  SEND-Bestaetigung wieder hinzu (DH8YMB)
+- Bugfix Paclen unter DOS (DH8YMB)
+- Bugfix fuer Transfer (DF3VI)
+
+obcm 1.00 Hotfix (17.09.2002):
+------------------------------
+- Paclen unter DOS erneut korrigiert (DH8YMB)
+
+obcm 1.01 (29.09.2002):
+-----------------------
+- 2 weitere Transferbugs behoben (DF3VI)
+- DGET-Sicherheitsabfrage hinzu (DF3VI)
+
+obcm 1.02 (07.10.2002):
+-----------------------
+- Bug bei Passwortstring beseitigt (DH8YMB)
+- Filetime bei .attach unter Linux korrigiert (DH8YMB)
+- Leerzeilen in 7+ werden bei 7+-Erkennung (savebroken) uebergangen
+  (DF3VI)
+- mbterm.cpp/mbradio.cpp: putv/putflush Bugfix (DH8YMB)
+- FBB-Forward fest eingebaut (DH8YMB)
+
+obcm 1.03 (12.02.03):
+---------------------
+- Neue Sysop-Variable "mailbeacon" (DH8YMB)
+  "mailbeacon 1" = Mailbake (bzw. "beachead.bcm") wird immer gesendet, auch
+                   wenn keine neuen Usermails vorliegen
+  "mailbeacon 0" = Mailbake wird nur gesendet wenn wirklich neue Usermails
+                   vorliegen (Verhalten wie bisher)
+- FWD-Edit Fix (DF3VI)
+- Sysop-Variable "callformat" definiert Ham/CB Version (wie in BCM v1.42)
+  (DH8YMB/OE3DZW):
+  Es kann nun jede compilierte Version zu einer CB oder Amateurfunkversion
+  konfiguriert werden, das reduziert die fertig compilierten Boxversionen,
+  die zum Download angeboten werden, erheblich:
+    callformat 0 (default) = Amateurfunkversion
+    callformat 1           = CB-Funkrufzeichen/CB-Version
+    callformat 2           = CB-Funk und Amateurfunkrufzeichen/CB-Version
+- Traceeintrag fuer Telnetfwd hinzu (DH8YMB)
+- AX25K_ONLY Compileroption wieder lauffaehig (DH8YMB)
+- empfangener R-Header in HADR-Datenbank wird ohne BID und LT gespeichert
+  (sah bei "p -a <call>" teilweise bloed aus) (DH8YMB)
+- Bugfix Autosysop (ehem. HRX_OPT) (DL9CU)
+- neue Sysop-Variable "nopopsmtp" (DL9CU/DH8YMB):
+   nopopsmtp 0 (default)   = vor SMTP-Mailannahme ist POP noetig
+   nopopsmtp 1             = SMTP auch ohne vorheriges POP moeglich
+  Anm.: Bei nopopsmtp=0 kann fuer jeden User einzeln mit "a unsecuresmtp"
+  das Verhalten konfiguriert werden.
+- "ps -a" Ausgabe war nicht buendig, korrigiert (DL9CU/DH8YMB)
+- "ps -u" TCPIP-Nummer ist zu lang, daher wird bei HTTP-Zugang nur noch
+  "TCP/IP" angezeigt (DL9CU)
+- Compilieroption HRX_OPT (Autosysop) fest eingebaut (DH8YMB)
+  (siehe auch HELP AUTOSYSOP)
+  Dazu wird die Datei "asysop.bcm" im "bcm"-Verzeichnis ausgewertet,
+  das Format ist (Return am Zeilenende nicht vergessen!):
+  Rufzeichen uplink   downlink
+  Beispiel:
+      DO8ABC none     none            (Direkteinstieg)
+      DO8ABC DB0ABC-2 DB0ABC-2        (wenn das SSID des Ports ueber den man
+                                       einsteigt 2 ist)
+  Soll der Up- oder Downlink nichts enthalten, wird "none" angegeben.
+  Der Downlink ist das Rufzeichen des Nodes bzw. Digipeaters, der der
+  Mailbox am naechsten liegt.
+  Der Uplink ist das Rufzeichen des Nodes, der am weitesten von der
+  Mailbox entfernt ist, bzw. ueber den der Benutzer ins Netz einsteigt.
+  ACHTUNG:
+  Der Uplinkdigi ist leicht faelschbar, der Downlinkdigi theoretisch nie,
+  da es sich meist um den eigenen handelt. Allerdings sollte man
+  darauf achten, dass sich dieser nicht auch durch Eingriffe von
+  Aussen verstellen laesst.
+- Compilieroption HRX_OPT2 fest eingebaut (Striche bei "st f" und "ps")
+  (DH8YMB)
+- httpd: (DH8YMB)
+  - "help index" wieder hinzu
+  - falls mit Guestcall eingeloggt, wird "send" zu "send sysop", der
+    Empfaenger ist auch fix auf das Sysopcall eingestellt
+  - Logincallsign nun in ROT
+  - Soundausgabe bei HTTP-Zugriff, falls /bcm/http/qsl.wav existiert
+  - neue Sysop-Variable:
+    httpguestfirst 0 (default) = Login wie bisher
+    httpguestfirst 1           = Bei httpd Zugriff immer erstmal Login als
+                                "Guest" (falls guestcall gesetzt),
+                                Funktion "userlogin" aktiv (funktioniert
+                                evtl. manchmal nicht, bitte Feedback!)
+    Diese Funktion macht nur dann Sinn, wenn die Mailbox z.B. ueber das
+    Internet erreichbar ist.
+  - neue Sysop-Variable:
+    httpaccount 0 (default)    = Funktion "create account" deaktiviert
+    httpaccount 1              = Funktion "create account" aktiv
+    Zu dieser neuen Funktion:
+    Bei Compilieroption "_GUEST", gesetztem Guestcall und falls die IP-Nummer
+    nicht dem Amprnet entspringt, wird die Funktion "create account"
+    ermoeglicht, damit koennen sich User erstmalig ihr TTYPW (falls noch nicht
+    gesetzt) fuer ihren eigenen Account setzen ohne das der Sysop eingreifen
+    muss. Dies macht in der Regel nur fuer Mailboxen Sinn, die z.B. ueber das
+    Internet erreichbar sind und der Sysop nicht jeden User einzeln anlegen
+    will!
+  - httpd: Logincall UND Mybbs nun in Rot, Meta-Tag hinzu
+  - neuer Sysopparameter "httpttypw" fuer Passworthandling bei HTTP-Zugriff:
+    0 = Verhalten wie bisher - bei Login mit einer 44.er Nummer wir der Name
+        abgefragt, bei Login mit einer anderen IP-Nummer das TTYPW
+    1 = es wird immer das TTYPW (was vom Sysop eingestellt werden muss!)
+        abgefragt
+    Nebeneffekt bei Setzen von httpttypw=1: Bei Verwendung der Aktionen E/O
+    in reject.bcm ist man durch das TTY-Passwort authorisiert, egal ob man
+    vom Amprnet oder z.B. Internet in die Box gelangt.
+  - HTTP: Guestcall bekommt beim Lesen von Rubrikmails nicht mehr
+    Comment/Reply/Erase angezeigt, da Guests nur Lesen duerfen
+  - HTTP: "d n" wird im Auswahlmenue angeboten, aber nicht fuer GUESTCALL
+- Datei "speech.bcm": (DH8YMB)
+  Die Datei "/bcm/speech.bcm" uebernimmt die Funktion der 1. Zeile aus den
+  messages.* Dateien. Existiert diese Datei noch nicht, wird sie beim ersten
+  Connect in die Box automatisch erzeugt, abhaengig von callformat fuer
+  Amateurfunk oder CB. Die Datei definiert zeilenweise die Rufzeichenmuster,
+  die die entsprechende Sprache als Defaultwert beim ersten Connect in die
+  Box erhalten sollen.
+  Beispiel Format der "speech.bcm":
+    DL DO DG DH
+    Das erste Wort einer Zeile beschreibt die Endung der entsprechenden
+    Sprachdatei (im Beispiel also: messages.dl).
+    Rufzeichen die mit DO, DG und DH beginnen, erhalten automatisch die
+    DL-Sprachdatei.
+  Rufzeichenmuster, die nicht in speech.bcm definiert sind, erhalten immer
+  die Defaultsprache "GB".
+  Die erste Zeile der messages.* Dateien kann nun hingegen eine Beschreibung
+  zu der Sprache enthalten, es ist also sinnvoll aktuelle angepasste
+  msg/messages.* Dateien zu verwenden!
+- Befehl "p -a <call>" zeigte auch Routings zu Partnerboxen, die nicht mehr
+  existieren, an. Dies ist nun behoben. (DF3VI)
+- Fix fuer "p -sfn" (DF3VI)
+- Schoenheitsfehler Trace-Eintrag: bei NNTP-Serverzugriff nntpd statt nttpd
+- mbmsg.h und mbmsg.cpp auf den aktuellen Stand gebracht
+- "reject -a" zeigt die aktuelle Datei reject.bcm fuer jeden User an (DH8YMB)
+- Zwei neue "Aktionen" in reject.bcm moeglich (O und E), hier nochmal
+  eine Zusammenfassung (O/E unter DOS nicht sinnvoll, daher dort nicht aktiv):
+  ----------------------------------------------------------------------------
+    Das genaue Format einer Reject-Zeile in "reject.bcm" ist:
+    <Aktion> [<sender] [>dest] [$bid] [@at] [ .B | .P ] ;Kommentar
+
+    Bedeutung von:
+    <Aktion>:
+    R = Nachricht wird abgewiesen (rejected)
+    G = Nachricht wird abgewiesen (rejected), wenn Lokal ohne AX25-PW
+        eingegeben
+    E = Nachricht wird abgewiesen (rejected), wenn Lokal ohne AX25/TTYPW
+        eingegeben
+    F = Nachricht wird auf Hold gesetzt, wenn S&F nicht passwortgeschuetzt ist
+    H = Nachricht wird auf Hold gesetzt
+    L = Nachricht wird auf Hold gesetzt, wenn Lokal eingegeben
+    P = Nachricht wird auf Hold gesetzt, wenn ohne AX25-PW eingegeben
+    O = Nachricht wird auf Hold gesetzt, wenn ohne AX25/TTYPW eingegeben
+
+    [<sender]  Absenderrufzeichen
+    [>dest]    Empfaenger (Board oder Rufzeichen)
+    [$bid]     Ein bestimmtes (Teil-)BID
+    [@at]      Adresse (Verteiler oder Mailboxrufzeichen)
+    .B         Bulletin
+    .P         persoenliche Nachricht
+
+    Beispiele:
+    - wenn man verhindern will, das Jemand ohne AX25 eine Rubrikmail
+      einspielt:
+      "G .B"
+    - wenn man Rubrikails auf Hold setzen will, die Jemand ohne AX25 oder
+      TTYPW einspielt: "O .B"
+
+  Fuer alle HOLD-Aktionen muss ausserdem noch "holdtime" ungleich 0 gesetzt
+  sein!
+  ----------------------------------------------------------------------------
+- Bugfix DOS-Version (tnx F1ULQ!)
+  WPRG etc. geht nun wieder unter DOS (Bug mit 0byte grossen Dateien)
+- touchname in mbreorg/appenddirlist wegen m_filter auskommentiert
+- bcm32.opt fuer WinNT-Version hinzu, hier wird Default-Konfiguration
+  gespeichert ("Release" nicht "Debug")
+- DF3VI_REJECT fix eingebaut
+- DF3VI_PWOK fix eingebaut
+- DF3VI_READ_ACK fix eingebaut
+- Option UI_CVT in DK2UI_CONVERT umbenannt
+- Option UI_LT in USERLT umbenannt
+- Option UI_TOF in DK2UI_TO_FIELD umbenannt
+- Optionen bei Ausgabe von "ver" den tatsaechlichen Namen im Source angepasst
+- Falls M_FILTER falsch definiert, Fehlermeldung in SYSLOG
+- Statt [BayCom...] nun [OpenBCM...] bei Forward-Connect, sollte eine
+  Nachbarbox eine DIEBOX sein, so muss dort die Datei mbsys\sfwid.box
+  angepasst werden:
+  -----------------
+  BayCom-1.1 18 S
+  BayCom-1.2 18 S
+  BayCom- 19
+  OpenBCM-
+  ----------------
+  um einen fehlerfreien AUTOBIN Empfang im Forward der Diebox zu ermoeglichen!
+- Patch von AT5HPK (CB) eingebaut, dieser beinhaltet folgendes:
+  - Es gibt nun vom Sysop einen verstellbaren Bereich in welchem
+    der User seine Paketlaenge einstellen kann.
+    Dieser Bereich wird durch die Parameter  minpaclen  und
+    maxpaclen  in der init.bcm festgelegt.
+    Neue User bekommen die Defaultpaketlaenge zugewiesen, die in
+    init.bcm mit  paclen  definiert ist.
+  - Es gibt nun auch fuer neue User einen Defaultreadlock-Status.
+    Dieser wird mit dem Parameter  defrea  in der init.bcm
+    festgelegt.
+  - Das Kommando sf zum Forward-Start kann jetzt nur noch von Sysops
+    ausgefuehrt werden, es sei denn der User startet einen User-S&F
+  - aenderungen bei der Anzeige der eingestellten eigenen Parameter
+    (Alter):
+    Informiert sich der User ueber sein eigenes Call, so erhaelt er
+    alle moeglichen Informationen, informiert er sich hingegen
+    ueber ein anderes Rufzeichen so erhaelt er limitierte Infos.
+    Weiter unten beschrieben hat auch der CB-BCMNET Gaststatus
+    auf diesen Befehl Einfluss.
+  - aenderung bei der Ausgabe von Status Forward, ist eine
+    Mailbox nicht erreichbar, erscheint kein Blank sondern
+    'no link'.
+  - Integrierung des CB_BCMNET Login-Konzeptes fuer CB-Funk.
+    Dieses CB-BCMNET Konzept laesst sich optional in config.h mit
+    #define _BCMNET in die Mailbox einkompilieren.
+    #define _BCMNET wiederum unterteilt sich in _BCMNET_LOGIN und
+    _BCMNET_FWD.
+    Kurze Ablaufbeschreibung CB-BCMNET Konzept fuer CB-Funk:
+    _BCMNET_LOGIN umfasst die folgenden genannten Features:
+    Ist ein User nicht in der Mailbox beheimatet und hat hier auch
+    kein Passwort, wird er als Gast eingeloggt.
+    Ist jedoch der MyBBS Eintrag aelter als ein halbes Jahr, kann
+    davon ausgegangen werden das dieses Rufzeichen nicht mehr
+    benutzt wird und der User erhaelt einen vollwertigen Login.
+    Es ist auch moeglich mit dem Parameter pwonly in der init.bcm
+    die Mailbox auf generellen Passwortbetrieb zu schalten.
+    Ist dieser 'generelle Passwortzugang' aktiv (pwonly==1), wird
+    der User auch als Gast eingeloggt.
+    Einschraenkungen fuer den Gast-Benutzer:
+     * persoenliche Einstellungen werden nicht gespeichert.
+     * Alle abgesetzten Mails gehen auf Hold und werden mit
+       X-Info: Mail was sent from a guest.
+       gekennzeichnet.
+     * Ausserdem verfuegt ein Gast nicht ueber die Berechtigung
+       Mails zu transferrieren oder zu loeschen.
+    Ist ein User durch das CB-BCMNET Login-Konzept als Gast
+    eingeloggt, erhaelt er immer nur limitierte Informationen
+    beim Alter-Befehl (auch wenn er sich ueber sein eigenes)
+    Rufzeichen informiert).
+    Das Feature #define _BCMNET_FWD: ist diese Funktion
+    mit einkompiliert, so ist es nur noch moeglich mit CB-BCMNET
+    Mailboxen FWD zu betreiben (Erkennung durch Z im SID).
+- Aenderung der Lifetimeabfrage beim Send-Befehl (AT5HPK)
+  (bei Verwendung von "ltquery" in init.bcm).
+  0 = keine Lifetimeabfrage
+  1 = Lifetimeabfrage nur fuer Bulletins
+  2 = Lifetimeabfrage fuer Bulletin- und Usermails
+- diverse oeaeuess im Source ersetzt
+- M_FILTER-Programm wird als Binaerfile statt Textfile ueberprueft
+- "userpw.txt" in "userpw.bcm" umgetauft (wird bei SETPW und
+  PWGEN benutzt)
+- PWG ohne Parameter erzeugt ebenfalls ein "userpw.bcm"
+- der maxpaclen Defaultwert in init.bcm ist nun 256 statt 255 (AT5HPK)
+- nur wenn maxpaclen auf 256 ist, kann der User die
+  Paclen Funktion (A PA 0) abschalten (AT5HPK).
+  Sonst wuerden die Parameter minpaclen und maxpaclen keinen Sinn ergeben.
+- Fix (AT5HPK): Der Autorouter ist nun auch in der Lage anhand
+  des Maiboxrufzeichens zu routen.
+- CB-BCMNET Loginkonzept: kleinere aenderungen, u.a. werden einige
+  User-Settings nun gespeichert, ein 'alter forward' etc. geht allerdings
+  nicht (AT5HPK)
+- Didadit-Bug bei "RD" (Sysop) und "DG" im Filesurf (hoffentlich)
+  behoben (DH8YMB)
+- defhold in init.bcm hinzu (setzt Defaultwert von 'alter fhold')
+- Fix fuer _AUTOFWD in mbfwd.cpp
+- QT setzt nun nicht nur Quittime sondern auch auch Lastdirnews-Time
+  des Users auf aktuelles Datum (machte das sonst Sinn?)
+- QT auch bei HTTP-Zugriff moeglich (nur bei GUESTCALL nicht)
+- fwdsend: "=C 10:DNX812-12" ging nicht im Connectpfad, korrigiert (AT5HPK)
+- st f: Wenn kein Connectpfad zum Forward-Partner in fwd.bcm eingegeben wurde,
+  nicht mehr "filefwd" Hinweis, denn es kann auch einfach nur so kein
+  Connectpfad angegeben sein.
+- YEAR bei Versionsangaben von -2002 auf -2003 in baycom.h
+- in den makefiles sind die (Normaluser verwirrenden) Warnings beim
+  Compilieren ausgeblendet
+- Abbruch einer Mail anstatt nur mit CTRL+X nun auch mit /AB oder /ab moeglich
+  (war ein Wunsch von DBT459), dazu moeglichst neue Sprachfiles msg/messages.*
+  ab messages v1.03.03 einsetzen (wird bei 'a s' angezeigt).
+- Invers-Matching bei reject.bcm sollte wieder funktionieren (tnx DL9CU)
+- Faelschliches WP-Mailimport-Reject bei E/G-Aktion in reject.bcm gefixt
+- alle TAB aus *.h und *.cpp entfernt, damit Source mit allen Texteditoren
+  kompatibel ist
+- Bei reject.bcm Aktionen O,E auch SMTP-Passwort-Authorisierung zugelassen
+- Mailheader bei POP3-Mailabruf: Leerzeichen vor WITH hinzu
+- reject.bcm: ODER-Verknuepfung implementiert
+  Verknuepfte ODER-Elemente werden durch ein Komma getrennt, die
+  ODER-Verknuepfung beginnt immer mit einer Klammer auf "(". Eine Negierung
+  des Ausdrucks durch "!" muss voran gestellt sein.
+  Beispiel: a) G .B <!(DH2YMB,DJ4KB
+               Ausser von DH2YMB oder DJ4KB muessen alle Rubrikmails mit
+               Passwort eingespielt werden, sonst werden sie abgelehnt.
+            b) G .B <(DH2YMB,DJ4KB
+               DH2YMB oder DJ4KB muessen alle Rubrikmails mit
+               Passwort eingespielen, sonst werden sie abgelehnt.
+               Anmerkung: diese Bedingung ist auch mit den 2 Zeilen
+                          G .B <DH2YMB
+                          G .B <DJ4KB
+                          realisierbar!
+- "unsecurettypw" Parameter fuer init.bcm hinzu (Wunsch von DG8NGN)
+   = 0 (Default) nur Sysops und User mit bereits gesetztem TTYPW koennen
+                 ihr TTYPW aendern oder loeschen.
+   = 1           wie 0, plus User die sich mit Passwort authorisiert haben,
+                 koennen ihr TTYPW ebenfalls aendern
+   = 2           Jeder kann sein TTYPW aendern (Vorsicht: hier kann auch
+                 Missbrauch getrieben werden!!!)
+- "maillistsender" Parameter fuer init.bcm hinzu (Anregung DMA284)
+  Da FBB-Mailboxen den Absender einer Mail nutzen, um dessen Home-BBS zu
+  lernen, gibt es Probleme, wenn ein Absender einer anderen Home-BBS als
+  Absender der Mailserver-Mail mit der Home-BBS der Mailserver-BBS angegeben
+  wird. Die FBB-Systeme "lernen" dann die falsche Home-BBS.
+  = 0            es wird der Absender der Ursprungsmails als Absender
+                 der Mailserver-Mail genutzt (sollte nicht genutzt werden)
+  = 1 (default)  das Mailboxcall wird als Absender der Mailserver-Mail genutzt
+
+obcm 1.04 (22.12.2003):
+-----------------------
+- NNTP: Outlook-Unterstuetzung in XOVER (dh6bb)
+- NNTP: Absturz bei CR/LF in Betreff behoben (dh8ymb)
+- NNTP: Outlook zeigt nun auch Lines/Bytes korrekt an
+- Bei NNTP-Logins erscheint nun als Uplink "via NNTP" oder die IP-Nummer,
+  Flag "N" fuer Logbuch definiert
+- NNTP: Befehl "Help" implementiert, Befehl "Authinfo" vorbereitet
+- Befehl "ver" zeigt nun, falls Filesurf eincompiliert wurde, auch den/die
+  Filesurf-Pfad(e) an, bei Schreibberechtigung mit * vor dem Pfad (dh8ymb)
+- send_ping: Leerzeichen bei Ausgabe zwischen Zielbox und "gespeichert" hinzu
+  (tnx dh6bb!)
+- #BIN# und #DIDADIT# beim Speichern einer Mail innerhalb einer HTTP-Session
+  ignorieren (fuehrte zum Absturz in den vorherigen Versionen!) (dh8ymb)
+- statt "pu <board>" ist nun auch "pu <board1> <board2>.." moeglich: das
+  reduziert die Wartezeit fuer den anschliessenden Reorg bei grossen Boxen
+  erheblich, da dieser nur einmal am Ende des Vorgangs ausgefuehrt wird
+- Falls "mailbeacon=1" in init.bcm und wenn keine Mails fuer Boxuser vorliegen
+  wird "NONE" bei der Mailbake ausgegeben (ct1drb)
+- Mailserver: Name des Absenders bei "maillistsender = 0" war bislang der
+  eingestellte Name der Mailbox, nun wird richtigerweise der Name in der
+  Mail abgespeichert
+- Auf Wunsch von DF3VI ist bei Afu-Mailboxen die Variable "maillistsender"
+  nun default auf den Wert 0 gesetzt
+- convname und convfrom aus Quellcode entfernt, nun nur noch ein
+  Konzept zur Rubrikkonvertierung: "convert.bcm"
+- DF3VI_CONV_EDIT in config.h: Editorfunktion fuer "convert.bcm"
+  eingebaut als CONVEDIT
+- CONVEDIT: ein paar Sicherheitsabfragen hinzu...nichts wesentliches
+- CONVEDIT: "SORT" Unterbefehl zur alphabetischen Sortierung hinzu, dies
+  sollte man jedoch NUR DANN machen, wenn die Reihenfolge der Eintraege
+  in convert.bcm egal ist (normalerweise ist dies aber NICHT egal, denn
+  wenn es mehrere Eintraege gibt, die auf eine Mail zutreffen koennen,
+  wird immer nur der erste Eintrage ausgefuehrt - also VORSICHT!).
+- CONVEDIT: Bugfix: falls convert.bcm noch leer war, stuerzte Box ab wenn
+  ueber "convedit a" ein Eintrag hinzugefuegt wurde
+- Bei "f -h ..." wird nun auch das Mailflag fuer HOLD in der Mail selber
+  zurueckgesetzt
+- "HOLD -u" funktioniert nun auch bei per reject.bcm auf HOLD gesetzten
+  Mails; diesem Befehl ist nun der Vorzug beim "Releasen" von ge-hold-eten
+  Mails zu geben, da man hier den Verteiler nicht mit angeben muss, im
+  Gegensatz zu "f -h...", wo dies zwingend noetig ist. Dies spart zum Einen
+  eine Menge Tipparbeit fuer den Sysop, und zum anderen kann man so auch
+  den Ursprungsverteiler nicht mehr aus Versehen abaendern
+- doppelte Eintraege in fwd-queue Files werden nun bei jedem Aufruf von
+  add_fwdfile gesucht und bis auf den zeitlich juengsten Eintrag aus dem
+  Queue-File herausgeloescht
+- trace/m_filter.log heisst nun sinnigerweise trace/m_filter.bcm
+- beim Befehl "qt" kommt nun eine Ausgabe, wenn die Quitzeit neu gesetzt wurde,
+  ausserdem ist dieser Befehl nun standardmaessig in das HTTP-Menue eingefuegt
+- POP3-Patch (TOP-Befehl fuer Fetchmail) eingebaut (von DAP900)
+- HTTP: Quittime wird bei Guestcall-Zugriff nicht mit im Menue angezeigt, da
+  hier der Befehl nicht verfuegbar ist
+- Befehl "summertime" in init.bcm fuer DOS und Windows-Versionen hinzu:
+  Syntax: Summertime [ 0 | 1 ]
+  Legt fest, ob die automatische Sommerzeitumschaltung der OpenBCM Mailbox
+  aktiviert werden soll. Normalerweise ist der Wert in Mitteleuropa auf "1" zu
+  setzen, betreibt man jedoch die Mailbox in einem Land, dass keine Sommerzeit
+  nutzt, so ist der Wert auf "0" zu setzen.
+  Ich hoffe, damit ist das Chaos um die TZ-Variable unter Windows endgueltig
+  erledigt! Diese wird unter Windows nun NICHT mehr benoetigt. Unter Linux
+  soll es ja keine Probleme geben, somit gibt es diese Aenderung dort nicht.
+- unnoetige Debugausgabe "delfwdlist" reduziert
+- Pogsag-Server-Patch von DH6BB eingebaut:
+  Jetzt ist es moeglich, auch eingetragene User in der Pocsagliste mit SSID
+  anzupagen (Befehl: "poc page <call[-ssid]> <text>")
+  Weiterhin wird bei Eintreffen einer Mail jetzt eine Nachricht fuer alle SSIDs
+  ausgesendet, die in der Liste sind.
+- Bugfix Autorouter: "autopath -a <call>" liefert nun wieder zusaetzliche Infos
+- Bugfix Autorouter: autopath <eigenes boxcall> war Unsinn, behoben
+- Bugfix Autorouter:
+  gelegentliche Abstuerze bei Empfang von Erase-WP ("autosave" bzw.
+  "autofile") und SETUSER F
+- FWDEXP ohne weitere Angaben liefert nun auch [-<option>] als Hinweis,
+  dass man auch eine Option oder eigene SID zum Exportieren verwenden kann
+- Forward/loeschen doppelter Queue-Eintraege:
+  Funktion checkdouble_fwdfile kostet zu viel Rechenzeit -> teilw. Abstuerze
+  bei extrem grossen Fwdfiles (DB0LHR), statt dessen wird nun die Funktion
+  remove_oldentry vor jedem neuen Eintragen einer Zeile in die Fwd-Queue-Files
+  durchlaufen, die alte Eintraege loescht.
+  Dadurch werden nun zwar nicht mehr gleiche Maileintraege nachtraeglich
+  gefunden, aber diese entstehen nun erst gar nicht mehr, somit duerfte
+  checkdouble_fwdfile wohl sogar voellig ueberfluessig werden
+- Callformat 00xx00 fuer CB-Funk erlaubt
+- mbpocsag: kleine aenderung bzgl. User mit SSID
+- mbmsg: s_fclose hinzu
+- init.l2 example file optimiert
+- Angabe "local time:" bei "time" weg (verwirrend bei auf UTC-Zeit laufenden
+  Boxen)
+- BILDER/JPG -> "G"-Rubrik-Problem bei DB0NDR: zuviel Leerzeichen in
+  bulletin.bcm werden nun abgefangen und Warnhinweis in syslog hinzu
+- Bugfix: time2filename bei http und smtp (DH6BB)
+- SMTP-Bin-Patch von DH6BB eingebaut:
+  es koennen nun auch per SMTP beliebige Dateianhaenge gemailt werden.
+  Ist mehr als eine Datei der Mail angehaengt, so werden die Dateien auf
+  mehrere Mails aufgeteilt.
+  Der Textteil der Mail wird mit den Hinweis, das weitere Teile folgen,
+  erweitert und die Titel der separaten Datei-Mails jeweils um
+  (File x/x) ergaenzt.
+  ACHTUNG!!!
+  Dies ist ein neues Feature und evtl noch nicht hinreichend
+  getestet. Besonders das Emailprogramm MS Outlook hat sich als sehr
+  tueckisch erwiesen, immer neue Fehler in dem Boxmodul zu verursachen!
+- SMTP: SMTP-Header wird nicht in der Mail mitgespeichert, da dies eine
+  evtl. PGP-Pruefsumme stoert (DH6BB mit DL1NC)
+- Ist man mit GUESTCALL in die Box eingeloggt kommt beim ALTER Befehl nun
+  der Hinweis, das dieser Befehl nicht fuer Gaeste moeglich ist
+- "actual" gegen "current" in mbmsg.h getauscht (Tippfehler, tnx DL1NC)
+- Aenderungen bei DIDADIT bzgl. File-RX: PART_MD5 und MD5-FINACK (DH8YMB),
+  damit ist jetzt auch ein DIDADIT-Upload in den Filesurf mit WPP und
+  Winstop auf Userseite moeglich
+- diverse BIN, DIDADIT und YAPP Empfangsmeldungen (z.B. von WPP und Winstop)
+  werden nun als Box-Kommando ignoriert (DH8YMB)
+- DIDADIT und YAPP Filetransfers nun an Ende mit BPS-Angabe analog
+  wie AUTOBIN (DH8YMB)
+- SMTP-BIN: neues Patch von DH6BB:
+  Attachment von Textfiles funktioniert nun
+- Linux: makefile nun auch mit gcc > 2.95 compilierbar
+  (mit gcc 3.2 getestet von Suse 8.1)
+- bei Box-Neustart wird der Inhalt des TEMP-Subdir geloescht
+  (behebt u.a. das POP-Lockfile Problem)
+- SMTP-BIN: neues Patch von DH6BB eingefuegt:
+  - mehrere BIN-Attachments gehen nun wieder
+  - BIN und Text-Attachments gehen in Kombination
+  - Attachments und alle temporaeren SMTP-File werden nun in Subdirs
+    von TEMP zwischengespeichert
+- Ausgabe von "version" zeigt freien Festplattenspeicher etc. weiter
+  rechts an, damit auch laengere Pfade passend dargestellt werden
+- diverse Patches von DB1RAS eingebaut:
+  - default crontab.bcm Datei verschoenert
+  - BCM-Net: korrekte Bezeichnung ist nun CB-BCMNET, um Verwechslungen
+    vorzubeugen
+  - Supportmeldung fuer CB-BCMNET Version eingefuegt, damit sich
+    DJJ812 Jonas nicht mit den CB-BCMNET Leuten rumplagen muss ;-)
+  - DOS: Doppelaufruf von Command.com entfernt (mbinterf.cpp, OLD_SHELL)
+  - DOS: neue Option _PREPOSTEXEC in config.h, Aufrufmoeglichkeit eines
+    externen Watchdog hinzugefuegt. Wer unter Dos mit shroom die Box bei
+    Shellaufrufen auslagert, lagert auch den boxinternen Watchdog aus,
+    was mitunter boese enden kann.
+    Mit dospreexec und dospostexec besteht nun die Moeglichkeit, vor
+    und nach jedem Shellaufruf einen externen Watchdog wie z.B.
+    ftp://ftp.gu.net/pub/dos/fido/robots/autoboot.zip
+    ein- und auszuschalten. Beispiel:
+    autoexec.bat:
+      autoboot /sit 600 /alr 580 /fos 0
+    init.bcm:
+      dospreexec autoboot /dos 0 >nul
+      dospostexec autoboot /dos 1 >nul
+    Defaultwert von dospreexec und dospostexec ist "off".
+    _PREPOSTEXEC leitet nicht standardmaessig nach ">nul" um. Wenn man dies
+    moechte, muss man dies also bei dospre/postexec selbst angeben, oder
+    man leitet die Ausgabe zur Fehlerkontrolle in eine Datei um.
+  - Fix zur HROUTE: Die OpenBCM kann bis zu 39 Zeichen lange H-Routen
+    verwalten, nur im Mailheader war die Laenge bislang auf 24 Zeichen
+    begrenzt. Da sich die H-Route des Ziels oder das Ziel selbst aendern
+    kann, kann es Situationen geben, in welchen die OpenBCM Teile des
+    Mailheaders neu schreibt. Da die OpenBCM H-Routen mit bis zu
+    39 Zeichen erlaubt, kann es vorkommen, dass der mit 24 Zeichen vorbelegte
+    Platz der H-Route innerhalb des Mailheaders mit einer bis zu 39 Zeichen
+    langen H-Route ueberschrieben, was die darauffolgenden Daten
+    im Mailheader (BID/MID und Lifetime) ueberschreibt. Dies ist der Bugfix
+    dazu.
+  - neue Option _READHEADER_79 in config.h: Der Header (erste Ausgabezeile)
+    beim Read-Befehl wird auf 79 Zeichen begrenzt. Dadurch wird ggf. die
+    H-Route abgeschnitten. Dies sieht aber besser aus, als wenn wir einfach
+    ueber das Zeilenende hinaus schreiben.
+  - PACLEN (Paketlaenge) kann nun auch von einem User auf 256 gestellt werden,
+    wenn es maxpaclen erlaubt (auch wenn es das Selbe ist als wenn er sie auf
+    0 stellen wuerde). Sysop kann beliebige Paketlaenge auch ausserhalb der
+    min/maxpaclen Grenzen einstellen. Bedingt durch letzteres wird die
+    Paketlaenge beim Login nicht mehr auf maxpaclen angepasst, das waere sonst
+    kontraproduktiv. Wird kein Argument bei "A PA" angegeben, wird nun immer
+    die aktuelle Einstellung angezeigt. Paketlaengenroutine in mbalter.cpp
+    etwas aufgeraeumt.
+  - Option OLD_SHELL von ad_dos.cpp nach config.h verschoben, wo es hingehoert
+  - Fehler in mbinit behoben, welcher bei einem Neustart einige CB-BCMNET-
+    Parameter auf Defaultwerte zurueckgesetzt hat.
+  - moeglichen Speicherueberlauf in mbhadr.cpp Funktion update_hadr behoben.
+  - Mailheader-Versionsinfo geaendert:
+    Ein Mailheader darf maximal 80 Zeichen lang sein. Die verwendeten
+    Programmroutinen der OpenBCM stammen von der BCM, dessen Versions-
+    kennzeichnung im Mailheader maximal 7 Zeichen lang war (z.B. bcm1.42).
+    Die Versionskennzeichnung der OpenBCM ist mit z.B.
+    openbcm1.04beta27 um einiges laenger. Um sie etwas zu kuerzen wurde hier
+    openbcm durch obcm ersetzt.
+    Die neue Routine ist zudem dynamisch und verhindert, bei egal welcher
+    Versionsnummern-Laenge, eine Ueberschreitung der maximalen Mailheader-Laenge
+    von 80 Zeichen. Dadurch ergibt sich eine dynamische Laenge von boxheader
+    (init.bcm), je nach Laenge der H-Route und Versionsnummer. Er wird ggf.
+    gekuerzt.
+    Hinweis: Dadurch ergibt sich fuer unterschiedliche Mailboxen eine
+    unterschiedliche erlaubte Laenge von boxheader.
+  - beim Setzen von boxheader wird makeheader aufgerufen, damit boxheader
+    gleich auf die richtige Laenge gebracht wird. So wird dem Sysop schneller
+    klar, das sein boxheader zu lang ist. (db1ras)
+  - boxheader in mailpara_t von 60 auf 45 Zeichen herabgesetzt, das reicht
+    incl. Sicherheitsreserve (falls jemand boxaddress (init.bcm) komplett
+    leer lassen wuerde) locker. (db1ras)
+  - fwdhold vollstaendig dokumentiert
+  - Aenderung des MYBBS-Feldes in der Userdatenbank: Die Userdatenbank
+    speicherte das MyBBS incl. H-Route bislang nur ab, wenn dieses nicht
+    laenger als 24 Zeichen ist. Ist es laenger, wird nur das Rufzeichen der
+    MyBBS aber nicht dessen H-Route gespeichert.
+    Damit verliert man aber eine grundlegende Basisfunktionalitaet, naemlich
+    die Moeglichkeit private Mails an unbekannte Mailboxen ausschliesslich
+    anhand der H-Route der MyBBS zu routen. Dies ist der Bugfix dazu.
+    Umsetzung: Die Userdatenbank hat ein neues ausreichend grosses Feld fuer
+    die MyBBS bekommen. Zukuenftig speichern wir die MyBBS in diesem Feld.
+    Beim Oeffnen eines Useraccounts wird geprueft, ob sich im neuen MyBBS Feld
+    bereits Daten befinden. Falls nicht, werden die des alten Feldes benutzt.
+    Geschrieben werden immer beide Felder (das alte mit bekannter
+    Einschraenkung auf 24 Zeichen), so sind wir vollstaendig
+    abwaertskompatibel.
+    Ein REORG L oder P fuellt ebenfalls alle neuen MyBBS Felder, d.h. danach
+    koennten wir auf das alte Feld vollstaendig verzichten, so wir denn auf
+    die Abwaertskompatibilitaet verzichten wollen. (db1ras)
+    Leider gab es zwischenzeitlich auch die Einfuehrung des Away-Eintrages
+    in die UserDB. Dieser musste nun verschoben werden, damit man wieder auf
+    einen einheitlichen Stand kam. Die Implementierung ist aber voll
+    kompatibel.
+  - Bugfix: Bug behoben, der als E/M erhaltene MyBBS Informationen fehlerhaft
+    behandelte. (db1ras)
+  - Bugfix: Die abgefragte Lifetime bei ltquery=1 (init.bcm) wird nun auch bei
+    aktiviertem USERLT korrekt behandelt. Das Problem tritt bei comment/reply
+    nicht auf. (db1ras)
+  - Bugfix: Gibt man bei der Lifetimeabfrage (ltquery=1) zuerst -1 und dann 0
+    ein, quittiert die Box mit einem Disconnect, da der Wert 0 nicht in
+    b->lifetime uebernommen wurde und dort noch immer -1 steht. Bug ist
+    hiermit behoben. (db1ras)
+  - Funktion interactive eingebaut, welche zurueckliefert, ob ein Terminal
+    interaktive Eingaben unterstuetzt (Rueckgabewert = 1) oder nicht (= 0).
+    Entsprechende Stellen im Quellcode, die das bisher durch eigenen Code
+    abfragten, auf diese Funktion umgebaut. (db1ras)
+  - ltquery wird nur bei interaktiven Terminals beruecksichtigt. (db1ras)
+  - diverse CB-BCMNET-Funktionen hinzugefuegt/ueberarbeitet:
+    - CB-BCMNET Gatewayfunktionen hinzugefuegt (hpk)
+    - CB-BCMNET BID aenderungen hinzugefuegt (hpk)
+    - Anpassung _BCMNET_FWD an das Gatewaykonzept (hpk)
+    - aenderungen beim HOLD von Gastusern (hpk)
+    - Gastuser wird nicht nach Name und MyBBS gefragt (asklogin), da er es
+      ohnehin nicht aendern darf (hpk)
+    - _BCMNET_DEBUG zum Austesten einiger Funktionen hinzugefuegt. (db1ras)
+    - Bugfix in change_address fuer meinen Codeteil bezueglich langer H-Routen
+      aus beta24/25, der bei Mails ohne H-Route oder MID/BID zu Problemen
+      fuehren koennte und der (wie der alte Code auch) zu lange H-Routen und
+      damit Teile der MID/BID ueberschreiben koennte (db1ras)
+    - _BCMNET_LOGIN: Ein Gast kann sich auch zum Sysop privilegieren und
+      verliert dadurch temporaer den Gaststatus (sonst wird es mit der
+      Fernwartung von Mailboxen schwierig) (db1ras)
+    - _BCMNET_LOGIN: Einige Anpassungen ans CB-BCMNET Loginkonzept as BCM 1.42
+      sowie etwas Fehlerbehebung wovon auch der Code drum herum provitierte.
+    - CB-BCMNET:
+      "X-Info: Mail was sent from a guest" wird bei Sysops nicht mehr
+      hinzugefuegt.
+    - _BCMNET_GW: Beim Ablehnen einer MyBBS werden die Betroffenen informiert.
+    - _BCMNET_FWD: Syslog-Meldung wenn MyBBS ignoriert wird hinzugefuegt.
+    - _BCMNET_FWD: 14 Tage W-Lifetime, da W-Mails sonst schon mal verloren
+       gehen koennen. (db1ras)
+    - _BCMNET_GW: Problem, dass MyBBS-Korrektureintraege an alle ausser
+       aktuellen S&F-Partner gesendet wurden, behoben. (db1ras)
+    - _BCMNET_GW: Bugfixes bezueglich MyBBS-Erkennung und Korrrektur-MyBBS
+    - _BCMNET_GW: Bugfix: User wurde nicht als CB-BCMNET-User erkannt
+    - _BCMNET_GW: Wegen fehlender BID beim WP Protokoll, kommt es im Netz
+      vermehrt zu MyBBS-Echos (von uns ausgesendete MyBBS kommen mit anderer
+      BID als "Echo" zurueck). Diese werden nun von unseren Gateways
+      ignoriert, d.h. sie werden innerhalb des CB-BCMNET nicht verteilt, es
+      wird aber auch kein Korrektureintrag erstellt, da es nichts zu
+      korrigieren gibt (die MyBBS selbst ist korrekt, nur die BID ist eine
+      andere). (db1ras)
+    - _BCMNET_GW: W0RLI S&F ueberprueft und OK, Update auf SPEC 0.73 (db1ras)
+    - _BCMNET_GW: is_bcmnet_user auf expand_hadr umgebaut, da wird das doch
+      gleich viel uebersichtlicher ;-) Die Fehlermeldungen wie
+      16.09.03 10:52:28l DBO274: #S s_close: no sema set
+      16.09.03 10:52:28l DBO274: #S s_fclose: no sema set
+      16.09.03 10:52:28l DBO274: #S add_dir: GF1WK>TECHNIK $G9DGF4BOX001
+      16.09.03 10:52:28l DBO274: #F writemailflags: fopen info/technik/d9g8q71
+                                    errno=2 No such file or directory
+      16.09.03 10:52:29l DBO274: #S terminated: 2:DBO274
+                                    "fwd: rx save $G9DGF4BOX001"
+      16.09.03 14:03:05l AS1BOX: #S s_close: no sema set
+      16.09.03 14:03:05l AS1BOX: #S s_close: no sema set
+      16.09.03 14:03:05l AS1BOX: #L expand_hadr: load
+                                    retry BX0GBF.#NDB.BAY.DEU.BCMNET
+      haben sich damit hoffentlich erledigt. (db1ras)
+- bei Neuinstallation wird "init.bcm" jetzt auch abgespeichert, wenn
+  die boxaddress NICHT eingegeben wurde (DH6BB)
+- Korrektur Mailheader bei POP/NNTP
+- From: und To: wird nun auch bei SMTP in den Mailheader geschrieben
+- "st f" Ausgabe geaendert:
+  - In und Out zeigt die Zeitspanne seit dem letzten erfolgreichen Login
+    der Partnerbox in die eigene, bzw. erfolgreichen Connect der eigenen
+    Box zur Partnerbox
+  - MailTX und MailRX zeigt nun die Anzahl der empfangenen/gesendeten
+    Mails zu einem Forwardpartner an
+  Die Punkte incoming/outgoing sind quasi in "In" und "Out" aufgegangen
+  Aktuelle neue help.dl/help.gb (Onlinehilfe-)Files sind ebenfalls
+  erhaeltlich!
+- Bei Ascii-Fwd und Filefwd wird nun bei "st f" auch MailRX und MailTX
+  korrekt mitgezaehlt
+- File-Forwardexport: wird in "fwd.bcm" als Connectpfad das Schluesselwort
+  "FILE:" angegeben, werden Mails automatisch im-/exportiert.
+  Die Dateinamen der Import/Exportdatei (es werden nur Dateinamen mit
+  Grossbuchstaben unterstuetzt) und eine moegliche Exportoption
+  koennen ebenfalls im Connectpfad angegeben werden:
+  "FILE: [<IMPORTFILENAME> <EXPORTFILENAME> [ <EXPORTOPTION> ]]"
+  Fuer die Partnermailbox zu forwardende Mails werden automatisch nach
+  bcm/fwd/export/<EXPORTFILENAME> exportiert, und neue Mails aus
+  bcm/fwd/import/<IMPORTFILENAME> importiert, wenn der Forward zu dieser
+  Mailbox angestossen wird (automatisch oder manuell). Wird <IMPORTFILENAME>
+  bzw. <EXPORTFILENAME> nicht angegeben, so wird default als Dateiname
+  "<BOXCALL>.imp" bzw. "<BOXCALL>.exp" gewaehlt (Endung ist jeweils in
+  Kleinbuchstaben, damit sftool unter Linux benutzt werden kann ohne Patch).
+  Die Verzeichnisse bcm/fwd/import und bcm/fwd/export werden automatisch
+  angelegt. Bei "st f" wird eine Fileforward-Partnerbox, die
+  in "fwd.bcm" den Eintrag "FILE:" hat, mit dem Schluesselwort "filefwd"
+  angezeigt.
+- neue Quellcodedatei mbfwdfil.cpp fuer File-Fwd, entsprechend alle
+  Linux-Makefiles, DOS-PRJ, WinNT-Workspace aktualisiert
+- WinNT: folgende Compilerwarnung entschaerft und DSP-File verschoenert
+  (Dateinamen fingen teilweise mit Grossbuchstaben an):
+   mbdidadi.cpp(456) : warning C4244: 'argument' : conversion from
+   'unsigned long' to 'unsigned short', possible loss of data
+- fwd_import/fwd_export Trace-Ausgabe als Report statt Serious
+- Bei versuchsweisen Bugfix: Fehler nicht mehr nachvollziehbar/auffindbar?!:
+  CB-Version: Rubrik "SYSOP" wird beim Forward wie ein Usercall behandelt,
+  falls eine andere Box vorher im Forward diese SYSOP-Mail mit "SP" als
+  persoenliche Mail verschickt hat. Ein Workaround waere schoen, sonst wird
+  nach dem ersten Forward an eine Partnerbox diese Mail in der eigenen Box
+  geloescht (es sei denn nopurge 8 is aktiv).
+- HTTP: Bugfix
+  Bei reply/comment auf eine Rubrikmail ohne Verteiler wurde im TO-Feld
+  ein leeres @ angehaengt
+- Bugfix: Create-Zeit bei "ps" wurde in DOS/Windows-Version falsch angezeigt
+- Neue Funktion "ALTER AWAY" hinzu:
+  Diese Funktion dient dazu, bei geplanter Abwesenheit, die Absender von
+  Mails darueber zu informieren, das man nicht da ist.
+  Falls ALTER AWAY <Nachricht> vom User eingestellt wurde, wird dem Absender
+  einer Mail zu diesem User eine Abwesenheitsnachricht geschickt. Dabei wird
+  dieser autom. Abwesenheitsnachricht der Text <Nachricht> angehaengt. Die
+  Nachricht kann dabei maximal 80 Zeichen lang sein. Die Nachricht wird
+  uebrigens im Usermailverzeichnis des jeweiligen User als Datei "away.bcm"
+  abgelegt. Es macht Sinn im Text <Nachricht> auch den Zeitraum der
+  Abwesenheit anzugeben.
+  Ein Beispiel:
+  a a Bin vom 18.10-23.10.03 im Urlaub. Antworte nach der Rueckkehr. 73 Markus
+
+  Will man die Funktion ausschalten ist "ALTER AWAY OFF" oder "ALTER AWAY 0"
+  einzugeben.
+  Falls man sich nach Aktivierung der AWAY Funktion erneut in die Mailbox
+  einloggt, wird abgefragt, ob man die AWAY Funktion weiterhin aktiviert haben
+  moechte. Bestaetigt man dies mit J oder Y, so wird die AWAY Funktion
+  deaktiviert. Mit dieser Zwangsabfrage wird vermieden, das vergessen wird,
+  die Funktion wieder zu deaktivieren.
+- Bugfix: ASKLOGIN funktioniert nicht bei HTTP/POP/SMTP/NNTP-Sessions,
+          hier also deaktiviert
+- Bugfix: AWAY-Zwangserinnerung funktioniert nicht bei
+          HTTP/POP/SMTP/NNTP-Sessions, hier also deaktiviert
+- Bugfix: Bei Mailimport (z.B. externes Filesurf-7Mail-Tool) wurde der Name
+  des Users im Header gespeichert, nicht der Username des "Importeurs"
+- Wordwrapper bei HTTP Texteingabe um 1 Zeichen reduziert
+- SWAPLOG fuer BID-Aenderung eingebaut (DK2UI)
+- neuer Parameter DEFSWAPLF in init.bcm: definiert die Lifetime einer
+  Mail, die als "geswapped" erkannt wurde (Defaultwert: 2)
+- swaplog ist nun allgemeiner Userbefehl
+- Bugfix speech.bcm: Anzeige bei "a s" war falsch, wenn Zeile in speech.bcm
+  zu lang war, z.B. bei
+  DL:  GERMAN V1.03.04 ( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0
+  1 2 3 4 5 6 7 8 9 GERMAN V1.03.04 )
+- CB-BCMNET Defaultvorgaben in mbinit.cpp fest eingebaut:
+    usrtimeout 60 (verstellbar zwischen 60 und mehr)
+    autofwdtime 90
+    asklogin 1
+    holdtime 336 (verstellbar zwischen 168 und 720)
+    callformat 2 (nicht aenderbar)
+    ltquery 1 (aenderbar auf 2)
+    oldumail 1
+    oldestfwd 30 (aenderbar zwischen 30 und 60)
+    mailbeacon 0
+- HTTP: HELP INDEX zeigt nun die Stichwoerter als HTTP-Link zum Draufklicken
+  an, somit kann man per Webbrowser schneller die Onlinehilfe durchbrausen ;)
+- Bugfix: emptytempdir fuehrte zu Absturz bei Neuinstallation der Boxsoftware
+- wegen S_FCLOSE-Bug von ON0AR in mbmsg.cpp ein s_fclose auskommentiert
+- Bug: Filesurf-Zugriff ueber longwrite-sema klappte bei langen
+       Pfaden/Filenamen nicht, fixed
+- Bug: s_fclose Problem bei ON0AR (verursacht durch Searchengine Inktomi)
+       endgueltig behoben
+- WinNT-Version: Outgoing Telnet-Forward implementiert, Beispiel fuer eine
+  fwd.bcm mit Telnet-Forward zu www.servhostname.de mit Port 5668:
+    DB0XYZ AAAAAAAAAAAAAAAAAAAAAAAP telnet:www.servhostname.de:5668
+     DL EU WW $WP DB0XYZ
+- Ueberfluessiges break in mbalter.cpp entfernt (dh8ymb)
+- Bug: Die away-Funktion in update_mail erzeugt fuer W und WP Mails Eintraege
+  in der Userdatenbank mit Rufzeichen W bzw. WP. Zudem duerfte es
+  problematisch sein, innerhalb von update_mail die Userdaten eines anderen
+  Users zu laden und durch die des aktuellen Users zu ersetzen. Funktion daher
+  leicht abgeaendert und Bug behoben. Die ungueltigen User lassen sich mit
+  "reorg l" entfernen. (db1ras)
+- Userdatenbank hat nun ein neues Format und heisst einheitlich users4.bcm
+  anstelle von users.bcm (DOS) und users3.bcm (Winnt/Linux). Ist eine
+  alte Userdatenbank vorhanden, wird diese beim ersten Start von 1.04beta41
+  automatisch ins neue Format konvertiert. Die alte Userdatenbank wird
+  nicht automatisch geloescht, damit die Moeglichkeit eines Downgrades
+  bestehen bleibt. Wer auf keinen Fall mehr eine aelte Version einsetzen
+  will, kann die alte Userdatenbank users.bcm bzw. users3.bcm aber
+  gefahrlos loeschen. Das neue Format ist ausser dieser Vereinheitlichung
+  auch wegen der gestiegenen Menge an Daten pro User noetig geworden. Das
+  neue Format sollte nun auch wieder eine lange Zeit so ueberstehen ohne
+  das erneut eine Konvertierung ansteht.
+- Away-Funktion ueberarbeitet, es ist mit
+  "a(alter) awaye(ndtime) **[.**[.**]]" nun moeglich eine automatische
+  Endzeit fuer die Away-Funktion einzustellen.
+  Es kann nur das Datum, nicht aber die Uhrzeit eingestellt werden.
+  Ausserdem wird der Away Text nun anstelle in away.bcm Dateien in den
+  user-Unterverzeichnissen direkt in der neuen Userdatenbank abgelegt.
+  Als Sysop kann man also mal die Platte pruefen und alle away.bcm Dateien
+  gefahrlos loeschen.
+  !! Achtung: beim Update auf 1.04beta41 gehen alle bereits eingestellten
+  !! Away-Texte verloren! Diese muessen also neu eingegeben werden!
+- Angaben zum ZIP-Code (=Postleitzahl) und QTH eines Users werden nun in der
+  Userdatenbank abgespeichert. Um dies manuell einzustellen gibt es die
+  neuen Befehle "a(lter) q(th)" und "a(lter) z(ip)".
+- Die QTH/ZIP-Informationen werden auch im WP/WPROT Transfer beruecksichtigt
+  und ggf. ausgetauscht
+- Asklogin fragt nun auch nach QTH und ZIP falls ASKLOGIN auf "1" gesetzt
+  ist
+- USER <-a>: Ausgabeliste komplett ueberarbeitet, es wird nun auch QTH und
+  ZIP-Code aufgelistet, ebenso Away und FHold Status. Ferner sind die
+  Suchbegriffe Q=<qth> und Z=<zipcode> fuer "U" neu hinzugekommen,
+  so kann man z.B. mit "u z=59302" nach allen Usern, die die PLZ 59302
+  eingestellt haben, suchen.
+- msg/cein.dl, msg/cein.gb, msg/help.dl, msg/help.gb ueberarbeitet und
+  aktualisiert (separat in Datei msg_111003.zip erhaeltlich).
+- TEMPPATH in FBBPATH bei mbfwdfbb.cpp
+- WPROT verschickt und wertet nun auch Routing-Infos von Nachbarmailboxen
+  aus (R-Zeile in WPROT-Datei), sofern diese dies auch unterstuetzen
+  (Grundlage von DK2UI)
+- WPROT Routing-Infos koennen (falls empfangen) mit "p -ar <call>"
+  angesehen werden
+- Fix: Die Zaehlung der WP/EM Eintraege bei "ST F" war fehlerhaft, wenn
+  Eintraege laenger als 80 Zeichen sind, was u.a. bei langen Namen oder
+  H-Routen vorkam
+- WP-Mails haben nun den Titel "WP Routing" und WPROT-Mails den Titel
+  "WPROT Routing"
+- Ausgabe von "path" optimiert
+- Fwd-Hinweis im slog "startfwd: starting DB0CZ" geaendert in
+  "startfwd: checking DB0CZ" - stiftet sonst Verwirrung, wenn gar
+  kein Fwd gestartet wird, weil keine ausgehenden Mails anliegen
+- Compilerwarning unter Windows bzgl. "hops" beseitigt
+- _READHEADER_79 Option aus config.h fest eingebaut
+- Tippfehler bei KILL Befehl beseitigt
+- crontab.bcm kann nun auch sowas wie "*/5" verarbeiten
+  Beispiel einer crontab.bcm-Zeile:
+    */5 * * * * fiveminutes
+  Dies fuehrt alle 5 Minuten das Importfile "fiveminutes.imp" aus
+- Anpassungen bezueglich der "short hops" Aenderung (db1ras)
+- Aenderungen am Autorouter in weiterleiten4 (mbfwd.cpp): (db1ras)
+  - Autorouter etwas aufgeraeumt
+  - "Warning: Unreachable code" mit BC 3.1 unter Dos behoben.
+  - Problem, das bei einkompiliertem Autorouter die Defaultroute ** in
+    fwd.bcm nicht mehr funktionierte, behoben.
+  - Die Defaultroute wird nur noch verwendet, wenn kein anderes
+    Kriterium passt
+  - doppelter Aufruf von autofwd entfernt
+  - Problem, das bei einkompiliertem Autorouter kein Praefix-Routing mehr
+    funktionierte, behoben.
+- Problem mit "Reply with text" und "Comment with text" im Webinterface
+  evtl behoben (es wurde nichts zitiert)
+- Fehlerbehebungsversuch:
+  wenn der Autorouter eine Route zum Ziel findet, missachtet er Board-Rejects.
+  Eine Mail an TEST@DB0SL wird geforwardet, obwohl durch *TEST in der fwd.bcm
+  rejected. Ein TEST@DL ist kein Problem, da der Autorouter keine Verteiler
+  routet, der Bug faellt deshalb kaum auf. Das Problem liegt am Ende von
+  weiterleiten4 in mbfwd.bcm und laesst sich nur mit groesserem Aufwand fixen
+- Bugfix WPROT bezueglich User in R-Zeilen
+- WPROT R-Zeilen werden nur noch alle 5 Stunden einmal gesendet
+- Implementation einer FBB Check/Read-Funktion wie von CT1DRB/ON1AR
+  gewuenscht (dies ist noch sehr fehlertraechtig, besser nicht nutzen,
+  und in config.h nicht mit eincompilieren!!!):
+  Mit "A FBBCHECKMODE" aendert man die Einstellung des Users in einen
+  FBB-Modus bzw. wieder zurueck in Normal-Modus.
+  Im FBB-Modus werden CHECK und READ Befehle anders angezeigt/ausgewertet:
+  - "c 50" liefert die letzten 50 neusten Rubrikmails, wobei die angezeigte
+    Nummer der ersten Spalte einer <laufenden FBB-Nummer> entspricht.
+  - ein "r <laufende FBB-Nummer>" gibt dann die entsprechende Mail dazu aus
+  Zur Unterscheidung des Zahlenwertes bei einem READ im Normalmodus und einem
+  READ im FBB-Modus wird einfach ein Offset von 100000 fix vorgegeben, d.h.
+  die CHECK-Liste im FBB-Modus beginnt mit 100000. Durch diesen Trick kann
+  man auch noch mit einem "R <board> <boardnum>" weiterhin im FBB-Modus,
+  wie im Normalmodus, Mails einer Rubrik auslesen.
+  Der FBB-READ-Befehl funktioniert momentan nur im Usermodus, also nicht
+  im Sysop-Modus!
+- Mit "DEFFBBCHECKREAD" kann man den Vorgabewert von "A FBBCHECKMODE"
+  fuer neue User festlegen (0 oder 1)
+- SMTP-Fileattach (von DH6BB):
+  Plaintext-Anhaenge wurden manchmal verstuemmelt, dies ist nun korrigiert
+- Befehl "lddversion" zeigt eincompilierte Libs unter Linux an, sofern das
+  Linuxprogramm "ldd" installiert ist. Wurde die Mailbox statisch gelinkt, so
+  gibt das Linuxprogramm "ldd" die Meldung "not a dynamic executable" aus.
+- DIR Optionen F/M/P und deren Kombinationen verursachten unschoene Ausgaben,
+  dies ist korrigiert (tnx DF3VI)
+- Falls FWDIMPORT/FWDEXPORT eincompiliert ist, rief FWD nicht mehr den
+  FWDEDITOR auf. Dies ist nun geaendert und es wird wieder der FWDEDITOR
+  aufgerufen (Wunsch DF3VI)
+- Forward-Befehl korrigiert bzgl. Weiterleitung von Mails
+  (nach Hinweis von DF3VI)
+- Funktion von FBBCHECKMODE verbessert, sollte nun auch unter DOS und auch
+  im Sysopmodus fehlerfrei funktionieren (siehe Info 1.04Beta45)
+- Die Mails bei "DIR OUTSTANDING" im HTTP-Interface waren falsch verlinkt, da
+  die ausgegebene Nummer nicht der Boardnummer entspricht.
+  Bei "DIR OUTSTANDING" wird beim HTTP-Interface nun keine Verlinkung der
+  Mails mehr durchgefuehrt, da es sich hier um eine reine Auflistung der
+  ausstehenden Mails handelt. Somit ist auch das Problem umgangen.
+  Dazu wurde die neue DIR OPTION "u" eingefuehrt, die aber ansonsten wenig
+  Sinn macht.
+- POP-Header nun X-Received statt Received
+- unnoetige Traceausgabe in mbread zu SMTP entfernt
+- einige #ifdef FBBCHECKREAD hinzugefuegt (db1ras)
+- _BCMNET_FWD: WP/WPROT Mails werden nun alle 10 Zeilen oder 3 Std.
+  geforwardet, ohne Begrenzung war das etwas zuviel des Guten (db1ras)
+- _BCMNET: Bug bei der Defaultvorgabe von usrtimeout behoben (db1ras)
+- Problem, das bei leerem Zip-Feld (z.B. nach "a z" ohne Argument) dieses in
+  der WPROT Zeile ersatzlos weggelassen wurde, behoben (db1ras)
+- selbes fuer WPROT und QTH
+- Fehler in mbreorg.cpp/mbfwd.cpp gefunden und behoben:
+  Das HOLD-Flag wurde manchmal leer beschrieben, dadurch ist list.bcm
+  durcheinandergeraten und es traten merkwuerdige Effekte z.B. bei "dir hold"
+  auf.
+  !! Es sollte unbedingt ein "reorg f" in der Box durchlaufen werden, danach
+  !! sollte auch z.B. ein "dir hold" wieder vernuenftige Ergebnisse anzeigen!
+- HTTP:
+  Nochmals Aenderung bzgl "REPLY with text" und "Comment with text"
+  im Webinterface - funktionierte nicht/nicht immer. Geht's nun ueberall,
+  egal ob User- oder Rubrikreply?
+- POP3:
+  Ausgabe einer X-Info-Zeile mit der Liste der durchlaufenden Boxen
+- wird eine Rubrikmail mit einem Verteiler einer Mailbox eingegeben, so wurde
+  bislang der Mailtyp generell auf "Personal" gestellt. Es sollte aber besser
+  Typ "Bulletin" sein.
+- nochmal aenderung zu "Reply with text" wegen Q-Option
+- NNTP: analog zu POP3 wird auch hier jetzt eine X-Info-Zeile mit der Liste
+  der durchlaufenden Boxen korrekt angezeigt
+- Patch von DB1RAS:
+  - Ein Stackueberlauf wird nun erkannt, im Syslog vermerkt und die Mailbox
+    beendet (db1ras)
+  - Webinterface, lesen von Mails (db1ras)
+    - "Erase+Reply" wird nur angezeigt, wenn auch Erase moeglich ist
+    - "Erase" ist nun auch fuer den Sysop sichtbar
+    - "Hold" und "Hold -u" fuer den Sysop hinzugefuegt, "Hold -u" wird rot
+      hervorgehoben
+  - Dos: Stackueberlauf bei _FILEFWD behoben (db1ras)
+  - und nochmal Aenderung zu "Reply/Comment with text" im Webinterface
+    - keine leeren, gequoteten Zeilen am Anfang der Mail ausgeben
+  - Bei REORG F wurde bei alten Mails #lt nicht verwendet, sondern max-lt
+    aus bulletin.bcm. Damit konnten u.U. Mails geloescht werden, welche
+    selbst eine Lifetime von #999 hatten, also nie geloescht werden sollten.
+    Bug behoben.
+  - DIR HOLD zeigt Mails die auf Hold stehen nun mindestens bis zum Ablauf der
+    Holdtime an, also so lange, wie sie in der Mailbox liegen bleiben
+  - DIR zeigt Mails die auf Hold stehen mit H hinter der Mailnummer an
+  - verify_stack() auf static near gesetzt
+- Patch DH6BB bzgl SMTP: Mailtitel werden nun richtig dekodiert
+- kleine aenderung Linux makefile bzgl neuen GCC-Versionen
+- Ausgabe der Statuszeile von CHECK/DIR/LIST ueberarbeitet - damit dies
+  fehlerfrei klappt sind unbedingt neue msg/messages.* Dateien zu verwenden!
+- Linux/Windows-Version koennen jetzt auch ohne GUEST Option compiliert werden
+- Faehrt man das ax25 Kernel Interface herunter waehrend die OBCM laeuft
+  erhaelt man mehr als 5x pro Sekunde:
+  SYSTEM: #R ax25k_checklogin: accept: 22 Invalid argument
+  Das hoert auch nicht auf, nachdem man das ax25 Kernel Interface wieder
+  startet.
+  Jetzt wird nach dieser Meldung das ax25 Kernel Interface abgeschaltet und
+  es wird jede Minute neu versucht das Interface zu reinitialisieren.
+  Das gilt auch, wenn das Interface beim Start nicht vorhanden war. (DH6BB)
+- Compiler-Warning in mbsend beseitigt (DH6BB)
+- SSID-Abschneidung von DK2UI in mbfwd.cpp weiterleiten4 fuer den Fall des
+  eigenen Boxcalls entfernt, da sonst keine Weiterleitung von Mails beim
+  Betrieb mehrerer Boxen mit gleichem Call, aber unterschiedlicher SSIDs
+  moeglich
+- Patch von AG1LHQ: Bei Userpw=2 ist nun wirklich kein SEND mehr moeglich
+- Patch von AG1LHQ: Lifetime 0 ist nicht moeglich, sondern wird auf 1 gesetzt
+- Laenge einer DIR-Zeile auf 79 plus Return anstelle 80 plus Return begrenzt
+- Prozessorindex bei > Pentium4 sprengt die Variablengroesse, korrigiert
+
+obcm 1.05 (02.04.2004):
+-----------------------
+- Da sich zahlreiche Leute beschwert haben, das obcm1.04beta51 so unendlich
+  lang ist, werde ich ab sofort alle Betaversionen mit einem "b"
+  als Beta-Version kennzeichnen. Ich ahne allerdings schon wieder Mails,
+  wo dann die Leute es nicht verstehen, wieso eine "b" Version aelter
+  ist, als eine Version ohne "b"... ;-)
+- Patch von DH6BB: Befehl NEWNEWS bei NNTP implementiert
+- Neu: FTP-Server fuer Linux/Windows-Version greift auf Filesurf-Verzeichnis
+  zu. Hoert defaultmaessig auf Port 8021.
+  Ein Begruessungstext ist mit msg/ftp_intro.dl (oder .gb,...) moeglich.
+  Ein Download sollte mit jedem FTP-Client moeglich sein, ein Upload
+  ist aber wie beim Filesurf nur in den Verzeichnissen erlaubt, die bei
+  FSPATH auch mit + freigegeben sind
+
+- Linux evtl auch WinNT: wenn man als Sysop eine Datei "irgendwo" auf die
+  Platte schreibt, meldet OBCM, dass diese gespeichert wurde. Existieren
+  fuer dies Verzeichnis aber keine Schreibrechte, wird nichts gespeichert.
+  Fixed: Es wird jetzt "Sorry, cannot write here!" vor dem Speichern gemeldet
+  und abgebrochen. (DH6BB)
+- Beim Warten auf neue Mails beim Forwardende wurde anscheinend manchmal
+  keine neue Mail angeboten, obwohl vorhanden. Evtl mit WDELAY behoben
+- Bei "st f" gibt es eine bessere Zusammenfassung
+- lokale Usercalls koennen nun auch mit convert.bcm konvertiert werden
+- Mail-Benachrichtigung eines Users an andere(n) User, z.B. fuer
+  Clubstationen ist nun moeglich:
+  Dazu muss z.B. die Clubstation mit "a not <call>" ein Rufzeichen
+  festlegen, dass im Fall einer neuen Mail benachrichtigt werden soll.
+  Mit "a not" kann man die Funktion wieder deaktivieren.
+  Empfaengt die Clubstation eine neue Nachricht, so wird dann das
+  <call> mit einer kurzen autom. Mail ueber den Eingang benachrichtigt.
+- 10 Sekunden Timeout bei ausgehenden Telnet-Fwd eingebaut, sollte das
+  Telnet-Problem von ON0AR loesen:
+   "I've noticed a problem in Obcm, as I said before it resets after a
+   watchdog action. It starts as follows:
+   -outgoing telnet connect to f6kmo.dyndns.org
+   -no responce on the connect (f6kmo is not active on the net,
+    can not ping his adress)
+   -Obcm keeps waiting and waiting and waiting..... also all other
+    communications are on hold, not excepting anymore connects on
+    other channels, is he in a loop waiting ?
+   -watchdog kicks in after several minutes
+   -Obcm restarts and tries again to make a connection, same result,
+    and here we go again...
+   until the F-station is back my Obcm is useless :-( "
+- Windows: Telnet-Connect macht nun einen Non-Blocking Connect, somit
+  stoert der Verbindungsaufbau nicht mehr den Boxbetrieb
+- "Reorg L" setzt jetzt definiert "ALTER REJECT" komplett auf 0, falls
+  dies bei einem User deaktiviert ist - dies konnte sonst dazu fuehren,
+  dass einige User bei einem "D N" oder "CHECK" keine neuen Mails mehr
+  aufgelistet bekamen
+- DH6BB: Bei einigen Mails aus Fremdsystemen fehlte ein \n zwischen
+  Header und Body
+- nur Linux-Version:
+  neuer Funktion/Befehl "addlinuxsystemuser" in init.bcm:
+  Kann auf Wert 0 (=deaktiviert) oder 1 (= aktiviert) gesetzt werden.
+  Falls auf 1 gesetzt, kann sich ein User mit "ALTER LINUXPW" ein
+  Userpasswort im Linux-System setzen/aendern, dabei wird von OpenBCM der
+  entsprechende Eintrag in /etc/passwd und /etc/shadow vorgenommen,
+  als Loginshell wird /bin/false gesetzt. Ein Loeschen dieses Users
+  ist im Moment per OpenBCM nicht moeglich.
+  Dies Funktion "addlinuxsystemuser" ist vor allem fuer alle Mailboxen
+  interessant, die auch noch einen TCP/IP-Zugriff auf den PC anbieten
+  (z.B. fuer TCP/IP-Mailaccounts), deren Sysops aber keine weitere
+  Software auf dem Rechner laufen lassen wollen, aber auch keine Lust
+  haben, alle TCP/IP-Usern haendisch einzurichten.
+  Durch das Setzen der Shell auf /bin/false im System ist sichergestellt,
+  dass die User, die sich ein Passwort setzen, zwar Zugriff auf die
+  angebotenen Dienste haben, aber keinen Shellzugriff erlangen.
+  ALTER LINUXPW <passwort> setzt das Passwort im System, es darf
+  maximal 8 Zeichen lang sein.
+  Defaultmaessig ist "addlinuxsystemuser" auf 0 gesetzt.
+- NNTP Bug beseitigt:
+  Abstuerze der Mailbox bei NNTP-Auslesen, z.B.:
+  10.01.04 10:46:27z DBO274: #A putf: long X-Path: ...
+- HTTP und Gastzugang:
+  "http://<guestcall>:<guestpw>@<server>:8080/guestlogin" funktioniert nun
+  ohne Passwortabfrage
+- SMTP-Attachment-Fix von DH6BB:
+  Wenn in angehaengten Dateien % vorkam, wurde bislang die Datei zerstoert
+- Verbesserung beim Problem:
+  Disconnect mit QTEXT bei Layer2: ist ein QTEXT vorhanden, dauert es sehr
+  lange bis nach Aussenden von QTEXT und korrekter AX25-Bestaetigung
+  tatsachlich ein DISC+ gesendet wird (Task ist in Box vorher schon lange
+  tot).
+  Dies lag teilweise an OpenBCM (nun durch eine Taskrueckgabe gefixet) und
+  bei Verwendung von XNET auch an XNET (PA TRANS TACK zu hoch, bei einem Wert
+  von 1000 (kleinstmoeglicher Wert) wird der Disconnect sofort angenommen.
+- HTTP: - Ausgabe des Boxrufzeichen im oberen Frame vor der Boxversion hinzu
+        - falls eine Bilddatei "logo.gif" in dem Box-Unterverzeichnis "http"
+          existiert, wird diese ebenfalls im oberen Frame ausgegeben. Es
+          kann auch ein animiertes GIF verwendet werden, falls einem die
+          Bandbreite der Verbindung dies als sinnvoll erscheinen laesst. Es
+          ist jedoch zu bedenken, dass bei jedem Boxzugriff via TCPIP dann
+          diese Bilddatei uebertragen wird, bzw. zumindest vom Proxy abgefragt
+          wird.
+          Wer also 9k6-PR-TCPIP macht, verzichtet lieber auf logo.gif!
+- ALTER AWAY: Nachricht kommt nun auch, wenn ALTER AWAYENDTIME nicht angegeben
+              wurde
+- ALTER AWAY: Es konnte ein PING-PONG-Effekt entstehen, wenn zwei User A AWAY
+              setzen, einer aber dann noch an den anderen User mailt
+- alle HTTP-Logins werden nun im LOG gespeichert
+- Aenderung der Optionen beim LOG Befehl:
+   Eintraege:
+     -f   zeigt AUCH Eintraege von BBS-S&F-Verbindungen (Vorgabe: nicht)
+     -g   zeigt NUR Eintraege von BBS-S&F-Verbindungen
+     -s   blendet alle Eintraege von Sysop-Logins aus
+     -u   blendet alle Eintraege von Benutzer-S&F-Verbindungen aus
+     -p   blendet alle Eintraege von POP3-Verbindungen aus
+     -e   blendet alle Eintraege von SMTP-Verbindungen aus
+     -n   blendet alle Eintraege von NNTP-Verbindungen aus
+     -h   blendet alle Eintraege von HTTP-Verbindungen aus
+     -t   blendet alle Eintraege von Telnet-Verbindungen aus
+   Zeitraum:
+     -w   geht bei der Suche eine Woche zurueck (7 Tage)
+     -m   geht bei der Suche ein Monate zurueck (30 Tage)
+     -q   geht bei der Suche 3 Monate (Quarter) zurueck (90 Tage)
+     -y   geht bei der Suche ein Jahr zurueck
+          (Achtung: m, q und y koennen lange dauern)
+   Ausgabe:
+     -c   zaehlt nur die Anzahl der gefundenen Logins im angegebenen Zeitraum
+     -a   gibt ALLE gefundenen Eintraege aus (nicht nur max. 20)
+     -z   gibt eine Zusammenfassung der Eintraege aus
+   Eine Kombination der Optionen ist moeglich!
+   Beispiele:
+      log -awpenht    Alle Eintraege ohne NNTP, HTTP, POP3, SMTP, Telnet der
+                      letzten Woche ausgeben
+      log -zw         Zusammenfassung aller Userlogins der letzten Woche
+      log -zh         Zusammenfassung aller Userlogins ohne HTTP von heute
+      log -zg 22.03.  Zusammenfassung aller Fwd-Logins vom 22.03.
+      log -zmg        Zusammenfassung aller Fwd-Logins des letzten Monats
+      log -zmg db0nos Zusammenfassung aller DB0NOS-Fwd-Logins im letzten Monat
+- diverse Patche von Andreas und Hannes <bcmnet@afulinux.de>
+   - SMTP: quoted-printable Decodierung fuer den Textteil von Mails
+     eingebaut (db1ras)
+   - SMTP: 8BITMIME Support laut RFC 1652 eingebaut (db1ras)
+   - FILEFWD unter Dos hat noch immer Stackprobleme, daher Stack nochmals
+     etwas erhoeht (db1ras)
+   - CB-BCMNET: (db1ras)
+     - HOLD fuer Gaeste funktioniert nun auch, wenn reject.bcm nicht existiert
+     - HOLD fuer Gaeste ist ausser Kraft, wenn der Gast als Sysop eingeloggt
+       ist
+     - Defaultvorgaben angepasst: userpw 0, remerase 2, httpttypw 1
+   - CB-BCMNET Gateway: (db1ras)
+     - Wenn wir ein korrektes MyBBS fuer einen CB-BCMNET User erhalten wo die
+       H-Adresse fehlt, senden wir einen Korrektureintrag um die H-Adresse zu
+    verteilen, aber keine Warnungsmails.
+  - Warnungsmails sind nun in Englisch gehalten.
+  - kleine Aenderungen an der Erkennung von CB-BCMNET Usern und deren MyBBS.
+  - _DEBUG_SEMA (unvollstaendig) fuer folgendes Problem, das seit 1.04beta39
+     immer mal wieder auftritt: (db1ras)
+     21.03.04 17:05:26l SYSTEM: #R startfwd: checking DBO274
+     21.03.04 17:05:31l DBO274: #R fwdsend: DBO274 (AS1BOX-10 > DBO274 AS1NOD)
+     21.03.04 17:05:32l DBO274: #R makeconn: ok DBO274 AS1NOD
+     21.03.04 17:05:32l DBO274: #R gen_wpmail: DBO274 type w
+     21.03.04 17:05:32l AS1BOX: #R mblogin: AS1BOX Import
+     21.03.04 17:05:32l AS1BOX: #R msg_load: DL: 190 lines
+     21.03.04 17:05:32l AS1BOX: #R AS1BOX: SP W@DBO274 #14
+     21.03.04 17:05:32l AS1BOX: #R is_bcmnet_user: AS1BOX yes
+     21.03.04 17:05:32l DBO274: #R fbb:tx_proposal: fwd del: TECHNIK/E3LCS11
+     21.03.04 17:05:32l DBO274: #R fbb:tx_proposal: fwd del: TECHNIK/E3LDHL3
+     21.03.04 17:05:32l DBO274: #R fbb:tx_proposal: fwd del: TECHNIK/E3LDHM0
+     21.03.04 17:05:33l AS1BOX: #W SIGSEGV state=R tid=16 tjob=8 maxs=11668
+     21.03.04 17:05:34l AS1BOX: #W fbb:tx_proposal: fwd del: TECHNIK/E3LDHM0
+     21.03.04 17:05:34l AS1BOX: #W temp/E3LG2N0: stk=4532 ev=3 dly=528
+     "SP W@DBO274 #14" add_fwdfile
+     21.03.04 17:05:34l AS1BOX: #W board=MAILBOX/W userjob=13
+- Im HTTP-Interface wird beim Klick auf LOG nun LOG -Z ausgefuehrt,
+  außerdem koennen nun per Mausklick
+  - Current Log: Latest 20 logins, User today, User today without TCPIP,
+                 Forward today
+  - User-Log:    Today, Last week, Last month, Last year
+  - Forward-Log: Today, Last week, Last month, Last year
+  abgerufen werden
+- fwd.bcm: Ist im Connectpfad nach einem =<befehl> ein zweites =<befehl>
+  vorhanden, so werden die beiden Befehle durch ein Return getrennt
+  gesendet, dabei ca. 1.2s Verzoegerung, es sind auch mehrere = moeglich
+  (Wunsch DH1NBC)
+- Problemursache fuer @D bei HX0BBS (CB) in mbhttp.cpp gefunden und geloest
+- Kommt es beim Fwd-Connect zu einem RECONNECT so wird der Fwd abgebrochen
+  und es erscheint eine Meldung im LOG - das kann dann vorkommen, wenn
+  die Knotensoftware einen Disconnect erst nach Ewigkeiten "merkt" und
+  bestaetigt, die Mailbox aber zwischenzeitlich dann den gleichen Port fuer
+  einen neuen Linkaufbau benutzt und dann quasi den noch bestehenden Link
+  im Knoten "erbt" (mit XNET 1.37 tritt dies u.U. auf)
+- Zum Read-Problem von DH6BB:
+  "Ich weiss nicht, warum in der Header-Pruefung neben "From", "To",
+   "X-Info",... auch auf "CR" und "LF" geprueft wird. Das verursacht einen
+   Fehler, wenn man eine Mail ausliest, die mit einem dieser Schluesselwoerter
+   beginnt (Rubrik "P"-Mail aus dem Pocsaglistserver zum Beispiel).
+  Loesung: Das CR/LF muss geprueft werden, da sonst ein Header mit Leerzeilen
+  nicht richtig ausgegeben wird. Das Problem ist jetzt aber durch
+  eine Abfrage auf eines zweiten Vorkommen von From/To geloest.
+- Parameter hadrstore in init.bcm ist generell auf 2, daher in init.bcm ueber
+
+obcm 1.06 (02.04.2006):
+-----------------------
+Allgemein:
+- Wird die Mailbox disabled, wird nun auch der Zugriff bei POP3, FTP, HTTP,
+  NNTP und SMTP mit entsprechenden Hinweistexten gesperrt
+- GUEST-Logins koennen keine fremden Usermails mehr lesen (Linux und Windows)
+- Eingabe einer falschen (negativen) Lifetime bei LT/SETLIFE fuehrte ggf. zum
+  Absturz der Mailbox unter Linux, fixed
+- Bug: Laeuft die Mailbox mit NOPURGE >4 (trotz abgelaufener Lifetime
+  Mails nicht loeschen) wurde bislang bei PURGE ALL korrekterweise auch keine
+  Mail geloescht, allerdings bei einem manuellem PURGE <board>...nun gefixed!
+- alle DEBUG-Compiler-Optionen des Quellcodes nach config.h verschoben
+- eine Volltext-Suche ueber alle Rubrikmails ist nun mit dem neuen
+  Befehl FTS moeglich:
+  Syntax:    FTS [Bereich] <Suchbegriff> ["<Rubrik>"]
+  Beispiel:  FTS openbcm         durchsucht alle Mails nach dem Begriff
+                                 "openbcm"
+             FTS 1-1000 kenwood  durchsucht die 1000 neusten Mails nach
+                                 dem Begriff "kenwood"
+             FTS tm733 "technik" durchsucht alle Mails der Rubrik TECHNIK
+                                 nach dem Begriff "tm733"
+  Anmerkung: Gross-/Kleinschreibung beim Suchbegriff ist irrelevant.
+             Wird eine Rubrik angegeben, wird die Bereichsangabe ignoriert.
+  Je nach Mailboxgroesse und Rechnerleistung kann die Ausgabe LANGE dauern!
+  FTS ohne Angabe von Parametern ergibt Hilfetext
+- Sysop-Befehl "OLDMAILIMPORT <verzeichnisname>" eingebaut - damit ist
+  es moeglich Mailfiles aus anderen OpenBCM/Baybox-Systemen in die eigene
+  Box zu importieren unter Beruecksichtigung der BID-Datenbank. Die
+  Quelldateien bleiben dabei unveraendert, sie werden nur aus dem
+  <verzeichnisname> eingelesen und in die eigene Mailbox importiert.
+  (dies war ein spezieller Wunsch fuer Archivmailboxen wie z.B. DB0FHN)
+- Der TRANSFER-Befehl ist komplett ueberarbeitet worden und aendert nun 
+  nicht mehr default das Datum der transferierten Mail
+  In der Checkliste wird in der entsprechenden Zeile die alte gegen die neue
+  Rubrik geaendert und keine neue Zeile angehaengt wie bislang.
+  Der Original-Rubrikname bleibt in der transferierten Maildatei bestehen, so
+  dass sich z.B. "comment" immer auf die Ursprungsrubrik beziehen kann.
+  Ist die Mail bereits geforwarded worden, wird sie nicht nochmal in die
+  Fwd-Schlange eingereiht, wie bislang. Ist die Ursprungsmail noch in einer
+  Fwd-Schlange vorhanden, so wird dort der alte Eintrag nun als geloescht
+  markiert, und ein neuer Eintrag mit der neuen Rubrik hinzugefuegt. Eine
+  transferierte Mail taucht somit dort nicht mehr zweimal auf, wie bislang.
+  Die transferierte Mail erscheint bei einem DIR der Zielrubrik am momentan
+  jeweiligen Ende, obwohl vom Zeitstempel der Mail eine fruehere Einsortierung
+  erwartet wird. Diese Umsortierung wuerde aber bedeuten, das die Nummerierung
+  der kompletten Rubrik und auch die Checkliste bearbeitet werden muesste
+  (quasi ein REORG). Da ein solcher Vorgang sehr lang dauern kann, macht es
+  wenig Sinn, dies automatisch nach jedem TRANSFER durchzufuehren. Ein Vorteil
+  dieser Sortierung ist aber, das eine transferierte Mail schnell in der
+  Zielrubrik aufgefunden werden kann. Bei dem ueblicherweise naechtlichen
+  oder auch einem manuellem REORG werden die transferierten Mails dann aber
+  zeitlich korrekt sowohl in den List-Dateien als auch der Checkliste
+  einsortiert.
+  Sonderfall: 
+   Bei Transfer einer Mail und Gleichheit von Ziel-/Quellrubrik wird das 
+   Datum der Mail geaendert. Damit koennen Mails in einer Rubrik wieder
+   z.B. bei 7+ Einspielungen nachtraeglich sortiert werden, ansonsten
+   bleibt das urspruengliche Empfangsdatum erhalten
+  Die Quellcodefunktion seek_fname in utils.cpp setzte bislang voraus, dass 
+  die Mailverwaltungsdatei list.bcm immer chronologisch sortiert ist - dass 
+  ist durch die Aenderung aber nicht mehr unbedingt gegeben, somit Anpassung 
+  der Suchroutine auf ggf. zeilenweise Suche
+  da es durch die Aenderung des TRANSFER-Befehl vorkommen kann, dass
+  Mails im Listfile nicht chronologisch vorkommen, muss vor REORG C 
+  generell ein REORG B laufen, dies ist nun fix eingestellt.
+  weiterer Sonderfall:
+   Bei Usermails wird beim Transfer das Ursprungsboard in der Mail nicht
+   beibehalten, da die transferierte Mail sonst nicht korrekt geforwarded wird
+   (Beispiel: User DG0AB spielt Mail in sein Postfach ein und will diese
+              anschliessend mit "tr 1 software@dl" in Rubrik Software
+              uebertragen und mit @dl forwarden lassen)
+- doppelter Aufruf von TRANSFER auf eine Mail verursacht kein Kopieren
+  der Mail mehr (frueher war ein "tr test 1 alle; tr test 1 pc" moeglich),
+  ein zweiter Aufruf wird mit einer Fehlermeldung quittiert
+- Comment fuegt nicht mehr das Einspiel-Rufzeichen dem Titel hinzu, da es
+  bei mehreren Comments sonst soweit kommt, das man vor lauter Einspieler-
+  Rufzeichen den eigentlichen Titel nicht mehr sieht, unter HTTP war das
+  Hinzufuegen des Rufzeichens in den Titel sowieso nicht implementiert
+- SETLIFE 0 wieder moeglich, da wohl Bedarf besteht, Mails ueber diesem
+  Weg mit PURGE auszusortieren, eigentlich nicht Sinn dieses Befehls,
+  aber wenn es denn unbedingt sein muss...dazu auch HELP-Text angepasst
+- OLDESTFWD: Uralte Mails in dessen Headerzeile
+    R:980717/1229 0@DB0PV.#BAY.DEU.EU
+  statt z.B.
+    R:980717/1929z @:DB0NDR.#NDS.DEU.EU [Norden, JO33OO]
+  steht wurden falsch ausgewertet, und in den Fwd gegeben, geaendert
+- Mail deren erstes Wort mit z.B. "De..." Anfingen wurden ohne Leerzeile
+  zwischen Header und Mailtext ausgegeben, korrigiert
+- Ein "HOLD -U" trug bislang die Mail auch zum S&F-Partner ein, von welchem
+  die Mail empfangen wurde, korrigiert
+- Nach UserDB Konvertierung wird nun automatisch ein REORG L ausgefuehrt,
+  wegen ALTER REJECT Bug aus einer 1.04 Beta-Version
+- ALTER LF -1 unterdrueckt das bislang fixe Return bei Befehlseingaben
+- STRCPY-Bug in Windows-Version fuer @H - Bug womoeglich behoben
+- Bei Erase/Transfer/Lifetime etc geht nun auch folgender Syntax analog
+  zu LIST/DIR:  "e test -2" oder "lt asynop -2 #5"
+- Bei "f rubrik 1-5 @ zielmbx" wurde bislang mit der Meldung
+  "Keine Nachricht gefunden" abgebrochen, wenn z. B. Mail Nr. 2 geloescht
+  war. Nun wird nicht mehr abgebrochen und die restlichen Mails transferiert
+- Fuer ANSI-Message-File werden ggf. Zeilen > 80 Zeichen benoetigt, dies
+  wird nun akzeptiert
+- Fehler in strpos-Funktion in utils.cpp gefunden, konnte dazu führen,
+  dass einige Mails u.U. nicht in den Forward gelangten.
+- Ist bei FSPATH zwar ein Pfad definiert, aber existiert dieser gar nicht,
+  so wird beim Befehl VERSION nun "not existing" anstelle irgendwelcher
+  zufaelligen Zahlenwerte fuer die Speichergroesse ausgegeben
+- Beim Linux Kernel 2.6.x wurde die Ausgabe von /proc/meminfo geaendert,
+  daher wurde bei VERSION die Speichergroesse von RAM/Swap nicht mehr
+  korrekt angezeigt, dies ist nun behoben
+- Tell-Befehl (Patch von DH6BB): BIN-Fwd und grosse Mails werden beim
+  Tell-Befehl zugelassen. Nachricht im Temp-Dir wird bei BIN jedoch nicht 
+  geloescht.
+- Befehl FWDCHECK <call> ueberprueft die Fwd-Routing-Moeglichkeit zu <call>;
+  angedacht ist, irgendwann diesen Befehl so zu erweitern, dass der Sysop
+  damit sein statisches Routing komplett abtesten kann und er durch die 
+  Ausgabe dieses Befehl beraten wird, wo noch etwas zu verbessern ist
+- neuer Parameter TCPIPTRACE in init.bcm zur Steuerung von TCPIP-Tracefiles:
+   Syntax: TCPIPTRACE <n>
+   (Vorgabe: 0)
+   tcpiptrace 0  -> kein Tracing von TCPIP-Verbindungen
+   tcpiptrace 1  -> Tracing von HTTP-Verbindungen in trace/httplog.bcm
+   tcpiptrace 2  -> Tracing von NNTP-Verbindungen in trace/nntplog.bcm
+   tcpiptrace 3  -> Tracing von POP3-Verbindungen in trace/pop3log.bcm
+   tcpiptrace 4  -> Tracing von SMTP-Verbindungen in trace/smtplog.bcm
+   tcpiptrace 5  -> Tracing von FTP-Verbindungen in trace/ftplog.bcm   
+   tcpiptrace 8  -> Tracing aller TCPIP-Verbindungen (also NNTP, HTTP,
+                    POP3, SMTP, FTP)                    
+  Entsprechend gibt es nun auch neue Userbefehle wie "POP3LOG", "SMTPLOG", 
+  "HTTPLOG", "NNTPLOG" und "FTPLOG" um sich die Tracefiles anzusehen                   
+- Linux/Windows: neuer Befehl L2INFO
+  zeigt eine Uebersicht von Layer2-Port-Parametern, sofern Port connected ist
+- PACLEN ist bei einem Wert von 0 in init.bcm auf Maximalwert 256 statt 255
+  gesetzt
+- das Setzen der Paketlaenge mit "A PA xx" wird nun sofort wirksam, nicht
+  erst nach einem Relogin (nur Layer2 unter Win/Linux)
+- Patch von DH6BB in time.cpp: Funktion FAST_AD_TIME() hinzu, dadurch 
+  deutliche Performance-Gewinne bei allen TCPIP-Uebertragungen
+- Windows/Linux-Version: Layer2 arbeit nun ca. 4mal so schnell, deutliche
+  Performance-Gewinne bei File-Transfer mit Highspeed-Packet-Verbindungen
+  ueber eine Layer2-Anbindung (task_idle)
+  (TX zur Box nun maximal ca. 120 kbit/sec, RX von Box ca. 160 kbit/sec
+  bei Verwendung von AXIP-Layer2-Link per 100MBit-Ethernet)
+- Endlosschleife bei Funktion "update_mail" entdeckt und korrigiert
+- Mail senden in 2 Rubriken wie PRSOFT10 und PRSOFT20 geht nun, da
+  Auswertung auf 8 Zeichen
+- Gibt es z.B. ein Usercall DG0ABC und jemand schreibt aus Versehen eine
+  Mail an DG0ABCC wurde bislang die Rubrik DG0ABCC in TMP angelegt und
+  danach landete auch jede Mail an DG0ABC in dieser Rubrik TMP/DG0ABCC.
+  Dieser unschoene Effekt ist nun behoben.
+- Nocheinmal Verbesserung der "finddir" Funktion fuer 6/8stellige 
+  Boardnamen
+- Linux-Version: _AX25K_ONLY geht wieder zu compilieren
+- Sind in einer msg/messages.* Datei ANSI-Escape-Sequenzen enthalten
+  (-> farbige Darstellung bei z.B. WinGT/WPP...) so werden diese nun
+  bei HTTP während der Ausgabe herausgefiltert. ANSI-Escape-Sequenzen
+  die in anderen msg-Dateien enthalten sind, werden bei HTTP weiterhin
+  mit ANSI-Sequenz ausgegeben, da dies nicht anders machbar ist!
+  DG2GGP hat eine msg/messages.dla fuer deutschen ANSI-Text erstellt,
+  diese Datei ist im neuen MSG-Archiv enthalten, beim Updaten ist die
+  Datei speech.bcm anzupassen (wird auch passend neu erstellt, wenn sie
+  geloescht wird)
+- Es ist jetzt auch moeglich Ansi-Sequenzen in allen msg/* Dateien 
+  einzubauen. Bei einem HTTP-Login werden dann die ESC-Sequenzen 
+  automatisch herausgefiltert, diverse Dateien *.DLA fuer deutsche 
+  ANSI-Sprache von DG2GGP ueberarbeitet und in das msg-Archiv unter 
+  examples_dla.zip mit aufgenommen
+- Die Text msg/fshelp.* und msg/fsshelp.* werden nun direkt von der
+  Mailbox unterstuetzt, das externe FSHELP Runutil (gab es nur fuer
+  Linux) ist nicht mehr noetig, neues MSG-Archiv bereitgestellt
+- MAKRO %k fuer Systemmeldungen, Prompt und msg-Files neu hinzu, es
+  wird die Anzahl an vorhandenen Rubrikmails ausgegeben; 
+  msg-Archiv entsprechend angepasst
+- Default-Speech.bcm fuer Afu-Version bei Sprache CT um Prefix PY 
+  erweitert
+- convert.bcm: Usermails werden nur dann noch konvertiert, wenn es
+  sich um einen Eintrag a la "DB0AAA DB0BBB" handelt; bei 
+  komplexeren Eintraege wird immer vorausgesetzt, dass es sich um
+  Rubrikmails handelt (DL4YDR wiess mich darauf hin, dass bislang
+  bei einem Eintrag wie "*    DXNEWS 999 Iota" auch eine Usermail
+  mit dem Titel "Iota" in die Rubrik DXNEWS einsortiert wurde)
+- Fehler in reject-Funktion dank DF3VI/DK2CRN gefunden:
+  die P-Option in reject.bcm setzte generell alle Mails auf Status 
+  P-Hold, auch wenn ein User per Passwort verifiziert war
+- Meldung bei Befehl UNREAD von z.B. "sichtbar gemacht" (von UNERASE) in
+  fixen Text "unread", bessere Uebersetzung ist erst moeglich, wenn 
+  messages-Dateien generell geaendert werden   
+- Filesurf: Fehler aus 1.04b37 bei addpath behoben
+- Stack unter DOS von 2500 auf 3000
+- Hinweis in replog "longwrite" einkommentiert
+- bei PURGE wird Mail nach TRANSFER nicht mehr aus Checkliste geloescht
+- bei einem PURGE wird nun ein REORG des Boards automatisch ausgefuehrt,
+  da sonst u.U. nach TRANSFER und PURGE die CHECKLISTE nicht mehr korrekt 
+  war; auf alten Gurken-PC kann dies den PURGE-Vorgang verlaengern, 
+  fuehrt aber in jedem Fall zu korrekten CHECK/DIR-Listen
+- readtext in login.cpp kann nun auch 160 Zeichen pro Zeile verarbeiten
+- Hinweis zu einem moeglichen Forward-Problem mit FBB:
+  Bei Connect mit FBB und empfangener SID [FBB-7.00i-AB1FHMR$] gibt es ggf.
+  Probleme mit komprimiertem BIN-Resume FBB-Forward (-> CRC-Abbruch)
+  a) 28.01.04 04:47:06l 15R FA P MS3BOX DOK346 WP 11764-MS3BOX 80
+     28.01.04 04:47:06l 15R FA P MS3BOX DOK346 WP 11786-MS3BOX 193
+     28.01.04 04:47:06l 15R FA P MS3BOX DOK346 WP 11800-MS3BOX 188
+     28.01.04 04:47:06l 15R FA P MS3BOX DOK346 WP 11831-MS3BOX 355
+     28.01.04 04:47:06l 15R FA P MS3BOX DOK346 WP 11876-MS3BOX 184
+     28.01.04 04:47:06l 15R F> 00
+     28.01.04 04:47:06l 15S FS +++++
+     28.01.04 04:47:06l 15R ---- [mail header]
+     28.01.04 04:47:26l 15R ---- [mail body]
+     28.01.04 04:47:26l 15S *** rcvd invalid block-id
+     28.01.04 04:47:26l 15R ---- [yapp error]
+     28.01.04 04:47:26l 15S *** FBB forwarding error
+     28.01.04 04:47:27l 15- ---- logout
+  b) 08.08.04 19:33:23z 13R *** connected to AP1BOX
+     08.08.04 19:33:23z 13R [FBB-7.00i-AB1FHMRX$]
+     08.08.04 19:33:23z 13R C_FILTER 2000 7.0f3 DOR-Edition by DOR693
+     08.08.04 19:33:23z 13R Forward !
+     08.08.04 19:33:23z 13R FWD OK BBS-Oelde
+     08.08.04 19:33:23z 13R
+     08.08.04 19:33:23z 13R Forward Port der AP1BOX,
+     08.08.04 19:33:23z 13R
+     08.08.04 19:33:23z 13R Es liegen hier fr Dich 4 Mails mit 4 KB vor.
+     08.08.04 19:33:23z 13R
+     08.08.04 19:33:23z 13R (1) AP1BOX >
+     08.08.04 19:33:23z 13S [OpenBCM-1.06b24-AB1FHMR$]
+     08.08.04 19:33:23z 13- ---- [FBB Fwd outgoing connection]
+     08.08.04 19:33:23z 13S FA P DGT274 AP1BOX.#H.DEU APOLO1 88EDBO27401C 410
+     08.08.04 19:33:23z 13S FA P DGT274 AP1BOX.#H.DEU APOLO1 88EDBO27401D 503
+     08.08.04 19:33:23z 13S FA P DGT274 AP1BOX.#H.DEU APOLO1 88EDBO27401F 439
+     08.08.04 19:33:23z 13S FA B HF1BKM DL MEINUN 8E8NB1BKM_04 893
+     08.08.04 19:33:23z 13S FA P DGT274 AP1BOX.#H.DEU PING 88EDBO27401H 216
+     08.08.04 19:33:23z 13S F> C5
+     08.08.04 19:33:34z 13R *** Checksum error (Checsum of proposals is wrong)
+     08.08.04 19:33:34z 13S *** received status prompt invalid
+     08.08.04 19:33:34z 13S *** FBB forwarding error
+     08.08.04 19:33:35z 13- ---- logout   
+   -> Beide Probleme liegen definitiv an FBB bzw. dessen (schlechter)
+      Konfiguration. Anscheinend kann man die SID-Erkennung bei FBB komplett 
+      lahmlegen und statt dessen manuell die Optionen für einen Forwardpartner
+      definieren. Und da kann man natürlich dann eine Menge in FBB 
+      VERKONFIGURIEREN! So kann man in der Forward-Datei forward.sys von FBB 
+      die unterstützten Forwardprotokolltypen des Forward-Partners fest 
+      eintragen (Parameter N). Definitiv geht der Forward nicht, wenn man 
+      dort die Option "X-Forward" aktiviert (also den Wert von N auf 8 oder 
+      groesser einstellt). Im Zweifelsfall sollte der FBB-Sysop bei sich ein
+      "N 1" eintragen. In WinFBB kann man die Option X-Forward auch im 
+      Konfigurationsprogramm generell deaktivieren. Ggf. kann man in FBB aber 
+      auch die automatische SID-Erkennung wieder aktivieren (wenn man weiss
+      ob und wo das denn geht). Bei weiteren Problemen sollte man auch 
+      seltsame Connect-Filter-Programme, die zwischen dem Forward von OpenBCM 
+      und FBB laufen, deaktivieren!      
+- CB-Callformat "SF**" zugelassen (z.B. finnischer User "SF31")
+- Der TRANSFER-Befehl beachtet korrekter Weise die reject.bcm und setzt die
+  Mail ggf. auf Hold. Es erfolgt ein Eintrag in sfhold.bcm z.B.:
+  22.09.03 13:10:53l #O BB1GBF:BB1GBF > ALLE   @ DEU $LD9AS1BOX_0H hold w/o PW
+  und die Mail wird mit HOLDTIME in den S&F eingetragen. Es wurde aber bislang
+  vergessen, das HOLD-Flag in der Mail zu setzen. Dies ist nun korrigiert.
+- Bugfix CONVEDIT: Lifetime 0 wurde nicht in convert.bcm abgespeichert
+  und falls in convert.bcm bereits vorhanden, nach einer Aenderung nicht
+  wieder in die geaenderte Datei uebernommen
+- mvboard in tree.cpp prueft nun auf Vorhandensein des alten Boards, diese
+  fehlende Abfrage konnte zum Absturz der Linux-Version fuehren
+- Max. Maillaengenbegrenzung fuer FBB-Forward von 10MB auf 80MB erhoeht  
+- Fehlerauswertung fuer FBB-Dekodierroutine im FBB-Forward - sollte also nun
+  eine Mail >80MB im Forward sein, so wird diese mit einer Fehlermeldung 
+  abgelehnt und verschwindet nun nicht mehr im Nirvana
+- Im FBB-Forward wird nun auch der alternative Antwortbuchstabe "A" 
+  fuer den Resumemodus beim SID-Typ "B1" unterstuetzt:
+  FS NNA2356YY als Antwort im Protokoll ist gleichbedeutend mit
+  FS --!2356++ 
+- "log" zeigt nun Zahlenwerte vom Format DOUBLE (maximal +- 1.7*10E+308) 
+  statt LONG (maximal +-2147483647)
+- Didadit/Autobin/WTEXT: Ausgabe "Waiting for ... file" vereinheitlicht
+- Mailflag Conttype "B" wird bei AUTOBIN-Mails gesetzt
+- Bei DIDADIT-TX wurde vergessen, das File-Semaphore wieder freizugeben,
+  korrigiert
+- Korrektur DIDADIT-TX aus Mails (Tnx OK1VKZ und DJ4WO): 
+  Bei mehreren Userbefehlen a la "R 4;ps" wurde bei DIDADIT-TX das #OK#
+  Frame falsch ausgewertet, mit dem Resultat, das DIDADIT-TX abgebrochen
+  wurde. Je nach Terminalprogramm konnte das scheinbar dazu fuehren, das
+  der DIDADIT-TX "haengen" blieb, wenn das Terminalprogramm die Abort-
+  Meldung von OpenBCM falsch auswertete. Es wird nun eine spezifikations-
+  konforme Abort-Meldung von OpenBCM gesendet, das OK-Frame richtig aus-
+  gewertet und ausserdem wird ein moeglicher nachfolgender Befehl 
+  korrekt ausgefuehrt.
+- Windows/Linux-Version:
+  Limits erhoeht: Boardname 6000         -> 10000
+                  Maxbids   262144 =2^18 -> 8398608=2^23
+- Read-Option "V" (warten auf #OK# vom User) macht wenig Sinn, daher 
+  deaktiviert
+- nur DOS/Windows-Version: ".attach" konnte einen Ueberlauf produzieren
+  und die Mailbox dann ggf. abstuerzen, fixed
+- alle Versionen: bei Fehleingabe des Dateinamen bei ".attach" und somit
+  Abbruch dieses Vorgangs durch OpenBCM, kann man nun in der naechsten 
+  Zeile einen weiteren Versuch starten, ohne vorher eine Leerzeile senden
+  zu muessen
+- moegliches SEMA-Problem bei PURGE/REORG auf sehr langsamen PCs behoben
+- Option _SEMA_DEBUG zu Debugzwecken erweitert  
+- nochmal readtext-Routine verbessert
+- autom. "REORG C"-Aufruf bei PURGE nicht mehr als eigene Fork-Task
+- Online-COMP nach Huffman (TOP&SP) versuchsweise vorbereitet, bislang 
+  OHNE FUNKTION, Routinen sind nicht fertig, hier geht noch gar nix!!!!
+- neuer Befehl "CT":
+  bislang wurde beim Befehl "QT" sowohl der Zeitpunkt von QUIT und ggf.
+  auch LASTDIRNEWS gesetzt; dies ist nun aufgesplittet in
+   qt (alter Befehl) - setzt die Quit-Zeit auf die aktuelle Zeit neu
+   ct (neuer Befehl) - setzt die Lastdirnews-Zeit auf die aktuelle Zeit
+  Der neue Befehl CT sollte dann eingesetzt werden, wenn man laengere 
+  Zeit nicht in der Mailbox war, aber die CHECKLISTE von nun ab wieder
+  regelmaessig abrufen moechte, alte Mails aber zunaechst nicht mehr
+  aufgelistet werden sollen. Der Befehl macht auch dann Sinn, wenn man
+  mit der Weboberflaeche der Mailbox arbeitet, da hier sonst der
+  letzte Abruf von DIR NEWS/CHECK nicht abgespeichert wird.
+  In der Weboberflaeche wurde somit in der Befehlszeile auch QT gegen 
+  CT getauscht.
+- In Funktion purgeboard Fehler behoben, der dazu fuehren konnte, dass
+  es einen Variablenueberlauf bei gewissen Compilern unter Linux gab
+- "REORG L" loescht leere Bereiche der UserDB definiert auf 0x00
+- Monatliche System-Mail an Sysopcall aus init.bcm mit Ausgabe von
+  "d -n u m" und "p -sfn" jeweils am Monats-Ersten um 0 Uhr, dies soll
+  den Sysop wachruetteln, spaetestens einmal im Monat seine Konfiguration
+  zu ueberpruefen!
+  Hier eine Beispielausgabe einer solchen Mail:
+  -----schnipp---------  
+  DBO274 > DGT274   28.10.04 EASGI80 16:36z #999 (0) @ DBO274.#NRW.DEU.EU
+  MID : SAEDBO27401H
+  X-Flags: Type P Hold ! Prop ! Rep ! Cont ! Erase !
+  Subj: Monthly sysinfo from DBO274
+  R:041028/1636z @:DBO274.#NRW.DEU.EU [Oelde JO41BU] obcm1.06b32
+  From: DBO274 @ DBO274.#NRW.DEU.EU (Box_Oelde)
+  To:   DGT274 @ DBO274.#NRW.DEU.EU
+  X-Info: This message was generated automatically
+
+  Monthly sysinfo from DBO274
+  ===========================
+  This mail is generated automatically once a month and should inform
+  you about not forwarded usermails and unknown target bbs.
+  Use "f [-h] <call> 1- @ BBS" to put held usermails in forward again
+  and check your fwd.bcm for correct forward settings! A correct fwd.bcm
+  file will avoid confusing users because mails are delivered in expected
+  time and of course will reduce the next sysinfo mail in lenght! ;-)
+
+
+  Not forwarded usermails "d -n u m":
+  ------------------------------------------------------------------------
+
+  Verzeichnis aller User-Nachrichten:
+
+  Inhaltsverzeichnis fuer POL146 @ POL146.#SO.SLK.POL.EU.WW:
+     1) SLO5DX 25.10.04 18:16   24 #999 @POL146 Hallo!
+
+  Inhaltsverzeichnis fuer SM0KY @ RG0BBS.#GRH.SAX.DEU.EU:
+     1H EMA1L  27.10.04 15:05  882 #999 @RG0BBS newsletter@4players.de
+     2H TW7JDL 27.10.04 19:05   17 #999 @RG0BBS Cheats Tony Hawks 
+
+  Unknown target bbs "p -sfn":
+  ------------------------------------------------------------------------
+
+  Mails Since Address                                Forward
+   1351 121d: BBS9AU.#DEL.NDS.DEU                    -unknown-
+   1683  63d: BEL1MS                                 -unknown-
+  274 fwd, 3 autofwd, 2 unknown, 1 nofwd, 280 searched, 280 found.
+  -----schnapp---------
+- Rubrikmails werden bei READ-Option "-S" komplett per Autobin ausgegeben
+- Transfer von Usermails mit Lifetime- oder Titel-Angabe hat nicht korrekt 
+  funktioniert, behoben (tnx DL2KMR fuer Bugreport)
+- ALTER DELETE ging nicht mehr, korrigiert (nach Hinweis von DD4JY)
+- "help all" gibt nun eine zusaetzliche Leerzeile zwischen den Befehlen
+  aus, um die Ausgabe uebersichtlicher zu gestalten (Idee von DJ1XK)
+- WinNT-Version:
+  PIPE fuer OSHELL wieder auf 512, damit ein "logback.imp" wieder laeuft
+- Vorbereitung einer *.spec-Datei fuer Linux-RPM-Archiv  
+- Linux: Umstellung der "makefile" Datei zur RPM-Erzeugung
+- Filesurf: 
+   - neuer Filesurf-Befehl "BMAIL <filename>" um eine Filesurf-Datei
+     als Autobin-Mail zu erhalten (Patch von DH6BB)
+   - Um diese Funktion ganz abzuschalten gibt es einen neuen init.bcm
+     Parameter "fsbmail": 0 = bmail abgeschaltet, 1= bmail aktiviert
+- REORG X ist bei NOPURGE = 1 oder NOPURGE >= 4 nicht mehr moeglich,
+  da sonst ggf. die falschen Mails geloescht werden
+- Funktion "zeitspanne" gibt jetzt auch Werte > 10 Jahre zurueck
+  (maximal 25 Jahre), wird u.a. beim USERS-Befehl verwendet
+- Beim Empfang von Mails wurde ggf. bei einigen Compilern der Name des
+  Absenders falsch uebernommen, was dann dazu fuehrte, dass bei ALTER NAME
+  der Name um ein Zeichen versetzt angezeigt wurde, als erstes Zeichen
+  ein 'ÿ'-Zeichen (ANSI 0255) uebernommen wurde, dafuer aber das letzte
+  abgeschnitten wurde
+- Fehler beim Empfang einer Mail mit einer #DIDADIT# Textzeile bei SMTP
+  und NNTP behoben, der dazu fuehren konnte, das die Mailbox abstuerzt
+- bei "ALTER" bzw. "ALTER <call>" wird nun auch der BINMODE des Users 
+  mit angezeigt
+- Ist ALTER BINMODE DIDADIT gewaehlt, gibt es noch immer Probleme mit dem
+  Ausfuehren mehrerer Befehle in einer Zeile, getrennt durch ;
+  -> Problem ist geloest fuer alle Befehle, die nicht "READ" ausfuehren,
+     d.h. "R 4711;PS;H" funktioniert nun, ein "R 4711;R 4715" hingegen
+     noch nicht!
+- Rubriknamen werden nun fix nach 8 statt 6 Zeichen unterschieden
+- neue Check-Option "x" (kann jeder User mit "A CH +x" aktivieren) erweitert 
+  die Ausgabe der Checkliste um eine um zwei Stellen groessere Anzeige der 
+  Boardnummer - zumindest PAXON kommt damit dann auch klar, andere 
+  Terminalprogramme vermutlich nicht, dann besser nicht nutzen:
+  Check ohne "x" (wie bisher):
+  ============================
+   # Von      An        Nr Datum    @      Bytes LT  Titel
+   4 DL9GJ  > WETTER.47377 23.01.05 DL      1384 999 Min/Max WX Burgrieden nr.
+   9 DO1KDL > ASYNOP.14504 23.01.05 DL       575 999 ASYNOP DO1KDL 23.01.05
+  10 PI4WNO > DUTCH....223 23.01.05 WW     10845 999 PI4WNO,Bull.2005/01/23(85
+  13 DO1KDL > WETTER.47376 23.01.05 DL      3044 999 PR-WX-Stn K”ln-Porz JO30N
+  16 DL6KWN > DISTRIK12478 23.01.05 DL     11536 999 MVP-Rundspruch 01-2005
+
+  Check mit "x":
+  ==============
+   # Von      An          Nr Datum    @      Bytes LT  Titel
+   4 DL9GJ  > WETTER...47377 23.01.05 DL      1384 999 Min/Max WX Burgrieden n
+   9 DO1KDL > ASYNOP...14504 23.01.05 DL       575 999 ASYNOP DO1KDL 23.01.05
+  10 PI4WNO > DUTCH......223 23.01.05 WW     10845 999 PI4WNO,Bull.2005/01/23(
+  13 DO1KDL > WETTER...47376 23.01.05 DL      3044 999 PR-WX-Stn K”ln-Porz JO3
+  16 DL6KWN > DISTRIKT.12478 23.01.05 DL     11536 999 MVP-Rundspruch 01-2005
+- EM/WPROT wurde nicht zum Nachbarn gesendet, wenn dessen Rufzeichen ein 
+  Teilstring des Ziel wars (konkretes Beispiel: DB0EA/DB0EAM)
+- Auf Wunsch von DF3VI das Verhalten der LOG-Optionen "s" und "u" wieder wie
+  frueher
+- nur Win32: snprintf nun als Windows-Bibliotheksfunktions, interne Funktion
+             konnte ggf. zu Problemen fuehren 
+- kommen Mails per Forward herein, die einen 6stelligen Rubriknamen haben,
+  werden diese auf moegliche 8stellige vorhandene Rubriknamen erweitert
+- bei gesetzter DIR K-Option ("idir +k") wurde bei Rubrikmails permanent ein
+  ')'-Flag (=ungelesen) angezeigt. Es wird nun ein Leerzeichen ausgegeben.
+  Uebrigens ist es auch nicht moeglich ein 'R'-Flag (Read) beim DIR/LIST 
+  einer Rubrik aufzulisten, daher wird hier dann auch ein Leerzeichen 
+  ausgegeben (-> DK2CRN)
+  Das Userprogramm Graphic Packet setzt fuer die Boxlist-Funktion allerdings
+  das DIR-Format mit ')' voraus - fuer Benutzer, die dies weiterhin benutzen
+  wollen gibt es dafuer extra die neue DIR-Option 'R' ("idir +r")
+- MYBBS des Gastrufzeichen wird per W/WP-Mails nicht mehr weitergereicht,
+  ausserdem wird die MYBBS des Gastrufzeichens in der Userdatenbank nur dann
+  noch abgespeichert, wenn die MYBBS identisch mit dem eigenen 
+  Mailboxrufzeichen ist
+- Ist das Gastrufzeichen auf einen Namen eingestellt, der der ueblichen
+  Rufzeichenkonvention widerspricht (also z.B. "GUEST"), so werden nun auch 
+  bei "ALTER guest" die ALTER-Parameter korrekt angezeigt, nicht nur 
+  bei "ALTER GUEST"
+- die automatische Board-Konvertierung bei 6-Zeichen wird nur dann noch 
+  durchgefuehrt, wenn es kein Board gibt, das mit diesen 6 Zeichen 
+  existiert, d.h.
+  a) Boards WETTER und WETTERDL sind existent
+    -> Mails an WETTER gehen nach WETTER und nicht mehr nach WETTERDL,
+       Mails an WETTERDL an WETTERDL (es sei denn man traegt in 
+       convert.bcm die Zeile "WETTERDL WETTER" ein!)
+  b) Board WETTERDL existiert, WETTER nicht
+    -> Alle Mails an WETTER und WETTERDL landen im Board WETTERDL
+  c) Board TECHNIK existiert, eine Mail an TECHNI trifft ein, TECHNI 
+     existiert aber nicht als Board
+    -> Mail landet in Board TECHNIK ohne Eintrag in convert.bcm
+- CB-Version: Rufzeichentyp ###XX# ist nun zulaessig (# = Zahl; X = Zeichen)
+- Bugfix nach Hinweis von DD4JY:
+  Bei NOPURGE 4 wurden per Lifetime abgelaufene Usermails nicht geloescht
+- nur Linux/Win32:
+  JJ's Patch vom 16.09.05 und 21.09.05 fuer ein Internetmailgate hinzu 
+  (dazu muss in config.h die Beta-Option INETMAILGATE definiert sein!)
+  Achtung: Diese Funktion ist noch nicht ausgetestet, und sollte wenn
+           ueberhaupt auch nur im CB-Funk eingesetzt werden!  
+  neuer Befehl "INTERNETMAILGATE" in init.bcm:
+  Syntax: INTERNETMAILGATE [ <CALL> | off ] (Vorgabe: off)
+  Wird ein <CALL> gesetzt, geschieht beim Empfang einer Mail per SMTP 
+  folgendes:
+  - die Sender-Email-Adresse aus dem Internet wird in die lokale User-Adresse,
+    die mit <CALL> definiert wird, gewandelt 
+    (z.B. meier@darc.de -> DB0ABC falls "internetmailgate db0abc" gesetzt ist)
+  - die urspruengliche Sender-Email-Adresse wird vor den Mailtitel gehaengt
+    (z.B. ist dann "meier@darc.de - blabla" der neue Titel)
+  - die Empfaengeradresse wird bis auf das Empfaenger-Rufzeichen beschnitten
+    (z.B. wird aus db1abc@db0abc.de -> DB1ABC)
+  Hinweis: Als Heimatmailbox sollte fuer <CALL> immer die eigene Mailbox 
+  angegeben werden!
+- diverse Patche von DB7MH eingefuegt
+  - Endlosschleife aus trace.cpp (Funktion tracechr) entfernt. Diese wurde 
+    durch die reorg's + sofortiger Disconnect ausgeloest oder bei  
+    Haufen von remerases.
+  - Doppeltes Logging beim fwd-Disconnect entfernt 
+    (login.cpp / Funktion mblogout), siehe auch Bugmeldung von Sebastian dd4jy
+  - Bufferleerung beim fwd-disconnect. Problem war, dass ggf. reconnect 
+    Meldung usw. gebuffert worden sind. Kleiner Fix ist in tnc.cpp in der 
+    Funktion mbdisconnect mittels getclear_tnc(); Funktioniert tadellos.
+  - In fwd.cpp habe ich in waitconnect das "T ROUTE" auskommentiert. 
+    Bei DB0IUZ steht im ctext "...XNET ROUTER" -> zack disconnect :(
+    -> Anm. DH8YMB: erstmal auf "T ROUTE " geaendert
+  - Bei #ABORT# eingebaut fuer Binaerauslesung, zusaetzlich wird der Buffer
+    abgeraeumt, damit der Boxlink unter den vielen #OK# nicht volllaeuft 
+    (RNR's)
+  - DIDADIT-Auslesen bei mehreren READ-Befehlen getrennt durch ; ist dadurch
+    ebenfalls moeglich
+- Modifikation der send.cpp für convert-Aufruf bei ASCII-Forward. 
+  Ein Test DB0EAM-3 -> DB0NOS-8 verlief erfolgreich.
+- DOS-Version verkraftet kein CBUFLEN in mbmainloop/main.cpp, daher hier
+  wieder auf LINELEN reduziert  
+- zu lange Usereingaben fuehren nun nicht mehr zum Shutdown der Mailbox
+- CHECKLISTE zeigte falsche Boardnummer an, falls mehr als 65535 Mails in 
+  einem Board vorhanden waren; dies ist nun geaendert, die Datei
+  checknum.bcm ist nun 32bit organisiert anstatt 16bit, beim ersten
+  CHECK-Aufruf wird die Datei checknum.bcm automatisch neu aufgebaut
+- neue CHECK Option "a": die Checknummer am Anfang der Checkzeile zeigt 
+                         dann sechs statt fuenf Zeichen an
+- ist ein User-Passwort (A PW) auf Status "disable" und setzt der Sysop
+  dann ein neues, so wird dies nun auch sofort gesetzt, ohne das es erst
+  komplett geloescht werden muss.
+- ist ALTER BINMODE DIDADIT ausgewaehlt und macht ein User dann User-S&F
+  funktioniert nun auch der Forward von angehaengten AUTOBIN Teilen
+- Amateurfunk: Forward ueber Funkstrecken wird gegenueber IGATE bevorzugt,
+  auf Anregung von DG8NGN:
+  Im Amateurfunknetz ist in den letzten 2 Jahren eine Art Backbone-System 
+  im Netzrouting entstanden, das sich unter dem Rufzeichen "IGATE" 
+  (=Internet GATEway) connecten lässt. Einige Sysops, mit wackeligen 
+  Funkverbindungen zu Nachbarboxen, aber mit stabilem Geld- und 
+  Internetzugang haben daraufhin auch ihre Forward-Connectpfade über 
+  IGATE gelegt. OpenBCM ist nun so konzipiert, dass IGATE im Connectpfad 
+  nur dann genutzt wird, wenn der vorherige Connectversuche ohne IGATE 
+  misslungen ist. Somit wird immer wieder mal versucht, dass Routing 
+  über die Funkstrecken abzuwickeln, ohne das der Sysop dies den evtl. 
+  täglich wechselnden Bedingungen anpassen muss. 
+  Falls im Connectpfad einer Partner-Mailbox im fwd.bcm das Rufzeichen
+  "IGATE" eingetragen ist, wird dies ignoriert, sofern
+  - dies der erste Connectversuch seit Neueinlesen von fwd.bcm ist
+  - der letzte Connect zu der Partner-Mailbox funktioniert hat
+  Das hat in der Praxis zur Folge, das immer wieder automatisch ein 
+  Forwardversuch ueber Funkstrecken (ohne IGATE) versucht wird. Falls dies 
+  nicht klappt wird beim naechsten Versuch aber ein Connect ueber IGATE 
+  angestossen, um den Forward am Leben zu halten, wenn der Funklink 
+  wirklich mal nicht geht. Im Connectpfad der fwd.bcm sollte IGATE 
+  (sofern dies ueberhaupt genutzt werden soll) natuerlich an passender Stelle
+  stehen, z.B. 
+  HB9EAS AAAAAAAAAAAAAAAAAAAAAAPA DB0FHN / IGATE / HB9EAS-8
+  oder
+  HB9EAS AAAAAAAAAAAAAAAAAAAAAAPA HB9EAS-8 DB0FHN IGATE
+  Wird fuer einen Fwd-Connect IGATE nicht benutzt, so erscheint bei "D P"
+  auch ein entsprechender Hinweis diesbezueglich. Im obigen Beispiel waere
+  das dann einmal "DB0FHN -> HB9EAS-8" statt "DB0FHN -> IGATE -> HB9EAS-8"
+  bzw. "HB9EAS-8 via DB0FHN" statt "HB9EAS-8 via DB0FHN IGATE".
+  Im CB-Funk ist diese Funktion bedeutungslos.
+- Option DF3VI_REJ_LT aus mail.h fix eingebaut
+- Default msg-Datei: "unreaded" -> "unread"
+- Forward: Usermails, deren MID in der Partnerbox bereits vorhanden sind 
+  (bereits ueber anderen Weg empfangen) wurden bislang auf Lifetime 7 Tage 
+  gesetzt und blieben liegen - nun werden sie gleich geloescht
+- Umfangreiche Umbenennung diverser Quellcodedateien sowie Zusammenfassung
+  von Funktionen in Quellcodedatei mit geeigneten Namen, desweiteren ist
+  fast jede Quellcodedatei hinsichtlich Lesbarkeit ueberarbeitet worden
+- Source-Datei convert.cpp wird nun nicht mehr ueber tree.cpp compiliert,
+  sondern direkt ueber Projekt/Workspace/makefile, funktionell hat das
+  keine Auswirkung
+- Deutsche (DL) und Englische (GB) message und help-Dateien aktualisiert
+- Default Speech-Dateien nun mit Unterstuetzung der neuen japanischen 
+  messages.ja - also speech.bcm vor Boxneustart einmal loeschen, damit diese
+  Datei wieder aktuell neu erstellt wird und Japanisch auswaehlbar wird!
+- ACTIVE ROUTING nach DL8HBS (DPBox) integriert
+ - Routing-Quality: Berechnung und Auswertung eingebaut
+ - Active-Routing hat Vorrang vor manuellen fwd-Eintragen in fwd.bcm
+   bzw. dem Autorouter
+ - Auflistung aller Active-Routing-Ziele mit "p -sr" moeglich  
+ - Details zu einem Active-Routing-Ziel mit "p -ar <call>" moeglich
+ - WPROT-Logfiles der Forward-Partner werden im fwd\wlog-Verzeichnis 
+   abgelegt, und sind mit "wlog <call>" einsichtbar
+ - WPROT-Mails werden nun mindestens alle 5 Stunden einmal erzeugt statt 
+   zweimal pro Tag
+ - diverse Fehler beim WPROT-ANSI-Zeitstempel bei Boxen, die nicht auf 
+   UTC-Basis liefen, beseitigt
+ - WLOG-Pfad/Dateiname wurde nach 40 Zeichen abgeschnitten, nun auf
+   80 Zeichen erweitert
+ - wird eine Box aus fwd.bcm herausgenommen wird diese
+   nun auch nicht mehr fuer ACTIVE ROUTING benutzt
+ - das DLNET im CB-Funk verbietet ein Routing von DLNET-Mails ueber nicht
+   DLNET-Mailboxen, somit wird ACTIVE ROUTING nicht mehr fuer DLNET-Ziele
+   eingesetzt, sofern die eigene H-Adresse DLNET beinhaltet
+ - Verbesserung des Zusammenspiels mit DPBox(en)
+ - WPROT-M-Zeilen schnitten bei langen Namen ggf. das letzte Zeichen vom
+   Namen ab, so dass diese nicht komplett an andere Boxen uebermittelt wurde
+ - Bei WLOG kann nun auch ein Suchbegriff angegeben werden.
+   Syntax: WLOG <boxcall> <searchstring>
+   Beispiel: wlog db0ea 12.2004 -> listet alle WPROT-Routinginfos aus 12/04 
+                                   fuer DB0EA auf
+ - Bedingung fuer die Uebernahme einer externen Routinginfo 
+   von "< letzter Infozeitpunkt" auf "<= letzter Infozeitpunkt"
+ - Direkte Forwardpartner haben nun mindestens eine Quality von 1 statt 0
+   (die sonst nicht weitergeleitet wurde)
+ - korrekte Berechnung der WPROT-Zeilen als Bedingung fuer die WPROT-Mail
+   Erstellung
+ - Beim Forward-Check werden jetzt auch W-Mails mit einbezogen (bei Forward-
+   Links mit wenig Verkehr wurde sonst u.U. zu wenig WPROT ausgetauscht, was
+   eine schlechte Aktualisierung der ACTIVE-Routing-Infos zur Folge hatte)
+ - Aging der berechneten Mails funktioniert nun korrekt
+ - direkte Forward-Partner werden nicht mehr mit Quality/2 berechnet
+ - WPROT-Mails werden nun mindestens alle 30 Minuten einmal versendet,
+   wie in WPROT-Routing-Spec von DL8HBS definiert (siehe hierzu auch
+   derweil http://home.snafu.de/wahlm/dl8hbs/active_routing.html)
+ - Bug bei der Berechnung der neuen Routing-Quality gefunden
+   (zu fruehes Runden durch Division!)
+ - Start des Forward beim Fwd-Check von "forward" in crontab.bcm
+   schon ab 10 statt bislang 50 vorhandenen WPROT-Zeilen; dies sollte
+   den WPROT-Austausch auch bei wenig Traffic beschleunigen
+ - Ist ein Forwardpartner 3 Connectversuche lang nicht erreichbar, so
+   wird seine Quality beim 4. Connect fix auf 32767 gesetzt (Min-Quality)
+   und auch einmalig zu den Partnerboxen gebroadcasted
+ - diverse Aenderungen beim WLOG eines ACTIVE ROUTING Partners:
+     M -> Mail-Measurement: Partner wird mit gemessener Quality angezeigt
+     A -> Zeigt Infos zur Aging/Mittelwert-Berechnung bei Mail-Measurement
+     N -> New calculated Quality (wird nur intern weiterbenutzt)
+     C -> New calculated Quality wird 5 Stunden nach letzten R-Zeilen
+          Broadcast fix uebernommen und gebroadcasted
+     D -> Deleted, Forwardpartner ist mind. 3mal nicht erreichbar gewesen
+     R -> Received Quality von Mailpartnern
+     Bei "UPDATE HADR" wird die jeweilige Quality fix uebernommen
+     Genauere Doku zu WLOG folgt spaeter, vermutlich wird das Format
+     nochmal geaendert, so dass es sich noch nicht lohnt, hier alles
+     detailiert zu beschreiben.
+   Insgesamt sollten nun die Qualitywerte zum direkten Forwardpartner
+   hoeher ausfallen, analog zu DPBoxen. Hoffentlich sind damit auch die
+   leichten Loop-Probleme in Verbindung mit DPBoxen beseitigt.
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   Es sollten moeglichst bald alle Mailboxen, die eine der vorhergehenden 
+   Beta-Versionen einsetzen, auf diese Version updaten, da es sonst zu 
+   vermehrten Fwd-Loops kommen kann!
+ - falls Forwardpartner ausgefallen war, wird nun, wenn der naechste Connect
+   wieder funktioniert, ab diesem Zeitpunkt die neu berechnete Quality 
+   uebernommen
+ - eine empfangene R-Zeile einer direkten Nachbarbox wird nur dann noch
+   ausgewertet und uebernommen, wenn die letzte eigene Mailberechnung vor 
+   mehr als 5 Stunden vor dem R-Zeilen-Zeitstempel lag
+ - "p -sr <boxcall>" listet nun die ACTIVE-ROUTING-Ziele eines Forwardpartners
+   <boxcall> auf, "p -sr" zeigt weiterhin alle ACTIVE-ROUTING-Ziele an    
+ - R-Zeilen von Partnerbox werden nun wieder weitergemeldet
+ - weiteren Berechnungsfehler bei der neuen Quality-Berechnung eines
+   direkten Mailpartners gefunden (Rundungsfehler, der dazu fuehren konnte
+   das die Quality mit der Zeit zu gut war)
+ - Uebernahme eine R-Zeile einer direkten Nachbarbox nur dann, wenn
+   die letzte eigene Berechnungszeit VOR dem Zeitstempel der R-Zeile war,
+   sonst ggf. Variablenueberlauf der Berechnung
+ - R-Zeilen werden nun tatsaechlich an Partnerboxen wieder uebermittelt
+ - Korrekte Berechnung der Quality bei direkten Partnerboxen
+ - Aenderungen beim WLOG eines ACTIVE ROUTING Partners:
+     G -> R-Zeilenempfang: tatsaechlich empfangene Quality von Partnerbox
+     Das WLOG wird in einer spaeteren Version per Parameter in init.bcm
+     abschaltbar sein, damit die Festplatte nicht zumuellt, in der
+     derzeitigen Implementationsphase ist es aber ueberall fest aktiviert,
+     um eine schnellere Fehlersuche zu garantieren
+ - CB-Version: Korrektur Anzeige DLNET-Route bei Active Routing
+ - ACTIVE ROUTING-Berechnung nun auch fuer Fwd-Partner mit ASCII-Fwd 
+   nach RLI/Diebox-Verfahren
+ - WPROT-Routinginfos aus der Zukunft werden nun verworfen, kam im konkreten
+   Fall bei DB0II vor (Uhrzeit war hier wohl aus Versehen auf 2006 gestellt)
+ - WLOG Befehl funktioniert wieder
+ - Erkennung, ob Partnerbox R-Zeilen aussendet, eingebaut:
+ - R-Zeilen anderer Boxen werden nun nur noch an Partnerboxen gesendet, 
+   die auch selber mindestens eine (eigene) R-Zeile aussenden
+ - 30Min-WPROT-Austausch nur bei Active-Routing-Partnern, sonst nur 
+   WPROT-Daten im 5h-Rhythmus 
+ - Durch die Routingprobleme, die in Verbindung mit ACTIVE ROUTING und der 
+   DPBox auftreten, und der leider sehr mangelnden Pflege der DPBox-Sourcen
+   (dortiges Fehlverhalten wird nicht abgestellt) ist das ACTIVE ROUTING 
+   von/zu DPBoxen bis auf weiteres deaktiviert. Zu DPBoxen wird nur noch die 
+   eigene Box per ACTIVE ROUTING bekannt gemacht, von DPBoxen aber weiterhin
+   alles empfangen und ausgewertet (und auch genutzt). DK2GO hat mir 
+   versprochen ab ca. Juli/August 2005 wieder etwas mehr Zeit in den 
+   DPBox-Source zu investieren - hoffen wir mal drauf!
+- Aenderungen bezueglich HTTP:
+ - in der HTTP-Oberflaeche kann nun bei "Send" eine Lifetime einer Mail
+   beigefuegt werden (Feld "Lifetime(1..999):"). Wird das Feld leer gelassen,
+   wird die jeweilige Default-Lifetime verwendet.
+ - Auch "Reply", "Reply with text", "Comment" bzw. "Comment with text" im
+   HTTP-Interface nutzen nun die Lifetime
+ - Falls LTQUERY auf 1 oder 2 gesetzt ist, wird auch im HTTP-Interface eine
+   Mail nur dann noch angenommen, wenn eine Lifetime angegeben wurde
+ - die HTTP-Debugausgaben sind nicht mehr default eincompiliert
+ - Fehler im HTTP-Modul gefunden und behoben, der u.a. zu einem
+   Absturz fuehren konnte, wenn HTTPGUESTFIRST auf 1 gesetzt war
+ - Es wird nun korrekterweise die MYBBS des Users in der "Login:"-Zeile
+   angezeigt, nicht die H-Adresse der Mailbox
+ - neue Trace-Datei "httplog.bcm" mit RX/TX Ausgaben von HTTP zur Fehlersuche
+   integriert (Achtung: diese Datei kann u.U. sehr gross werden!)
+   Das Tracing von HTTP wird durch TCPIPTRACE 1 aktiviert
+ - Der neue Befehl HTTPLOG gibt die Logdatei trace/httplog.bcm aus
+ - Bei GAST-Login per HTTP und klick auf USERLOGIN werden nun die Frames nach
+   nach erfolgreichem Login immer neu aufgebaut
+ - Maximale Mail-Laengenbegrenzung bei HTTP-Ausgabe von 10MB entfernt
+ - neuer Parameter "httprobot" in init.bcm:
+        httprobot 1 (default): Web-Robots wie Googlebot etc. werden 
+                               aufgefordert, weitere Seiten zu indizieren
+        httprobot 0: Web-Robots wird nicht erlaubt, Webseiten der
+                     Mailbox zu indizieren
+ - Das moegliche HTTP-Hintergrundbild "back.jpg" wird nur dann noch im 
+   HTML-Frame ausgegeben, wenn diese Datei vorhanden ist!
+ - Der Befehl "SEND <board>" ist in der HTTP-Kommandozeile ist nicht mehr 
+   moeglich (es macht nur Sinn, Mails ueber den Menuepunkt SEND zu 
+   verschicken)
+ - Der NEXT-Befehl funktioniert nicht bei HTTP, daher Befehlseingabe im 
+   Kommandofenster nicht mehr moeglich (tnx DH4HAN)
+   Dafuer gibt es jetzt 2 neue Links unter jeder per HTTP ausgelesenen Mail,
+   um die naechste bzw. vorhergehende Mail aus dem Board zu lesen
+ - Bei allen Logfile-Funktionen (z.B. "slog" im Menue anklicken) erscheint 
+   jetzt eine Zeile "Other Logs", wo alle verfuegbaren User-Logfunktionen 
+   anklickbar sind
+ - "Newest-Check"-Link im HTTP-Menue von "c 100" auf "c 300"  
+ - komplett neue Oberflaeche ohne Frames, Farb-/Font-/Hintergrundgestaltung 
+   ist nun online durch Editieren der Datei bcm\http\style.css moeglich, eine 
+   Bannergraphik wird angezeigt, wenn die Datei bcm\http\banner.gif vorhanden
+   ist. Eine default style.css Datei wird automatisch erstellt, sofern 
+   diese nicht existiert.
+   Mir ist bewusst, das auf sehr langsamen Funkverbindung jedes Byte mehr
+   weh tut, hier sollte der Sysop entscheiden ob er die ansprechende neue
+   Optik mit CSS-Support nutzen will oder nicht. 
+   Jetzt kann jeder Mailboxnutzer selber das Aussehen der HTTP-Oberflaeche
+   fuer sich alleine bestimmen, dafuer gibt es den neuen Userparameter 
+   "ALTER HTTPSURFACE":
+    alter httpsurface 0 -> es wird die Sysop-Defaulteinstellung defhttpsurface
+                           genutzt
+    alter httpsurface 1 -> es wird die "alte" Oberflaeche mit Frames 
+                           und ohne CSS-Support genutzt
+    alter httpsurface 2 -> es wird die "neue" Oberflaeche ohne Frames 
+                           aber mit CSS-Support genutzt
+    alter httpsurface 3 -> es wird die "alte" Oberflaeche ohne Frames 
+                           und ohne CSS-Support genutzt
+   Zur Defaulteinstellung neuer Nutzer (und bestehender Nutzer, sofern diese 
+   ALTER HTTPSURFACE auf dem Wert 0 belassen haben) kann der Sysop den neuen
+   Systemparameter "defhttpsurface" verwenden. Folgende Einstellungen sind
+   hier moeglich:
+    defhttpsurface 0 -> es wird die "alte" Oberflaeche mit Frames 
+                        und ohne CSS-Support eingestellt
+    defhttpsurface 1 -> es wird die "neue" Oberflaeche ohne Frames 
+                        aber mit CSS-Support eingestellt
+    defhttpsurface 2 -> es wird die "alte" Oberflaeche ohne Frames 
+                        und ohne CSS-Support eingestellt   
+ - small changes in charset output for better use of japanese and chinese
+   (maybe also cyrillic?) character display in browsers (tnx JH4XSY)
+ - HTTP-Datei http\logo.gif wird nun auch in der CSS-Oberflaeche (httpcss 1) 
+   unterstuetzt        
+ - HTTP-Timeout von 120 auf 10 Minuten reduziert  
+ - ueberfluessigen Rahmen um banner.gif-Bild entfernt  
+ - bei HTTP-Zugriff sind nun beim CHECK-Befehl die Optionen "a" und 
+   "x" fest vorgegeben
+- Aenderungen bezueglich NNTP:
+ - NNTP-Debug-Option in config.h fuer spaeteres Debugging hinzu
+ - Implementierung der NNTP-Befehle AUTHINFO USER/PASS zur Authentifizierung 
+   eines Users
+ - Beginn der Implementierung vom NNTP-Befehl POST zum Posten von Nachrichten,
+   soll ein Verteiler (z.B. @DL) verwendet werden, so muss dieser am Anfang
+   der Titelzeile im Newsreader angegeben werden, eine andere
+   Moeglichkeit bietet ein Newsreaderprogramm leider nicht! Getestet
+   ist diese Funktion momentan unter Windows XP/MS Outlook Express 6,
+   mit anderen Newsreadern kann es sein, dass die Funktion evtl. nicht
+   (richtig) funktioniert!
+ - nun muesste auch das AMPR-Passwort (Name) als Loginpasswort
+   funktionieren, bislang ging generell nur das ALTER TTYPW-Passwort
+ - NNTP-Befehl NEWGROUPS implementiert, gibt aber jedesmal eine leere Liste 
+   zurueck, einige Newsreader steigen komplett aus, wenn sie auf NEWGROUPS 
+   eine "501 not supported" Antwort bekommen
+ - NNTP-Befehl POST: Diverse Headerzeilen vom Newsreader werden nicht mehr in 
+   der Mail mit abgespeichert
+ - wird im Newsreaderprogramm kein User/Passwort angegeben, wird nun
+   auch ein POST-Befehl korrekterweise so ablehnt, das es im Userprogramm
+   zu einer Fehlermeldung kommt
+ - NNTP-User werden in der USER Liste angezeigt
+ - Fehler gefunden und korrigiert, der u.U. dazu fuehren konnte, dass User aus
+   der User-Datenbank geloescht wurden, wenn User ohne Login-Passwort per NNTP 
+   Mails ausgelesen haben
+ - weiteren Bug bzgl. Userdatenbank gefunden und beseitigt, der nur
+   dann auftrat, wenn sich ein User mehrfach mit Usercall+Passwort 
+   authorisierte (manche NNTP-Clients machen wohl so einen Schwachsinn)
+ - Userdatenbank wird nur dann noch aktualisiert, wenn ein Usercall vorliegt,
+   d.h. weitere moegliche Bugs in Sachen NNTP+Userdatenbank duerften hiermit 
+   schon im Keim beseitigt sein
+ - "Nachricht fuer ... senden" und ""Nachricht... gespeichert" 
+   wird nun beim Abspeichern eine Nachricht unterdrueckt
+ - Leerzeichen nach Versionsinfo beim NNTP-Befehl 'HELP' hinzu
+ - Ist die Mailbox als CB-Version konfiguriert (callformat > 0 in init.bcm),
+   so werden die Boardnamen bei NNTP mit "<call>.bbs.<boardname>" ausgegeben,
+   bei Amateurfunk weiterhin wie gehabt mit "ampr.bbs.<boardname>"
+ - neue Trace-Datei "nntplog.bcm" mit RX/TX Ausgaben von NNTP zur Fehlersuche
+   integriert (Achtung: diese Datei kann u.U. sehr gross werden!).
+   Zum Aktivieren muss der Sysop TCPIPTRACE 2 aktiviert haben.
+ - Der Befehl NNTPLOG gibt die Logdatei trace\nntplog.bcm aus
+- Aenderungen bezueglich SMTP:
+ - Fehler im SMTP-Modul gefunden und behoben, der dazu fuehren konnte,
+   das die Mailbox kommentarlos abstuerzte
+ - Delay von 5s _DATA hinzu, sonst Absturz bei moeglichen Mailserv-Import
+   (z.B. bei POCSAG-Import) einer SMTP-Mail
+ - bei Sendeversuche ohne vorheriges POP3 meldet die Box nun Fehlercode 500 
+   anstelle 552
+ - Patch von DH6BB:
+   der Wunsch einer Empfangsbestaetigung wird in ein "/ACK" umgewandelt
+ - "Nachricht fuer ... senden" und ""Nachricht... gespeichert" 
+   wird nun beim Abspeichern eine Nachricht unterdrueckt
+ - Acknoledge-Delay nun dynamisch von Mailserv/Pocsag-Aufruf abhaengig 
+ - Ziel einer Mail beim Beginn der Mailuebertragung wurde bei SMTP nicht 
+   unterdrueckt - hat aber anscheinend keinen SMTP-Client beeinflusst; 
+   nun jedenfalls korrigiert
+ - Bei SMTP-Empfang langer Mails wurden u.U. andere Tasks angehalten, 
+   behoben
+- Aenderungen bezueglich FTP:
+ - Patch von DH6BB: FTP kann nun auch Resume
+ - WDELAY(200) bei FTP-Befehl QUIT hinzu
+ - Tracemeldung von Typ serious in Typ report gewandelt
+ - Passwort wird bei DEBUG_FTP nicht mehr im Trace mitgeloggt (hidden)
+ - Rueckgabewert von ftp_connect bei RETR wird ausgewertet, sonst
+   ggf. Boxabsturz bei Timeout
+ - nach Hinweisen von Klaus, DQB989, diverse Bugfixe
+- Aenderungen bezueglich POP3:
+ - Header Sicherheitsabfrage auf NULL bei defekter R-Line
+ - Bug entdeckt und beseitigt: war eine Usermail groesser als 1000000 Bytes,
+   so wurden nachfolgende Mails nicht mehr dem Mailclient angeboten, da
+   das Userlockfile falsch erzeugt wurde
+ 
+obcm 1.07b1 (08.10.2006):
+-------------------------
+- Nach Hinweis von DK1NX "</pre>" bei SENDOK hinzu
+- Bugfix: keine Anzeige von ALTER HTTPSURFACE unter DOS
+- Einige ALTER Einstellungen (BINMODE...) von Usern, wurden bislang nicht 
+  allgemein angezeigt, korrigiert
+- Laengenbegrenzung der Textvariablen bei diversen LOG-Funktionen hinzu,
+  bei OK0PPL kam es deshalb vermehrt zu Abstuerzen
+- nur Linux: es wird nun auch die verwendete Compilerversion beim
+  Befehl "version" angezeigt
+- nur Linux: Hinweis das GCC-Compilerversion <3.4 verwendet werden muss 
+  beim "make" Versuch mit GCC >3.3
+- Copyright-Jahr auf 2006 (war noch 2005)  
+- nur Linux/Windows: bei der Neuerzeugung der default style.css (falls
+  diese in /bcm/http fehlt) wird die Zeile mit "back.jpg" nur dann
+  erzeugt, falls diese Datei auch im Ordner /bcm/http existiert
+- maximale Anzahl an Fwd-Partner fuer Windows+Linux von 30 bzw. 42 auf 50
+  erhoeht, fuer DOS bleibt es bei 24 (wegen Speichermangel)
+- Bei der Benutzung von "=" im Connectpfad von fwd.bcm gab es bislang
+  eine Beschraenkung auf 14-Zeichen-Laenge. Dies ist nun erweitert bis auf
+  40 Zeichen.
+- sema_unlock("forward") in fwd.bcm testweise hinzu
+- fwd-timeout bei missgluecktem telnet fwd connect hinzu
+- Timeout bei NNTP geaendert, hoffentlich bleiben nun keine abgebrochenen
+  NNTP-sessions mehr als ewiger Prozess uebrig, wie z.B.:
+  74  0 77  101  0.8s 7h  5h (system)-20655s NNTP 445k         *
+  75  0 77  101  0.3s 7h  5h (system)-20648s NNTP 483k MEINUNG *
+  76  0 77  101  0.5s 7h  5h (system)-20651s NNTP 572k MEINUNG *
+  77  0 77  101  0.6s 7h  5h (system)-20657s NNTP 795k MEINUNG *
+  78  0 77  101  0.5s 7h  5h (system)-20643s NNTP 423k MEINUNG *   
+- IP-Nummer-Ausgabe bei NNTP, FTP, POP3, SMTP bei Befehl "u" hinzu - bislang
+  wurde diese nur bei HTTP und Telnet angezeigt
+- Uplink-Typ "TCP/IP" korrekterweise in "TELNET" umbenannt (wird z.B. bei
+  den Befehlen "u" und "ps" angezeigt)
+- Mailserv/Pocsagserver: "SERVER" bzw. "SERVERLIST" in "Group/Gruppe" 
+  umbenannt, dadurch auch andere Unterkommandos bei beiden Befehlen:
+    frueher    jetzt
+    ----------------
+    +L         +G
+    -L         -G
+    DELLIST    DELGROUP
+    ADDLIST    ADDGROUP
+- Patch von DF7CB hinzu, korrigiert vor allem Unzulaenglichkeiten im Source,
+  hat aber keine Auswirkungen auf die Funktion
+- diverse neue Eintraege in den messages.* Dateien aufgenommen, es sind 
+  nun unbedingt messages-Dateien > v1.07.01 (siehe erste Zeile einer Datei) 
+  zu verwenden!
+  
+obcm 1.07b2 (10.11.2006):
+-------------------------
+- "Error 404" bei HTTP-Login und Usereinstellung ALTER HTTPSURFACE 1 behoben
+- Bugfix: Erase+Reply bei HTTP wurde nicht aus messages.* uebernommen
+- anscheinend unnoetiges SEMA "Forward" entfernt
+- gelegentliche Abstuerze beim Logout per TCPIP (seit 1.07b1 zu finden) 
+  anscheinend wieder behoben
+- neuer Parameter "httpshowsysopcall" in init.bcm um zu Steuern, ob bei
+  Gast-Zugriff ueber das Webinterface das Sysoprufzeichen automatisch
+  erscheint oder nicht (Hintergrund: SPAM is moeglich)
+  (Sysop, init.bcm, nur Linux/Win32)
+  Syntax: HTTPSHOWSYSOPCALL [ 0 | 1 ]
+  (Vorgabe: 1)
+  Wenn "HTTPSHOWSYSOPCALL" auf den Wert 1 gesetzt ist, so wird einem 
+  Gast beim HTTP Menuepunkt "Schreibe Sysop" das Sysoprufzeichen gleich
+  vorgegeben. SPAM-Roboter koennen dies ausnutzen und dem Sysop unerwuenschte
+  Mails zukommen lassen.
+  Ist der Wert auf 0 gesetzt, so bleibt das Empfaengerfeld leer und der 
+  Absender muss das Sysoprufzeichen selber eintragen.
+  
+obcm 1.07b3 (17.12.2006):
+-------------------------
+- Bugfix: bei der Forward Option "-O" kam es zu gelegentlichen Abstuerzen,
+  nun durch Aenderung von remove_oldentry in fwd.cpp abgestellt
+- Bugfix: beim Mailserver/Mailimport von Binaerdateien wurde eine
+  Endlosschleife angestossen, da auf ein '#OK#' gewartet wurde, korrigiert
+- Bugfix: ein paar HTML-Syntaxfehler der HTTP-Oberflaeche korrigiert  
+- wenn in bcm/http eine Datei webmenu.gb (oder webmenu.dl o.ae.) existiert,
+  wird diese in der Weboberflaeche im unteren Menueteil mit ausgegeben.
+  Ein sinnvoller Inhalt dieser Datei ist z.B.:
+    <tr><td class="rubrik"><b>&nbsp;Special</b></td></tr>
+    <tr><td><a href="cmd?cmd=sysinfo">&nbsp;System info</a></td></tr>
+  Hier kann nun das externe Runutil "sysinfo" aufgerufen werden.
+  Moeglich ist aber auch ein Link auf eine ganz andere Seite etc.
+
+obcm 1.07b4 (01.04.2008):
+-------------------------
+- Socket-Timeout von 120 auf 10 Minuten
+- bei GUEST-Rufzeichen ist nun kein Versenden an SYSOP@verteiler mehr moeglich
+- "st f" zeigt nun auch Byte-Werte groesser 2147483647 Byte an
+- ftp_connect: ist kein Hostname bekannt, Fehlerausgabe "No hostname" 
+  (in socket.cpp)
+- beim Befehl "oldmail" wird nun beim Importieren auch convert.bcm 
+  beruecksichtigt  
+- http: <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  und <body> fuer bessere HTML-Kompatibilitaet im Header hinzu
+
+obcm 1.07b5 (28.02.2010):
+-------------------------
+- nur Linux: die bei neuen Linux-Systemen obsoleten Pseudo-TTY Terminals
+  sind nun durch /dev/ptmx /dev/pts/xx ersetzt (wird fuer OSHELL Aufrufe 
+  verwendet); will man unbedingt dennoch die alte Pseudo-TTY
+  Methode einsetzen, so ist vor dem Compilieren unter config.h
+  die Definition #define oldpty auszukommentieren
+- nur Linux: ist auf dem Linux System G++ 4.x installiert (bei neueren
+  Systemen ist dies default so), wird geschaut, ob noch alternativ ein
+  GCC-3.3 Paket installiert ist (bei OpenSUSE kann man z.B. gcc33 
+  zusaetzlich installieren) und falls ja, dies verwendet, da OpenBCM nicht
+  mit GCC Compilern >v3.4 compiliert werden kann.
+
+obcm 1.07b6 (03.02.2013):
+-------------------------
+(Patch von DG4MFN integriert):
+- nur Linux: Sourcecode dahingehend abgeaendert das er mit
+  GCC Compilern ab v4.x compiliert werden kann, werden aeltere
+  Compiler <v4.x eingesetzt , so ist der unveraenderte orginale
+  Sourcecode der obcm 107b5 zu verwenden,
+  dies betrifft nur Linux , unter Windows und DOS laesst sich der
+  von mir modifizierte Sourcecode genauso und ohne irgwendwelche
+  Unterschiede compilieren.
+
+obcm 1.07b7 (14.06.2013):
+-------------------------
+- Version zeigt nun aktuell Domain dnx274.org/baybox an, bei
+  HTTP Zugriff auch als Link
+
+obcm 1.07b8 (14.06.2013):
+-------------------------
+- Patch von OE5HPM integriert: 
+  "Ich habe vor einiger Zeit eine Erweiterung für die Mailbake eingebaut, damit 
+   diese nicht nur per AX25 ausgegben werden kann, sondern auch als File.
+   Ist dazu gut, um z.B.: auf einer HAMNET Webseite ungelesene Mails für User 
+   anzeigen zu können.
+   Siehe auch: http://web.oe5xbl.ampr.at (hamnet)
+   http://oe5xbl.hamspirit.at (Internet)"
+
+obcm 1.07b9 (15.06.2013):
+-------------------------
+- da die it GCC4.x compilierte Linux version bei "log -z" abstuerzt, ist
+  erstmal wieder der Support fuer GCC3.x Versionen implementiert.
+
+obcm 1.07b10 (15.06.2013):
+-------------------------
+- Korrektur smtp.cpp: Source liess sich nicht ohne DF3VI_POCSAG Option
+  compilieren
+
+obcm 1.07b11 (16.06.2013):
+-------------------------
+- Patch from dg4mfn: 
+  memalloc fix for GCC 4.x
+
+obcm 1.07b12 (03.07.2013):
+-------------------------
+- Additional change memalloc
+- makefile for Linux now with m32 option for compiling with gcc 64bit system
+- Patch OE5HPM: beseitigt Abstuerze bei "fs h" und "mail h" in help.cpp
+  bei Verwendung von GCC 4.x Compiler unter Linux
+
+
+
+
+dringend TODO fuer naechste Version:
+- gelegentliche Abstuerze beim Ausloggen von Stationen untersuchen und
+  abstellen
+- Bug reject.bcm: wird ein Mailboxrufzeichen angegeben und steht dies in
+  der Rejectliste mit "R @call" so wird es korrekt rejected, ist die Mailbox
+  hingegen eine Homebbs und wird nicht explizit angegeben, so wird die
+  Mail akzeptiert
+
+
+TODO-Liste fuer spaetere Versionen:
+- speech.bcm: fehlt eine Zeile, dann default Datei erstellen
+- messages.*: Konsistenz-Pruefung gegen segment faults bei Tippfehlern!
+- Lifetime bei Mails aus der Zukunft (-> DB0II)
+- Batchausgaben nicht sichtbar bei Runutils
+- ggf. auch bei U in fwd.bcm Forward von WPROT-Bulletins?
+- ohne gestartetem DNS-Client Service unter Windows Absturz der Mailbox
+- bei RLI-Diebox-Fwd kommt es nach Neustart der Mailboxsoft von DB0ZDF zu 
+  Usermail-Dubletten, Ursache bislang unbekannt
+- BID-Datenbank-Eintraege nach TRANSFER bzw. CONVERT: hier steht immer
+  die Rubrik zum Zeitpunkt der BID-Aufnahme - in Ordnung?
+- ACTIVE-Routing:
+   - Phantom-Calls (=Partner ohne ACTIVE ROUTING) minus 15 Stunden 
+     fixem Aging
+   - ist direkter Fwd-Partner kein Active Routing Partner mehr (z.B. wegen
+     kurzfristigem Ausfall), dann auch bei anderen Boxen wo dieser Partner
+     Active-Routing-Partner waere, das Active Routing ausschalten? Kann aber
+     zu Pingpong mit Nachbarbox fuehren, macht das Sinn?
+- haengende HTTP-Sessions bei Gebrauch des IE, wenn dort sehr schnell 
+  nacheinander "Refresh" angeklickt wird, bei Firefox+Opera scheint dies 
+  keine Probleme zu verursachen. Betroffen ist nur der Winsock-Socket der 
+  Windows-Version von OpenBCM, unter Linux generell keine Probleme 
+  (siehe auch ETHEREAL-Mitschnitt von DF8NZ)
+- Gleichzeitiger Telnet-Fwd zu zwei Stationen fuehrt wohl dazu, dass bei 
+  beiden ausgehenden Connects die selbe Ziel-IP-Nummer benutzt wird (-> siehe 
+  auch Mail von SP1LOP:
+27.02.05 12:14:53z SR7BBS: #R fwdsend: SR7BBS 
+                              (SR1BSZ-9 > TELNET:195.205.42.201:6300)
+27.02.05 12:14:53z SR7BBS: #R telnet_fwd_connect: 
+                              Connecting to 195.205.42.201 (195.205.42.201)
+                                            with port 6300
+27.02.05 12:14:53z SR7DWL: #R fwdsend: SR7DWL 
+                              (SR1BSZ-8 > TELNET:80.51.179.67:4719)
+27.02.05 12:14:53z SR7DWL: #R telnet_fwd_connect: 
+                              Connecting to 80.51.179.67 (80.51.179.67) 
+                                            with port 4719
+27.02.05 12:14:53z SR7BBS: #R telnet_fwd_connect: ok 80.51.179.67:6300
+27.02.05 12:14:54z SR7DWL: #R telnet_fwd_connect: ok 80.51.179.67:4719  
+- HTTP: Sysopierung per HTTP, nach Erfolg zusaetzliche Menuepunkte fuer
+  Sysopgebrauch (evtl per Cookie?)
+- BINSPLIT-Auslesen komplettieren
+- BCAST von OE3DZW komplettieren
+- COMP Userbefehl "nach Huffmann" zur Datenreduktion komplettieren
+- CW-Morsed
+- LINUXSYSTEMUSER fuer statisches Kompilat unter Linux
+- NNTP: Implementierung von NEWGROUPS, IHAVE...
+- NNTP: POST - Import von binaeren Attachments
+- WPROT: Verlauf WPROT Quality-Darstellung aus LOGFiles einbauen?
+- DOS-Version:
+  mehrere Befehle in einer Zeile getrennt durch ";" funktionieren nicht,
+  wenn man sie direkt an der Konsole eingibt, via Funk geht es aber!
+- HTTP: Fileattach fuer Mails einbauen
+- HTTP/POP/NNTP: bei mehreren angehaengten 7+ Files wird nur das erste File
+  ausgegeben (Funktion sendencbin in read.cpp)
+- Linux(/WinNT?)-Version: Sende/Empfangsroutinen fuer File-Forward
+  direkt in Source implementieren, so das externe Tools ueberfluessig werden
+- Wird eine Mail eingespielt, die auf Hold gesetzt wird, wird trotzdem S&F
+  zur Nachbarmailbox angestossen um dann festzustellen, dass die Mail nicht
+  geforwarded werden darf. Und das vermutlich regelmaessig jede halbe Stunde.
+- CB-BCMNET fwdimport: Erkennen, ob der Import von einer CB-BCMNET Mailbox
+  stammt
+- CB-BCMNET Implementierung: "unsichtbares Hold"
+- _BCMNET_LOGIN: Eine Nachricht die lokal ohne Verteiler eingespielt wird,
+  wird nicht als HOLD "Z" markiert. Das werden wir spaeter aber fuer
+  "unsichtbares Hold" brauchen.
+- Wunsch DJ1XK: MITSCHNITT-Funktion von Ein-/Ausgaben einer Task in eine
+  Datei mit beliebigen Namen wuenschenswert, dabei Auswertung eines
+  Empfangsstrings und abhaengig davon neue Befehle senden (ist das ggf per
+  Makro machbar, wie ist der Stand der Makrosprache ueberhaupt?):
+     "um Daten von draussen reinzuholen waere der bewusste Mitschnitt
+      notwendig - allerdings ist es dazu auch notwendig, irgendeine
+      Scriptsprache (wie bei SP975 in den DO-Files) zu haben, um sich
+      auf Token im mitgeschnittenen String aufsynchronisieren zu koennen
+      - wie sonst soll man wissen, wann die abgeholten Daten "drin" sind ?
+      Die Scriptsprache muesste also erlauben, ein READ-Kommando an die
+      fremde Station zu senden und das naechste Kommando (zum Auswerten
+      des Mitschnitts) erst dann loszulassen, wenn ein Prompt-Token
+      empfangen wurde."
+- Wunsch DJ1XK: bei D N sollen auch Subboards mit Header und ggf. Beschreibung
+  aufgelistet werden, nicht nur die Hauptboards (neue DIR Option?)      
+- wenn der Autorouter eine Route zum Ziel findet, missachtet er Board-Rejects.
+  Eine Mail an TEST@DB0SL wird geforwardet, obwohl durch *TEST in der fwd.bcm
+  rejected. Ein TEST@DL ist kein Problem, da der Autorouter keine Verteiler
+  routet, der Bug faellt deshalb kaum auf. Das Problem liegt am Ende von
+  weiterleiten4 in mbfwd.bcm und laesst sich nur mit groesserem Aufwand fixen.
+- Port zum Rausconnecten ist blockiert, wenn man per Funk z.B. von der
+  Box mit "CONN" zurueckconnecten will. Warum wird nicht ein anderer
+  Port genommen? Dies ist auch verwirrend beim Testen von Skripten, die 
+  rausconnecten sollen.
+- FTP: Windows: Verknuepfungen ermoeglichen auf z.B. zusaetzliches CD-ROM.
+- FTP: PASV Befehl implementieren
+- komplette englische Doku
+- DFWD implementieren? siehe auch erste Implementationen hierzu in DPBox
+
+

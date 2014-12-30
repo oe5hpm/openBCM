@@ -1,0 +1,92 @@
+Source archiv Open-Baycom-Mailbox (OpenBCM)
+
+-----------------------------------------------------------------------------
+README in english language
+-----------------------------------------------------------------------------
+General notes:
+- Have a look at config.h to switch on/off some features (default is
+  an optimate selection, but perhaps you want to use/not use some other
+  features).
+- Read file "changes.txt" carefully, what has been changed
+- After first start of a new version, check init.bcm for changed features
+
+Hints for Linux user:
+- you need GCC v4.x or higher, GCC <v4.x is NOT working
+- look at makefile for some compiling options (dynamic or static).
+- do a 'make' under linux to compile
+- if you get some errors (warnings can be ignored) make sure
+  that you have installed all compiler components
+- to compile without Layer2 use:
+  make -f makefile.nol2
+
+Hints for Windows user:
+- you need Microsoft Visual C++ 5.0 or 6.0 (english version!) for compiling
+- you have to open workspace file bcm32.dsw and then compile with key F7
+
+Hints for DOS user:
+- you need Borland C++ DOS compiler
+- you have to open project file bcm.prj and then compile with key F9
+-----------------------------------------------------------------------------
+README in deutscher Sprache
+-----------------------------------------------------------------------------
+Allgemeine Hinweise:
+- zunaechst die Datei config.h ueberpruefen, um ggf. Zusatzoptionen
+  an- bzw. abzuwaehlen
+- als naechstes einen Blick in die Datei changes.txt werfen, um festzustellen
+  was sich geaendert
+- nach dem ersten Start der neuen Version die Datei init.bcm ueberpruefen,
+  ggf. sind hier neue Parameter hinzugekommen oder alte weggefallen
+
+Tips fuer Linux-User:
+- es wird zum Compilieren GCC 4.x oder groesser benoetigt, GCC <v4.x geht
+  NICHT!
+- in der Datei makefile kann man ein paar Compiler-Optionen anpassen
+  (z.B. dynamisches oder statisches Compilat)
+- zum Compilieren ist "make" einzugeben
+- falls Fehlermeldungen beim Compilieren erscheinen (Warnungen koennen
+  ignoriert werden), so ist zu Ueberpruefen, ob alle Compilerkomponenten
+  installiert wurden, oder ob eine zu neue GCC Compilerversion eingesetzt
+  wird
+- um die Software ohne Layer2-Support zu compilieren ist folgendes
+  einzugeben:     make -f makefile.nol2
+
+Tips fuer Windows-User:
+- es wird der Compiler Microsoft Visual C++ 5.0 oder 6.0 (englische Version!)
+  benoetigt
+- die Workspace-Datei bcm32.dsw ist zu oeffnen, und danach ist mit
+  Taste F7 zu compilieren
+
+Tips fuer DOS-User:
+- es wird der Compiler Borland C++ DOS benoetigt
+- die Projektdatei bcm.prj ist zu oeffnen, und danach ist mit Taste F9 zu
+  compilieren
+-----------------------------------------------------------------------------
+README sur langue francaise
+-----------------------------------------------------------------------------
+Notes générales:
+- Aller voir config.h pour commuter "Marche/Arrêt" quelques dispositifs
+  (le défaut est un choix d'optimate, mais peut-être vous voulez pour
+  employer/pas utilisation de plusieurs dispositifs).
+- Lire le fichier changes.txt soigneusement, ce qui a été changé.
+- Après le premier démarrage d'une nouvelle version, vérifier le fichier
+  init.bcm pour les dispositifs à changer.
+
+Conseils pour l'utilisateur de Linux:
+- vous avez besoin de GCC v4.x ou version ultérieure, GCC <v4.x ne march pas
+- regarder le fichier makefile pour la compilation options (dynamique ou
+  statique).
+- faire un "make" sous linux pour compiler.
+- si vous obtenez quelques erreurs (des avertissements peuvent être
+  ignorés) vous assurez que vous avez installé tous les composants du
+  compilateur.
+- pour compiler sans l'utilisation du Layer2:
+  éxecuter "make - f makefile.nol2"
+
+Conseils pour l'utilisateur de Windows:
+- vous avez besoin Microsoft C++ visuel 5.0 ou 6.0 (version anglaise !)
+  pour la compilation.
+- le ficher-projet de bcm32.dsw est inclus, éxecuter F7
+
+Conseils pour l'utilisateur de DOS:
+- vous compilateur de DOS de Borland C++ du besoin
+- le fichier-projet de bcm.prj est inclus, éxecuter F9
