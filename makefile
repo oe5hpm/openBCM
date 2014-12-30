@@ -1,18 +1,31 @@
 #
 # Makefile for OpenBCM-Mailbox
 GPP_VERSION3 := \
-  $(shell g++ --version | grep g++ | sed 's/g++ (.*) //g' | sed 's/\..*//' | grep 3)
+  $(CROSS_COMPILE)$(shell g++ --version | grep g++ | sed 's/g++ (.*) //g' | sed 's/\..*//' | grep 3)
 GPP_VERSION33 := \
-  $(shell g++-3.3 --version | grep g++ | sed 's/g++-3.3 (.*) //g' | sed 's/\..*//' | grep 3)
+  $(CROSS_COMPILE)$(shell g++-3.3 --version | grep g++ | sed 's/g++-3.3 (.*) //g' | sed 's/\..*//' | grep 3)
 GPP_VERSION4 := \
-  $(shell g++ --version | grep g++ | sed 's/g++ (.*) //g' | sed 's/\..*//' | grep 4)
+  $(CROSS_COMPILE)$(shell g++ --version | grep g++ | sed 's/g++ (.*) //g' | sed 's/\..*//' | grep 4)
 
 ifeq "$(GPP_VERSION33)" "3"
   CC = g++-3.3
   LD = $(CC)
 else
-  CC = g++
+  CC = $(CROSS_COMPILE)g++
   LD = $(CC)
+endif
+# ---------------------- armv6 (raspberry) specific ---------------------------
+ifeq ($(PLATTFORM), armv6)
+ARCHSPEC = -march=armv6zk -mfpu=vfp -mfloat-abi=hard -mcpu=arm1176jzf-s
+LFLAGS =
+# ---------------------- armv7hf (bur am335x pp) specific ---------------------
+else ifeq ($(PLATTFORM), armv7hf)
+ARCHSPEC = -march=armv7-a -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a8
+LFLAGS = 
+# -------------------------- x86 (default) specific ---------------------------
+else
+ARCHSPEC = -m32
+LFLAGS   = -m32
 endif
 
 INC =
@@ -20,8 +33,8 @@ LIB =
 PROGRAM = bcm
 #-----------------------------------------------------------
 # uncomment desired options:
-LD_OPT = -dynamic -m32
-#LD_OPT = -static -m32
+LD_OPT = -dynamic $(LFLAGS)
+#LD_OPT = -static $(LFLAGS)
 # use static option if you compile with other linux as later running
 #
 # -lm math library is needed for wx-station
@@ -41,7 +54,7 @@ ifeq "$(GPP_VERSION4)" "4"
   ifeq "$(GPP_VERSION33)" "3"
     override OPT = -m32 -mcpu=i486 -O2 -fno-delete-null-pointer-checks -funsigned-char -fwritable-strings
   else
-    override OPT = -m32 -fno-delete-null-pointer-checks -funsigned-char 
+    override OPT = -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
     override OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused -Wreturn-type -Wno-write-strings 
   endif
 endif
@@ -140,6 +153,7 @@ endif
 $(PROGRAM): prepare $(L2_OBJ) $(BCM_OBJ)
 	@echo Linking OpenBCM version $(VERSION)...
 	$(LD) -o $(PROGRAM) $(L2_OBJ) $(BCM_OBJ) $(LD_OPT)
+	$(CROSS_COMPILE)strip $(PROGRAM)
 
 lib:    libbcm.a
 

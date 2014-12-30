@@ -25,11 +25,11 @@
 #include <dirent.h>
 #include <pwd.h>
 
-#ifndef __sparc__       //Always Assembler .... F1ULQ
+#if !defined(__sparc__) && !defined(__arm__)      //Always Assembler .... F1ULQ
 #define ad_setsp(sp) register unsigned _esp asm("esp");_esp=(unsigned)(sp);
 #endif
 
-#ifdef __sparc__        //Dummy for Sparc ..... F1ULQ
+#if defined(__sparc__) || defined (__arm__)        //Dummy for Sparc ..... F1ULQ
 #define ad_setsp(sp) register unsigned _esp asm("sp");_esp=(unsigned)(sp);
 #endif
 
