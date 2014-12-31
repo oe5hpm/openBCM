@@ -24,7 +24,7 @@ ARCHSPEC = -march=armv7-a -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a8
 LFLAGS = 
 # -------------------------- x86 (default) specific ---------------------------
 else
-ARCHSPEC = -m32
+ARCHSPEC = -m32 -mtune=i486
 LFLAGS   = -m32
 endif
 
@@ -45,14 +45,14 @@ LD_OPT = -dynamic $(LFLAGS)
 DEBUG = -g
 #-----------------------------------------------------------
 LD_OPT += -lcrypt
-OPT = -mcpu=i486 -O2 -fno-delete-null-pointer-checks -funsigned-char -fwritable-strings
+OPT = -O2 -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
 
 OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused \
 	   -Wreturn-type -Wno-write-strings -Wuninitialized -Wswitch -Wshadow
 
 ifeq "$(GPP_VERSION4)" "4"
   ifeq "$(GPP_VERSION33)" "3"
-    override OPT = -m32 -mcpu=i486 -O2 -fno-delete-null-pointer-checks -funsigned-char -fwritable-strings
+    override OPT = -O2 -fno-delete-null-pointer-checks -funsigned-char -fwritable-strings $(ARCHSPEC)
   else
     override OPT = -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
     override OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused -Wreturn-type -Wno-write-strings 
