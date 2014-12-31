@@ -76,7 +76,7 @@ void cfgflex (char * befbuf)
             promptz--; // zaehlt prompts rueckwaerts
           if (! strncmp(line, "***", 3))
             promptz = 0; // link failure
-          fprintf(g, line);
+          fprintf(g, "%s", line);
           fputc(LF, g);
         }
       }

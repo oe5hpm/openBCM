@@ -180,7 +180,7 @@ static void near logbuch (void)
     if (logf)
     {
       fseek(logf, 0, SEEK_END);
-      if (! ftell(logf)) fprintf(logf, logkopf);
+      if (! ftell(logf)) fprintf(logf, "%s", logkopf);
       fprintf(logf, "%-6.6s %-14.14s", b->logincall,
                                        datestr(b->logintime, 10));
 #if defined __DOS16__ && defined OLDTIMEFMT
