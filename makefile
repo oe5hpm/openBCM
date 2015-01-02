@@ -1,11 +1,11 @@
 #
 # Makefile for OpenBCM-Mailbox
 GPP_VERSION3 := \
-  $(CROSS_COMPILE)$(shell g++ --version | grep g++ | sed 's/g++ (.*) //g' | sed 's/\..*//' | grep 3)
+  $(shell $(CROSS_COMPILE)g++ --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 3)
 GPP_VERSION33 := \
-  $(CROSS_COMPILE)$(shell g++-3.3 --version | grep g++ | sed 's/g++-3.3 (.*) //g' | sed 's/\..*//' | grep 3)
+  $(shell $(CROSS_COMPILE)g++-3.3 --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 3)
 GPP_VERSION4 := \
-  $(CROSS_COMPILE)$(shell g++ --version | grep g++ | sed 's/g++ (.*) //g' | sed 's/\..*//' | grep 4)
+  $(shell $(CROSS_COMPILE)g++ --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 4)
 
 ifeq "$(GPP_VERSION33)" "3"
   CC = g++-3.3
