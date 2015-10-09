@@ -1,5 +1,16 @@
 #
 # Makefile for OpenBCM-Mailbox
+HOSTARCH := $(shell uname -m | \
+	sed -e s/i.86/x86/ \
+	    -e s/sun4u/sparc64/ \
+	    -e s/arm.*/arm/ \
+	    -e s/sa110/arm/ \
+	    -e s/ppc64/powerpc/ \
+	    -e s/ppc/powerpc/ \
+	    -e s/macppc/powerpc/\
+	    -e s/sh.*/sh/)
+export HOSTARCH
+
 GPP_VERSION3 := \
   $(shell $(CROSS_COMPILE)g++ --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 3)
 GPP_VERSION33 := \
@@ -23,7 +34,7 @@ else ifeq ($(PLATTFORM), armv7hf)
 ARCHSPEC = -march=armv7-a -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a8
 LFLAGS = 
 # -------------------------- x86 (default) specific ---------------------------
-else
+else ifeq ($(HOSTARCH), x86_64)
 ARCHSPEC = -m32 -mtune=i486
 LFLAGS   = -m32
 endif
