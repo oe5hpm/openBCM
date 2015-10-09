@@ -35,7 +35,7 @@ ARCHSPEC = -march=armv7-a -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a8
 LFLAGS = 
 # -------------------------- x86 (default) specific ---------------------------
 else ifeq ($(HOSTARCH), x86_64)
-ARCHSPEC = -m32 -mtune=i486
+ARCHSPEC = -m32
 LFLAGS   = -m32
 endif
 
