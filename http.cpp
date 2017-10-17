@@ -956,7 +956,7 @@ void httpd::put_header (char *title)
     else
       html_putf("<meta name=\"ROBOTS\" content=\"NOINDEX,NOFOLLOW\">\n");
     html_putf("<meta http-equiv=\"expires\" content=\"0\">\n");
-    html_putf("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\n");
+    html_putf("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Shift_JIS\">\n");
     html_putf("<title>%s - %s</title>", m.boxname, title);
     if (httpsurface == 1)
     {

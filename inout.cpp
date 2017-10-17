@@ -262,7 +262,7 @@ void putv (int c)
     }
   }
 #ifdef __FLAT__
-  if (b && b->charset) c = charset_tx(c);
+//  if (b && b->charset) c = charset_tx(c);
 #endif
   if (c == LF)
   {
