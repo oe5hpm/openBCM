@@ -349,7 +349,7 @@ int rmboard (char *fullname)
 
 /*---------------------------------------------------------------------------*/
 
-int mkboard (char *mainboard, char *newboard, int sameboard)
+int mkboard(char *mainboard, char *newboard, int sameboard)
 //*************************************************************************
 //
 //  Erzeugt ein neues Board. Angegeben wird
@@ -361,49 +361,73 @@ int mkboard (char *mainboard, char *newboard, int sameboard)
 //    1     Hauptboard nicht gefunden
 //    2     Baum voll
 //    3     Board schon vorhanden
-//    4     Boardname ungültig
+//    4     Boardname ungueltig
 //
 //*************************************************************************
 {
-  unsigned i = 0;
-  char name[40];
-  char *sl;
+	unsigned i = 0;
+	char name[40];
+	char *sl;
+	char *mboard;
+	char *nboard;
 
-  if (treelen >= MAXTREEENTRIES)
-  {
-    trace(serious, "mkboard", "too many boards %s", newboard);
-    return 2; //tree full
-  }
-  strupr(mainboard);
-  strupr(newboard);
-  if (! *newboard || *newboard == '/' || strlen(newboard) > 8
-      || strlen(mainboard) > 20)
-    return 4; //board invalid
-  if (! sameboard && finddir(newboard, 1)) return 3; //board exists
-  if (*mainboard == '/') *mainboard = 0;
-  *name = 0;
-  if (*mainboard)
-  {
-    while (strcmp(tree[i].name, mainboard))
-      if (++i >= treelen) return 1; //mainboard not found
-    strncpy(name, mainboard, 20);
-    name[20] = 0;
-    strcat(name, "/");
-  }
-  strcat(name, newboard);
-  strcpy(tree[treelen].name, name);
-  sl = strrchr(tree[treelen].name, '/');
-  if (sl)
-    tree[treelen].flatoffset = (byte) (sl + 1 - tree[treelen].name);
-  else
-    tree[treelen].flatoffset = 0;
-  tree[treelen].newestmail = 0;
-  tree[treelen].lifetime_min = 1;
-  tree[treelen].lifetime_max = m.infolife;
-  treelen++;
-  treesort();
-  mbtreesave();
-  return 0;
+	if (treelen >= MAXTREEENTRIES) {
+		trace(serious, "mkboard", "too many boards %s", newboard);
+		return 2; /* tree full */
+	}
+
+	mboard = strdup(mainboard);
+	nboard = strdup(newboard);
+	strupr(mboard);
+	strupr(nboard);
+
+	if (!*nboard || *nboard == '/' ||
+	    strlen(nboard) > 8 || strlen(mboard) > 20) {
+		free(nboard);
+		free(mboard);
+
+		return 4; /* board invalid */
+	}
+
+	if (!sameboard && finddir(nboard, 1)) {
+		free(mboard);
+		free(nboard);
+
+		return 3; /* board exists */
+	}
+
+	if (*mboard == '/')
+		*mboard = 0;
+	*name = 0;
+	if (*mboard) {
+		while (strcmp(tree[i].name, mboard))
+			if (++i >= treelen) {
+				free(mboard);
+				free(nboard);
+
+				return 1; /* mainboard not found */
+			}
+		strncpy(name, mboard, 20);
+		name[20] = 0;
+		strcat(name, "/");
+	}
+	strcat(name, nboard);
+	strcpy(tree[treelen].name, name);
+	sl = strrchr(tree[treelen].name, '/');
+	if (sl)
+		tree[treelen].flatoffset = (byte) (sl + 1 - tree[treelen].name);
+	else
+		tree[treelen].flatoffset = 0;
+	tree[treelen].newestmail = 0;
+	tree[treelen].lifetime_min = 1;
+	tree[treelen].lifetime_max = m.infolife;
+	treelen++;
+	treesort();
+	mbtreesave();
+	free(mboard);
+	free(nboard);
+
+	return 0;
 }
 
 /*---------------------------------------------------------------------------*/
