@@ -56,7 +56,7 @@ LD_OPT = -dynamic $(LFLAGS)
 DEBUG = -g
 #-----------------------------------------------------------
 LD_OPT += -lcrypt
-OPT = -O2 -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
+OPT = -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
 
 OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused \
 	   -Wreturn-type -Wno-write-strings -Wuninitialized -Wswitch -Wshadow
