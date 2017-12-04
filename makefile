@@ -18,6 +18,8 @@ GPP_VERSION33 := \
 GPP_VERSION4 := \
   $(shell $(CROSS_COMPILE)g++ --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 4)
 
+GIT_VERSION := $(shell git describe --abbrev=5 --dirty --always --tags)
+
 ifeq "$(GPP_VERSION33)" "3"
   CC = g++-3.3
   LD = $(CC)
@@ -56,7 +58,7 @@ LD_OPT = -dynamic $(LFLAGS)
 DEBUG = -g
 #-----------------------------------------------------------
 LD_OPT += -lcrypt
-OPT = -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
+OPT = -fno-delete-null-pointer-checks -funsigned-char -DGITVERSION=\"$(GIT_VERSION)\" $(ARCHSPEC)
 
 OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused \
 	   -Wreturn-type -Wno-write-strings -Wuninitialized -Wswitch -Wshadow
