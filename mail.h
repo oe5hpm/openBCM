@@ -72,10 +72,15 @@
 
 /*---------------------------------------------------------------------------*/
 
+#ifndef GITVERSION
+#warning "no GIT version available, using a dummy g????"
+#define GITVERSION	"?????"
+#endif
+
 #undef  VNUMMER
 #define VNUMMER         "1.07b12"
 #define STD_BOXHEADER   "OpenBCM"
-#define LOGINSIGN       STD_BOXHEADER" V"VNUMMER" ("GITVERSION") ("OPSYSTEM")"
+#define LOGINSIGN       STD_BOXHEADER" V"VNUMMER" (g"GITVERSION") ("OPSYSTEM")"
 #define AUTHOR_ID	"(c) GNU GPL 1992-"YEAR" F. Radlherr, DL8MBT et al.\n" \
                         "OpenBCM is maintained by Markus Baumann, DH8YMB\n"
 
