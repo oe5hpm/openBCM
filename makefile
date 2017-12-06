@@ -67,7 +67,7 @@ ifeq "$(GPP_VERSION4)" "4"
   ifeq "$(GPP_VERSION33)" "3"
     override OPT = -O2 -fno-delete-null-pointer-checks -funsigned-char -fwritable-strings $(ARCHSPEC)
   else
-    override OPT = -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
+    override OPT = -fno-delete-null-pointer-checks -funsigned-char -DGITVERSION=\"$(GIT_VERSION)\" $(ARCHSPEC)
     override OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused -Wreturn-type -Wno-write-strings 
   endif
 endif
