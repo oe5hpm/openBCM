@@ -1437,11 +1437,20 @@ static void read_file (int mode)
 #endif
           if (*line != LF && *line != CR)
           {
+            bodypos = ftell(f);
 #ifdef __FLAT__
             if (! b->headermode || transf)
 #endif
-              putf("%s", line);
-            bodypos = ftell(f);
+            {
+              if (strlen(line) > 80) {
+                trace(serious,
+                      "read",
+                      "expected hdr, already within content.");
+                 bodypos = ftell(f) - strlen(line);
+              } else {
+                 putf("%s", line);
+              }
+            }
           }
           if (! strncasecmp(line, "from", 4)) fromagain = 1;
           if (! strncasecmp(line, "to", 2)) toagain = 1;

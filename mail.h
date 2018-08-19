@@ -78,7 +78,7 @@
 #endif
 
 #undef  VNUMMER
-#define VNUMMER         "1.07b12"
+#define VNUMMER         "1.07b13"
 #define STD_BOXHEADER   "OpenBCM"
 #define LOGINSIGN       STD_BOXHEADER" V"VNUMMER" (g"GITVERSION") ("OPSYSTEM")"
 #define AUTHOR_ID	"(c) GNU GPL 1992-"YEAR" F. Radlherr, DL8MBT et al.\n" \

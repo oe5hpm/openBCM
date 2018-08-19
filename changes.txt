@@ -2068,7 +2068,10 @@ obcm 1.07b12 (03.07.2013):
 - Patch OE5HPM: beseitigt Abstuerze bei "fs h" und "mail h" in help.cpp
   bei Verwendung von GCC 4.x Compiler unter Linux
 
-
+obcm 1.07b13 (19.08.2018):
+-------------------------
+- fix abort on missing header in bulletin and keywords "from, to, ..." within
+  content.
 
 
 dringend TODO fuer naechste Version:
