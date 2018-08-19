@@ -129,7 +129,7 @@ int get_qsonum(void);
 char *get_version(void);
 
 mheard_t *get_mhlist(void);
-long get_ticker(void);
+time_t get_ticker(void);
 
 /* management functions, SET-operation */
 void set_partner(char *call);
