@@ -73,8 +73,12 @@
 /*---------------------------------------------------------------------------*/
 
 #ifndef GITVERSION
-#warning "no GIT version available, using a dummy g????"
-#define GITVERSION	"?????"
+#ifdef _WIN32
+ #include "gitversion.h"
+#else
+ #warning "no GIT version available, using a dummy g????"
+ #define GITVERSION	"?????"
+#endif
 #endif
 
 #undef  VNUMMER

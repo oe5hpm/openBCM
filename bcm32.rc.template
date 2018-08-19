@@ -39,12 +39,12 @@ TTYICON                 ICON    DISCARDABLE     "BCM32.ICO"
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE DISCARDABLE
 BEGIN
     "resrc1.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE DISCARDABLE
 BEGIN
     "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
     "#include ""windows.h""\r\n"
@@ -53,7 +53,7 @@ BEGIN
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE DISCARDABLE
 BEGIN
     "\r\n"
     "\0"
@@ -88,14 +88,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "BayCom Group & Friends\0"
             VALUE "FileDescription", "OpenBCM Packet-Radio Mailbox WindowsNT/2000/XP\0"
-            VALUE "FileVersion", "1, 0, 7, 11\0"
+            VALUE "FileVersion", "1, 0, 0, 0\0"
             VALUE "InternalName", "bcm32\0"
             VALUE "LegalCopyright", "Copyright © 1991-2013 by Florian Radlherr et al.\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "bcm32.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "bcm32\0"
-            VALUE "ProductVersion", "1.07b11\0"
+            VALUE "ProductVersion", "_productversion_\0"
             VALUE "SpecialBuild", "\0"
         END
     END

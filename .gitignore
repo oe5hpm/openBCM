@@ -2,6 +2,16 @@
 bcm
 .cproject
 .project
+*.ncb
+*.sln
+*.suo
+*.sdf
+*.aps
+*.res
+*.opensdf
+*.vcxproj.user
+gitversion.h
+bcm32.rc
 Debug/*
 
 
