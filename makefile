@@ -1,4 +1,4 @@
-#
+
 # Makefile for OpenBCM-Mailbox
 HOSTARCH := $(shell uname -m | \
 	sed -e s/i.86/x86/ \
@@ -58,7 +58,7 @@ LD_OPT = -dynamic $(LFLAGS)
 DEBUG = -g
 #-----------------------------------------------------------
 LD_OPT += -lcrypt
-OPT = -fno-delete-null-pointer-checks -funsigned-char -DGITVERSION=\"$(GIT_VERSION)\" $(ARCHSPEC)
+OPT = -fno-delete-null-pointer-checks -funsigned-char -DGITVERSION=\"$(GIT_VERSION)\" $(ARCHSPEC) -std=gnu++98
 
 OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused \
 	   -Wreturn-type -Wno-write-strings -Wuninitialized -Wswitch -Wshadow
