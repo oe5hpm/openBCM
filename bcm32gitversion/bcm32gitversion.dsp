@@ -28,7 +28,7 @@ CFG=bcm32gitversion - Win32 Debug
 
 !IF  "$(CFG)" == "bcm32gitversion - Win32 Release"
 
-# PROP BASE Use_MFC
+# PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
 # PROP BASE Output_Dir "Release"
 # PROP BASE Intermediate_Dir "Release"
@@ -37,19 +37,18 @@ CFG=bcm32gitversion - Win32 Debug
 # PROP BASE Target_File "bcm32gitversion.exe"
 # PROP BASE Bsc_Name "bcm32gitversion.bsc"
 # PROP BASE Target_Dir ""
-# PROP Use_MFC
+# PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "Release"
 # PROP Intermediate_Dir "Release"
 # PROP Cmd_Line "gitversion.bat"
 # PROP Rebuild_Opt ""
-# PROP Target_File "gitversion.h"
 # PROP Bsc_Name ""
 # PROP Target_Dir ""
 
 !ELSEIF  "$(CFG)" == "bcm32gitversion - Win32 Debug"
 
-# PROP BASE Use_MFC
+# PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
 # PROP BASE Output_Dir "Debug"
 # PROP BASE Intermediate_Dir "Debug"
@@ -58,13 +57,12 @@ CFG=bcm32gitversion - Win32 Debug
 # PROP BASE Target_File "bcm32gitversion.exe"
 # PROP BASE Bsc_Name "bcm32gitversion.bsc"
 # PROP BASE Target_Dir ""
-# PROP Use_MFC
+# PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
 # PROP Cmd_Line "gitversion.bat"
 # PROP Rebuild_Opt ""
-# PROP Target_File "gitversion.h"
 # PROP Bsc_Name ""
 # PROP Target_Dir ""
 

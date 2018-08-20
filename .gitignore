@@ -11,7 +11,8 @@ bcm
 *.opensdf
 *.plg
 *.vcxproj.user
-gitversion.h
+*.sym
+gitver.h
 bcm32.rc
 Debug/*
 

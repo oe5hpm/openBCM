@@ -73,8 +73,8 @@
 /*---------------------------------------------------------------------------*/
 
 #ifndef GITVERSION
-#ifdef _WIN32
- #include "gitversion.h"
+#if defined(_WIN32) || defined(__MSDOS__)
+ #include "gitver.h"
 #else
  #warning "no GIT version available, using a dummy g????"
  #define GITVERSION	"?????"
