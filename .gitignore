@@ -9,6 +9,7 @@ bcm
 *.aps
 *.res
 *.opensdf
+*.plg
 *.vcxproj.user
 gitversion.h
 bcm32.rc

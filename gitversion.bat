@@ -1,4 +1,6 @@
 @echo off
+cd /d "%~dp0"
+
 "C:\Programme\Git\bin\git.exe" describe --tags --abbrev=7 --always --dirty > gitversion.h
 set /p VAR=<gitversion.h
 echo #define GITVERSION ^"%VAR%^" > gitversion.h
