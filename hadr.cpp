@@ -560,7 +560,7 @@ int update_hadr (char *headerline, int hops, int uplink)
       }
       if (! strcmp(adrname, m.boxname))
       { //dummy for local bbs
-        // folgender Dummy-Aufruf von makeheader verhindert Speicherüberlauf
+        // folgender Dummy-Aufruf von makeheader verhindert Speicherueberlauf
         // von ha->lastheader[61] bei zu langem m.boxheader[60] (db1ras)
         makeheader(1);
         sprintf(ha->lastheader, "[%s] "BCMLOGO VNUMMER, m.boxheader);

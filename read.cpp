@@ -583,7 +583,7 @@ int markerased (char reason, int unerase, int checkerase)
       }
       else
 */
-    fwrite(b->line, len, 1, f); // Forwardzeile zurückschreiben
+    fwrite(b->line, len, 1, f); // Forwardzeile zurueckschreiben
     s_fclose(f);
   }
   else notfound++;

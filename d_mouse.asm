@@ -9,7 +9,7 @@
 ;
 ;
 ;
-;    Routinen fr Maus-Ansteuerung
+;    Routinen fuer Maus-Ansteuerung
 ;
 	   .model large
 

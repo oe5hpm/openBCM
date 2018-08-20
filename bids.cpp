@@ -242,13 +242,13 @@ static void near listtmpbid (char *bid)
 static void near tryopen (int first, fp &bidf, fp &bidhf)
 //*************************************************************************
 //
-//  Öffnet Bid-File und Hash-File
+//  oeffnet Bid-File und Hash-File
 //  ggf. werden die Files neu angelegt, wenn sie nicht geoeffnet
 //  werden koennen
 //
 //*************************************************************************
 {
-  KOPF kopf = { "", 0, 0 }; // Speicher für BID-File Kopf
+  KOPF kopf = { "", 0, 0 }; // Speicher fuer BID-File Kopf
 
   bidf = s_fopen(BIDNAME, "sr+b");
   if (! bidf)
@@ -371,10 +371,10 @@ char *newbid (void)
 static void near updatehash (FILE *bidhf, long lindex, BID *bid)
 //*************************************************************************
 //
-//  Trägt einen neuen Eintrag in die Hashtabelle ein
-//  und verkettet ihn mit evtl bereits bestehenden Einträgen
+//  Traegt einen neuen Eintrag in die Hashtabelle ein
+//  und verkettet ihn mit evtl bereits bestehenden Eintraegen
 //  Dabei wird der neue Eintrag stets zu dem Eintrag, auf den
-//  der Hashzeiger zeigt. Ggf. alte Einträge werden vom neuen
+//  der Hashzeiger zeigt. Ggf. alte Eintraege werden vom neuen
 //  Eintrag aus angesprochen.
 //
 //*************************************************************************
@@ -405,7 +405,7 @@ char *bidnewfilename (char *bidname, char *newfilename)
 //*************************************************************************
 //
 //  schaut nach, ob bidname schon im Bid-File enthalten ist
-//  Zurückgegeben wird ein damit verbundener Filename, falls das
+//  Zurueckgegeben wird ein damit verbundener Filename, falls das
 //  BID gefunden worden ist, oder NULL wenn das BID nicht vorhanden ist
 //
 //*************************************************************************
@@ -571,7 +571,7 @@ void listbids (char *sel)
 //  Options:
 //     -c     Only counts the found entries
 //     -k     Only lists entries with collisions
-//     -h     gibt vollständige Hashverkettung aus
+//     -h     gibt vollstaendige Hashverkettung aus
 //     -s     Input a BID manually
 //     -i     Lists the BIDs, which are currently received (DH3MB)
 //     -f     Find a bid using hash; faster but no fragments allowed

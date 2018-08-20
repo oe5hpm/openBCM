@@ -203,13 +203,13 @@ void fileio_dida::tx_block (unsigned short int type, char tx_md5hash,
 void fileio_dida::rx_block ()
 //*************************************************************************
 //
-//  Empfängt ein DIDADIT-Frame; es wird dabei solange empfangen, bis
-//  ein korrektes Frame angekommen ist; alle ungültigen Frames werden
+//  Empfaengt ein DIDADIT-Frame; es wird dabei solange empfangen, bis
+//  ein korrektes Frame angekommen ist; alle ungueltigen Frames werden
 //  einfach verworfen (egal, ob es sich um einen CRC-Fehler handelt,
 //  das Frame zu lang war, etc.).
 //
-//  An das letzte empfange Byte in data wird ein 0-Byte angehängt, was
-//  für die Auswertung von Text-Blöcken ganz nützlich ist.
+//  An das letzte empfange Byte in data wird ein 0-Byte angehaengt, was
+//  fuer die Auswertung von Text-Bloecken ganz nuetzlich ist.
 //
 //*************************************************************************
 {
@@ -219,7 +219,7 @@ void fileio_dida::rx_block ()
   unsigned short int datalen; // Number of data-bytes already received
   char ch;
   crcthp crc_;
-  char crcbuf[2]; // Die CRC wird um 2 Bytes verzögert mitgerechnet, um
+  char crcbuf[2]; // Die CRC wird um 2 Bytes verzoegert mitgerechnet, um
                   // die empfangene CRC selbst nicht miteinzuberechnen
 
   if (! bl->maxlen)
@@ -245,7 +245,7 @@ void fileio_dida::rx_block ()
         trace(serious, "debug", "***1");
 #endif
       }
-      // Wenn die Typ-ID (zwei Bytes) vollständig empfangen wurde, kann mit
+      // Wenn die Typ-ID (zwei Bytes) vollstaendig empfangen wurde, kann mit
       // der Berechnung der CRC begonnen werden
       if (typelen == 2) crc_.update(*crcbuf);
       crcbuf[0] = crcbuf[1];
@@ -351,15 +351,15 @@ char *fileio_dida::parse_textblock (char *block, char **id, char **value)
 //*************************************************************************
 //
 //  Wird zum parsen eines DIDADIT-Text-Blocks (INFO, START)
-//  verwendet, das Informationen in der Form "ID=Wert\r" enthält
+//  verwendet, das Informationen in der Form "ID=Wert\r" enthaelt
 //  Es werden das "=" und das "\r" (=CR) durch ein 0-Byte ersetzt
 //  *id wird auf den Anfang der ID gesetzt, *value auf den Anfang
 //  des Werts
-//  Zurückgegeben wird ein Pointer auf das nächste Feld oder NULL,
+//  Zurueckgegeben wird ein Pointer auf das naechste Feld oder NULL,
 //  wenn kein Feld gefunden wurde
 //
-//  Wichtig: Der gesamte Block muß mit einem 0-Byte abgeschlossen sein,
-//  außerdem wird der übergebene Block verändert!
+//  Wichtig: Der gesamte Block muss mit einem 0-Byte abgeschlossen sein,
+//  ausserdem wird der uebergebene Block veraendert!
 //
 //*************************************************************************
 {
@@ -799,7 +799,7 @@ printf("FILENAME: %s\n"
   else blocksize = MAX_BLOCKSIZE;
   tx_START(resume_offset, r_filemd5str, blocksize);
   putflush();
-  // TODO: Vor dem Überschreiben Warnung ausgeben...
+  // TODO: Vor dem ueberschreiben Warnung ausgeben...
   f->handle = s_open(f->fullname, "lr+b");
   if (resume_offset) lseek(f->handle, resume_offset, SEEK_SET);
   alloc_blockmem(MAX_BLOCKSIZE + 6); // TODO

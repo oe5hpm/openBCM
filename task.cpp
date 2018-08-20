@@ -70,17 +70,17 @@ static unsigned alltic = 0;      // Timer fuer zwangsweisen Bildschirm-update
 
 /*---------------------------------------------------------------------------*/
 
-// Parameterblock für neue Tasks. Diese müssen statisch gespeichert werden,
-// damit sie das Umschalten des Stack-Kontextes überleben
+// Parameterblock fuer neue Tasks. Diese muessen statisch gespeichert werden,
+// damit sie das Umschalten des Stack-Kontextes ueberleben
 static int      newtask;          // Flag: Task muss erzeugt werden
 static int     *newtasknum;       // Pointer auf TID von neu erzeugter Task
 static int      newport;          // ggf. TNC-Verbindug erzeugen
-static unsigned newkind;          // Bitfeld für Task-Resourcen
+static unsigned newkind;          // Bitfeld fuer Task-Resourcen
 static void     (*start)(char *); // Zeiger auf Startfunktion
 static char     *param;           // Zeiger auf Parameter der Startfunktion
 static task_t   *newtaskclone;    // Zeiger auf TCB des zu clonenden Tasks
 
-static unsigned tjob = 0; // Merker für Stelle, die momentan bearbeitet wird
+static unsigned tjob = 0; // Merker fuer Stelle, die momentan bearbeitet wird
                           // (Dient nur zum Debugging)
 
 static unsigned int maxstackdepth = TASKSTACK; // Schleppzeiger fuer Stacktiefe
@@ -134,7 +134,7 @@ void suicide (void)
   {
     while (nextkill) wdelay(249); // Warten bis Funktion frei ist
     nextkill = taskrunning;
-    wdelay(24096); // Rescheduling erzwingen (kommt nie zurück)
+    wdelay(24096); // Rescheduling erzwingen (kommt nie zurueck)
   }
 }
 
@@ -319,7 +319,7 @@ static int near scankey (void)
 //*************************************************************************
 //
 //  Holt Taste und schaut, ob ALT-Tastenkombination gedrueckt ist
-//  Wenn nein, wird die Taste im zusätzlichen Tastaturpuffer abgelegt
+//  Wenn nein, wird die Taste im zusaetzlichen Tastaturpuffer abgelegt
 //
 //*************************************************************************
 {
@@ -492,7 +492,7 @@ unsigned waitkey (void)
 int wdelay (unsigned zeit)
 //*************************************************************************
 //
-//  suspendiert einen laufenden Prozess für die angegebene Zeit
+//  suspendiert einen laufenden Prozess fuer die angegebene Zeit
 //  (in Millisekunden) Die tatsaechlich vergangene Zeit ist minimal gleich
 //  bzw. groesser als die angegebene Zeit.
 //
@@ -745,7 +745,7 @@ void atkill (atkill_t func)
 int fork (int typ, int port, void(*stfunc)(char *), char *stpar)
 //*************************************************************************
 //
-//  Verzweigt zu einem neuen Prozess. Dieser läuft so lange, bis entweder
+//  Verzweigt zu einem neuen Prozess. Dieser laeuft so lange, bis entweder
 //  ein KILL kommt oder sich das angegebene Programm beendet.
 //
 //*************************************************************************

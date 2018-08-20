@@ -317,7 +317,7 @@ static void near initace (void)
 static void interrupt ttyisr (void)
 //*************************************************************************
 //
-//  Interruptroutine für die serielle Schnittstelle
+//  Interruptroutine fuer die serielle Schnittstelle
 //
 //*************************************************************************
 {

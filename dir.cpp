@@ -68,7 +68,7 @@ int finddir (char *path, int one_letter_boards)
 //
 //  Sucht einen Bulletin- oder Benutzernamen
 //
-//  Rückgabewerte:
+//  Rueckgabewerte:
 //     0 Board nicht gefunden
 //    -1 Usermail, keine Nachricht vorhanden
 //    -2 Usermail, Nachricht vorhanden

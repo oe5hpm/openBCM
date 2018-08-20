@@ -90,7 +90,7 @@ BEGIN
             VALUE "FileDescription", "OpenBCM Packet-Radio Mailbox WindowsNT/2000/XP\0"
             VALUE "FileVersion", "1, 0, 0, 0\0"
             VALUE "InternalName", "bcm32\0"
-            VALUE "LegalCopyright", "Copyright © 1991-2013 by Florian Radlherr et al.\0"
+            VALUE "LegalCopyright", "Copyright (c) 1991-2013 by Florian Radlherr et al.\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "bcm32.exe\0"
             VALUE "PrivateBuild", "\0"

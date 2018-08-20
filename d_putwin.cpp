@@ -37,8 +37,8 @@
 //
 // Anordnung des Puffers:
 //
-// Der Puffer sollte stets mindestens die Grö e des maximalen Bildschirm-
-// inhaltes haben. Er kann aber auch beliebig grö er sein, max 64k.
+// Der Puffer sollte stets mindestens die Groesse des maximalen Bildschirm-
+// inhaltes haben. Er kann aber auch beliebig groesser sein, max 64k.
 //
 // Neue Zeichen werden stets nach   buf[e->index]  geschrieben. Eine Zeile
 // wird durch '\n' beendet

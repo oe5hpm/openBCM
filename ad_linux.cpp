@@ -161,7 +161,7 @@ int random_max (int max)
 
               (which uses lower-order bits)."
 
-       Random-number  generation is a complex topic.  The Numeri­
+       Random-number  generation is a complex topic.  The Numeric
        cal Recipes in C book (see reference  above)  provides  an
        excellent discussion of practical random-number generation
        issues in Chapter 7 (Random Numbers).
@@ -734,7 +734,7 @@ int setlinuxpasswd (char *calltmp, char *passwort)
     salt[2] = 0;
     /* Definition einer /etc/shadow Zeile
 
-    dgt123:ðHJhpnm5X3kQ:804:0:99999:7:::
+    dgt123:Ã°HJhpnm5X3kQ:804:0:99999:7:::
     ^- usercall
            ^- password (crypted)
                         ^- days since Jan 1, 1970 that password was
