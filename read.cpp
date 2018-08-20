@@ -230,7 +230,7 @@ static void putmimeheader (char *line, long mimeboundary)
 {
   lastfunc("putmimeheader");
   char s[HADRESSLEN+1];
-
+
   strcpy(s, "");
   get_mybbs(b->herkunft, s, 0);
   if (b->usermail) expand_hadr(s, 2);
