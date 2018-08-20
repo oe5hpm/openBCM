@@ -528,7 +528,7 @@ char *cpuinfo (void)
   char vendor[30];
   int tsc = NO;
   static char cpuresult[200];
-  char *pk;
+  char *pk, *ptmp;
 
   pk = NULL;
   strcpy(cpu, "??");
@@ -540,9 +540,16 @@ char *cpuinfo (void)
   {
     while (fgets(buf, sizeof(buf) - 1, f))
     {
+      #if defined (__arm__)
+      if (stristr(buf, "model name"))
+      #else
       if (stristr(buf, "cpu"))
+      #endif
       {
         pk = strstr(buf, ": ");
+        ptmp = strchr(pk + 2, ' ');
+        if (ptmp != NULL)
+        	*ptmp = '\0';
         if (pk && *cpu == '?') sscanf(pk + 2, "%s", cpu);
       }
       if (stristr(buf, "BogoMips"))
