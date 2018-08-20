@@ -226,6 +226,7 @@ static void near putversion (void)
   unsigned bs = strlen(globalpath) - 1;
 #ifdef __LINUX__
   char osver[256];
+  char *ptmp;
   FILE *f = s_fopen("/proc/version", "srt");
   if (f)
   {
@@ -385,7 +386,13 @@ static void near putversion (void)
   putf("Uptime: %s\n", zeitspanne(ad_time() - einschaltzeit, zs_runtime));
   putf("%s\n", cpuinfo());
 #ifdef __LINUX__
-  putf("OS: %-20.20s\n", osver);
+  ptmp = strchr(osver, '.');
+  if (ptmp != NULL) {
+	  ptmp = strchr(ptmp, ' ');
+	  if (ptmp != NULL)
+		  *ptmp = '\0';
+  }
+  putf("OS: %-40s\n", osver);
 #endif
   putf("PR-Interface: ");
   putversion_tnc();
