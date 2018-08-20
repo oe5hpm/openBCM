@@ -1,0 +1,1069 @@
+\\HVERSION
+Spanish help file for OpenBCM (yet incomplete)
+
+Originally created for BCM 1.42 by DK3KC, 28.11.1999
+Lastest modification by EA5DV, 10.01.2007
+Last edit 14.01.2007 by DH8YMB
+Please report mistakes to DH8YMB
+\\?=HELP
+\\A=ALTER
+\\AKTUELL
+Con el comando AKtuell se pueden llamar informaciones actuales del
+operador de sistema. Estas sern mostradas automticamente luego del
+login, si han sido modificadas.
+\\ALTER
+Con el comando ALTER se pueden adaptar determinados parmetros para su propio
+mailbox.
+
+Comando         Explicaci¢n                                         Ejemplo
+--------------+---------------------------------------------------+---------
+ALTER           Muestra los ajustes propios.                        A
+
+ALTER <call>    Muestra los ajustes de <call>                       A DL8MBT
+
+ALTER DEFAULT   Coloca todos los valores ajustados y los conta-     A DEF
+                dores, a los valores originales del sistema.
+                Todos los ajustes personales se pierden con esta
+                acci¢n.
+
+ALTER LINES <#> Determina la cantidad de l°neas, que tengan         A L 20
+                lugar en su pantalla. En una muestra en pantalla
+                que tenga mas l°neas que las ajustadas, al final
+                de la p·gina recibir Ud. un mensaje para oprimir
+                la tecla ENTER.
+                Vea para ello HELP SEITENSTOP.
+
+ALTER LF <#>    Determina l°neas vac°as entre cada cuadro en pan-   A LF 0
+                talla. Con A LF 1 se agrega una l°nea vac°a entre
+                los cuadros que ya de por s° deber°an mostrarse,
+                con sentido,en forma separada. De esta manera, la
+                disposici¢n del texto en pantalla es mas clara
+                pero necesita mas lugar.
+
+ALTER HELP <#>  Ajusta el grado de ayuda.
+                Usuarios nuevos reciben el grado de ayuda 2, con
+                prompts completos.
+                Expertos utilizan 0, los menues son desconectados.
+                En el grado de ayuda 1, el Ctext (texto de conexi¢n)
+                extendido es desconectado, el men£ se sigue
+                mostrando como en el grado de ayuda 2.
+
+ALTER COMMAND <commando>
+                lleva al sistema, en el pr¢ximo login,              A C D,D N
+                a realizar el comando indicado.
+                TambiÇn se pueden indicar varios comandos, los
+                cuales se separan por medio de ",". Coma ",")
+                Default es 'A C D' (Indice del mailbox propio).
+
+ALTER FORWARD <direcci¢n>
+                dirige el contenido del mailbox                     A F DB0AAB.DEU.EU
+                propia hacia la direcci¢n indicada.                 A F DB0GV
+                Direcciones actuales ver DIR PATH, informaci¢n mas
+                exacta con HELP FORWARD. El comando corresponde al
+                MYBBS.
+
+ALTER NAME <nombre> Hace conocer el nombre de uno al mailbox        A N Ra£l
+
+ALTER PROMPT <promptstring>
+                Define el prompt del mailbox                        A P (%b)-->
+                Aqu° se pueden aplicar macros.
+                Ver HELP MAKRO.
+
+ALTER REJECT <lista de tablas>                                      A R IBM C64
+                Aqu° se puede indicar una lista de nombres de bole-
+                tines, los cuales no sern mostrados con los comandos
+                DIR NEWS y CHECK. As° pueden ser inhibidas las r£bri-
+                cas no deseadas. Si se indica una tabla principal,
+                entonces con DIR NEWS no sern mostradas las subta-
+                blas. Con CHECK la estructura es plana, eso significa
+                que tablas exclu°das expl°citamente no sern mostra-
+                das, pero s° las subtablas.
+                Con la opci¢n -R al principio se puede invertir la
+                selecci¢n, entonces SOLAMENTE se mostrarn las tablas
+                indicadas
+                (p.ej. A REJ -R DXNEWS SATELITE).
+
+ALTER SPEECH <Prefijos de pa°s>                                     A S DL
+                Selecciona el idioma, con el cual el sistema se
+                comunica con el usuario. Con A S se puede llamar
+                una lista de idiomas a disposici¢n. En el primer
+                login, el idioma se selecciona automticamente de
+                acuerdo al prefijo del pa°s propio.
+
+ALTER IDIR <opc>   Selecciona opciones para DIR en tablas de informaci¢n  A ID
+ALTER UDIR <opc>   Selecciona opciones para DIR en correo para usuarios   A UD
+ALTER ILIST <opc>  Selecciona opciones para LIST en tablas de informaci¢n A IL
+ALTER ULIST <opc>  Selecciona opciones para LIST en correo para usuarios  A UL
+ALTER IREAD <opc>  Selecciona opciones para READ en tablas de informaci¢n A IR
+ALTER UREAD <opc>  Selecciona opciones para READ en correo para usuarios  A UR
+ALTER CHECK <opc>  Selecciona opciones para el comando CHECK              A CH
+
+A cada opci¢n le corresponde una letra. Si se indica Çsta, la opci¢n
+estar seleccionada. Si la letra falta, la opci¢n no estar seleccionada.
+Cada opci¢n puede ser seleccionada/borrada con la indicaci¢n de +/-   .
+Por ejemplo
+
+      A ID G+
+
+Opciones en Read/List/Dir vea HELP OPTION
+
+Todas estas opciones tambiÇn pueden ser indicadas en la l°nea de comandos
+correspondiente. Las opciones en el comando sobrecontrolan las opciones
+indicadas con ALTER. Para deseleccionar opciones, hay que agregar un '-'.
+Letras may£sculas o min£sculas como opciones, no son relevantes.
+\\BEREICH
+La indicaci¢n de grupo es siempre posible all°, donde se pueda seleccionar una
+cantidad de mensajes (p. ej. en los comandos DIR, LIST, READ y ERASE). Una in-
+dicaci¢n  de grupo tiene que efectuarse luego del nombre de la tabla. Falta el
+nombre de la tabla, se utilizarla tabla nombrada en £ltimo tÇrmino. La indi-
+caci¢n de grupo selecciona en esta tabla, mensajes determinados que se encuen-
+tran  bajo este comando. La tabla seleccionada en £ltimo tÇrmino puede ser in-
+dicada en el prompt (vea HELP MAKRO).
+
+La selecci¢n de mensajes se efect£a con la indicaci¢n de los n£meros
+correspondientes, mostrados por los comandos DIR o LIST. El n£mero de la noti-
+cia mas actual es el mas alto. El mensaje mas antiguo lleva, en consecuencia,
+el Nro. 1.
+
+Un grupo puede ser seleccionado de la siguiente manera:
+
+  Indicaci¢n de grupo ! mensajes seleccionados en consecuencia
+ ---------------------+---------------------------------------
+    <ninguno>         !  todas los mensajes de la tabla activa
+       5              !  s¢lo mensaje Nro. 5
+      -7              !  los £ltimos (=los mas actuales!!) 7 mensajes
+      1-7             !  los primeros 7 mensajes de una tabla
+      3-              !  todos los mensajes en una tabla, a partir de la 3a.
+      2-5             !  los mensajes 2, 3, 4 y 5
+
+Ejemplos de comandos con indicaci¢n de grupo:
+     r satÇlites 1-4    lee mensajes 1 a 4, de la tabla "satÇlites"
+
+     l info -10         muestra los £ltimos (o sea las mas actuales) 10
+                        mensajes de la tabla "info"
+
+     e dx 4             borra el cuarto mensaje de la tabla "dx"
+\\BIDLIST
+BIDLIST <criterio de b£squeda> (comando debug, sin importancia en la prctica)
+
+Da un listado de la tabla interna ID de boletines. El criterio de b£squeda
+puede ser cualquier fragmento de un BID o un nombre de fichero. Junto con los
+BID se guardan los nombres de fichero de los mensajes. En consecuencia, p.ej.
+al indicar el BID LU6DLZ, se efectuarun listado de los BIDs de todas los
+mensajes guardados en LU6DLZ.
+\\BOARD
+Tabla (Indice de la "tabla de anuncios")
+
+Una tabla contiene regularmente varios mensajes, los cuales estn dirigidos a
+un tema o a un destinatario espec°ficos. Las definiciones
+
+ - User-Boards:     Los  buzones privados de los  usuarios, los mensajes
+   (tablas para     guardados aqu° pueden ser regularmente borrados s¢lo
+   usuarios)        por el remitente o por el destinatario (los llamados
+                    mensajes personales)
+
+ - Bulletin Boards: Buzones p£blicos con mensajes, los cuales pueden ser
+   (tablas para     le°dos por cualquiera (pero s¢lo borrados por el remi-
+   boletines)       tente). Mensajes en estas tablas son llamados "Bulletins"
+
+Cada tabla lleva un nombre determinado, con el cual Çsta puede ser llamada. En
+los user boards (tablas de usuarios) el nombre de las tablas es la se§al
+distintiva de la estaci¢n a quiÇn pertenece la tabla; en los bulletin boards
+(tablas de boletines) los nombres correspondern al grupo de temas que ata§en
+los mensajes (p.ej. "DX", "satÇlites", "redes", etc.).
+
+Los mensajes que se encuentran en una tabla, estn numerados. El mensaje m·s
+antiguo lleva el Nro. 1. Con el comando DIR o LIST, aparecer un listado con
+el contenido de la tabla (comenzando con el mensaje Nro. 1).
+
+Una tabla puede contener otras tablas. As° puede, p.ej., contener la tabla
+"nodesoft", otras subtablas para los diferentes sistemas de nodos.
+
+El operador del sistema le puede atribu°r a cada tabla un "lifetime" (tiempo
+de vida), el cual define cuntos d°as el mensaje permanecer en la tabla,
+hasta que sea borrado automticamente.
+
+El nombre de la tabla es parte de muchos comandos, como p. ej. DIR, LIST,
+READ, ERASE, CHECK. La BayComBox siempre recuerda el nombre de la £ltima tabla
+llamada  por el usuario y lo utiliza, a no ser que con el siguiente comando se
+haya nombrado expl°citamente otra tabla. TambiÇn se puede cambiar de tabla con
+el comando CD.
+\\CHECK
+Check <grupo> <ep°grafe>
+
+El comando 'check' efect£a un listado de todos los mensajes de las tablas de
+boletines (bulletin boards), en el orden de su entrada en el mailbox. Las men-
+sajes estn clasificados por fecha, comenzando por el mensaje m·s actual. Al
+indicar un grupo, se efectuar un listado solamente de los mensajes indicados
+(p. ej. CHECK 5 muestra los 5 mensajes mas nuevos).
+
+Si se indica el comando CHECK sin aditamento alguno, se efectuar un listado
+de todos aquellos mensajes que han entrado al mailbox desde el £ltimo CHECK
+del usuario. Si se indica '<' (despuÇs de CHECK), seguido de un espacio y una
+cadena  de caracteres, as° el comando CHECK leer s¢lo l°neas que contengan el
+string indicado, o sea una se§al distintiva o un texto de b£squeda.
+
+El carcter '<' puede ser completamente suprimido. Se acepta solamente por ra-
+zones de compatibilidad.
+
+En la cadena de caracteres, may£sculas o min£sculas no son relevantes.
+En vez de CHECK, tambiÇn pueden ser utilizados los comandos DIR NEWS o DIR
+MESSAGES.
+
+Ejemplos para la utilizaci¢n del comando CHECK:
+  c               muestra todos los mensajes entrados despuÇs del £ltimo login
+  c 10 ¢ c 1-10   muestra los 10 mensajes mas actuales
+  c 1- dl8mbt     muestra todos los mensajes generados por dl8mbt
+  c 2-30 dl8mbt   muestra del 2do. al 31. mensaje generado por dl8mbt
+  c ft470         mensajes que contengan la palabra 'FT470' en la cabecera
+\\CD
+CD <nombre de tabla>
+
+Cambia la tabla actual (se indica en el prompt)
+\\CONVERS
+Igual que TALK, vea HELP TALK.
+\\DIR
+DIR muestra el °ndice de una tabla. Posibilidades de uso:
+                                                           Abreviatura/Ejemplo
+DIR                                                                  D
+Listado de los mensajes en la tabla actual (seg£n el prompt)
+En vez de DIR tambiÇn puede aplicarse LIST
+
+DIR <tabla>                                                          D BAYCOM
+Listado de todos los mensajes para <tabla>. <tabla> tambiÇn  puede
+ser la tabla del usuario, entonces <tabla> ser la se§al distinti-
+va del usuario o una tabla de boletines. Vea tambiÇn BOARD (tabla)
+y BULLETIN.
+
+DIR <tabla> <grupo>                                                  D BAYCOM 1-5
+Muestra partes del °ndice. Vea tambiÇn HELP BEREICH (grupo)
+Atenci¢n: D SOFTWARE -12      Muestra los 12 MENSAJES mas ACTUALES
+
+DIR <tabla> <criterio de b£squeda>                                   D IBM 7plus
+Muestra partes del °ndice, en los cuales se encuentre <criterio de
+b£squeda>
+
+DIR MESSAGES                                                         D M
+Listado de todas los mensajes a las tablas de boletines (enormes
+cantidades...)
+
+DIR MESSAGES <texto>                                                 D M FT470
+Muestra mensajes los cuales contienen <texto> en la referencia.
+may£sculas/min£sculas no son relevantes.
+
+DIR SENT                                                             D S
+Muestra  todos  los  mensajes  en los cuales se encuentra la se§al
+distintiva  propia, los cuales  han sido escritas por Çsta o donde
+aparece la se§al distintiva en la referencia.
+
+DIR AFTER <fecha>                                                    D A 21.10.
+Igual que DIR MESSAGES,pero se muestran solamente mensajes que han
+sido guardados a partir de la fecha indicada. La indicaci¢n de mes
+y a§o puede dejarse de lado, se supone entonces el mes en curso.
+
+DIR NEWS                                                             D N
+Igual que DIR MESSAGES, pero se mostrarn s¢lo aquellos mensajes
+que han sido guardados desde su £ltimo DIR NEWS.
+Con D N <nombre de tabla> se mostrarn solamente los mensajes de
+una tabla.
+
+DIR BOARDS                                                           D B
+Muestra un °ndice de todas las tablas que estn instaladas hasta
+ese momento. Se divide entre tablas principales y subtablas, las
+cuales estn clasificadas  seg£n las tablas principales (sistema
+gerrquico de boletines).
+
+DIR BOARDS <nombre>                                                  D B SOFTWARE
+Muestra todas las tablas en las cuales se encuentra <nombre>.
+TambiÇn puede indicarse un fragmento del nombre de tabla.En esta
+modalidad  tambiÇn  se muestran tiempo de vida y cantidad de las
+noticias, de la tabla activa.
+Este tipo da lista de todas las tablas, se obtiene con 'D B *'.
+
+DIR USERS                                                            D U
+Indice de todos los mailboxes de los usuarios, en los cuales se
+encuentran guardados mensajes. Aqu° tambiÇn se muestran mensajes
+borrados el mismo d°a.
+
+DIR USERS ALL [<Call>]                                               D U A LU3
+Muestra  una lista de todos  los usuarios conocidos (puede llegar
+a ser mucha informaci¢n!). Se puede indicar una parte de la se§al
+distintiva, entonces  se  mostrarn solamente las anotaciones que
+contengan esta parte.
+
+DIR USERS LOCAL [<Call>]                                             D U L
+Muestra una lista de todos los usuarios que hayan efectuado por lo
+menos un login en este mailbox. El resto como D U A.
+
+DIR USERS MSG [<text>]                                               D U M
+Muestra una lista de todas las cartas para los usuarios (eventual-
+mente con 'text' en la referencia/remitente).
+
+DIR PATHS                                                            D P
+Muestra los caminos de "forwarding", ajustados momentneamente.
+D P <se§al distintiva> muestra solamente el camino requerido.
+
+Se pueden preajustar opciones e indicarlas tambiÇn en el comando.
+Ver HELP ALTER y HELP OPTION. Indicaci¢n de la opci¢n con el
+carcter -, inhibir con el carcter - atrs.
+P.ej.   D -G  muestra los mensajes que todav°a no han sido le°dos.
+        D -L- No muestra el lifetime (tiempo de vida).
+    May£sculas/min£sculas no son relevantes para las letras de las
+opciones.
+\\ERASE
+ERASE <tabla> <grupo>
+
+Borra los mensajes indicados en <grupo> de <tabla>.
+
+p.ej. e DL8MBT 3-4 ¢ e 1
+
+Mensajes solamente deben ser borrados si uno mismo los ha enviado o si han si-
+do enviados a uno.
+\\FORWARD
+FORWARD <tabla> <grupo> [ @ ] <lugar de destino>
+
+Conduce los mensajes indicados en <grupo> a otro mailbox o a otro
+distribuidor. El usuario debe tener derecho a acceso a los mensajes seleccio-
+nados, eso significa que los mensajes tienen que proceder de Çl o tienen que
+haber sido dirigidos a Çl.
+
+Ejemplos:   f info 5 @ lu
+            f lu6dlz 3-4 @ lu3agj
+
+Indicaciones generales para el forwarding:
+------------------------------------------
+
+Mensajes pueden ser conducidos, seg£n contenido y sentido, a otros mailboxes.
+Mensajes personales sern borrados despuÇs de haber sido retransmitidos, mien-
+tras que boletines quedan en el mailbox (o sea que se multiplican).
+
+Para mensajes personales siempre se indica la direcci¢n de UN mailbox, para el
+cual el mensaje est designado. Este mailbox tiene que estar indicado extrema-
+damente claro, es decir que cuanto mas alejado estÇ mas claramente tiene que
+estar definido. En general se puede decir que cuando los mensajes tengan que
+dirigirse al extranjero, ha de agregarse la direcci¢n gerrquica.
+
+Construcci¢n de una se§al distintiva con direcci¢n gerrquica:
+
+   DB0BOX.#BAY.DEU.EU
+                   ^ Continente EU = Europa
+                ^ Pa°s, DEU = Alemania
+            ^ Provincia, BAY = Baviera
+      ^ Se§al distintiva del mailbox
+
+Otro ejemplo:
+
+   LU3AGJ.#DEV.CF.ARG.SA
+                      ^ Continente SA = SudamÇrica
+                   ^ Pa°s, ARG = Argentina
+               ^ Provincia, CF = en este caso Capital Federal
+            ^ Barrio, DEV = Devoto
+      ^ Se§al distintiva del mailbox
+
+Para los continentes se utilizan las siguientes abreviaturas:
+AF   Africa,    AS Asia,      AU Australia,    EU Europa,
+MDLE MiddleEast(p.ej.Israel), NA Norteamerica, SA SudamÈrica,
+
+Abreviaturas para los pa°ses, p.ej.:
+AUT Austria,     CHE Suiza,       BEL BÇlgica,    DEU Alemania,
+DNK Dinamarca,   FIN Finlandia,   FRA Francia,    HUN Hungr°a,
+ITA Italia,      NLD Holanda,     SWE Suecia,     SLO Eslovenia
+
+Para mensajes tipo bolet°n, se indica un DISTRIBUIDOR. Un distribuidor contie-
+ne siempre un grupo bien grande de mailboxes.
+IMPORTANTE: mensajes que sean conducidos fuera del mbito de habla hispana, se
+ruega escribirlos en INGLES.
+
+Posibles distribuidores son, p. ej.
+LATNET (Latin Network), TODOS/WW (World Wide, a todo el Mundo) SA (SudamÇri-
+ca), EA (Espa§a), EU (Europa), etc.
+
+Por favor no equivocarse en el direccionamiento de mensajes privados y boleti-
+nes, ya que se trata de dos cosas diferentes!
+\\HELP
+COMANDO------------Descripci¢n-----------------------------Ejemplo (+Abrev.)
+ALTER <parmetros> Mostrar/ajustar parmetros              A F DB0AAB
+
+DIR <tabla>        Indice de un mailbox                    D DL8MBT 1-5
+
+DIR ...            tiene muchas posibilidades, ver         HELP DIR
+
+CHECK <grupo>      lista de mensajes desde el £ltimo CHECK C
+
+ERASE <msg>        borrar mensajes                         E DL8MBT 5
+
+FORWARD <msg> <box> retransmitir un mensaje                F DL8MBT 2 DB0RGB
+
+KOPF <msg> o HEADER <Msg> muestra datos de administraci¢n  K DL8MBT 1-
+
+LIST ...           Como DIR pero con otra apariencia       L DL8MBT 5-10
+
+LOG                Extracto del libro de guardia,
+                   p.ej. LOG DG3RBU o LOG 28.01.92
+
+PATH <direcci¢n>   Muestra el camino de forwarding a       P DB0GV
+                   <direcci¢n>
+
+PARAMETER          Muestra el ajuste del sistema del       PAR
+                   mailbox
+
+PURGE              Borra definitivamente las mensajes      PU
+                   borrados
+
+QUIT               Abandonar el sistema                    Q  (o disconnect)
+
+READ <msg>         Leer mensajes                           R DL8MBT 2-4
+
+REPLY              Respuesta a un mensaje ya le°do         REP
+
+RUN                Lista de todos los programas            -
+                   suplementarios
+
+SEND <call> <ref>  transmitir un mensaje                   S DK3KC Hola Ra£l
+
+SETLIFE <msg> <d°as>Cambia el tiempo de vida de un mensaje SETL DL8MBT 1 365
+
+TALK <call> <msg>  Mensaje a un usuario que se encuentra   T LU6DLZ Hola Ernesto
+                   en el box
+
+TRANSFER <msg> <tabla> Copiar un mensaje                   TR LU3AFV 1 LU6DLZ
+
+UNERASE <msg>      Muestra mensaje borrado                 UN DL8MBT 7
+
+USERS              Muestra quiÇn se encuentra en el box    U
+
+VERSION            Muestra la versi¢n y la memoria libre   V
+
+Informaciones mas exactas por medio de HELP <comando> p. ej. HELP DIR, HELP
+
+ALTER ... Vista general de todos los textos de ayuda con HELP INDEX; fichero
+de ayuda completo con HELP ALL.
+\\HEADER=KOPF
+\\INFO
+Muestra un texto de informaci¢n a travÇs del mailbox.
+\\KOPF
+KOPF <tabla> <grupo>
+  o
+HEADER <tabla> <grupo>
+
+Muestra todos los datos de administraci¢n de un fichero. La sintaxis es idÇn-
+tica al comando READ; se muestran siempre TODOS los datos del header, indepen-
+dientemente de las opciones ajustadas en READ.
+
+Con la opci¢n -h se puede observar el camino completo a travÇs de todos los
+mailboxes (R:-Headerlines).
+\\LIST
+LIST <tabla> <grupo>
+
+Muestra el directorio de una r£brica o de una se§al distintiva privada. La di-
+ferencia contra DIR es, que otro ajuste bsico de las opciones es vlido (ver
+HELP OPTION). El comando estconstru°do en forma parecida al LIST, de la
+software DieBox.
+
+Se muestran solamente aquellos mensajes desde el £ltimo login (o logout con
+"Q"uit). Pero se puede modificar a travÇs de las opciones (ver HELP ALTER).
+
+Ejemplo:
+l lu6dlz 1-                   lista de todos los mensajes para LU6DLZ
+l baycom -10                  lista de los 10 mensajes mas NUEVOS para BayCom
+\\LIFETIME
+Lifetime (tiempo de vida)
+
+El lifetime es el tiempo mximo, en d°as, en que se mantienen las noticias en
+una tabla, antes de ser borradas automticamente. Es ajustado por el operador
+de sistema del mailbox, en forma individual, para las tablas de boletines. Pa-
+ra las tablas de usuarios existe un lifetime estndar, el cual puede ser modi-
+ficado por el due§o de la tabla, bajo ciertos l°mites.
+\\LOG
+LOG [-opciones] [<fecha>] [<contenido de b£squeda>]
+
+Muestra el libro de guardia del d°a, o busca en el libro de guardia completo
+por el <contenido de b£squeda>, lo que tanto puede ser una se§al distintiva,
+como una fecha.
+
+Se muestran en cada caso las 20 entradas mas nuevas.
+Las siguientes opciones de LOG son vlidas:
+  -f   muestra TAMBIEN entradas de conexiones de forwarding (no default)
+  -s   muestra SOLO entradas de logins del operador de sistema
+  -w   va en la b£squeda una semana para atrs (7 d°as)
+  -m   va en la b£squeda un mes para atrs (30 d°as)
+  -q   va en la b£squeda tres meses para atrs (90 d°as)
+  -y   va en la b£squeda un a§o para atrs (atenci¢n: "m","q" e "y" necesitan
+       mucho tiempo puesto que hay que buscar en una gran cantidad de datos!)
+  -c   cuenta solamente la cantidad de los logins encontrados en el tiempo in-
+       dicado
+  -a   muestra TODAS las entradas encontradas (no solamente 20)
+Es posible efectuar combinaciones de opciones.
+
+LOG <call> muestra el log de hoy, para la se§al distintiva <call>
+                                                         p.ej. LOG LW2EOP
+LOG <fecha> <call> muestra el log de <fecha> <se§al distintiva>
+                                                         p.ej.  LOG 27. LU3AFV
+LOG <fecha> muestra el log para la fecha indicada        p.ej.  LOG 15.12.92
+Ejemplos:
+  log -y lu3afv     busca los £ltimos 20 logins de lu3afv en el £ltimo a§o
+  log -ws 1.10.     busca los logins del operador de sistema, en la semana an-
+                    tes del 1.10
+  log -cmf          muestra la cantidad de logins, en el £ltimo mes
+
+Formato de muestra:
+Log parcial (mx. 20) 15.12.92:
+Call   Fecha    Start Stop      Txh transfer
+                              Bytes RxBytes CPUsec F  TXFi RXFi
+DC6IU  15.12.92 08:24-08:27    1059       6   0.49      0    0  via DB0EIC
+DK4LO  15.12.92 08:33-08:49    3936      36   2.47 Q    1    0  via DB0ABZ-1
+DL8MBT 15.12.92 09:13-09:14     888      24   0.16 S    0    0  via DB0AAB
+DB0KCP 15.12.92 08:25-08:31   28647    3240   1.41 F    4    2  via DB0KFB
+Se encontraron 46 entradas.
+
+TxBytes: bytes transmitidos al usuario (o al mailbox)
+RxBytes: bytes recibidos por el usuario
+CPUsec:  tiempo de computaci¢n utilizado
+F:       flag.  Significado: S=Sysop, Q=abandonar con quit, F=conexi¢n de for-
+         warding
+TXFi:    cantidad de ficheros entregados por el mailbox (box ha transmitido)
+RXFi:    cantidad de ficheros guardados en el mailbox (box ha recibido)
+\\MSG
+MSG <se§al distintiva> <mensaje>
+Transmite un mensaje a otro usuario en estado de login. Vea HELP TALK
+\\MAKRO
+Un macro (makro en alemn) es una abreviatura, la cual se puede introducir en
+un texto de prompt y el cual reemplaza una informaci¢n definida (expande), ca-
+da vez que se muestra el prompt.
+
+Los siguientes makros pueden ser introducidos en el prompt:
+  %a   rendimiento momentneo del procesador del mailbox, en porcentaje (£lti-
+       mos 40 segundos)
+  %b   nombre de la tabla momentneamente activa
+  %c   se§al distintiva del usuario en login
+  %d   fecha momentnea
+  %h   nivel de ayuda ajustado para el usuario
+  %i   hora y fecha de login
+  %l   £ltimo login (fecha y hora)
+  %m   se§al distintiva del mailbox
+  %n   nombre del usuario
+  %o   cantidad de usuarios en estado de login
+  %p   tiempo de mquina transcurrido desde el login
+  %r   l°nea siguiente (return)
+  %t   hora momentnea
+  %v   Nß de versi¢n del software
+  %%   el % signo
+
+Ejemplo:    a pr (%b) %c de %m>         da por resultado un prompt como en
+                                        DieBox 1.9
+            (BAYCOM) LU3AFV de LU6DLZ>
+o           a pr [%o/%a%%](%b)-->       muestra los logins y el rendimiento
+            [22/95%](LU3AFV)-->
+\\MEM
+MEM                   (comando de debugging, en la prctica no significativo)
+
+Muestra el uso momentneo en la administraci¢n de la memoria de trabajo
+En ese caso se muestra
+- el n£mero corriente del bloque de memoria
+- el tama§o en Bytes (mx. posible 64k)
+- la direcci¢n (segmento pargrafo)
+- el n£mero task correspondiente (vea PS), o 255 si la llamada no fue realiza-
+  da en el marco del task
+- el  uso que se le dar (se indica en la llamada). Este est indicado con una
+  abreviatura  y, en consecuencia, s¢lo inteligible por especialistas de soft-
+  ware. Un * al principio significa, que el bloque no ser liberado si al task
+  le ha seguido un kill.
+\\MYBBS
+MYBBS <se§al distintiva de mailbox>
+
+Ajusta el mailbox local propio. Este comando es idÇntico a ALTER FORWARD <se-
+§al distintiva de mailbox>. Mas informaci¢n sobre el forwarding, vea HELP FOR-
+WARD.
+\\OPTION
+Las siguientes opciones son posibles, con los comandos READ, LIST und DIR (ver
+tambiÇn HELP ALTER):
+  A   mostrar remitente
+  B   mostrar cantidad de Bytes
+  C   cont°nuo, no observar cambio de l°nea
+  D   mostrar fecha
+  E   mostrar destinatario (o nombre de tabla)
+  F   mostrar mailbox de origen (Frombox)
+  G   no mostrar mensajes le°dos
+  H   READ:     R:-Header mostrar cabecera (excluye P)
+      LIST/DIR: NO mostrar t°tulos '°ndice'
+  I   mostrar BID
+  J   t°tulos parecidos a 'DieBox'
+  K   mostrar parÇntesis o R seg£n n£mero corriente
+  L   mostrar lifetime (tiempo de vida)
+  M   mostrar direcci¢n de destino (direcci¢n H)
+  N   pregunta "Borrar mensaje?" despuÇs de haber le°do (s¢lo READ)
+  O   mostrar direcci¢n de destino (s¢lo primer componente de direcci¢n H)
+  P   mostrar los mailboxes traspasados, abreviados (s¢lo READ)
+  Q   mostrar s¢lo mensajes desde el £ltimo QUIT (LIST/DIR)
+  R   READ: mostrar se§ales distintivas de aquellos que hayan le°do el mensaje
+      CHECK: mostrar mensajes teleborrados
+  S   mostrar subdirectorios (s¢lo LIST/DIR)
+  T   mostrar hora
+  U   mostrar l°nea uplink (s¢lo READ)
+  V   mostrar mensajes borrados (explicaci¢n de signos, ver UNERASE)
+  W   mostrar referencia
+  X   espacio suplementario antes de la referencia (s¢lo para LIST)
+  Y   tambiÇn a§o, cuando fecha
+  Z   mostrar cantidad de l°neas
+\\PATH
+PATH <direcci¢n>
+
+Da  la  direcci¢n para el camino de env°o, en el forwarding. Se muestran todos
+los  mailboxes  vecinos,  a travÇs de los cuales el mensaje es enviado <direc-
+ci¢n>.  Esto vale tanto para direcciones concretas de mailboxes (para mensajes
+de usuarios), como para distribuidores (boletines)
+
+Ejemplos:
+  p lu3afv
+  p todos
+  p ha5di.hun.eu
+\\PARAMETER (parmetros)
+PARAMETER <criterio de b£squeda>
+
+Muestra el ajuste momentneo del sistema del mailbox. Sin parmetros, el co-
+mando llama el archivo completo de configuraci¢n. Para mas informaci¢n es ne-
+cesaria la documentaci¢n del operador de sistema del mailbox. A travÇs del
+<criterio de b£squeda> puede ser buscado un parmetro especial del archivo de
+configuraci¢n. El criterio puede ser abreviado de cualquier manera, habiendo
+ambigÅedad de abreviatura se mostrarn todos los criterios concordantes.
+
+Ejemplo:
+par  run: muestra todos los programas externos que se encuentran a disposici¢n
+          del usuario
+\\PURGE
+Si un mensaje ha sido borrado con ERASE, Çste sermarcado como "borrado", pe-
+ro no serborrado realmente. El comando PURGE retira efectivamente todos los
+mensajes borrados, del disco r°gido.
+Por ello, los n£meros de los mensajes ascienden o sea que todos los n£meros
+cambian despuÇs del comando PURGE.
+Un UNERASE ya no tiene sentido despuÇs de haber comandado un PURGE.
+\\PS
+PS                    (comando de debugging, sin significancia en la prctica)
+
+'Estado de procesamiento'. Una lista de todos los procesos en trabajo en el
+momento. Cada usuario en login y cada ventana activa de pantalla, obtiene un
+proceso. Adems estn en trabajo procesos de fondo, los cuales se ocupan del
+control de sistema.
+
+Opciones en PS  -a   muestran tambiÇn el evento de espera y el tipo de proceso
+                -b   muestra tambiÇn procesos de fondo
+                -s   muestra tambiÇn el uso del stack y la cola de espera
+                -t   muestra tambiÇn el Nß de canal del TNC
+Todas las informaciones entonces, se pueden obtener con
+             ps -abst
+
+Con el comando bsico PS, s¢lo se muestran los procesos de mensajes activos.
+
+Ejemplo:   ps -abs
+Task Event Kdeb  CPUt  Create   Input Name   Command
+   0 40     210   0.1   71m        Desktop
+   1 251    210   0.3   71m        Console
+   2 242    210   23s   71m        Monitor
+   3 246    000   28s   71m        logind
+   4 kbhit  711   0.7   71m        Sysop
+   5 514    000   0.3   71m        forwardd
+   6 235    101   3.9   18m   26s  DC6IU     l ibm
+*  7 235    101   81s   71m    0s  DL8MBT    ps -abs
+   8 txf    101   9.2   54m   40m  OE5GOL    r baybox 25-28
+   9 235    101   8.5   26m    5m  DG1GOB    R CONTEST 88
+  12 txf    101   31s   69m  139s  DJ9EI     r gp 218-
+  13 242    101   0.8   11m   35s  DG5MGN    rep
+Wait:  0 13 9 3 2 1 6 5 12 8 4
+Stack: 272 174 446 870 790 530 1108 1080 1158 1720 1204 1720
+
+Task:    El Nß del task. Con se marca el login propio.
+Event:   Evento que es esperado por el proceso.
+         kbhit: tecladp
+         putf:  buffer del TNC libre
+         getv:  signo del TNC recibido
+         slice: interrumpido por sobrepasar el l°mite de tiempo de trabajo, o
+                sea que este task trabaja a "todo vapor"
+       <n£mero>:tiempo de espera en milisegundos; cunto tiempo un proceso en
+                trabajo ha sido interrumpido. Como el temporizador posee una
+                granularidad de 55ms, un valor exacto se utiliza para identi-
+                ficaci¢n de la posici¢n llamada. Por medio de este n£mero, un
+                experto puede reconocer el motivo de la interrupci¢n.
+Kdeb:    Tipo de proceso. Kd:campo de Bit con tareas, e:ventana de pantalla,
+         b:Mailbox
+CPUt:    Tiempo transcurrido desde comienzo del proceso
+Create:  Tiempo desde cundo el proceso existe
+Input:   Tiempo  que  indica cundo fue realizada la £ltima entrada por parte
+         del usuario
+Name:    Nombre del proceso o se§al distintiva del login
+Command: £ltimo comando aplicado
+Wait:    serie de todos los procesos en la cola de espera
+Stack:   Profundidad de stack mxima aparecida, de todos los procesos
+
+Los siguientes procesos trabajan permanente o c°clicamente:
+Desktop       Pantalla principal. Este es el Adn de todos los procesos en
+              trabajo.
+
+Console       Una ventana  peque§a, en la cual se muestran  todos los mensajes
+              del sistema. Avisos sobre errores del sistema son tambiÇn escri-
+              tos en un fichero SYSLOG.BCM.
+
+Monitor       Una ventana en la cual se muestra todo el movimiento de packet
+              radio, en la frecuencia.
+
+Sysop         La ventana en la cual el operador de sistema est en logon.
+
+logind        este proceso consulta c°clicamente todos los canales del TNC y
+              constata si llega un nuevo login o si un contacto en funciona-
+              miento ha sido desconectado. Desde aqu° se generan todos los
+              tasks del mailbox, que van llegando.
+
+forwardd      Aqu° se consulta c°clicamente si hay a disposici¢n mensajes para
+              el forwarding y, en caso positivo, si la hora coincide con el
+              ajuste en el fichero de forwarding. Adems, desde aqu°, se ini-
+              cia el PURGE a las 4 de la ma§ana. Cada media hora se inscriben
+              sobre el disco r°gido, los ficheros BULLETIN.BCM e INIT.BCM.
+
+purge         Simpia todo. El sistema completo de ficheros es revisado, para
+              constatar si existen mensajes con un lifetime vencido o si exis-
+              ten mensajes borrados. Todos estos son borrados definitivamente.
+\\READ
+READ [<opciones>] [<tabla>] [<grupo>]
+
+Leer mensajes propios o mensajes de una tabla de boletines (Bulletin board).
+Falta la indicaci¢n <tabla>, se utiliza la tabla en el prompt. Aqu° se pueden
+indicar las siguientes opciones:
+
+ -A   mostrar remitente
+ -E   mostrar destinatario (p.ej. nombre de tabla)
+ -D   mostrar fecha
+ -Y   mostrar tambiÇn a§o en la fecha
+ -T   mostrar hora
+ -B   mostrar cantidad de Bytes
+ -Z   mostrar cantidad de l°neas
+ -L   mostrar lifetime (tiempo de vida)
+ -F   mostrar mailbox de partida (Frombox)
+ -M   mostrar direcci¢n de destino
+ -P   mostrar path abreviado (mailboxes a travÇs de las cuales pas¢ el mensaje)
+ -H   mostrar cabecera (header) en su largo completo (excluye P)
+ -R   mostrar se§ales distintivas que ya han le°do el mensaje
+ -U   mostrar l°nea de uplink
+ -I   mostrar BID
+ -W   mostrar referencia
+ -N   despuÇs de haber le°do el mensaje, preguntar: ®borrar mensaje?
+ -C   muestra sin pausas, ignorar nueva l°nea (ALTER LINES)
+
+Las letras pueden ser may£sculas o min£sculas.
+
+Por medio de  ALTER UREAD <opciones>       (activo en los ficheros de usuario)
+o             ALTER IREAD <opciones>       (activo en ficheros de informaci¢n)
+puede haber una colisi¢n con un preajuste para todas las opciones (ver tambiÇn
+HELP  ALTER).  El preajuste ser sobremodulado por la indicaci¢n en el comando
+READ.  Si  una opci¢n que est colocada en el preajuste debe ser desconectada,
+hay que escribir un "-" detrs de la opci¢n.
+
+La  indicaci¢n  <grupo> designa quÇ n£meros de mensaje deben ser mostrados. Si
+no  se  indica  <grupo>,  siempre  se  muestra el £ltimo mensaje (o sea el mas
+nuevo).
+
+Ejemplos:
+
+r -h lu3afv 1-5
+muestra los primeros 5 mensajes para LU3AFV y una lista de las l°neas de cabe-
+cera,  en  su  largo total, de todos los mailboxes por los cuales ha pasado el
+mensaje.
+
+r -p- -f todos 200
+muestra el mensaje Nß 200 en la r£brica TODOS; NO muestra el path de todos los
+mailboxes  por  los cuales el mensaje ha pasado, pero indica el mailbox que ha
+entregado el mensaje.
+\\REPLY
+REPLY
+Luego de haber le°do un mensaje dirigido a uno, se puede contestar fcilmente
+utilizando el comando REPly. En ese caso, todos los datos necesarios (se§al
+distintiva, direcci¢n del forward) sern tomados del mensaje le°do.
+
+En ese caso se toma como referencia 'RE: referencia original'.
+\\RUN
+Muestra la lista de todos los programas suplementarios.
+
+ATENCION: en forma diferente que con la software "DieBox", no es necesario
+          agregar el comando RUN. Simplemente se escribe el nombre del progra-
+          ma y los parmetros necesarios.
+\\SEND
+SEND <tabla> [@ <direcci¢n>] [# <lifetime>] <referencia>
+
+Entrar un mensaje en el mailbox.
+
+<tabla>      Se§al distintiva para la cual est destinado el mensaje, o nombre
+             de  la tabla en la cual el mensaje deber ser guardado. Una vista
+             general  de  los  nombres  de tablas posibles, se obtiene con DIR
+             BOARDS.
+
+<direcci¢n>  Direcci¢n  de  forwarding  para el mensaje. Si el mensaje no debe
+             ser  transmitido, o la se§al indicativa del destinatario es cono-
+             cida por el mailbox, no es necesario entrarla. Para mensajes per-
+             sonales, se entra aqu° la se§al distintiva bajo la cual el desti-
+             natario  pueda  ser alcanzado. Especialmente para mensajes al ex-
+             tranjero es recomendable entrar la direcci¢n gerrquica completa.
+             (p.ej.  DB0BOX.#BAY.DEU.EU u OE5XBL.AUT.EU). Para correo de bole-
+             tines  se  indica, en vez del £ltimo ejemplo, un distribuidor, en
+             el cual se retransmita el bolet°n. Posibles distribuidores ser°an
+             DL, EU o LU. Vea tambiÇn HELP FORWARD.
+
+<lifetime>   Tiempo  en  d°as,  del mantenimiento del mensaje en memoria. Este
+             tiempo  se  comunica  tambiÇn a otros mailboxes, de manera que el
+             mensaje  general y efectivamente ser borrado despuÇs de los d°as
+             estipulados. En mensajes que de todas maneras tienen un tiempo de
+             interÇs  limitado,  es  recomendable  hacer  uso  de esta funci¢n
+             (p.ej. exposiciones, mercados de pulgas, etc.).
+
+<referencia> Aqu°  se  indica  una  referencia sobre el contenido del mensaje.
+             êsta  tendr°a  que ser corta pero fcil de interpretar. Ret¢ricas
+             como  "leer por favor" no tienen mucho sentido porque, en la ava-
+             lancha  de mensajes diarios, generalmente estos mensajes no sern
+             le°dos puesto que no despiertan interÇs.
+
+Ejemplos:
+
+s lu3afv ®vienes hoy?
+s baycom @ todos #10 Nueva versi¢n lista
+s lu6dlz @ lu3agj Hola Ernesto
+\\STATUS
+Muestra datos estad°sticos.
+
+STATUS FORWARD  muestra datos sobre el estado de un forwarding.  Abrev.:  ST F
+  All° se muestra lo siguiente:
+  - Se§al distintiva del mailbox vecino
+
+  - Ok: 0 estaci¢n no ha podido ser conectada en el £ltimo intento
+        1 estaci¢n fue conectada
+        2 se est recibiendo forward en este momento
+        3 se est comenzando a conectar la estaci¢n
+        4 se est transmitiendo forward en este momento
+
+  - Login: lapso de tiempo, cundo la estaci¢n ha conectado por £ltimo
+
+  - ConOk: lapso de tiempo, cundo el £ltimo intento de conexi¢n fue eficaz
+          (si en estos valores no hay algo escrito, no ha habido conexi¢n a£n)
+
+  - User:  cantidad de mensajes de usuarios, que estn a£n pendientes para ser
+           enviados
+
+  - Info:  cantidad de boletines pendientes
+
+  - E/M:   cantidad de informaciones Erase/MYBBS pendientes
+
+STATUS CPU     Muestra la carga promedio de la computadora                ST C
+  La  carga de la computadora se constata en cada caso, en intervalos
+  de 5 segundos y guardada a travÇs de 8 per°odos de medici¢n.
+  En consecuencia, se ve la efectividad de los £ltimos 40 segundos.
+  La efectividad se muestra en porcentaje.
+  All° se diferencia entre:
+  Running:  En  este  tiempo  la  computadora  trabaja. Este es normalmente el
+            trfico del mailbox.
+  Screen:   En este tiempo la pantalla es inscrita o se ve cunto la ventana
+            del monitor est utilizando.
+  Idle:     En este tiempo, o la computadora no est efectuando alg£n trabajo,
+            o est ocupada en trabajos de administraci¢n (scheduling). Habien-
+            do gran carga, va a mostrarse aqu° un valor peque§o (en lo posible
+            0).
+La suma de los 3 valores resultar siempre en 100%.
+\\SEITENSTOP
+Para  que  la pantalla no se "desborde", se puede ajustar una pausa que se re-
+alice despuÇs de una cierta cantidad de l°neas preajustadas.
+El ajuste de las l°neas sucede con
+
+ALTER LINES <cantidad de l°neas>              Abrev.: A L <cantidad de l°neas>
+
+Si no se desea una pausa, entonces hay que ajustar ALTER LINES 0. Si se detie-
+ne  la pgina (pausa) entonces aparecer en la £ltima l°nea el s°mbolo +?>. En
+este prompt se pueden iniciar diferentes funciones.
+
+<Return>  hace continuar a la siguiente pgina
+C         hace continuar la pgina, pero no habrn mas pausas
+S         interrumpe la muestra en pantalla
+Q o B     abandona el mailbox (disconnect)
+el resto lleva a interrumpir la muestra en pantalla.
+
+Con los comandos DIR LIST READ CHECK, con la opci¢n -C, se realiza una muestra
+cont°nua sin pausa.
+
+Si est ajustado ALTER LINES 0 o la pausa de pgina desconectada con C, enton-
+ces  es posible interrumpir la muestra en pantalla con <RETURN> (l°nea vac°a).
+Pero,  por supuesto, antes del <RETURN> no debe haber sido entrado otro coman-
+do.  En realidad es mejor un 'disconnect', porque ese comando interrumpe rpi-
+damente y, de esa manera, el mailbox puede volver a ser conectado rpidamente.
+\\SEMAPHORES
+SEMAPHORES            (comando de debugging, en la prctica sin significancia)
+
+Muestra una lista de ficheros, los cuales son momentneamente accesibles.
+All°  se indica el nombre del fichero y la cantidad de accesos, dependiendo de
+su estructura:
+Rd   read       (acceso finalizar en un tiempo previsible)
+LRd  long read  (o sea que el acceso durar un tiempo discrecional)
+Ap   append
+LAp  long append
+Wr   write
+LWr  long write
+Como en el servicio multiuso los accesos de escritura se excluyen entre s°, el
+proceso  llamado  se suspende o la llamada es denegada, dependiendo del tiempo
+de acceso.
+\\SETLIFE
+SETLIFE <tabla> <grupo> [#] <d°as>
+
+Coloca  el  tiempo  de vida momentneo de uno o mas mensajes. All° se indica un
+tiempo en d°as, a partir del d°a de hoy. El lifetime puede ser solamente modi-
+ficado  por  el  due§o  del mensaje (o sea remitente o destinatario) (as° como
+tambiÇn en ERASE). El s°mbolo '#' puede ser utilizado o no. Depende de la com-
+patibilidad con otras softwares de los mailboxes.
+
+Ejemplos:
+
+setl baycom 5-10 30
+setl dl8mbt 1- # 100
+\\TALK
+TALK <se§al distintiva> <mensaje>
+Transmite  un  mensaje  de una l°nea a <se§al distintiva>; la se§al distintiva
+indicada tiene que estar conectada en ese momento con el mailbox.
+
+T <se§al distintiva>
+Transmite  todo lo que sigue a <se§al distintiva>. El abandono de esta modali-
+dad se efect£a con /q
+
+T ALL <mensaje>
+Transmite un mensaje a todas las estaciones conectadas al mailbox.
+
+En  vez  de  TALK tambiÇn son aceptados los comandos MSG, WRITE, CONVERS, para
+que  cada  uno pueda seguir trabajando seg£n est acostumbrado.
+Nota: para los mensajes  transmitidos  hay  a disposici¢n solamente una memoria
+buffer de una l°nea.  Con  muchas  l°neas al mismo tiempo, este buffer puede
+'desbordarse' y aparece un consiguiente mensaje. Esto est todav°a en trabajo.
+
+Ejemplos:
+t lu3afv Hola Ra£l
+w all box ser desconectada en 5 minutos!
+m lu6dlz
+\\TIME
+Time o TI muestra la hora local.
+\\TRANSFER
+TRANSFER <tabla> <grupo> [>] <tabla de destino> [@ <box>] [# <life>] [ref]
+
+Mueve un mensaje a otra r£brica o hacia otro usuario. All° se puede, por medio
+de  indicaciones  al  respecto  (como ser el comando SEND), colocar tambiÇn un
+tiempo de vida nuevo y/o una direcci¢n de forwarding nueva.
+
+En  boletines,  el  mensaje antiguo es borrado mientras que en los mensajes de
+usuarios,  el  mensaje  antiguo  es mantenido. En el nuevo mensaje surgido, se
+agregar  el  comentario 'transfer ...'. El mensaje podr ser movido solamente
+por  el  due§o, o sea el remitente o el destinatario (igual que con ERASE). El
+carcter '>' puede ser utilizado o no, seg£n la compatibilidad con otros mail-
+boxes.
+
+Atenci¢n: no es posible transferir de una tabla (o se§al distintiva) a la mis-
+ma  tabla.  Para  cambiar  la  direcci¢n  de  forwarding se utiliza el comando
+FORWARD, para cambiar el tiempo de vida SETLIFETIME.
+
+Ejemplos:
+
+tr baycom 5-6 software
+tr lu3afv 1- > lu6lz @ lu3agj
+\\USERS
+USERS  o   U    muestra, quiÇn est en el logon del sistema. TambiÇn es mostrado lo
+que est haciendo:
+
+Idle     usuario no est haciendo nada. Observa absorto la pantalla ... ji ...
+Read     mensaje est siendo sacado del mailbox
+Send     mensaje est siendo transmitido al mailbox
+Search   actividad prolongada de b£squeda, o sea DIR, LIST o CHECK
+FwdTX    transmisi¢n de forward a otro mailbox
+FwdRX    recepci¢n de forward de otro box.
+You      t£ mismo
+
+A usuarios que se encuentren en 'Idle', se les puede dirigir la palabra con el
+comando TALK.
+
+U <se§al distintiva>
+Muestra  los  parmetros ajustados del usuario correspondiente, en forma abre-
+viada.
+
+Con  U <opci¢n> <concepto de b£squeda> se puede efectuar una b£squeda ampliada
+en  el  banco  de datos de usuarios. La b£squeda tarda bastante, puesto que la
+enorme existencia de datos es registrada linealmente.
+Para ello existen las siguientes posibilidades:
+
+Opciones para la b£squeda de usuarios:
+-a   mostrar todas las entradas (s¢lo tiene sentido si no se indica ms nada)
+-c   contar la cantidad de las entradas encontradas pero no mostrarlas
+-f   mostrar s¢lo la primera coincidencia, luego interrumpe
+-h   usuario ajust¢ nivel de ayuda 0
+-l   usuario estuvo en logon por lo menos una vez
+-m   usuario ajust¢ Çl mismo su Mybbs (se§al distintiva de su mailbox)
+-n   el Mybbs es conocido, pero no ha sido ajustado por el usuario
+-o   no ha habido aun un login
+-p   usuario coloc¢ un password para s°
+-r   mensajes privados del usuario no pueden ser le°dos en general
+-s   estado del usuario es mayor a 0
+-t   usuario coloc¢ un password TTY
+-u   el Mybbs del usuario es desconocido
+El criterio correspondiente tiene que ser cumplido, para que las entradas sean
+mostradas.
+
+Conceptos de b£squeda:
+  ... se§al distintiva   c=... se§al distintiva   n=... nombre
+@=... mybbs   v=... v°a    s=... idioma
+
+Todas las opciones y criterios de b£squeda se enlazan con l¢gica 'Y', es decir
+que  TODOS  los  criterios  indicados  deben cumplirse para que la entrada sea
+mostrada.
+
+Ejemplo:
+u -lh @=aab
+Muestra  todas  las  entradas, las cuales han tenido como m°nimo un login, las
+que  tengan un nivel de ayuda ajustado a 0 y para los cuales el mailbox propio
+lleve la combinaci¢n de letras "AAB".
+Ms ejemplos:  u mbt       u -c dl        u -l n=hans
+
+Formato de las muestras:
+Call   Mybbs                  Name         Logs Last via      PTHLRS Spr
+LU3AFV @LU3AGJ.#DEV.CF.ARG.SA Raul         1250  26h LU8DYF   000100 GB
+
+Las columnas poseen el siguiente significado:
+Call,Mybbs,Nombre del usuario @: mybbs ajustada, ?: mybbs estimado
+Logs: cantidad de logins desde que el mailbox ha sido puesto en funci¢n
+Last: lapso de tiempo desde el £ltimo login, en s/m/h/d (seg£n magnitud)
+via:  se§al distintiva del primer digipitador conectado, en el £ltimo login
+P:    1: usuario tiene password, 0: sin password
+      (esta funci¢n est solamente prevista, pero no implementada a£n)
+T:    1: password TTY existente (s¢lo en conecci¢n por cable), 0: no
+H:    nivel de ayuda ajustado
+L:    cantidad de espacios en blanco ajustados
+R:    0: mensajes privados le°bles, 1: s¢lo le°dos le°bles, 2: no le°bles
+      (esta funci¢n est solamente prevista, pero no implementada a£n)
+S:    0: usuario normal, 1: sin l°mites de cuota, 2: bloqueado
+Spr:  idioma, p. ej. DL (alemn) o GB (inglÇs)
+\\UNERASE
+UNERASE <tabla> <grupo>
+
+Revive mensajes borrados. S¢lo una vez al d°a (a las 4 de la ma§ana), los men-
+sajes  son  borrados definitivamente. Luego ya no es posible reactivarlos ms,
+ni  con  UNERASE. Antes de ser borrados definitivamente, quedan y son nada ms
+que invisibilizados.
+
+Con  LIST -V o DIR -V puede llamarse una lista de mensajes 'borrados'. All° se
+numeran esos mensajes y se indica por n£mero, el motivo por el cual hayan sido
+borrados:
+ E  - borrado con ERASE o con prompt "borrar mensaje?"
+ K  - borrado por el operador del sistema
+ F  - mensaje fue transmitido con forward y, por ello, borrado
+ L  - mensaje fue borrado desde la distancia (erase forwarding)
+ T  - mensaje fue transferido a otra tabla
+
+Para  que los mensajes sean legibles o visibles, en el DIR/LIST normal, el co-
+mando UNERASE es imprescindible. La indicaci¢n del grupo es como en DIR, READ,
+etc.
+
+Ejemplo: un lu6dlz 1-             hace todos los mensajes nuevamente visibles
+\\VERSION
+Da el Nro. de versi¢n y la fecha, aparte de la memoria disponible en la compu-
+tadora  y  en  el disco  r°gido. La indicaci¢n 'Runtime' muestra el tiempo, en
+d°as.horas:minutos,  cunto  la software est funcionando ya sin interrupci¢n.
+La  indicaci¢n  'CPUindex'  muestra un valor de comparaci¢n relativo (grueso),
+cun rpido el procesador de la computadora del mailbox, est funcionando . La
+medici¢n  es  relativamente inexacta, de manera que no se recomienda tomar los
+valores muy en serio.
+

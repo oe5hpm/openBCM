@@ -1,0 +1,773 @@
+;**************************************************************************
+;*                                                                        *
+;*                  HELP pro BayCom - Mailbox                             *
+;*                                                                        *
+;* Tento soubor lze mànit jakòmkoliv textovòm editorem.                   *
+;*                                                                        *
+;* vànujte pozornost n†sleduj°c°m pozn†mk†m:                              *
+;*                                                                        *
+;* - jestliëe je box v provozu, je nutnÇ, aby systÇmovò oper†tor zadal po *
+;*   zmànà HELPu p©°kaz NEW, protoëe jinak nesouhlas° indexace HELPu      *
+;* - kaëdò  p©°kaz  mus°  bòt  zad†n  VELKùMI  PãSMENY s dvojitòm zpàtnòm *
+;*   lom°tkem ( \\ ) na zaá†tku ©†dky                                     *
+;* - p©ed  a po  kaëdÇm \\p©°kazñ  by se  nemàly vyskytovat  ë†dnÇ pr†zdnÇ*
+;*   ©†dky                                                                *
+;* - moment†lnà se v indexu nach†z° max. 40 p©°kazñ                       *
+;* - nejsou p©edeps†na ë†dn† pevn† pravidla, jak† slova by màla nebo      *
+;*   nemàla v HELPu bòt. Je moënÇ vytvorit HELP texty pro jak†koliv slova *
+;* - jmÇno \\p©°kazu mñëe bòt max. 10 p°smen dlouhÇ                       *
+;* - dÇlka textu je libovoln†, ale màla by bòt takov†, aby nezatàëovala   *
+;*   zbyteánà frekvenci                                                   *
+;*                                                                        *
+;**************************************************************************
+;
+\\ALTER
+T°mto p©°kazem  je moëno nastavovat parametry  pro vlastn° pot©ebu, p©°kazy
+se p°®° do jednÇ ©†dky
+
+p©°kaz            Vysvàtlivka                                   P©°klad
+---------------+-----------------------------------------------+----------
+ALTER          uk†ëe vlastn° nastaven°                         A
+
+ALTER <call>   uk†ëe nastaven° <call>                          A OK1XYZ
+
+ALTER DEFAULT  p©epise v®echny  nastavenÇ parametry na sys-
+               tÇmovÇ p©ednastaven°. V®echna vlastn° nasta-
+               ven° se t°m zru®°.                              A DEF
+
+ALTER LINES <#>
+               nastaven° poátu ©†dkñ,kterÇ jsou nastaveny na
+               RX-monitoru  uëivatele. M†-li text v°ce ©†dek,
+               neë je udanò poáet, objev° se na konci po®led-
+               n° ©†dky vòzva k pokraáov†n°.
+               Viz tÇë HELP STOP.                              A L 20
+
+ALTER LF <#>   p©id†n° pr†zdnòch ©†dkñ mezi jednotlivòmi
+               ozn†men°mi boxu, nap©°klad p©ed promptem.
+               Zab°r† v®ak v°c m°sta na obrazovce.             A LF 0
+
+ALTER HELP <#> nastav° stupe§  podrobnosti  HELPu. Nov° uzi-
+               vatelÇ  maj°  automaticky nastaven stupe§ 2,
+               se v®emi pomocnòmi texty. Experti nastavuj° 0,
+               menu se t°m vypne. P©i nastaven° = 1 zñstane
+               jen menu, v®echny dal®° pomocnÇ texty vypnuty.  A H 0
+
+ALTER COMMAND  p©ikazuje systÇmu, aby p©i dal®°m spojen° do
+ <p©°kaz>      boxu provedl zadanò p©°kaz.Moëno zadat i v°ce
+               p©°kazñ, oddàlenòch á†rkou. Default je 'A C D'
+               (obsah vlastn°ho boxu).                         A C D,D N
+
+ALTER FORWARD  pos°l† obsah vlastn°ho boxu na zadanou adresu
+ <adresa>      Aktu†ln° adresa viz DIR PATH, podrobnàj®° info
+               pomoc° HELP FORWARD. P©°kaz podobnò jako MYBBS.
+                                                               A F OK0PPL.TCH.EU                                                               A F OK0PPL
+
+ALTER NAME     ozn†m° boxu jmÇno                               A N Vlada
+ <jmÇno>
+
+ALTER PROMPT   nastav° prompt boxu. moëno zad†vat i MAKRA      A P (%b)-->
+ <©etàzec>
+
+ALTER REJECT   moëno zadat seznam bulletinñ, kterÇ se neobje-
+ <adres†©>     vi po zad†n° DIR NEWS a CHECK. Tim se 'odstran°'
+               rubriky, o kterÇ nem†me z†jem. Pokud se zad†
+               hlavn° adres†©, pak se neobjev° po DIR NEWS ani
+               podadres†©e. P©i CHECK se neobjev° explicitnà
+               vylouáenÇ adres†©e, ale jejich podadres†©e ano.
+               P©id†n°m -R na zaá†tku se nech† tato selekce
+               obej°t, takze se vyp°®° JEN zadanÇ adres†©e
+               (nap©. A R -R DXNEWS SATELLIT                   A R IBM C64
+
+ALTER SPEECH   Nastavuje jazyk, kteròm hovo©° systÇm s uëivate-
+<prefix>       lem. Seznam moënost° pomoc° A L. P©i prvn°m vstu-
+               pu do boxu se automaticky nastav° jazyk podle
+               prefixu uëivatele.                              A S OK
+
+ALTER IDIR     nastavuje options pro DIR u INFO adres†©ñ
+ <opt>                                                         A ID
+ALTER UDIR     nastavuje options pro DIR u USER zpr†v
+ <opt>                                                         A UD
+ALTER ILIST    nastavuje options pro LIST u INFO adres†©ñ
+ <opt>                                                         A IL
+ALTER ULIST    nastavuje options pro LIST u USER zpr†v
+ <opt>                                                         A UL
+ALTER IREAD    nastavuje options pro READ u INFO adres†©ñ
+ <opt>                                                         A IR
+ALTER UREAD    nastavuje options pro READ u USER zpr†v
+ <opt>                                                         A UR
+ALTER CHECK    nastavuje options pro p©°kaz CHECK
+ <opt>                                                         A CH
+
+Kaëd† option se zad†v† jedn°m p°smenem. Pokud je zad†no, option se nastav°,
+pokud  chyb°,  option  nen°  nastavena.  Options  mohou  bòt nastaveny nebo
+smaz†ny zad†n°m '+' nebo '-', nap©.  A ID G+.
+Viz tÇë HELP OPTION.
+V®echny  tyto options  moëno zadat  v aktu†ln°  ©†dce. Pak  je tento p©°kaz
+nad©azen  p©edchoz°mu nastaven°  pomoc° ALTER.  Nez†leë° na  tom, p°®eme-li
+malòmi nebo velkòmi p°smeny.
+\\AKTUELL
+T°mto p©°kazem mohou bòt vyvol†ny  aktu†ln° informace zadanÇ SysOpem. Pokud
+se  obsah AKTUELL  zmànil od   p©edchoz°ho vstupu  do boxu,  automaticky se
+objev° p©i novÇm vstupu do boxu.
+\\BAYCOM
+Baycom je AX.25 software, kterò existuje od £nora 1990 a jehoë autory jsou:
+DG3RBU - hardware, dokumentace, test
+DL8MBT - software
+Sest†v† se z termin†lu pro koneánÇho uëivatele, nodovÇ á†sti a software pro
+digipeater.
+Nodovò software  bàë° na IBM-PC kompatibilnich  poá°taá°ch se speci†ln° SCC
+kartou.
+V souáasnÇ dobà  je moëno provozovat az  8 linek s max.  19200 Bd na kaëdÇ,
+ale je moënÇ i bezproblÇmovÇ  roz®°©en°. BayCom-Node bàë° zcela rezidentnà,
+takze na stejnÇm poá°taái lze provozovat i box.
+V z†sadà je moëno sledovat 3 hlavn° vlastnosti:
+- vypada podobnà jako TheNet (uëivatelska á†st)
+- na pasmu se chova podobnà jako FlexNet (digipeating, router)
+- uvnitr nem† s obema uvedenòmi systÇmy nic spolecneho
+'Via'  - je  moënò digipeating  s oddelenim  potvrzovac° cesty.  Autorouter
+dosazuje chybej°c° znaáky digipeateru, takze  se mus° zadat jen nejnutnàj®°
+cesty. Chov†n° v tÇto oblasti je podobnÇ jako u FlexNetu 3.1.
+Cesty k  c°li (termin†ls) se vyb°raj°  z MH seznamu, ve  kterÇm je uchov†no
+posledn°ch 2047 znaáek a t°m  je umoënàna rekonstrukce cesty. Neuchov†v† se
+ale kompletn° cesta, nòbrë jen vstupn° digi.
+Pro provoz u koneánÇho uëivatele existuje rezidentn° LAYER-2, kterò p©eb°r†
+funkce  TNC.  Take  toto  mñëe  bàëet  rezidentnà.  P©i  pot©ebà  mñëe  bòt
+nastartov†n jen termin†l, kterò nab°z° uëivateli v®echny pot©ebnÇ funkce.
+\\ROZSAH
+Zad†n° rozsahu je moënÇ tam, kde mñëe  bòt zvolen poáet zpr†v, nap©. u DIR,
+LIST, READ a  ERASE. zad†n° adres†©e mus° p©edch†zet  zad†n° rozsahu. Pokud
+chyb°, pouëije se posledn° aktu†ln°  adres†©. Rozsah vymezuje v adres†©i ty
+zpr†vy,  kterÇ odpov°daj°  zadanÇmu rozsahu.  Zadanò adres†©  mñëe bòt ud†n
+v promptu (viz tÇë HELP MAKRO).
+Vòbàr zpr†v  je uráen á°slem zpr†v,  kterÇ jsou uvedeny u  p©°kazu DIR nebo
+LIST.
+Ä°slo je o to vy®®°, oá je zpr†va novàj®°, nejstar®° zpr†va m† tedy á°slo 1.
+Rozsah mñëe bòt zad†n n†sledovnà:
+
+Zad†n° rozsahu        |      VybranÇ zpr†vy
+---------------------------------------------------------------------------
+<ë†dnÇ>               |      v®echny v aktu†ln°m adres†©i
+5                     |      jen zpr†va c. 5
+-7                    |      posledn°ch 7 zpr†v (nejnovàj®°ch 7)
+1-7                   |      prvn°ch 7 zpr†v v adres†©i
+3-                    |      v®echny zpr†vy od t©et° vò®e
+2-5                   |      zpr†vy 2, 3, 4, 5
+
+P©°klady:
+R satelit 1-4     áte zpr†vy 1-4 adres†©e 'satelit'
+L info -10        uk†ëe posledn°ch 10, tedy nejnovàj®°ch zpr†v v adres†©i
+                  'info'
+E dx 4            vymaëe 4. zpr†vu adres†©e 'dx'
+\\BIDLIST
+<kriterium>    debugging p©°kaz, v praxi bez vòznamu, listuje v tabulce
+               intern°ho   ID  bulletinu.   P©itom  mñëe   bòt  <kriteriem>
+               jakòkoliv  fragment  BID  nebo  jmÇna  souboru.  V  BID jsou
+               uchov†ny  n†zvy  zpr†v,  aby   p©i  maz†n°  zpr†v  na  d†lku
+               nedoch†zelo  k  zbyteánÇmu  prohled†v†n°,  nap©.  BID OK0PPL
+               prohled†v† BID v®ech zpr†v, kterÇ jsou zad†ny v OK0PPL.
+\\BOARD
+V helpu pouë°v†me slovo adres†©.
+Zpravidla  je  v  adres†©i  v°ce  zpr†v,  kterÇ  se tòkaj° uráitÇho tÇmatu.
+Rozli®ujeme:
+User adres†©e: soukrom†  po®tovn° schr†nka  uëivatele, zde  uloëenÇ zpr†vy
+               smàj° bòt  smaz†ny pouze odes°latelem  nebo adres†tem
+               (tzv. priv†tn° zpr†vy)
+Bulletin adr.: ve©ejn†  po®tovn° schr†nka  se zpr†vami  , kterÇ  mohou bòt
+               áteny kymkoliv, ale maz†ny  jen odes°latelem. Zpr†vy v tomto
+               adres†©i se jmenuji bulletiny.
+
+Kaëdò  adres†© m†  sve jmÇno,  kterÇ je  nutno zadat  pro komunikaci s n°m.
+U USER adres†©e  je to volac° znaáka  uëivatele, u BULLETIN adres†©e  je to
+nàjakÇ typickÇ oznaáen°, kterÇ se vztahuje k tÇmatu obsahu adres†©e
+ (nap©. DX, Satelit, C64...)
+Zpr†vy  v kaëdÇm  adres†©i jsou   á°slov†ny. Nejstar®°  zpr†va m†  á°slo 1.
+p©°kazem DIR, pop©. LIST se prohl°ë° obsah adres†©e.
+Adres†©  mñëe m°t  dal®° podadres†©e.  Tedy je  moënÇ, aby  adres†© C64 byl
+z†rove§ podadres†©em rubriky COMPUTER.
+KaëdÇmu  adres†©i  zad†v†  mailbox-Sysop  uráitou  dobu  ëivotnosti,  kter†
+uráuje, po jakou dobu zpr†va v adres†©i zñstane, neë je automaticky smaz†na.
+JmÇno  adres†©e je  souá†sti mnoha  p©°kazñ, nap©.  DIR, LIST, READ, ERASE,
+CHECK.
+BayComBox  se hl†s°  vëdy jmÇnem  poslednà uëivatelem  vyvolanÇho adres†©e,
+dokud nen° zad†n adres†© jinò. To  je umoënàno zad†n°m n†zvu adres†©e p©°mo
+s p©°kazem, nebo pomoc° CD.
+\\BULLETIN
+Bulletin   je   zpr†va,   kterou   mohou   á°st   v®ichni   uëivatelÇ  boxu
+(ve©ejn† zpr†va). Mazat ji v®ak mñëe jen ten, kdo ji do boxu zadal a SysOp.
+Podle  tÇmatu,  ke  kterÇmu  pat©°  bulletin,  se  za©azuje do jednotlivòch
+tÇmatickych  rubrik. Odtamtud  se po  uplynut° doby  ëivotnosti automaticky
+vymaëe. P©i odes°l†n° bulletinñ by màly bòt pouëity p©°slu®nÇ adresy (n†zvy
+rubrik, oblast, kam m† bòt zpr†va zasl†na, viz tÇë ROZDELENI.
+Vedle  bulletinñ existuji  i zpr†vy  pro uráitÇ  uëivatele (osobn° zpr†vy).
+Mohou  bòt  maz†ny  odes°latelem  i  adres†tem  a  takÇ  maj°  uráitou dobu
+ëivotnosti.
+\\CHECK
+Check <rozsah> <oznaáen°>
+p©°kaz CHECK listuje v®emi zpr†vami  bulletinñ, v po©ad° jejich p©°chodu do
+boxu.
+Zpr†vy  jsou  t©°dàny  dle  datumu,  nejmlad®°m  datem poá°naje. P©i zad†n°
+rozsahu   se  objev°   jen   zpr†vy,   kterÇ  tomuto   rozsahu  odpov°daj°.
+Napr. CHECK 5 uk†ëe jen 5 nejnovàj®°ch zpr†v.
+Pokud se pouëije CHECK bez jakÇkoli dal®° specifikace, jsou prohled†ny jen
+ty bulletiny, kterÇ byly specifikov†ny  p©i posledn°m zad†n° p©°kazu CHECK.
+Pokud se zad†  '<', po dal®°m pr†zdnÇm znaku je  moëno zadat ©etàzec, podle
+ktereho jsou  prohled†v†ny ©†dky, kterÇ tento  ©etàzec obsahuj°, tedy nap©.
+volac° znaáku nebo jakòkoliv jinò text. Znak '<' je moëno vypustit.
+Nez†leë°  na tom,  zda pouzijeme  velk† nebo  mal† p°smena.  Misto CHECK je
+moënÇ pouë°t tÇë p©°kaz DIR NEWS nebo DIR MESSAGES.
+P©°klady pouëit° p©°kazu:
+C                uk†ëe novÇ zpr†vy od posledn°ho vstupu do boxu
+C 10 nebo C 1-10 uk†ëe 10 nejnovàj®°ch zpr†v
+C 1- OK1XYZ      uk†ëe v®echny zpr†vy, kterÇ poch†zej° od OK1XYZ
+C 2-30 OK1XYZ    uk†ëe 2. - 30. zpr†vu od OK1XYZ
+C TS140S         uk†ëe v®echny zpr†vy, kterÇ maj° v n†zvu slovo TS140S
+\\CD
+CD <adres†©>
+Meni aktu†ln° adres†© (objevuje se v promptu).
+\\CONVERS
+Jako TALK, viz HELP TALK
+\\DIR
+Uk†ëe obsah adres†©e. moënosti pouëit°:
+DIR
+               listuje aktu†ln°m adres†©em, moëno
+               pouë°t i LIST.                                  DIR
+DIR <adres†©>
+               listuje  v zadanÇm  adres†©i. Adres†©  mñëe
+               bòt uëivatelskò, pak je jmÇnem adres†©e volac°
+               znak uëivatele, nebo bulletin.
+               Viz tÇë BULLETIN a BOARD.                       D BAYCOM
+DIR <adres†©> <rozsah>
+               listuje adres†©em v zadanÇm rozsahu.
+               Viz tÇë HELP ROZSAH.
+               Pozor:
+               D SOFTWARE -12 vyhled† 12 nejnovàj®°ch zpr†v.   D BAYCOM 1-5
+DIR <adres†©> <©etàzec>
+               listuje n†zvy zpr†v, ve kteròch je obsazen
+               zadanò ©etàzec                                  D IBM 7plus
+DIR MESSAGES   listuje v®emi zpr†vami v®ech bulletinñ
+               (je jich mnoho!)                                D M
+DIR MESSAGES <text>
+               listuje zpr†vami v®ech bulletinñ, kterÇ obsa-
+               huji zadanò text. Nerozhoduje, je-li ps†no
+               velkòmi nebo malòmi p°smeny.                    D M TS140S
+DIR SENT       Vyp°®e zpr†vy, ve kteròch se vyskytuje vlastn°
+               volac° znak, tedy i ty, kterÇ jsme sami napsali   D S
+DIR AFTER <datum>
+               jako DIR MESSAGES, ale jsou listov†ny pouze
+               zpr†vy, kterÇ do boxu p©i®ly od zadanÇho data.
+               zad†n° màs°ce a roku se mñëe vynechat, pak je
+               akceptov†n moment†ln° màs°c.                    D A 21.10.
+DIR NEWS       jako DIR MESSAGES, s t°m rozd°lem, ëe jsou
+               vylistov†ny v®echny zpr†vy, kterÇ p©i®ly do boxu
+               od posledn°ho zad†n° DIR NEWS                   D N
+DIR BOARDS     vyp°®e v®echny adres†©e, kterÇ jsou moment†lnà
+               v boxu zavedeny. Rozli®uje se mezi hlavn°mi
+               adres†©i a podadres†©i. T©°d° se podle hlavn°ch
+               adres†©ñ (hierarchicky systÇm)                  D B
+DIR BOARDS <jmÇno>
+               vyp°®e v®echny adres†©e, ve kteròch se vyskytuje
+               zadanÇ jmÇno. Lze zadat takÇ jen á†st jmÇna
+               adres†©e. V tomto modu jsou uvedeny i poáty zpr†v
+               v danòch adres†©ich a doba jejich ëivotnosti.
+               Takovò seznam pro v®echny adres†©e
+               se zad†: D B *.                                 D B SOFTWARE
+DIR USERS      vyp°®e v®echny uëivatelskÇ adres†©e, kterÇ obsahuj°
+               zpr†vy, vcetnà zpr†v vymazanòch toho dne.       D U
+DIR USERS ALL [<znaáka>]
+               listuje seznamem v®ech znamych uëivatelu
+               (mñëe jich bòt velmi mnoho!). Mñëe bòt zad†na
+               i jen á†st volac° znaáky, pak se objev° jen ty
+               z†znamy, kterÇ tuto á†st obsahuj°.              D U A OK2
+DIR USERS LOCAL [<znaáka>]
+               vyp°®e v®echny uëivatele, kte©° alespo§ jednou
+               v boxu byli. Jinak stejnÇ jako u  D U A.        D U L
+DIR USERS MSG [<text>]
+               listuje v®emi uëivatelskòmi adres†©i, kterÇ
+               obsahuj° zadanò text                            D U M
+DIR PATHS
+               vyp°®e moment†lnà nastavenÇ cesty pro forward
+               a oblasti.
+               D P <znaáka> uk†ëe jen ten uráitò z†znam.                  D P
+Options lze nastavit i p©edbàënà, stejnà jako je moëno je zad†-
+vat z†rove§ s p©°kazem. Viz tÇë HELP ALTER a HELP OPTION. zad†n°
+option pomoc° '-', vypnuti dal®°m '-' na konci p©°kazu. Napr.:
+D -G            vyp°®e zpr†vy, kterÇ je®tà nebyly áteny
+D -L-           nevypisuje dobu ëivotnosti
+Velk† / mal† p°smena nerozhoduj°.
+\\ERASE
+ERASE <adres†©> <rozsah>
+vymaëe rozsahem vymezenÇ zpr†vy v adres†©i. P©°klady:
+E OK1XYZ 3-4
+E 1
+Dovoleno je mazat pouze zpr†vy, kterÇ napsal uëivatel nebo jejich p©°jemce.
+\\FORWARD
+FORWARD <adres†©> <rozsah> [@] <c°l>
+pos°l†  rozsahem  vymezenÇ  zpr†vy  do  jinÇho  boxu  nebo do jinÇ rubriky.
+Uëivatel mus° m°t  povolenò p©°stup ke zpr†và, tedy zpr†va  mus° bòt od nàj
+nebo pro nàj. P©°klady:
+F info 5 ok
+F ok1xyz
+V®eobecnÇ pozn†mky k forwardov†n°:
+Zpr†vy mohou  bòt pos°l†ny do  ostatn°ch boxñ podle  obsahu, smyslu, £áelu,
+atd.  Osobn° zpr†vy  jsou po  odesl†n° do  jinÇho boxu  vymaz†ny, bulletiny
+zñst†v†j° v boxu a je moënÇ s nimi d†le pracovat.
+U osobn°ch zpr†v mus° bòt zad†na adresa jedinÇho boxu, kam uráen† zpr†va m†
+doj°t. Tento  box mus° bòt jednoznaánà  rozpoznatelnò, tedy á°m vzdalenàj®°
+box,  t°m p©esnàj®°  mus° bòt  oznaáen° c°lovÇho  boxu. V®eobecnÇ plat°, ëe
+zpr†vy do ciziny mus°  obsahovat PLNOHODNOTNOU hierarchickou adresu. zad†n°
+takovÇ adresy:
+     DB0AAB.BAY.DEU.EU
+                    ^ kontinent (zde Evropa)
+                ^ stat, zde Nemecko
+            ^ eventualni blië®° oznaáen°, zde Bavorsko
+     ^ volac° znaáka boxu
+Oznaáeni kontinentu:
+AF   - Afrika       AS  - Asie          AU  - Australie       EU  - Evropa
+MDLE - MiddleEast   NA  - Sev. Amerika  SA  - Jizni Amerika
+Oznaáeni zemi jsou nap©.:
+AUT = Rakousko      CHE = Svycarsko    BEL = Belgie    DEU = Nemecko
+DNK = Dansko        FIN = Finsko       FRA = Francie   HUN = Madarsko
+ITA = Italie        NLD = Holandsko    SWE = Svedsko   SLO = Slovinsko
+TCH = Ceska republika
+U bulletinñ  mus°  bòt  zad†na  zemepisna  oblast,  do  kterÇ m† bòt zpr†va
+odeslana.
+POZOR: zpr†vy  uráene k odesl†n° do  ciziny mus° bòt naps†ny  v angliátinà,
+nebo v jazyce zemà, kde se nalÇz† c°lovò box.
+Zemepisne oblasti jsou nap©°klad:
+BAY = Bavorsko     DL = Nemecko           OEDL/DLOE = Nemecko + Rakousko
+EU  = Evropa       WW/ALL = do celeho sveta    VSEM = ceske boxy
+Adresov†n° osobnich zpr†v a bulletinñ je rozd°lnÇ, nem† bòt zamà§ov†no.
+\\HELP
+p©°kaz--------------Popis---------------------------------------P©°klad
+
+ALTER <parametr>    parametr ukazat/nastavit                  A F OK0PPL
+DIR <adres†©>       obsah boxu                                D OK1XYZ 1-5
+DIR ...             m† mnoho moënost°, viz HELP DIR
+CHECK <rozsah>      listuje zpr†vami, kterÇ p©ibyly od posled-
+                    n°ho zad†n° tohoto p©°kazu                C 1-20
+ERASE <adres†©>     zru®° zpr†vy                              E OK1XYZ 5
+         <rozsah>
+FORWARD <msg> <box> po®le zpr†vu do zadanÇho boxu          F OK1FYL 5 DB0RGB
+HEADER <msg>        vyp°®e £daje o zpr†và                     K OK1XYZ 1-
+LIST ...            podobnÇ jako DIR                          L OK1XYZ 5-10
+LOG <znaáka>        vòtah z logu                              LOG OK1XYZ
+                                                              LOG 24.03.1993
+PATH <adresa>       uk†ëe cestu k adrese forwardu             P DB0RGB
+PARAMETER <adresa>  uk†ëe sytÇmovÇ nastaven° boxu            PAR
+PURGE               nevratnà smaëe zpr†vu                     PU
+QUIT                odchod ze systÇmu                         Q nebo disconn.
+READ <msg>          áten° zpr†v                               R OK1XYZ 2-4
+REPLY               odpovàÉ na p©eátenou zpr†vu               REP
+SEND <znaáka>       zasl†n° zpr†vy
+ <n†zev zpr†vy>                                               S OK1XYZ ahoj
+SETLIFE <msg>       zmàna doby ëivotnosti zpr†vy
+ <poáet dnñ>                                                SETL OK1XYZ 1 365
+TALK <znaáka>       zpr†va stanici p©°tomnÇ v boxu
+ <sdàlen°>                                                T OK1XYZ zdravim te
+TRANSFER <msg>      kop°rov†n° zpr†vy
+ <adres†©>                                                TR OK1XYZ 5 OK1FYL
+UNERASE <msg>       vymazan† zpr†va jde p©eá°st               UN OK1XYZ 2
+USERS               vyp°®e pr†và napojenÇ stanice             U
+VERSION             vyp°®e verzi programu                     V
+P©esnàj®° informace pomoc° HELP <p©°kaz>, nap©. HELP DIR....
+P©ehled v®ech helpñ pomoc° HELP INDEX, celò help - HELP ALL
+\\HEADER
+Header <adres†©> <rozsah>
+vyp°®e  v®echna  dostupn†  data  tòkaj°c°  se  adres†©e.  Syntax  je shodn†
+s p©°kazem  READ,  ale  jsou  vyps†ny  v®echny  n†zvy adres†©ñ nez†visle na
+nastavenòch parametrech p©i READ.
+S option '-h' se vyp°®e i cel† cesta p©es v®echny mailboxy.
+\\INFO
+Vyp°®e informaáni° text o mailboxu.
+\\KOPF
+Viz HEADER.
+\\LIST
+LIST <adres†©> <rozsah>
+vyp°®e obsah rubriky nebo obsah soukromÇho adres†©e (nikoliv obsah zpr†v).
+Rozd°l mezi DIR a LIST je v tom, ëe plat° jinÇ standardn° nastaven° p©°kazu.
+Viz tÇë HELP OPTION. p©°kaz je podobnò p©°kazu LIST v DieBox software.
+Jsou  vyps†ny  pouze  zpr†vy  od  posledn°ho  vstupu  (a vòstupu pomoc° Q).
+Nastaven° je moëno mànit pomoc° p©°kazu ALTER (viz HELP ALTER).
+P©°klad:
+L OK1XYZ 1-     listuje v®echny zpr†vy pro OK1XYZ
+l baycom -10    listuje nejnovàj®°ch 10 zpr†v v rubrice BayCom
+\\LIFETIME
+dÇlka ëivotnosti  zpr†vy v boxu. Je  to áasovò £daj v  dnech po vloëen°, po
+kterÇm se zpr†vy nachazej°c° se  v p©°slu®nÇm adres†©i automaticky vymaëou.
+Pro bulletin  zad†v† mailbox-SysOp, pro  user adres†©e existuje  standardn°
+nastaven°, kterÇ si mñëe uëivatel mànit s†m.
+\\LOG
+LOG [-options] [<datum>] [<znaáka>]
+Vypisuje se jen 20 nejnovàj®°ch spojen°, zad†-li se jen LOG.
+Je moëno pouë°t n†sleduj°c° options:
+ -f      vyp°®e tÇë vstupy forwardovòch spojen° (standard je OFF)
+ -s      vyp°®e JEN vstupy SysOpa
+ -w      prohled†v† o tòden pozp†tku (7 dni)
+ -m      prohled†v† o màs°c pozp†tku (30 dni)
+ -q      prohled†v† o átvrtlet° pozp†tku (90 dni)
+ -y      prohled†v† o rok nazpàt
+         Pozor! m, q, y  trvaj° vàánost!
+ -c      vyp°®e jen poáet spojen° v zadanÇm áasovÇm obdob°
+ -a      vyp°®e VõECHNY nalezenÇ vstupy
+
+Kombinace options je moën†. P©°klady:
+
+LOG <znaáka>          vyp°®e dne®n° LOG pro zadanou znaáku    LOG OK1XYZ
+LOG <datum> <znaáka>  vyp°®e LOG dle zadanÇho data a znaáky   LOG 27. OK1XYZ
+LOG <datum>           vyp°®e LOG pro zadanò den               LOG 24.03.93
+LOG -Y OK1XYZ         prohled† posledn°ch 20 zalogov†n° v posledn°m roce
+LOG -WS 1.10          prohled† vstupy SysOpa v tydnu p©ed 1. 10.
+LOG -CMF              vyp°®e poáet napojeni za posledn° màs°c
+Vòstupn° form†t:
+Logauszug (max. 20)  24. 3. 93
+Call   Datum    Start Ende  TxBytes Rxbytes CPUsec F TXFi RXFi
+OK1IVJ 24.03.93 08:24-08:27   1059       6   0.49      0    0 via OK0PHL
+OK1FYL 24.03.93 08:33-08:49   3936      36   2.47  Q   1    0 via OK0PAB
+OK1DDR 24.03.93 09:13-09:14    888      24   0.16  S   0    0 via OK0PRG
+OK0PRG 24.03.93 08:25-08:31  28647    3240   1.41  F   4    2 via OK0PHL
+46 Eintraege gefunden
+
+TxBytes:    poáet vyslanòch Bytes na box nebo uëivatele
+RxBytes:    uëivatelem p©ijatÇ Byty
+CPUsec:     spot©ebovanò strojovò áas
+F:          n†và®t° (S = SysOp, Q = vòstup pomoc° QUIT,
+            F = forwardovÇ spojen°)
+TXFi:       poáet zpr†v p©eátenòch v boxu (box vys°lal)
+RXFi:       poáet zpr†v zapsanòch do boxu (box p©ij°mal)
+\\MSG
+MSG <znaáka> <zpr†va>
+pos°l† zpr†vu k jinÇmu napojenÇmu uëivateli. Viz tÇë HELP TALK.
+\\MAKRO
+Makro je zkratka, kterou je moëno vestavàt  do promptu a kter† se objev° po
+kaëdÇm promptu odeslanÇm z boxu, d† se j°m nastavit nàjak† informace.
+N†sleduj°c° makra moëno vestavàt do promptu (a CTEXT/CNEW/INFO):
+ %v  á°slo verze software
+ %t  moment†ln° áas
+ %d  moment†ln° datum
+ %i  áas napojen° do boxu
+ %c  znaáka napojenÇho uëivatele
+ %m  znaáka mailboxu
+ %n  jmÇno uëivatele
+ %o  poáet napojenòch stanic
+ %l  datum a áas posledn°ho napojen°
+ %h  £rove§ nastaven° helpu uëivatele
+ %b  moment†lnà aktivn° adres†©
+ %r  p©eru®en° na konci ©†dku (return)
+ %p  spot©ebovanò strojovò áas od napojen°
+ P©°klad:  a pr (%b) %c de %m
+            (BAYCOM) OK1XYZ de OK0PPL
+\\MEM
+MEM      debugging p©°kaz, v praxi bez vòznamu
+Ukazuje moment†ln° zaplnàn° pamàti. P©itom se vyp°®e:
+ - bàënÇ á°slo pamàüovÇho bloku
+ - velikost v Bytech (moëno max. 64k)
+ - adresa (segment paragraf)
+ - p©°slu®nÇ á°slo tasku (viz PS), nebo -1, pokud se vyvol†n° neuskuteánilo
+   v r†mci tasku
+ - £áel vyuëit°
+\\MYBBS
+nastavuje 'mate©skò' mailbox.
+Tento p©°kaz je identickò k ALTER FORWARD <box>.
+Blië®° informace k forwardingu viz HELP FORWARD.
+\\OPTION
+Jsou moënÇ n†sleduj°c° options u p©°kazñ READ, LIST a DIR (viz HELP ALTER):
+ A   vypsat odes°latele
+ B   vypsat poáet bytñ
+ C   pokraáov†n° bez p©eru®en°
+ D   vypsat datum
+ E   vypsat p©°jemce (resp. adres†©)
+ F   vypsat vòchoz° box
+ G   nevypisovat p©eátenÇ zpr†vy
+ H   READ:  vypsat R:-haeader (vyluáuje P)
+     LIST/DIR: NEvypsat n†zev adres†©e
+ I   vypsat BID
+ J   nadpisy podobnÇ DieBoxu
+ K   z†vorka, resp. R za á°slem zpr†vy
+ L   vypsat dobu ëivotnosti
+ M   vypsat c°lovou adresu (hierarchicky)
+ N   ot†zka 'Vymazat zpr†vu?' po áten° (jen READ)
+ O   vypsat c°lovou adresu (jen z†kladn° á†sti adresy)
+ P   vypsat boxy, jimië zpr†va cestou pro®la (jen READ)
+ Q   vypsat zpr†vy (bez zad†n° rozsahu) jen od posledn°ho QUITu (LIST/DIR)
+ R   vypsat znaáky, kterÇ áetly zpr†vu (jen READ)
+ S   vypsat podadres†©e (LIST/DIR)
+ T   vypsat áas
+ U   vypsat ©†dku uplink (jen READ)
+ V   vypsat vymazanÇ zpr†vy (viz UNERASE)
+ W   vypsat nadpis zpr†vy
+ X   poslat pr†zdnou ©†dku p©ed nadpisem  (LIST)
+ Y   vypsat v datumu i rok
+ Z   vypsat poáet ©†dek
+\\PATH
+PATH <adresa>
+ud†v†  smàr odes°l†n°  p©i forwardingu.  Obvykle jsou  to sousedn° boxy, ke
+kteròm se  adresa zad†v†. Plat° to v®ak i  pro konkrÇtn° adresy  boxu (pro
+user zpr†vy i pro bulletiny)
+P©°klady:
+P OK0PHL
+P all
+p dl3rdv.bay.deu.eu
+\\PARAMETER
+PARAMETER <©etàzec>
+Vyp°®e moment†ln° nastaven° boxu. Bez parametru se objev° celò konfiguraán°æ
+soubor. Blië®° informace v sysop dokumentaci k boxu. Pomoci <©etàzce> mñëe bòtæ
+vyhled†n specifickò parametr konfiguraán°ho souboru. P©°stup mñëe bòt jakkolivæ
+zkr†cen, p©i nejednoznaánosti se objev° v®echny tomu odpov°daj°c° moënosti.
+P©°klad:
+par run    vyp°®e v®echny extern° programy, vyuëitelnÇ uëivatelem boxu
+\\PURGE
+Pokud je  zru®ena zpr†va pomoc°  ERASE, pak je  jako zru®en† oznaáena,  ale
+nen°  tomu  tak  skuteánà.  P©°kaz  PURGE  odstrani  tyto  zpr†vy doopravdy
+z disku.  Vzhledem  k  tomu  se  màn°  á°sla  zpr†v  aë po proveden° tohoto
+p©°kazu. Po zad†n° PURGE jië nen° moënò p©°kaz UNERASE.
+\\PS
+PS         debugging p©°kaz, v praxi bez vòznamu
+Process status. Listov†n° v®emi moment†lnà bàë°c°mi procesy. Kaëdò napojenò
+uëivatel a  kaëdÇ aktivni okno  obrazovky obdrë° jeden  proces. Mimoto bàë°
+tÇë procesy v pozad°, kterÇ p©eb°raj° sytÇmovÇ ©°zen°.
+Options p©i PS:
+ -a  uk†ëe time event a typ procesu
+ -b  uk†ëe takÇ procesy v pozad°
+ -s  uk†ëe obsazen° stacku a áasovou prodlevu
+V®echny informace najednou:  ps -abs
+Standardnà se vypisuj° jen procesy aktivn°ch zpr†v.
+P©°klad:  ps -abs
+ Task  Event  Kdeb  CPUt  Create  Input  Name       Command
+    0  40      210  0.1     71m          Desktop
+    1  251     210  0.3     71m          Console
+    2  242     210  23s     71m          Monitor
+    3  246     000  28s     71m          Monitor
+    4  kbhit   711  0.7     71m          BayCom-M
+    5  514     000  0.3     71m          forwardd
+    6  235     101  3.9     18m   26s    OK1XYZ     l ibm
+*   7  235     101  81s     71m    0s    OK1IVJ     ps -abs
+    8  txf     101  9.2     54m   40m    OK1FYL     r okbox 1-2
+    9  235     101  8.5     26m    5m    OK1DDR     r CONTEST 1
+   12  txf     101  31s     69m  139s    OK2ZZ      r gp 218-
+   13  242     101  0.8     11m   35s    DL3RDV     rep
+Wait:  0  13  9  3  2  1  6  5  12  8  4
+Stack: 272 174 446 870 790 530 1108 1080 1158 1720 1204 1720
+
+Task:      Ä°slo tasku. Pomoci '*' je oznaáen vlastn° proces.
+Event:     Ud†lost, na kterou áek† proces. Vòznam je intern°.
+Kdeb:      Typ procesu. Kd: Pole bitu. e: Okno obrazovky. b: mailbox
+CPUt:      Strojovò áas od poá†tku procesu
+Create:    Doba, po jakou existuje proces
+Input:     Doba, kdy p©i®el p©°kaz od uëivatele
+Name:      JmÇno procesu nebo znaáka oper†tora
+Command:   Poslednà zadanò p©°kaz
+Wait:      Po©ad° v®ech procesñ v áekac° frontà
+Stack:     Maxim†lnà dosaëenÇ hodnoty stacku v®ech procesñ
+
+N†sleduj°c° procesy bàë° permanentnà nebo cyklicky:
+Desktop    Hlavn° obrazovka. Je to pradàdeáek v®ech bàë°c°ch procesñ.
+Console    Male okÇnko, ve kterÇm se objevuj° v®echna systÇmov† hl†®en°.
+           Hl†®en°  o  systÇmovòch  chyb†ch  jsou  n†slednà  zapisov†na do
+           souboru SYSLOG.BCM.
+Monitor    Okno, v kterÇm se zobrazuje provoz.
+BayCom     Okno, ve kterÇm je nalogov†n sysop na obrazovce.
+  -Mail
+login      Tento proces se cyklicky pta v®ech TNC kan†lñ a zji®üuje, zda
+           p©i®el  novò  login  nebo  zda  skonáilo  bàënÇ  spojen°. Zde se
+           vytv†©ej° v®echny mailbox-tasky.
+forwardd   Zde  je  cyklicky  zji®üov†no,   zda  se  tu  nach†zej°  soubory
+           k forwardu a pokud ano, zda  souhlas° denn° doba s nastaven°m ve
+           forward-souboru.
+           Kromà toho  je zde ve  4 hodiny v  noci startov†n PURGE.  Kaëdou
+           pñlhodinu se zapisuj° soubory BULLETIN.BCM a INIT.BCM na disk.
+purge      V®echno  zniá°.  SystÇm  souboru   je  prohled†v†n,  zda  se  tu
+           vyskytuj° soubory s pro®lou dobou nebo vymazanÇ soubory. V®echny
+           tyto soubory jsou pak skuteánà vymaz†ny.
+\\QUIT
+Zru®en° spojen° k mailboxu
+\\READ
+READ [<options>] [<adres†©>] [<rozsah>]
+Äte  vlastn° zpr†vy  nebo zpr†vy  z bulletinñ.  Pokud nezad†me  adres†©, je
+pouëit ten pr†và aktu†ln°. P©itom mohou bòt zad†ny n†sleduj°c° options:
+-A    vypsat odes°latele
+-E    vypsat p©°jemce (nebo adres†©)
+-D    vypsat datum
+-Y    vypsat datum + rok
+-T    vypsat áas
+-B    vypsat poáet bytñ
+-Z    vypsat poáet ©†dek
+-L    vypsat áas ëivotnosti
+-F    vypsat vychoz° box
+-M    vypsat celou adresu
+-P    vypsat zkr†cenà celou cestu, kudy zpr†va pro®la
+-H    vypsat R:- vypsat hlaviáku (header) v celÇ dÇlce
+-R    vypsat znaáky, kterÇ áetly zpr†vu
+-U    vypsat uplink ©†dku
+-I    vypsat BID
+-W    vypsat tÇma, áeho se zpr†va tòk†
+-N    zeptat se po p©eáteni zpr†vy, zda ji zru®it ('Nachricht loeschen?')
+-C    vypis bez p©eru®en° na konci obrazovky (viz ALTER LINES)
+Velk† / mal† p°smena nerozhoduj°.
+p©°kaz ALTER UREAD <options>     u user souborñ
+       ALTER IREAD <options>     u bulletin souborñ
+P©ednastavuje v®echny  options (viz tÇë HELP  ALTER). P©ednastaven° funguje
+s p©°kazem READ.
+Zad†n°  rozsahu znaá°,  kter† á°sla  zpr†v maj°  bòt vyps†na.  Pokud rozsah
+nezad†me, pak se vyp°®e posledn° (tedy nejnovàj®°) zpr†va.
+P©°klady:
+r -h ok1xyz 1-5
+d†v† prvn°ch  5 zpr†v pro ok1xyz  a listuje v®emi header  ©†dky v®ech boxñ,
+jimië zpr†va pro®la.
+
+r -p- -f alle 200
+vyd† zpr†vu  á°slo 200 z rubriky  ALLE, NEvypisuje cestu, kudy  pro®la, ale
+vyp°®e vòchoz° box.
+\\REPLY
+Po p©eáten° zpr†vy, kter† byla uráena  danÇmu uëivateli se d† pomoc° tohoto
+p©°kazu lehce na tuto zpr†vu  odpovàdàt. P©itom se p©ejmou v®echna nezbytn†
+data do  zas°lanÇho souboru. Pak  se v n†zvu  zpr†vy objev° 'RE:'  + n†zev,
+jakò zadal uëivatel.
+\\SEND
+SEND <adres†©> [@<adresa>] [#<doba ëivotnosti>] <n†zev>
+zad†n° zpr†vy do mailboxu.
+<adres†©>     Volac° znaáka, kterÇ je zpr†va uráena, nebo jmÇno adres†©e,
+              ve  kterÇm  m†  bòt  zpr†va  uchov†na.  P©ehled  moënòch jmen
+              adres†©ñ pomoc° p©°kazu DIR BOARDS.
+<adresa>      Forwardovac° adresa pro zpr†vu. Pokud nem† bòt odes°l†na pryá
+              nebo  pokud  je  c°lov†  adresa  dotyánÇ  znaáky  zn†ma, mñëe
+              odpadnout.
+              U osobn°ch zpr†v se zde  zad†v† volac° znaáka boxu, ve kterÇm
+              je  adres†t  dosaëitelnò.  ZejmÇna  u  zpr†v  adresovanòch do
+              zahraniá° by  màla bòt uvedena  kompletn° hierarchick† adresa
+              (DB0AAB.DEU.EU nebo OE5XBL.AUT.EU). U bulletinñ by m°sto toho
+              màl bòt uveden rozdàlovn°k, podle kterÇho  se zpr†va  odes°l†
+              pryá, nap©°klad DL nebo EU. Viz tÇë HELP FORWARD.
+<doba         Äas ve dnech, jak dlouho m† bòt zpr†va uchov†na. Tato doba je
+ ëivotnosti>  sdàlena takÇ dal®°m boxñm, takëe po tÇto dobà je zpr†va v®ude
+              skuteánà zru®ena. U zpr†v, kterÇ jsou i bez toho zajimavÇ jen
+              doáasnà, by  se tato doba màla  z†sadnà uv†dàt (nap©. term°ny
+              setk†ni, atd.).
+<n†zev>       Zde pouë°t kratkÇ, ale vystiënÇ upozornàn°, o co se ve zpr†và
+              jedn†.  Pouëijeme-li  jen   pov®echnÇ  n†zvy,  nap©.  'pros°m
+              átàte', pak je skoro jistÇ, ëe zpr†vu skoro nikdo nebude á°st.
+P©°klady:
+s ok1xyz p©ijde® dneska?
+s baycom @ v®em #10 Nov† verze hotova
+s dl3rdv @ db0rgb.bay.deu.eu Hallo
+\\STATUS
+Zkratka ST F. Data o budouc°m forwardingu. Vyp°®° se p©itom tyto informace:
+-znaáka sousedn°ho boxu
+-Ok: 0  partner nezastiëen p©i posledn°m pokusu
+     1  partner zastiëen
+     2  pr†và je p©ij°m†n forward
+     3  pr†và se sestavuje spojen° k partnerskÇmu boxu
+     4  pr†và je vys°l†n forward
+-Login: áasovÇ obdobi, kdy byl naposled partner connectov†n
+-ConOk: áasovÇ obdobi, kdy byl naposledy £spà®nò pokus o connect
+        (pokud u tàchto hodnot nen° nic naps†no, pak je®tà nebylo ë†dnÇ spojen°)-User:  poáet uëivatelskòch zpr†v, kterÇ zbòv† odeslat
+-Info:  poáet zbylòch bulletinñ
+-E/M:   poáet ERASE/MYBBS informac°, kterÇ je®tà zbòvaj°
+\\SEITENSTOP
+Aby  zpr†va p©es  obrazovku jen  neprobàhla, lze  nastavit poáet  ©†dek, po
+kteròch  se m†  vys°l†n° z  boxu doáasnà  zastavit. Nastaven°  pomoc° ALTER
+LINES, zkratka 'A L <poáet>'. Pokud  tuto funkci nezad†me, pak A L nastavit
+na 0. Pokud je nastaveno A L <>  0, pak se na konci posledn°ho ©†dku objev°
+symbol '+?>'. Pak mñëeme udàlat n†sledovnà:
+RETURN:     zpr†va pokraáuje dale
+C:          zpr†va pokraáuje, ale jië bez pauzy.
+S:          p©eru®en° áten°, dal®° áten° po zad†n° p©°kazu READ
+Q nebo B:   ukonáen° spojen° s mailboxem
+U p©°kazñ DIR,  LIST, READ, CHECK se  da pomoc° option '-C'  proj°t zpr†vou
+bez zastaven°.
+Pokud je ALTER  LINES nastaven na 0 nebo zastaven°  po kaëdÇ stranà vypnuto
+pomoc° -C,  pak je moënÇ p©erusit  áinnost i pomoc° stisknut°  RETURN, p©ed
+n°më  nesm°  bòt  zad†n  ë†dnò  jinò  p©°kaz.  Lep®° je vlastnà disconnect,
+protoëe spojen° je zru®eno ihned a box mñëe bòt uvolnàn pro dal®° spojen°.
+\\SEMAPHORES
+SEMAPHORES Debugging p©°kaz, jinak v praxi bez vòznamu.
+Vyp°®e sezman souboru,  kterÇ jsou moment†lnà v pouëit°.  P©itom je vyps†no
+jmÇno souboru a poáet p©°stupñ, v z†vislosti na jejich stavu:
+Rd      read              p©°stup je v dohlednÇ dobà ukonáen
+LRd     long read         p©°stup mñëe trvat jakkoliv dlouho
+Ap      append
+LAp     long append
+Wr      write
+LWr     long write
+protoëe p©i multiuser zpracov†n° se zapisovac° p©istupy navz†jem vyluáuj°,
+je v  z†vislosti na dobà p©°stupñ  vyvolanò proces buÉ suspendov†n  nebo je
+vol†n° provedeno.
+\\SETLIFE
+SETLIFE <adres†©> <rozsah> [#] <dny>
+Nastavuje  moment†ln° ëivotnost  jednÇ nebo  v°ce zpr†v.  P©itom se  zad†v†
+poáet dn° poá°naje dnem dne®n°m. Tato doba mñëe bòt mànàna jen odes°latelem
+nebo adres†tem  zpr†vy (stejnà jako ERASE).  Znak '#' mñëe, ale  nemus° bòt
+zad†n (kvuli kompatibilità s boxem DF3AV).
+P©°klady:
+setl baycom 5-10 30
+setl ok1xyz 1- # 100
+\\TALK
+TALK <znaáka> <zpr†va>
+pos°l† jedno©†dkovou zpr†vu na jinÇho  uëivatele, kterò mus° bòt moment†lnà
+v boxu napojen.
+T <znaáka>
+pos°l†  vse, co  n†sleduje, uráenÇmu  uëivateli. Vystoupen°  z tohoto  modu
+pomoc° '/q'.
+T ALL <zpr†va>
+pos°l† zpr†vu v®em napojenòm stanic°m
+Misto TALK moëno dle libosti pouë°t p©°kazy MSG, WRITE, CONVERS.
+pozn†mka:
+pro p©en†®enÇ zpr†vy  je k dispozici jedno©†dkovò buffer.  P©i p©°li® mnoha
+©†dc°ch najednou mñëe tento buffer p©etÇci a n†sleduje odpov°daj°c° hl†®en°.
+V dal®°ch p©epracov†n°ch software dojde ke zmànà.
+P©°klady:
+t ok1xyz Ahoj Pepiku
+w all Box bude bàhem 5 minut vypnut!
+m ok1ivj
+\\TIME
+TIME nebo TI vyp°®e lok†lni áas.
+\\TRANSFER
+TRANSFER <adres†©> <rozsah> [>] <c°lovò adres†©> [@<bbs>] [#<life>] [n†zev]
+P©esune  zpr†vu do  jinÇ rubriky,  pop©. k  jinÇmu uëivateli.  moëno p©itom
+zadat odpov°daj°c° £daje (jako u  p©°kazu SEND), takÇ novou dobu ëivotnosti
+a/nebo novou forwardovac° adresu.
+U bulletinñ  se star†  zpr†va smaëe,  u uëivatelskòch  zpr†v zñst†v†  star†
+zpr†va  zachov†na, novà  vytvo©en† zpr†va  dostane dodatek  'Transfer ...'.
+Zpr†va mñëe bòt p©esunuta jen p©°jemcem nebo adres†tem (jako u ERASE). Znak
+'>' mñëe, ale nemus° bòt uveden.
+Pozor:  nen°  moënÇ,  delat  TRANSFER  v  r†mci  jednoho adres†©e. Ke zmànà
+forwardovac° adresy  nutno pouë°t p©°kaz FORWARD,  ke zmànà doby ëivotnosti
+p©°kaz SETLIFETIME.
+P©°klady:
+TR baycom 5-6 software
+tr ok1xyz 1- > ok1fyl @ db0rgb
+\\USERS
+USERS  nebo U  uk†ëe, kdo  je napojen  do systÇmu.  P©itom je naznaáeno, co
+pr†và dàl†:
+Idle    uëivatel nedàl† nic, jen z°r† na obrazovku
+Read    je átena zpr†va z boxu
+Send    je pos°l†na zpr†va do boxu
+Search  del®° hled†n°, tedy DIR, LIST nebo CHECK
+FwdTX   pos°l†n forward do jinÇho boxu
+FwdRX   p©ij°m†n forward z jinÇho boxu
+You     ty s†m
+UëivatelÇ, kte©° jsou 'Idle', mohou bòt osloveni pomoc° TALK.
+U <znaáka>
+uk†ëe nastavenÇ parametry odpovidaj°c°ho uëivatele ve zkr†cenÇ formà.
+\\UNERASE
+UNERASE <adres†©> <rozsah>
+'Zviditel§uje' vymazanÇ zpr†vy. Jen 1x dennà ve 4 hod r†no se zpr†vy z boxu
+skuteánà maëou. Jinak  zñstanou i po vymaz†n° pomoc° ERASE  v boxu, a mohou
+bòt  i áteny.  Pomoci LIST  -V  nebo  DIR -V  je moëno  vymazanòmi zpr†vami
+i listovat. P©itom je za á°slem zpr†vy uveden dñvod vymaz†n° zpr†vy:
+E   - zru®eno pomoc° ERASE nebo po ot†zce 'Vymazat zpr†vu?'
+K   - zru®eno SysOpem
+F   - zpr†va byla forwardov†na a proto smaz†na
+L   - zpr†va byla zru®ena d†lkovà (ERASE-FORWARDING)
+T   - zpr†va byla transferov†na na jinò adres†©
+Aby bylo takovÇ zpr†vy moëno á°st pomoc° DIR/LIST, je t©eba pouë°t p©°kaz
+UNERASE. zad†n° rozsahu stejnà jako u DIR, READ, atd.
+P©°klad:   un ok1xyz 1-     'zviditeln°' opàt v®echny zpr†vy pro ok1xyz
+\\VERSION
+vyp°®e á°slo verze, datum, a velikost volnÇ pamàti v poá°taái a na disku.
+zad†n° 'Runtime' da áas ve dnech.hodin†ch:minut†ch, jak dlouho jië software
+bàë° bez p©eru®en°.
+Zad†n°  'CPUindex'  zad†  p©ibliënou  srovn†vac°  hodnotu,  jak  rychlò  je
+procesor  poá°taáe   provozuj°c°ho  box.  Mà©en°  je   ale  velmi  nep©esnÇ
+a vòsledek by proto nemàl bòt p©ece§ov†n.
+\\WRITE
+jako TALK, viz HELP TALK.
