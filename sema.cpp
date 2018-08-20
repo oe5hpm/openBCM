@@ -35,7 +35,7 @@
 //
 // Normale Zugriffe sind nach einer absehbaren Zeit beendet. D.h. es ist
 // sinnvoll, den Programmablauf zu unterbrechen, und zu warten bis die
-// Semaphore wieder zurückgesetzt wird. Dies ist nur bei Zugriffen sinnvoll,
+// Semaphore wieder zurueckgesetzt wird. Dies ist nur bei Zugriffen sinnvoll,
 // die NICHT durch eine User-Ein- oder Ausgabe blockiert werden koennen.
 //
 // Long-Zugriffe koennen beliebig lange dauern, dass heisst es lohnt nicht

@@ -20,7 +20,7 @@
 //19980115 OE3DZW added "options" to version-cmd
 //                added time in utc in "time" cmd
 //19880118 OE3DZW sec in timestr
-//19980124 OE3DZW renamed ELOG to ERLOG (for run-util EL) für DOS
+//19980124 OE3DZW renamed ELOG to ERLOG (for run-util EL) fuer DOS
 //                added rejlog (Log of all rejects)
 //                date/time in more detail opt -a,-f
 //19980202 OE3DZW added support for callformat (output of "version")

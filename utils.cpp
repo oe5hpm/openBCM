@@ -132,7 +132,7 @@ int blkill (char *s)
 //*************************************************************************
 //
 //  Removes blank and CR and ,
-//  Bsp: printf("%s\n", s+blkill(s)); gibt s ohne führendes Blank/CR/, aus
+//  Bsp: printf("%s\n", s+blkill(s)); gibt s ohne fuehrendes Blank/CR/, aus
 //
 //*************************************************************************
 {
@@ -481,7 +481,7 @@ unsigned strcrc (char *s)
 //*************************************************************************
 //
 //  Berechnet ueber den gegebenen String eine CRC-Pruefsumme
-//  Wird für Hashing verwendet
+//  Wird fuer Hashing verwendet
 //
 //*************************************************************************
 {
@@ -534,7 +534,7 @@ int strpos (char *s1, char *s2)
 //
 //  Gibt die Position von Substring in String zurueck
 //  Wird Substring nicht gefunden, oder ist einer der beiden Strings leer,
-//  so wird -1 zurückgegeben.
+//  so wird -1 zurueckgegeben.
 //
 //*************************************************************************
 {
@@ -1300,8 +1300,8 @@ int mbcallok (char *call)
 int mbhadrok (char *hadr)
 //*************************************************************************
 //
-//  Prüft einen String, ob er eine gültige Box-Adresse darstellt
-//  Rückgabe:
+//  Prueft einen String, ob er eine gueltige Box-Adresse darstellt
+//  Rueckgabe:
 //    0  ungueltig (<trash->)
 //    1  Mailbox   (<call>.<h-adress>)
 //    2  Verteiler (<verteiler>)
