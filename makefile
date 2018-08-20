@@ -18,7 +18,7 @@ GPP_VERSION33 := \
 GPP_VERSION4 := \
   $(shell $(CROSS_COMPILE)g++ --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 4)
 
-GIT_VERSION := $(shell git describe --abbrev=7 --dirty --always --tags || echo "?????")
+GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always --tags || echo "?????")
 
 ifeq "$(GPP_VERSION33)" "3"
   CC = g++-3.3
