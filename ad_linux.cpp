@@ -547,10 +547,12 @@ char *cpuinfo (void)
       #endif
       {
         pk = strstr(buf, ": ");
-        ptmp = strchr(pk + 2, ' ');
-        if (ptmp != NULL)
-        	*ptmp = '\0';
-        if (pk && *cpu == '?') sscanf(pk + 2, "%s", cpu);
+        if (pk && *cpu == '?') {
+            ptmp = strchr(pk + 2, ' ');
+            if (ptmp != NULL)
+            	*ptmp = '\0';
+            sscanf(pk + 2, "%s", cpu);
+        }
       }
       if (stristr(buf, "BogoMips"))
       {
