@@ -15,6 +15,7 @@ bcm
 gitver.h
 bcm32.rc
 Debug/*
+Release/*
+out-dos/*
+out-win32/*
 
-
-/Release
