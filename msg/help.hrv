@@ -1,0 +1,1625 @@
+\\HVERSION
+Croatian (HRVATSKI jezik) help file for OpenBCM
+
+Original german help file by DH8YMB et al
+Last edit 03.01.2000 by 9A2YF
+Prijevod: Vladimir Koudela, 9A2YF
+\\ALTER
+Sintaksa: A(LTER) [<opcija> [<vrijednost>]]
+
+Naredbom ALTER mozete izmijeniti definiciju vasih parametara u BBSu.
+ALTER neveden bez parametara prikazuje vasu vlastitu definiciju.
+ALTER s pozivnom oznakom (CALL) prikazuje definirane parametre te postaje.
+
+Primjer:   A 9A6ZZZ   prikazuje definiciju parametara postaje 9A6ZZZ.
+
+Pomocu ALTER <opcija> mozete izmijeniti definiciju odredjene naredbe.
+Za detaljnije upute vidi HELP ALTER <opcija>. Moguce su slijedece opcije:
+CHECK      COMMAND    DEFAULT    DELETE     ECHO       FORWARD    HELPLEVEL
+IDIR       ILIST      IREAD      LF         LINES      NAME       MYBBS
+PROMT      PW         PWLINE     READLOCK   REJECT     SPEECH     UDIR
+ULIST      UREAD
+
+Primjer:   HELP ALTER FORWARD   Pomoc kod definiranja vaseg maticnog BBSa.
+
+\\ALTER.COMMAND
+Sintaksa: A(LTER) C(OMMAND) <naredba>
+
+Ova ce se naredba izvrsiti svaki put kad konektirate BBS. Mozete navesti i
+vise naredbi odvojenih znakom ',' . Pretpostavlja se A C D.
+
+Primjer:   A C U,L  Kod svake prijave na BBS ispisace se lista korisnika
+                    i lista poruka za vas.
+
+\\ALTER.CHECK
+Sintaksa: A(LTER) CH(ECK) <opcije>
+
+Ovom naredbom birate koje ce se informacije prikazati kod uporabe
+naredbe CHECK.
+
+Svaku opciju predstavlja jedno slovo. Ako je slovo navedeno,
+opcija je postavljena a ako slova nema, onda nije postavljena.
+Opcije mozete postaviti ili obrisati ako ispred njih stavite '+' odnosno '-'.
+
+Primjer:   A CH +Y   Dodaje opciju Y (datum prikazuje i godinu).
+
+Vidi HELP OPTION DIR
+
+\\ALTER.DEFAULT
+Sintaksa: A(LTER) D(EFAULT)
+
+Postavlja sve vase parametre na pretpostavljene, pocetne vrijednosti.
+Sve sto ste definirali bice ponisteno!
+
+\\ALTER.DELETE
+Sintaksa: A(LTER) DEL(ETE)
+
+Potpuno brise sve vase osobne definicije. Obnavljanje obrisanog nije moguce.
+Nakon ove naredbe vise ne mozete unositi podatke o korisniku.
+Za razliku od ALTER DEFAULT, nece se postaviti standardne vrijednosti.
+
+\\ALTER.ECHO
+Sintaksa: A(LTER) E(CHO) 0|1
+
+Ovom naredbom odredjujete da li ce vam BBS ponavljati svaku poslanu naredbu.
+To medjutim, nece utjecati na zbivanje u PR-mrezi.
+0 = ponavljanje (echo) iskljuceno        1 = ponavljanje (echo) ukljuceno.
+
+\\ALTER.FORWARD
+Sintaksa: A(LTER) F(ORWARD) [-L] <adresa>
+(Isto sto i NH, M(YBBS) ili A(LTER) M(YBBS))
+
+Sva vasa pristigla posta proslijedice se na ovu adresu. Informacija o tom ce
+se automatski prenijeti svim susjednim BBSima tipa Baycom i TheBox.
+Opcijom -L postavlja se lokalni MYBBS (bez slanja u maticni BBS).
+
+Primjer:   A F 9A0YDA.HRV.EU   postavlja 9A0YDA.HRV.EU kao vas maticni BBS.
+
+Moguce adrese vidi s DIR PATH a detaljnije informacije pomocu HELP FORWARD.
+
+\\ALTER.HELPLEVEL
+Sintaksa: A(LTER) H(ELPLEVEL) <#>
+
+Postavlja razinu pomoci (tj. uputa). Odnosi se na uvodni tekst kod konektiranja
+i redak s osnovnim naredbama. Novi korisnici imaju razinu pomoci 2, koja
+ukljucuje obje opcije. Razina 1 ne prikazuje uvodni tekst. Iskusni koriste
+razinu 0, pri cemu su obje opcije iskljucene.
+
+Primjer:   A H 1    Postavlja razinu pomoci na 1.
+
+\\ALTER.IDIR
+Sintaksa: A(LTER) ID(IR) <opcije>
+
+Ovom naredbom birate koje ce se dodatne informacije prikazati ako pregledavate
+rubrike BBSa naredbom DIR.
+Svaka opcija ima odgovarajuce slovo. Ako je slovo navedeno,
+opcija je postavljena a ako slova nema, onda nije postavljena.
+Opcije mozete postaviti ili obrisati ako ispred njih stavite + ili - .
+
+Primjer:   A ID +Y   Dodaje opciju Y (datum prikazuje i godinu).
+
+Vidi HELP OPTION DIR
+
+\\ALTER.ILIST
+Sintaksa: A(LTER) IL(IST) <opcije>
+
+Ovom naredbom birate koje ce se informacije prikazati ako pregledavate
+rubrike BBSa naredbom LIST.
+Svaka opcija ima odgovarajuce slovo. Ako je slovo navedeno,
+opcija je postavljena a ako slova nema, onda nije postavljena.
+Opcije mozete postaviti ili obrisati ako ispred njih stavite + ili - .
+
+Primjer:   A IL +Y   Dodaje opciju Y (datum prikazuje i godinu).
+
+Vidi HELP OPTION DIR
+
+\\ALTER.IREAD
+Sintaksa: A(LTER) IR(EAD) <opcije>
+
+Ovom naredbom birate koje ce se informacije prikazati ako citate poruke
+iz BBSa. Svaka opcija ima odgovarajuce slovo. Ako je slovo navedeno,
+opcija je postavljena a ako slova nema, onda nije postavljena.
+Opcije mozete postaviti ili obrisati ako ispred njih stavite + ili - .
+
+Primjer:   A IR +Y   Dodaje opciju Y (datum prikazuje i godinu).
+
+Vidi HELP OPTION READ
+
+\\ALTER.LINES
+Sintaksa: A(LTER) L(INES) <#>
+
+Postavlja broj redaka koje ce BBS poslati dok ne zatrazi ENTER.
+Tako dobiveno prekidanje stranice iskljucuje se pomocu A L 0.
+
+Primjer:   A L 20   Postavlja prekidanje stranice na svakih 20 redaka.
+
+Detaljnije upute vidi s HELP PAGEBREAK.
+
+\\ALTER.LF
+Sintaksa: A(LTER) LF <#>
+
+Broj praznih redaka izmedju poslatih blokova. Pomocu A LF 1 postavljamo
+jedan prazan redak (razmak) izmedju blokova. Na taj nacin dobivate ljepsi
+i citljiviji ispis, ali zauzima vise mjesta na zaslonu.
+
+Primjer:   A LF 1   Umece jedan razmak medju blokove.
+
+\\ALTER.MYBBS=ALTER.FORWARD
+
+\\ALTER.NAME
+Sintaksa: A(LTER) N(AME) <ime>
+(Istu funkciju vrsi i N(AME))
+
+Ovom naredbom mozete BBSu reci svoje ime. Ono ce biti navedeno u zaglavlju
+svake poruke koju posaljete. Ostali BBSi ce izdvojiti to ime iz zaglavlja i
+pohraniti ga.
+
+Primjer:   A N Marijan    Postavlja ime: Marijan.
+
+\\ALTER.PROMPT
+Sintaksa: A(LTER) P(ROMPT) <odzivni znak>
+
+Postavlja odzivni znak (prompt) BBSa.
+U ovoj naredbi mozete koristiti i makro.
+
+Primjer:   A P (%b)-->   Prompt ce se sastojati od naziva rubrike (u zagradi)
+                         i znaka '-->' iza njega.
+
+Vidi HELP MACRO.
+
+\\ALTER.PW
+Sintaksa: A(LTER) PW [<znakovni niz>|OFF]
+
+Ovom naredbom postavljate vasu lozinku (password). Na postojecu lozinku dodace
+se <znakovni niz> tako da je mozete dopunjavati slovo po slovo, do najvise 39
+znakova. Ako je lozinka definirana, onda ce vam BBS kod konektiranja poslati
+nesto slicno ovome:
+
+9A0YDA> 2 4 34 22 1
+
+Na vama je da odgovorite odgovarajucim nizom - lozinkom.
+Ponistenje lozinke vrsi se sa  A PW (bez dodatnih parametara).
+Lozinka ne smije sadrzavati znakove ';' niti ','.
+Pomocu A PW OFF lozinka je potpuno onemogucena, tako da je moze ponovo
+omoguciti samo sysop BBSa. Ako je lozinka definirana, tada maticni BBS mozete
+mijenjati samo u onom BBSu koji je vec prije bio definiran kao maticni.
+
+Vidi HELP ALTER PWLINE i HELP ALTER READLOCK
+
+\\ALTER.PWLINE
+Sintaksa: A(LTER) PWL(INE) 0|1
+
+Neki terminalski programi zahtijevaju slanje naredbe BBSu (npr. 'pw' ili 'sy')
+tako da BBS potaknu na upit - lozinku, a onda posalju odgovor - lozinku.
+Ako stavite A PWL 1, BBS ce ignorirati jedan vas redak, a testirace tek drugi
+redak (odgovor - lozinku). Na taj nacin moguce je automatski generirati
+lozinku u vecini terminalskih programa.
+
+Vidi HELP ALTER PW
+
+\\ALTER.REJECT
+Sintaksa: A(LTER) R(EJECT) [-R] <lista_rubrika>
+
+Ovdje mozete definirati koje ce od rubrika biti izostavljene kod uporabe
+naredbi DIR, NEWS i CHECK. Na taj nacin mozete preskociti nezeljene rubrike.
+Ako navedete glavnu rubriku, npr. naredba DIR NEWS nece ispisati niti njene
+podrubrike. No, CHECK ce ipak ispisati podrubrike, premda im se glavna
+rubrika nalazi u REJECT listi (listi izuzetaka).
+Dodatkom opcije -R vrijedi suprotni odabir, tj. ispisace se samo navedene
+rubrike.
+
+Primjeri:   A R DEBAT IBM          Izostavi rubrike DEBAT i IBM
+                                   kod naredbi CHECK, DIR, NEWS.
+            A R -R DXNEWS SATTV    Ispisi samo rubrike DXNEWS i
+                                   SATTV kod naredbi CHECK, DIR, NEWS.
+
+Vidi HELP CHECK i HELP DIR
+
+\\ALTER.READLOCK
+Sintaksa: A(LTER) REA(DLOCK) <vrijednost>
+
+Ako ne zelite da svatko moze citati vasu postu, onda mozete postaviti
+ogranicenje pomocu ove naredbe.
+
+  ALTER READLOCK 0  Svatko moze citati svu vasu postu
+  ALTER READLOCK 1  Sa dir/list/read bice vidljive samo:
+                    - poruke koje je napisao citalac
+                    - vec procitane poruke
+  ALTER READLOCK 2  Sa dir/list/read bice vidljive samo poruke
+                    koje je napisao citalac.
+
+Vidi HELP ALTER PW.
+
+\\ALTER.SPEECH
+Sintaksa: A(LTER) S(PEECH) <jezik>
+
+Bez parametara, ova ce naredba ispisati popis mogucih sistemskih jezika.
+Zeljeni jezik mozete birati pomocu ALTER SPEECH <jezik>
+
+Primjeri: A S HRV  Poruke na hrvatskome jeziku, bez dijakritickih znakova
+          A S HR1  Poruke na hrvatskome jeziku, s dijakritikom, DOS cp852
+          A S HR2  Poruke na hrvatskome jeziku, s dijakritikom, WIN cp1250
+          A S GB   Poruke BBSa na engleskom jeziku.
+          A S DL   Poruke BBSa na njemackom jeziku.
+          A S OK   Poruke BBSa na ceskom jeziku.
+
+\\ALTER.UDIR
+Sintaksa: A(LTER) UD(IR) <opcije>
+
+Ovom naredbom birate koje ce se od informacija ispisati ako listate
+osobnu postu naredbom DIR. Svaka opcija ima odgovarajuce slovo.
+Ako je slovo navedeno, opcija je postavljena, a ako slova nema onda opcija
+nije postavljena.
+Opcije mozete postaviti ili obrisati ako ispred njih stavite + ili - .
+
+Primjer:   A UD +Y   Dodaje opciju Y (datum prikazuje i godinu).
+
+Vidi HELP OPTION DIR
+
+\\ALTER.ULIST
+Sintaksa: A(LTER) UL(IST) <opcije>
+
+Ovom naredbom birate koje ce se od informacija ispisati ako listate
+korisnicku postu naredbom LIST.
+Svaka opcija ima odgovarajuce slovo. Ako je slovo navedeno, opcija je
+postavljena a ako slova nema - nije postavljena.
+Opcije mozete postaviti ili obrisati ako ispred njih stavite + ili - .
+
+Primjer:   A UL +Y   Dodaje opciju Y (datum prikazuje i godinu).
+
+Vidi HELP OPTION DIR
+
+\\ALTER.UREAD
+Sintaksa: A(LTER) UR(EAD) <opcije>
+
+Ovom naredbom birate koje ce se od informacija ispisati kada citate
+osobnu postu.
+Svaka opcija ima odgovarajuce slovo. Ako je slovo navedeno,
+opcija je postavljena a ako slova nema - nije postavljena.
+Opcije mozete postaviti ili obrisati ako ispred njih stavite + ili - .
+
+Primjer:   A UR +Y   Dodaje opciju Y (datum prikazuje i godinu).
+
+Vidi HELP OPTION READ
+
+\\AKTUELL
+Sintaksa: AK(TUELL)
+
+Ovom naredbom ispisuju se aktuelne informacije koje je napisao sysop.
+Ako ste konektirali BBS a doslo je do promjene ovog teksta, bice vam
+automatski ispisan.
+
+\\ADDRESS
+Poruke ce se proslijediti drugim BBSima ovisno o njihovu sadrzaju, smislu,
+namjeni itd. Osobne se poruke brisu iz BBSa nakon slanja, dok ce se bilteni
+zadrzati i umnoziti.
+
+Osobne poruke uvijek  imaju navedenu adresu JEDNOG BBSa kao odredista.
+Odredisni BBS treba tocno adresirati. Pri tome, sto je odrediste dalje
+to adresu treba specificirati detaljnije.
+Opcenito: posta u inozemstvo mora sadrzavati KOMPLETNU hijerarhijsku adresu.
+
+Struktura takve adrese je slijedeca:
+  DB0AAB.#BAY.DEU.EU
+                  ^ Kontinent, EU znaci Europa
+              ^ Zemlja, DEU znaci Njemacka
+         ^ Regija unutar zemlje
+   ^ Pozivna oznaka BBSa
+
+Primjeri za kontinente:
+AF Afrika       AS Azija        AU Australija        EU Europa
+MDLE Srednji Istok              NA Sjeverna Amerika  SA Juzna Amerika
+
+Primjeri zemalja:
+AUT Austrija   CHE Svicarska       BEL Belgija    DEU Njemacka
+DNK Danska     FIN Finska          FRA Francuska  HUN Madjarska
+ITA Italija    NLD Nizozemska      SWE Svedska    SVN Slovenija
+SVK Slovacka   CZE Ceska Republika
+
+U biltenima je uvijek navedena i distribucijska adresa.
+Distribucijska adresa odnosi se na skupine BBSa.
+
+BAY Bavarska  DL  Podrucje njemackog jezika   OE Austria
+EU  Europa    WW  Cijeli svijet (World-Wide)
+
+Distribucijska adresa ALL ili ALLE vise se ne primjenjuje i nece se vise
+prenositi dalje.
+
+Pri tome ne treba mijesati adresiranje osobnih poruka s biltenima!
+
+\\BYE
+Sintaksa: B(YE)
+
+Ovom naredbom oprastamo se od BBSa. No, za razliku od naredbe QUIT
+nece se registrirati novi datum zadnje prijave na BBS.
+
+\\BIDLIST
+Sintaksa: BI(DLIST) <znakovni niz>
+
+Ovom naredbom listamo internu tablicu identa biltena (bulletin-ID-table), BID.
+<znakovni niz> moze biti bilo koji dio BIDa ili datoteke. Prikazace se samo
+one poruke koje sadrze 'znakovni niz' u BIDu.
+
+Primjer:   BI DB0RGB   lista BIDove svih poruka nastalih u DB0RGB.
+
+\\BILTEN
+Bilten je 'poruka svakome' (javna poruka).
+Mogu je citati sve postaje, no obrisati je moze samo posiljalac i SYSOP BBSa.
+Bilten spada u odredjenu rubriku ovisno o temi na koju se odnosi.
+Cim mu istekne rok trajanja, bice obrisan. Kod slanja biltena morate
+koristiti distribucijsku adresu - vidi HELP ADDRESS.
+
+Za razliku od biltena, poruke korisnicima (osobne poruke) mogu brisati
+posiljalac i primalac, te sysop BBSa. I one imaju rok trajanja.
+
+\\CHECK
+Sintaksa: C(HECK) [<opseg>] [[<] <trazeni niz>]
+
+Naredba CHECK ispisuje sve biltene po redoslijedu njihovog pristizanja u BBS,
+bez obzira u koju rubriku spadaju. Bilteni su sortirani po datumu pocevsi s
+najsvjezijim. Ako navedete opseg brojeva, ispisace se samo bilteni u
+navedenom opsegu.
+npr. 		CHECK 21-40	ispisuje biltene od 21 do 40-og mjesta,
+		CHECK -5 	ispisuje pet najnovijih biltena.
+
+Ako opseg brojeva izostavimo, ispisace se samo poruke koje su pristigle od
+vase posljednje naredbe CHECK. Ako dopisete znak '<', razmak i znakovni niz
+(string), ispisace se samo bilteni koji sadrze navedeni niz.
+naredba ce raditi i bez znaka '<' (nije obvezan).
+
+Svejedno je pisete li malim ili velikim slovima.
+Umjesto CHECK mozete koristiti i DIR NEWS ili DIR MESSAGES.
+
+Primjeri:   C             Ispisuje sve biltene koji su pristigli od vase
+                          posljednje naredbe CHECK.
+            C -10         Ispisuje 10 najnovijih biltena.
+            C 1- 9A1ZZZ   Ispisuje sve poruke koje je poslao 9A1ZZZ,
+                          pocevsi od broja 1 (najnovije).
+            C FT470       Ispisuje sve biltene koji sadrze 'FT470' u naslovu.
+
+\\BINARY
+1. Slanje binarne datoteke u BBS:
+
+- konektirajte BBS
+- upisite send-naredbu (kao obicno), te naslov
+- upisite nekakav tekst (kao obicno), npr. upute ili informacije
+- pokrenite auto-bin na vasem terminalu i posaljite datoteku. Kada se
+  prijenos kompletira, datoteka ce se zatvoriti automatski a BBS ce
+  poslati CRC i prompt.
+
+Nije potrebno slati 'NNNN' ili Ctrl-Z za zatvaranje datoteke.
+
+
+2. Citanje binarne datoteke iz BBSa:
+
+- konektirajte BBS
+- pokrenite auto-bin na vasem terminalu
+- posaljite BBSu naredbu za citanje.
+
+BayCom-BBS zapocinje auto-bin prijenos automatski. Pri tom ce se odaslati
+informacije kao sto su duzina te CRC datoteke. Kako i gdje ce se datoteke
+snimiti zavisi od vaseg terminalskog programa.
+
+Binarne datoteke imaju oznaku <BIN> ispred naslova. Pri tom ce se naslov
+sto ga je upisao korisnik automatski pojaviti iza <BIN> te skratiti ako je
+potrebno.
+
+\\BOARD=RUBRIKA
+
+\\BULLETIN=BILTEN
+
+\\CD
+Sintaksa: CD <rubrika>
+
+Mijenja, tj. namjesta se na odredjenu rubriku (vidjece se u promptu).
+
+Primjer:   CD DXNEWS   Mijenja trenutacnu rubriku na <DXNEWS>.
+
+\\CHAT=TALK
+
+\\CONVERS=TALK
+
+\\CMD
+Popis svih naredbi:
+
+ #OK# <...>      ignorira se
+ AKTUELL         prikazuje novosti (aktuelnosti)
+ ALTER           mijenja skup osobnih parametara
+ -CHECK    <opc> opcije naredbe CHECK
+ -COMMAND  <cmd> naredba koja se izvrsi prilikom prijave na BBS
+ -DEFAULT        postavlja sve osobne parametre na pocetne vrijednosti
+ -ECHO    0|1    BBS ce uzvratiti (ponoviti) vasu naredbu
+ -FORWARD  <adr> postavlja vas maticni BBS (isto sto i MYBBS)
+ -HELPLEVEL  <n> postavlja razinu pomoci
+ -IDIR     <opc> opcije info-DIRa
+ -ILIST    <opt> opcije info-LISTa
+ -IREAD    <opt> opcije info-READa
+ -LF         <n> broj praznih redaka iza svakog prispjelog teksta
+ -LINES      <n> postavlja prekid teksta (funkcija "more")
+ -NAME     <ime> postavlja vase ime (isto sto i NAME)
+ -PROMPT <tekst> postavlja odzivni znak (prompt)
+ -PW  <password> postavlja korisnicku lozinku
+ -PWLINE     <n> omogucava lazni unos prije unosa korisnicke lozinke
+ -READLOCK   <n> ogranicava citanje korisnickih poruka
+ -REJECT   <ime> rubrike koje se nece prikazati kod DIR NEWS/CHECK
+ -SPEECH   <jez> postavlja jezik
+ -UDIR     <opc> opcije user-DIRa
+ -ULIST    <opc> opcije user-LISTa
+ -UREAD    <opc> opcije user-READa
+ BIDLIST         prikazuje bilten-ID podatke o datoteci
+ BIN-TX <...>    ignorirace se
+ BIN-RX <...>    ignorirace se
+ BYE             napustanje BBSa bez novog upisa vremena prijave na BBS
+ CD        <ime> mijenja trenutacnu aktivnu rubriku
+ CHAT  <call> .. pise kratku poruku drugom korisniku (isto sto i TALK)
+ CHECK      <..> popis SVIH biltena u BBSu (moze biti i vise tisuca!)
+ CONVERS  <call> pise kratku poruku drugom korisniku (isto sto i TALK)
+ DIR             ispisuje poruke iz odredjene rubrike (slicno sa LIST)
+ -AFTER  <datum> ispisuje sve rubrike novije od navedenog datuma
+ -BOARDS    <..> ispisuje sva imena rubrika ili njihovih dijelova
+ -MESSAGES  <..> ispisuje SVE biltene (pozor! Ima ih prilicno mnogo!)
+ -NEWS      <..> ispisuje nove poruke od zadnje zadane naredbe DIR NEWS
+ -PATH      <..> popis susjednih BBSa (ili za jedan call)
+ -SENT    <call> ispisuje sve poruke koje je poslao odredjeni call
+ -USERS          popis svih korisnika koji su primili barem jednu poruku
+ --ALL      <..> popis svih poznatih korisnika (mozete koristiti wildcard)
+ --LOCAL    <..> popis svih korisnika koji su posjetili BBS bar jednom
+ --MSG      <..> popis svih korisnickih poruka (mozete navesti string)
+ ERASE    <spec> brise jednu ili vise datoteka
+ FILESURF        ulaz u FILESURF sustav direktorija i datoteka
+ -PATH           pokazuje sve dostupne staze (path)
+ -DIR,LS         pokazuje sve datoteke tekuceg direktorija
+ -CD            mijenja tekuci direktorij
+ -GET <datoteka> prijam tekstualne datoteke
+ -BGET <datoteka> prijam binarne datoteke pomocu autobin protokola
+ -YGET <datoteka> prijam binarne datoteke pomocu yapp protokola
+ -PUT <datoteka> upis tekstualne datoteke
+ -BPUT <datoteka> upis binarne datoteke pomocu autobin protokola
+ -YPUT <datoteka> upis binarne datoteke pomocu yapp protokola
+ -QUIT           izlaz if Filesurfa i povratak u normalni BBS mod
+ FIND     <spec> pokazuje S&F-stazu prema drugom BBSu (isto sto i PATH)
+ FORWARD  <spec> proslijedjuje jednu ili vise poruka drugom BBSu
+ HEADER   <spec> pokazuje zaglavlje poruke (isto sto i KOPF)
+ HELP      <cmd> pokazuje upute. H INDEX=sazetak. H ALL=cijela help-datoteka
+ INFO            pokazuje informacije o vasem QSO sa BBS-om
+ KOPF     <spec> pokazuje zaglavlje poruke (isto sto i HEADER)
+ LIST     <spec> ispisuje poruke iz odredjene rubrike (slicno sa DIR)
+ LOG        <..> prikazuje dnevnik (log-file)
+ MEM             popis angaziranih memorijskih blokova
+ MSG   <call> .. pise kratku poruku drugom korisniku (isto sto i TALK)
+ MYBBS     <adr> postavlja vas maticni BBS (isto sto i A F)
+ NAME      <ime> postavlja vase osobno ime (isto sto i A N)
+ NEXT            prikazuje slijedecu poruku
+ NH        <adr> postavlja vas maticni BBS (isto sto i A F)
+ PARAMETER  <..> prikazuje konfiguraciju BBSa ili njegovih dijelova
+ PATH      <adr> prikazuje S&F-stazu prema drugom BBSu (isto sto i FIND)
+ PS              ispisuje sve procese BBSa
+ PURGE <rubrika> fizicki uklanja obrisane poruke u rubrici
+ QUIT            napusta BBS (registrirace se vrijeme zadnje posjete)
+ QUOTA           pokazuje broj kbajta - procitanih ili upisanih
+ READ     <spec> cita poruku u BBSu
+ REPLY           daje repliku na zadnje procitanu poruku
+ SEMAPHORES      ispisuje imena datoteka koje su trenutacno u uporabi
+ SEND     <spec> salje poruku u BBS
+ SETLIFE     <s> postavlja novi rok trajanja poruke
+ STATUS          pokazuje statisticke podatke
+ -FORWARD        ispisuje broj poruka koje cekaju posredovanje
+ -CPU            pokazuje rad procesora (CPU)
+ -MEMORY         pokazuje kako se koristi memorija (isto sto i MEM)
+ -SEMAPHORES     isto sto i SEMAPHORES
+ TALK  <call> .. pise kratku poruku drugom korisniku BBSa
+ TIME            pokazuje datum i vrijeme
+ TRANSFER <spec> kopira poruku u drugu rubriku
+ UNERASE  <spec> obrisane poruke cini ponovo citljivim
+ USERS           ispisuje sve trenutacne korisnike
+ VERSION         pokazuje verziju, trajanje rada i kapacitet memorije BBSa
+ WALL    <tekst> pise kratku poruku svim ostalim korisnicima BBSa
+ WRITE <call> .. pise kratku poruku drugom korisniku (isto sto i TALK)
+
+\\DIR
+Sintaksa: D(IR) [<opcija>] [<rubrika>] [<opseg>] [["]<trazeni niz>["]]
+
+Lista poruke u <rubrici>. <rubrika> moze biti ili korisnicka rubrika
+(u tom slucaju je <rubrika> pozivna oznaka korisnika) ili naslov
+rubrike biltena. Ako izostavite rubriku, izlistace se poruke tekuce rubrike.
+Za listu odredjenih poruka mozete navesti opseg brojeva ili znakovni niz
+(string) koji treba traziti.
+
+Opcije se mogu navoditi opcenito, ili pak direktno uz naredbu.
+Vidi HELP ALTER i HELP OPTION. Opcija se ukljucuje tako da stavite '-' ispred
+nje, a iskljucuje tako da stavite '-' iza opcije.
+(Primjer:  'D -V SOFTWARE' ili 'D V- SOFTWARE').
+
+Svejedno je pisete li malim ili velikim slovima.
+
+Primjeri:   D IBM            Lista sve poruke u rubrici <IBM>.
+            D -V SOFTWARE    Lista poruke u rubrici <SOFTWARE>; takodjer
+                             lista i obrisane poruke.
+            D -12            Lista 12 najnovijih poruka iz tekuce rubrike.
+            D YEASU "FT470"  Lista sve poruke rubrike <YEASU> koje
+                             u naslovu sadrze 'FT470'.
+
+Vidi HELP OPTION, HELP BOARD, HELP BULLETIN, HELP RANGE te HELP LIST.
+
+Za podnaredbe DIR-a upisite HELP DIR <pod-naredba>.
+Moguce podnaredbe: AFTER, BOARDS, MESSAGES, NEWS, PATH, SENT, USERS.
+
+Primjer:   HELP DIR AFTER   Pokazuje upute (help) za DIR AFTER.
+
+\\DIR.AFTER
+Sintaksa: D(IR) A(FTER) <datum>
+
+Slicno kao DIR MESSAGES, no izlistace se samo poruke pristigle iza nevedenog
+datuma. Ako izostavite datum, pretpostavlja se danasnji datum.
+
+Primjer:   D A 1.1.   Lista svu postu pristiglu iza 1.1. ove godine.
+
+\\DIR.BOARDS
+Sintaksa: D(IR) B(OARDS) [<znakovni niz>]
+
+Ako izostavite parametar, izlistace se sve postojece rubrike BBSa.
+Postoje glavne i podredjene rubrike. Glavne rubrike ispisuju se u prvoj
+koloni, a iza njih pripadne podredjene rubrike s pocetkom u drugoj koloni
+(hijerarhijski sustav biltena).
+Ako navedete <znakovni niz>, izlistace se sve rubrike koje ga sadrze u nazivu.
+Ujedno ce se ispisati i pripadni rok trajanja te koliko poruka trenutacno
+sadrzi. Takvu listu svih rubrika mozete zatraziti sa 'D B *'.
+
+Primjer:   D B NOS   Lista sve rubrike koje sadrze 'NOS' u nazivu.
+
+\\DIR.MESSAGES
+Sintaksa: D(IR) M(ESSAGES) [["]<znakovni niz>["]]
+Ako izostavite parametar, ova naredba lista sve poruke iz svih  rubrika
+biltena (ima ih vrlo mnogo!). Ako navedete parametar izlistace se sve
+poruke koje sadrze navedeni znakovni niz (string).
+Svejedno je pisete li malim ili velikim slovima.
+
+Primjer:   D M "FT470"   Lista sve poruke iz svih rubrika koje u svom
+                         nazivu sadrze znakovni niz 'FT470'.
+
+\\DIR.NEWS
+Sintaksa: D(IR) N(EWS) [["]<znakovni niz>["]]
+
+Slicno kao DIR MESSAGES no lista samo one poruke koje su pristigle iza
+posljednje naredbe DIR NEWS (funkcionira slicno kao CHECK).
+
+Primjer:   D N "MIR"   Lista sve nove poruke koje sadrze 'MIR' u nazivu.
+
+\\DIR.PATH
+Sintaksa: D(IR) P(ATH) [<call>]
+
+Lista sve partnerske BBSe i njihove parametre.
+
+Primjer:   D P <pozivna oznaka>   Lista parametre samo jednog partnera.
+
+\\DIR.SENT
+Sintaksa: D(IR) S(ENT)
+
+Lista sve poruke u kojima se pojavljuje vasa pozivna oznaka tako da ce se
+izlistati samo poruke koje ste vi poslali, odnosno poruke koje imaju vasu
+pozivnu oznaku (call) u svom nazivu.
+
+\\DIR.USERS
+Sintaksa(1): D(IR) U(SERS)
+
+Lista sve korisnike koji imaju barem jednu poruku (makar i obrisanu).
+-----------------------------------------------------------------------------
+Sintaksa(2): D(IR) U(SERS) A(LL) [<pozivna oznaka>]
+
+Lista sve korisnike koje poznaje (moze ih biti vrlo mnogo!). Mozete navesti
+specificni fragment pozivne oznake, tako da ce se ispisati samo oni korisnici
+koji imaju takav fragment u svojoj pozivnoj oznaci.
+
+Primjer:   D U A GB   Lista sve korisnike koji u pozivnoj oznaci imaju 'GB'.
+-----------------------------------------------------------------------------
+Sintaksa(3): D(IR) U(SERS) L(OCAL) [<pozivna oznaka>]
+
+Lista sve korisnike koji su ovaj BBS posjetili bar jednom.
+Ostalo je kao D U A.
+
+Primjer:   D U L SP   Lista sve korisnike koji imaju 'SP' u pozivnoj oznaci
+                      a posjetili su ovaj BBS bar jednom.
+-----------------------------------------------------------------------------
+Sintaksa(4): D(IR) U(SERS) M(SG) [<tekst>]
+
+Lista sve osobne poruke koje imaju <tekst> u pozivnoj oznaci ili nazivu.
+
+Primjer:   D U M BAYCOM            Lista osobne poruke onih korisnika koje
+                                   sadrze 'BAYCOM' u nazivu.
+
+           D -N -Q- -V- USER MSG   Lista sve osobne poruke od korisnika kojima
+                                   ovo NIJE maticni BBS. Na taj nacin mozete
+                                   ustanoviti koje poruke nisu proslijedjene.
+-----------------------------------------------------------------------------
+Vidi HELP OPTION DIR
+
+\\ERASE
+Sintaksa: E(RASE) [<rubrika>] [<opseg>]
+
+Brise poruke definirane <opsegom> u <rubrici>. Ako izostavite rubriku, brisu
+se poruke u zadnje koristenoj rubrici. Ako izostavite opseg, brise se zadnja
+procitana poruka.
+
+Primjeri:   E 9A6ZZZ 3-4   brise poruke 3-4 iz rubrike 9A6ZZZ.
+            E 1            brise poruku 1 tekuce rubrike.
+
+Omoguceno vam je brisanje samo onih poruka koje ste sami poslali, ili ako
+su adresirane na vas. Poruke se pomocu ERASE samo oznace za brisanje. Sa
+UNERASE skidate oznaku za brisanje. No, sa PURGE se poruke zaista brisu.
+Ako je poruka obrisana s ERASE, to nece promijeniti brojeve drugih poruka.
+
+\\FORWARD
+Sintaksa: F(ORWARD) [-F] <rubrika> <opseg> [ @ ] <odredisna adresa>
+
+naredba FORWARD omogucava prijenos poruke pohranjene u ovom BBSu u drugi
+BBS ili na drugu distribucijsku adresu. Ta se naredba odnosi samo na poruke
+koje ste sami napisali ili su adresirane na vasu pozivnu oznaku.
+
+Adresa poruke nece se promijeniti, samo ce biti proslijedjena na navedenu
+odredisnu adresu. Ako je navedena opcija -F, adresa poruke ce se izmijeniti.
+
+Primjeri:   F SVIMA 5 HRV              Prenosi poruku 5 iz rubrike <SVIMA>
+                                       na adresu @HRV.
+            F -F 9A6ZZZ 3-4 @ 9A0BBS   Prenosi poruke 3-4 od 9A6ZZZ na
+                                       9A0BBS i mijenja adresu.
+
+Vidi HELP ADDRESS
+
+\\FIND=PATH
+
+\\FILESURF=FS
+
+\\FILESERV=FS
+
+\\FS
+Ovo je naredba za ulaz u FILESURF, odnosno u okruzje slicno DOS-u
+s direktorijima i poddirektorijima.
+Pregled naredbi Filesurfa:
+  PATH    pokazuje sve dostupne staze (path)
+  DIR,LS  pokazuje sve datoteke tekuceg direktorija
+  CD      mijenja tekuci direktorij(CHDIR)
+  GET     skidanje (download)tekstualne datoteke(isto: READ,TYPE,CAT,RTEXT)
+  BGET    skidanje (download) binarne datoteke pomocu autobin protokola
+          isto: BIN,RPRG)
+  YGET    skidanje (download) binarne datotekepomocu yapp protokola
+          (isto: RYAPP)
+  PUT     upis (upload) tekstualne datoteke (isto: WTEXT)
+  BPUT    upis (upload) binarne datoteke pomocu autobin protokola (isto: WPRG)
+  YPUT    upis (upload) binarne datoteke pomocu yapp protokola (isto: WYAPP)
+  QUIT    izlaz if Filesurfa i povratak u normalni BBS mod (isto: BYE,EXIT)
+U zagradi su navedene alternativne naredbe istog znacenja.
+
+\\?=HELP
+
+\\HELP
+Naredba--------------------OPIS-----------------------------Skraceni primjer
+ALTER <parametar>          pokazuje ili postavlja opciju    A N Kristijan
+DIR   <rubrika>            popis poruka u rubrici           D 9A1ZZZ 1-5
+CHECK <opseg>              ispisuje nove poruke             C 1-20
+ERASE <broj poruke>        brise poruke                     E 9A1ZZZ 5
+FILESURF                   ulaz u FILESURF                  FS
+INFO                       prikazuje info o radu na BBSu
+LIST  <rubrika>            slicno kao DIR                   L 9A1ZZZ 5-10
+LOG                        pokazuje dnevnik (log)           LOG 28.10.97
+QUIT                       izlaz iz BBSa                    Q
+READ  <broj poruka>        cita poruke                      R 9A1ZZZ 2-4
+REPLY                      salje repliku na zadnju poruku   REP
+SEND  <call>@<adresa>      salje poruku                     S 9A1ZZZ@9A0BBS
+TALK  <call> <tekst>       salje tekst drugom korisniku     T 9A6ZZZ Hi Marko
+TRANSFER <poruke> <rubrika> kopira poruku                   TR 9A1ZZZ 5 9A6ZZZ
+USERS                      ispisuje korisnike na BBSu       U
+
+Detaljnije informacije dobijete s HELP <naredba>, npr. HELP DIR, HELP ALTER,
+sazetak svih raspolozivih help-tekstova pomocu HELP INDEX, a popis svih
+naredbi s HELP CMD. Kompletnu (i dugacku) help datoteku dobijete s HELP ALL.
+
+\\HEADER
+Sintaksa: HEA(DER) [<rubrika>] <opseg>
+(Isto sto i kao K(OPF))
+
+Pokazuje informacije o poruci. Sintaksa je ista kao kod READ. Uvijek ce
+prikazati SVE informacije bez obzira na READ opcije.
+
+Ako dodate opciju -h, vidjece se ruta svih BBSa u nizu.
+
+\\HVERSION
+Izvorna njemacka help-datoteka: OE3DZW
+Engleski prijevod: DG4MMI, DF3VI i DL4VCN
+Hrvatski prijevod: 9A2YF
+Zadnje izdanje: 19/1/1996 (DF3VI)
+Molimo da greske javite na: DG4MMI @ DB0IRS.#BAY.DEU.EU
+
+\\INFO
+Sintaksa: I(NFO)
+
+Prikazuje tekst informacija parametara BBSa.
+
+\\KOPF=HEADER
+
+\\LIST
+Sintaksa: L(IST) <rubrika> <opseg> [<] <znakovni niz>
+
+Slicno kao DIR ali manjih mogucnosti. Ispisuje listu u formatu TheBox-a.
+Pretpostavljene vrijednosti ove naredbe razlikuju se od vrijednosti DIR.
+
+Vidi HELP ALTER ILIST, HELP ALTER ULIST i HELP OPTION LIST
+
+\\LIFETIME
+Sintaksa: LIF(ETIME) <rubrika>
+
+Rok trajanja kaze koliko dugo poruka ostaje u BBSu do automatskog brisanja.
+Trajanje biltena u pojedinim rubrikama odredjuje sysop. Trajanje poruka u
+korisnickim rubrikama je jednako, no korisnik ga moze izmijeniti.
+
+\\LOG
+Sintaksa: LO(G) [-opcije] [<datum>] [<znakovni niz>]
+Ispisuje dnevnik navedenog datuma ili trazi zadani <znakovni niz>, koji
+moze biti pozivna oznaka (call) ili datum.
+
+Prikazuje se samo 20 zadnjih zapisa.
+
+Moguce su slijedece opcije:
+  -f   ispis ukljucuje i forward-QSOe
+  -s   ispisuje SAMO prijave sysopa na BBS
+  -w   ispis zapisa u jednom tjednu (7 dana)
+  -m   ispis zapisa u jednom mjesecu (30 dana)
+  -q   ispis zapisa u tri mjeseca (90 dana)
+  -y   ospis zapisa jedne godine
+       (Pozor: m, q te y mogu potrajati jako dugo!)
+  -c   ispisuje samo broj QSOa
+  -a   ispisuje SVE zapise (ne samo 20)
+
+Opcije je moguce i kombinirati.
+
+Zapisi se prikazuju na ovaj nacin:
+TxBytes: Broj bajta poslatih korisniku (ili BBSu)
+RxBytes: Broj bajta primljenih od korisnika
+CPUsec:  iskoristeno vrijeme CPU-a
+F:       Flag, u znacenju: S=sysop, Q=izlaz sa QUIT, F=forward QSO
+TXFi:    Broj datoteka koje je poslao BBS
+RXFi:    Broj datoteka poslatih u BBS
+
+LOG <call>          pokazuje danasnji dnevnik <call>a   npr. LOG 9A2YF
+LOG <datum> <call>  pokazuje dnevnik <call>a za <datum> npr. LOG 27. 9A2YF
+LOG <datum>         pokazuje dnevnik tog datuma         npr. LOG 08.09.92
+
+Primjer zapisa u dnevniku:
+Log entries (max 20) 15.12.92:
+Call   Date     Start End   TxBytes RxBytes CPUsec F TXFi RXFi
+DC6IU  15.12.92 08:24-08:27    1059       6   0.49      0    0  via DB0EIC
+DK4LO  15.12.92 08:33-08:49    3936      36   2.47 Q    1    0  via DB0ABZ-1
+DL8MBT 15.12.92 09:13-09:14     888      24   0.16 S    0    0  via DB0AAB
+DB0KCP 15.12.92 08:25-08:31   28647    3240   1.41 F    4    2  via DB0KFB
+46 entries found.
+
+Primjeri:   LOG -Y 9A7XXX   pokazuje zadnjih 20 QSOa postaje 9A7XXX u
+                            zadnjoj godini.
+            LOG -WS 1.10.   pokazuje QSOe sysopa u tjednu ispred 1.10.
+            LOG -CMF        pokazuje broj QSO u zadnjih mjesec dana.
+
+\\MSG=TALK
+
+\\MEM=STATUS.MEMORY
+
+\\MYBBS=ALTER.FORWARD
+
+\\MACRO
+Makro je kratica koja se moze uporabiti u odzivnom znaku. Kod svake pojave
+odzivnog znaka (prompta) bice zamijenjena odredjenom informacijom.
+U odzivnom znaku (promptu) te u datotekama CTEXT, CNEW i INFO vrijede
+slijedeci makroi:
+  %a   iskoristen kapacitet CPU BBSa (zadnjih 40 sekundi)
+  %b   ime rubrike na koju ste namjesteni
+  %c   pozivna oznaka korisnika
+  %d   danasnji datum
+  %h   razina helpa (kolicina info prilikom konekta)
+  %i   vrijeme pocetka QSO
+  %l   zadni QSO (datum i vrijeme)
+  %m   pozivna oznaka BBSa
+  %n   ime korisnika
+  %o   broj prijavljenih korisnika BBSa
+  %p   potroseno vrijeme CPU od pocetka QSOa
+  %r   Linefeed (RETURN)
+  %t   sadasnje vrijeme
+  %v   verzija softvera BBSa
+  %%   znak '%'
+
+Primjeri:   A PR (%b) %c de %m>          Stvara prompt kao na TheBox BBSu.
+            (BAYCOM) DL8MBT de DB0AAB>
+            A PR [%o/%a%%](%b)-->        U odzivnom znaku pokazuje broj
+            [22/95%](DL8MBT)-->          prijava i iskoristen kapacitet.
+
+\\NEXT
+Sintaksa: N(EXT)
+
+Pokazuje slijedecu poruku u odnosu na zadnju, procitanu naredbom READ.
+Ako kod prijave na BBS izdate naredbu NEXT, prikazace se prva poruka iz
+vase rubrike.
+
+\\NAME=ALTER.NAME
+
+\\NH=ALTER.FORWARD
+
+\\OPTION
+Definira opcije naredbi CHECK, READ, LIST i DIR.
+
+opcije za READ                  vidi  HELP OPTION READ
+opcije za DIR, LIST i CHECK     vidi  HELP OPTION DIR
+                                 ili  HELP OPTION LIST
+
+Vidi HELP ALTER
+
+\\OPTION.READ
+naredba READ moze imati slijedece opcije (vidi HELP ALTER):
+  A   pokazuje posiljaoca poruke
+  B   pokazuje velicinu datoteke u bajtima
+  C   ispis bez prekidanja stranice, iskljucuje prekidanje
+  D   pokazuje datum
+  E   pokazuje primaoca (odn. ime rubrike)
+  F   pokazuje polazni BBS (frombox)
+  H   pokazuje R:-zaglavlje (iskljucuje opciju P)
+  I   pokazuje BID
+  L   pokazuje zivotni vijek poruke
+  M   pokazuje adresu odredista (H-adresu)
+  N   pita 'brisati poruku?' nakon citanja poruke
+  O   pokazuje adresu odredista (samo prvu komponentu u H-adresi)
+  P   pokazuje kroz koje je BBSe prosla poruka (skraceno)
+  R   pokazuje tko je sve citao poruku
+  T   pokazuje vrijeme
+  U   pokazuje izvoriste (SENT:)
+  W   pokazuje naslov
+  X   ispis samo tekstualnog dijela (binarni se ne ispisuje)
+  Y   pokazuje godinu u datumu
+  Z   pokazuje broj redaka poruke
+
+\\OPTION.LIST=OPTION.DIR
+
+\\OPTION.DIR
+naredbe DIR, LIST i CHECK mogu imati slijedece opcije (vidi HELP ALTER):
+  A   pokazuje posiljaoca poruke
+  B   pokazuje velicinu datoteke u bajtima
+  C   ispis bez prekidanja stranice, iskljucuje prekidanje
+  D   pokazuje datum
+  E   pokazuje primaoca (odn. ime rubrike)
+  F   pokazuje polazni BBS (frombox)
+  G   izostavlja prikaz procitanih poruke
+  H   izostavlja naziv 'sadrzaj od...'
+  I   pokazuje BID
+  J   pokazuje naslove na isti nacin kao u 'TheBoxu'
+  K   pokazuje zagradu ili slovo iza broja (za objasnjenje vidi HELP UNERASE)
+  L   pokazuje zivotni vijek poruke
+  M   pokazuje adresu odredista (H-adresu)
+  N   pokazuje samo poruke onih primatelja kojima ovaj BBS nije maticni
+  O   pokazuje adresu odredista (samo prvu komponentu u H-adresi)
+  Q   pokazuje samo poruke od zadnjeg QUIT (bez definiranja opsega)
+  R   pokazuje daljinski obrisane poruke (samo CHECK)
+  S   pokazuje podrubrike
+  T   pokazuje vrijeme
+  V   pokazuje izbrisane poruke
+  W   pokazuje naslov
+  X   pokazuje dodatni razmak prije naslova
+  Y   pokazuje godinu u datumu
+  Z   pokazuje broj redaka potrebnih za poruku
+
+\\PATH
+Sintaksa: P(ATH) [-A] [-S] [-C] <adresa>
+(Isto sto i FI(ND) )
+
+Pokazuje u kojem ce se smijeru posredovati <adresa>. Bice navedeni svi
+susjedni BBSi prema kojima ce se <adresa> posredovati. To vrijedi za
+adrese BBSa (korisnicke poruke) i za distribucijske adrese (bilteni).
+
+Primjeri:   P 9A7XXX         Lista sve susjedne BBSe prema kojima ce se
+                             posredovati poruke s adresom @9A7XXX.
+            P HRV            Lista sve susjedne BBSe prema kojima ce se
+                             posredovati poruke s adresom @HRV.
+            P HA5DI.HUN.EU   Lista sve susjedne BBSe prema kojima ce se
+                             posredovati poruke s adresom @HA5DI.HUN.EU
+
+  p -a <adr> pokazuje koji su podaci u <adresi> potrebni tako da bar jedna
+             poruka stigne s ovog BBSa.
+             Pokazace se slijedece informacije:
+             H-Addr:     kompletna H-adresa kod zadnjeg azuriranja
+             R-Header:   redak informacija R:-zaglavlja
+             Last BID:   BID zadnje poruke iz ovog BBSa
+             Last Board: Rubrika zadnje poruke
+             Last User:  korisnik cija je zadnja poruka ovog BBSa
+             Bulletins:  broj biltena koji su stigli iz ovog BBSa
+             Usermails:  broj korisnickih poruka pristiglih iz ovog BBSa.
+             Iza toga slijedi lista do 5 susjednih BBSa sa podacima koliko
+             (Count) je poruka, za koje vrijeme (Delay) i preko koliko
+             BBSa (Hops) stiglo. Pomocu toga mozete odrediti odgovarajuci
+             put nazad za te poruke.
+
+  p -s <..>  trazi znakovni niz u listi svih BBSa. On moze biti dio H-adrese
+             ili informativni dio R:-zaglavlja.
+             npr.  p -s #bay  trazi sve bavarske BBSe
+                   p -s bcm   trazi sve BayCom-BBSe
+             Pokazace se ukupan broj poruka tog BBSa, vrijeme zadnjeg
+             azuriranja te informacije: H-adresa i informacijski redak R:.
+
+  p -sh <..> trazi samo u zaglavljima, a ne u adresama.
+
+  p -sp <..> trazi samo u H-adresama, a ne u zaglavljima.
+
+  p -sc <..> pokazuje samo broj pronadjenih redaka, ali ih ne ispisuje.
+
+\\PARAMETER
+Sintaksa: PAR(AMETER) [<trazeni niz znakova>]
+
+Ova naredba pokazuje konfiguraciju BBSa, tj, datoteku INIT.BCM.
+Mozete navesti i znakovni niz kao <trazeni niz znakova>. Ispisace se samo
+redovi koji taj niz sadrze.
+
+Primjer:   PAR RUNUTILS   Lista DOS-programe koje moze izvrsiti korisnik.
+
+\\PS
+Sintaksa: PS [<opcije>]
+
+'Process status' - lista stvarnih procesa. Svaki prijavljeni korisnik, te
+svaki aktivni prozor na zaslonu dobivaju vlastiti proces. Osim njih postoje
+i pozadinski procesi koji kontroliraju sustav.
+
+Opcije:  -a   pokazuje i stanja cekanja (wait) te tip procesa
+         -b   pokazuje i procese u pozadini
+         -s   pokazuje i stanje stack-a i queue-up
+         -t   pokazuje i broj kanala TNC-a
+
+Ako zelite sve te informacije, upisite   PS -abst
+
+Svi aktivni procesi nose oznaku '*' ispred naredbne linije.
+Svi procesi u modu cekanja nisu oznaceni sa '*'.
+
+Primjer:   PS -ABS
+Task Event Kdeb  CPUt Create Input Name      Command
+   0 40     210   0.1   71m        Desktop
+   1 251    210   0.3   71m        Console
+   2 242    210   23s   71m        Monitor
+   3 246    000   28s   71m        logind
+   4 kbhit  711   0.7   71m        Sysop
+   5 514    000   0.3   71m        forwardd
+   6 235    101   3.9   18m   26s  DC6IU     l ibm
+*  7 235    101   81s   71m    0s *DL8MBT    ps -abs
+   8 txf    101   9.2   54m   40m  OE5GOL    r baybox 25-28
+   9 235    101   8.5   26m    5m  DG1GOB    R CONTEST 88
+  12 txf    101   31s   69m  139s *DJ9EI     r gp 218-
+  13 242    101   0.8   11m   35s  DG5MGN    rep
+Wait:  0 13 9 3 2 1 6 5 12 8 4
+Stack: 272 174 446 870 790 530 1108 1080 1158 1720 1204 1720
+
+Task:    Broj zadaca (task). Vlastita prijava oznacena je s '*'.
+Event:   Dogadjaj na koji ceka proces:
+         kbhit:    tipkovnica
+         putf:     isprazni TNC-send-buffer
+         getv:     znak stigao iz TNC
+         slice:    prekinut, jer je proces premasio vrijeme procesa,
+         <number>: vrijeme cekanja u milisekundama, koliko traje prekid
+                   procesa. Buduci da timer (DOS-ticker) ima korak od 55ms,
+                   tocna vrijednost se koristi za utvrdjivanje pozicije
+                   poziva.
+Kdeb:    tip procesa. Kd:bit-polje sa zadacom e:zaslonski prozor b:BBS
+CPUt:    vrijeme od pocetka procesa
+Create:  vrijeme, koliko dugo proces postoji
+Input:   vrijeme, koliko dugo korisnik nije nista poslao
+Name:    ime procesa ili pozivna oznaka korisnika
+Command: zadnja naredba zadace (task)
+Wait:    slijed svih procesa u queue-up
+Stack:   najveci stack svih procesa
+
+Slijedeci procesi protjecu trajno ili ciklicki
+(engleski opis, namijenjeno sysopu):
+Desktop       the main-screen, the father of all running processes
+Console       a small windows in which all system-messages are shown
+              Messages about system-errors additionally will be written
+              into the file SYSLOG.BCM.
+Monitor       a window in which the AX25-traffic is shown.
+Sysop         the windows in which the sysop is logged in on the screen
+logind        login-demon. This process tests all TNC-channels cyclically
+              and looks after new logins and disconnects. From here all
+              arriving mailbox-tasks are created.
+forwardd      forward-demon. This process tests if there are mails which are
+              to be forwarded and, if so, if the time matches with the
+              setting in the forward-file. Every half hour the files
+              BULLETIN.BCM and INIT.BCM are written to the harddisk.
+purge         mucks out everything. The whole file-system is searched if
+              there is a mails with went-off life-time or deleted mails, which
+              will really be deleted then.
+
+\\PURGE
+Sintaksa: PU(RGE)
+
+Ako brisete poruku sa ERASE, ona nece biti stvarno izbrisana vec samo
+oznacena za brisanje dok naredba PURGE zaista brise sve oznacene poruke
+s diska. Nakon izvrsenja PURGE promijenice se i brojevi poruka, a
+naredba UNERASE vise ne djeluje.
+
+\\PAGEBREAK
+Ako zelite sprijeciti izlazak pristiglih redaka izvan zaslona, mozete
+postaviti prekid, tj. definirati broj redaka nakon kojih ce BBS stati sa
+slanjem dok ne pritisnete ENTER.
+Prekid se postavlja sa:
+
+          ALTER LINES <redaka>
+
+Prekidanje stranice mozete iskljuciti pomocu ALTER LINES 0.
+Kad BBS stane, na kraju zadnjeg retka pokazuje odzivni znak '+?>'.
+Tada imate slijedece mogucnosti:
+
+<ENTER>   nastavlja ispis
+C         nastavlja ispis dalje, bez prekidanja
+Q ili B   izlaz iz BBSa (disconnect)
+...sve ostalo ce prekinuti ispis.
+
+Kod naredbi DIR, LIST, READ i CHECK iskljucenje prekidanja stranice postize
+se pomocu opcije -C.
+
+Ako je prekidanje stranice iskljuceno s ALTER LINES 0 ili s C kod
+prekidanja, slanje BBSa mozete zaustaviti s <ENTER>. Pri tom ne smijete
+navesti nakakvu naredbu. U stvarnosti je bolje diskonektirati BBS, jer
+BBS mozete brze konektirati od cekanja prekida.
+
+\\PASSWORD
+Svaki korisnik si moze postaviti lozinku (password).
+
+Vidi HELP ALTER PW za postavljanje lizinke
+i HELP ALTER PWLINE za proceduru prijave na BBS (login).
+
+\\QUIT
+Sintaksa: Q(UIT)
+
+QUIT zavrsava QSO sa BBSom.
+Ako odaberete QUIT, registrirace se datum vaseg zadnjeg QSO.
+Ako jednostavno prekinete vezu ili napustite BBS naredbom BYE, nece se
+promijeniti dotadasnji datum zadnjeg QSO.
+
+\\QUOTA
+Sintaksa: QUO(TA)
+
+Pokazuje koliko ste bajta podataka procitali do sada i koliko jos smijete
+procitati ako je sysop ogranicio broj bajta koje mozete svakodnevno citati.
+
+\\READ
+Sintaksa: R(EAD) [<opcije>] [<rubrika>] [<opseg>]
+
+Naredbom READ mozete citati poruke. Ako pri tom ne navedete rubriku,
+naredba ce se odnositi na onu rubriku koju ste zadnju koristili.
+Naredbama DIR ili LIST dobicete i brojeve poruka. HELP OPTIONS READ daje
+listu raspolozivih opcija.
+
+Pomocu ALTER UREAD <opcije>   (za korisnicke poruke)
+ili    ALTER IREAD <opcije>   (za biltene)
+
+mozete birati opcije koje ce djelovati svaki put kad uporabite naredbu
+READ. Opcije specificirane uz naredbu READ imaju prioritet nad opcijama
+uz ALTER UREAD (ili IREAD). Ako zelite iskljuciti opcije definirane
+pomocu ALTER UREAD (IREAD), otkucajte '-' iza opcije, npr. READ -C- 1.
+
+<opseg> definira koje tocno poruke zelite citati. Ako ga ne navedete,
+ispisace se zadnja (tj. najnovija) poruka.
+
+Primjeri:   R S53MV 1-10      Ispisuje prvih 10 poruka od S53MV.
+            R -H DL8MBT 1-5   Ispisuje prvih 5 poruka od DL8MBT i prikazuje
+                              zaglavlja svih BBSa kroz koje je poruka dosla.
+            R IBM 13          Ispisuje poruku br.13 rubrike IBM.
+
+\\REPLY
+Sintaksa: REP(LY) [[<rubrika>] <opseg>] [<naslov>]
+
+Nakon citanja poruke mozete posiljaocu jednostavno poslati odgovor pomocu
+naredbe REPLY. Svi potrebni podaci primatelja (pozivna oznaka, adresa)
+preuzece se iz procitane poruke.
+
+Ako navedete rubriku i opseg, naredba ce se odnositi na sve tako definirane
+poruke.
+
+Ako izostavite naslov, BBS ce sam stvoriti naslov koji se sastoji od
+'RE:' + naslov originalne poruke.
+
+\\RANGE
+Opseg mozete definirati svugdje gdje mozete birati broj poruke, npr. kod
+naredbi DIR, LIST, READ i ERASE. Ispred opsega mozete navesti rubriku.
+Ako ste rubriku izostavili, koristice se rubrika s kojom ste zadnje radili.
+Ako nevedete opseg, obradice se samo poruke unutar tog opsega.
+Tekuca rubrika obicno pise u odzivnom znaku (promptu) - vidi HELP MACRO.
+
+Opseg se definira pomocu brojeva poruka koje ispisuju naredbe DIR i LIST.
+Najnovija poruka ima najveci broj a najstarija ima broj jedan.
+
+Opseg mozete birati na slijedece nacine:
+
+      navedeni opseg ! poruke odabrane ovim opsegom
+    -----------------+---------------------------------
+        <nista>      ! sve poruke tekuce rubrike
+            5        ! samo broj 5
+           -7        ! zadnjih (tj. najnovijih) 7 poruka
+           1-9       ! prvih 9 poruka
+           3-        ! sve poruke koje pocinju od broja 3 navise
+           2-5       ! sve poruke od 2 do 5 (tj. 2, 3, 4 i 5)
+  <znakovni niz>     ! sve poruke koje sadrze <znakovni niz> u naslovu
+
+
+Primjeri:   R IBM 1-4          Lista naslove poruka od 1 do 4 iz rubrike IBM.
+            L INFO -10         Lista zadnjih 10 (=najnovijih) naslova poruka
+                               iz rubrike <INFO>.
+            E DX 4             brise 4-tu poruku u rubrici <DX>.
+            D ALINCO "DJ-F4"   Lista sve naslove poruka u rubrici <ALINCO>
+                               koje u naslovu sadrze 'DJ-F4'.
+
+\\RUBRIKA
+BOARD=oglasna ploca. U BBSu cemo je zvati RUBRIKA.
+Rubrika sadrzi poruke cija su odredista odredjena tema ili korisnik.
+Postoje dvije vrste rubrika:
+
+ - korisnicke:       Osobni BBS korisnika. Cuva osobnu postu.
+                     Ove poruke moze obrisati samo primalac
+                     ili posiljalac.
+
+ - bilteni:          Javni BBS. Sadrzi poruke (biltene) koje mogu citati svi.
+                     Obrisati ih moze samo posiljalac.
+
+Svaka rubrika ima jedinstveni naslov kojim rubriku mozete adresirati.
+Pozivna oznaka (call) cini naziv korisnicke rubrike. U rubrikama biltena,
+naslov opisuje tematsko podrucje (npr. DXNEWS, IBM).
+
+Svaka poruka u rubrici ima svoj broj. Najstarija poruka ima broj 1.
+Poruke u rubrici mozete listati naredbama DIR i LIST.
+
+Rubrika moze sadrzavati druge rubrike (podrubrike). Npr. rubrika DXNEWS
+sadrzi druge rubrike iz tog podrucja, kao QSL, BEACON, SKED i sl.
+
+Svaka rubrika ima svoj zivotni vijek koji odredjuje sysop. Vijek odredjuje
+koliko ce dana posta stajati u BBSu prije automatskog brisanja.
+
+Niz naredbi poziva se na ime rubrike, npr. DIR, LIST, READ, ERASE, CHECK.
+Baycom BBS uvijek pamti naslov zadnje prozvane rubrike, a taj naziv ce
+upotrijebiti ako u naredbi nije naveden nikakav naslov rubrike.
+Rubriku cemo promijeniti ako je navedemo u nekoj od gornjih naredbi ili ako
+upotrijebimo naredbu CD.
+
+Buduci da su imena rubrika ustvari dijelovi staze (path) DOS-a, uvedena
+su slijedeca ogranicenja:
+- Znakovi '/' i '\' zamjenjuju se s '_'.
+- Ne smije se koristiti nazive koji predstavljaju neki od DOS uredjaja
+  (npr. CON, NUL itd.)
+- Smiju se koristiti samo oni znakovi koji su dozvoljeni u imenima datoteka.
+
+Imena rubrika AUTO7P, REQ*, 7PSERV, FILSRV, FNDFIL i WWCALL tretiraju se
+kao korisnicke rubrike.
+
+\\SEND
+Sintaksa: S(END) <rubrika> [@ <adresa>] [# <rok trajanja>] <naslov>
+
+SEND sluzi za slanje poruke u BBS.
+
+<rubrika>    Pozivna oznaka za koju je poruka namijenjena, ili ime rubrike
+             u koju je treba pohraniti. Listu svih rubrika mozete vidjeti
+             pomocu DIR BOARDS.
+
+<adresa>     Odredisna adresa poruke. Ako se ne trazi slanje poruke ili ako
+             BBS adresu vec zna, mozete je izostaviti. Kod osobnih poruka
+             ovdje se upisuje pozivna oznaka primateljevog maticnog BBSa.
+             To treba biti kompletna hijerarhijska adresa (posebno ako je
+             inozemstvo), npr.DB0AAB.#BAY.DEU.EU ili OE5XBL.AUT.EU .
+             Kod biltena se navodi distribucijska adresa kuda treba slati
+             poruku. Moguce distribucijske adrese su npr. @HRV, @EU ili @WW.
+             Vidi HELP FORWARD.
+
+<rok trajanja>
+             Vrijeme izrazeno u danima, koliko dugo treba sacuvati poruku.
+             Ova informacija se predaje i drugim BBSima. Zbog toga ce
+             u svim BBSima poruke iza tog roka biti obrisane.
+             Svakako je pozeljno definirati rok trajanja kod poruka koje
+             su zanimljive samo odredjen period.
+
+<naslov>     Treba biti kratak ali JASAN naziv teme o kojoj govori poruka.
+             Fraze tipa 'PSE READ!' ili 'HELP' imace posljedicu da takvu
+             poruku nitko nece citati zbog prave poplave poruka svakog dana.
+
+Primjeri:   S BAYCOM @ HRV #10 Nova verzija 1.70
+            S OE3DZW @ OE3XSR.#OE3.AUT.EU Hi Dietmar
+
+Ako BBS ne poznaje navedenu hijerarhijsku adresu, javice poruku o greski.
+Poruku ipak mozete poslati, no nece biti poslana dalje iz BBSa.
+
+Kraj poruke oznacava se s NNNN, ***END ili ^Z (Ctrl-Z).
+Unos poruke mozete prekinuti s ^X (Ctrl-X).
+
+\\SEMAPHORES=STATUS.SEMAPHORES
+
+\\SETLIFE
+Sintaksa: SET(LIFE) <rubrika> <opseg> [#] <dana>
+
+Postavlja rok trajanja jedne ili vise poruka. Vremenski period treba navesti
+u danima, racunajuci od danasnjeg dana. Rok trajanja moze izmijeniti samo
+vlasnik poruke (tj. posiljalac ili primalac). Znak '#' mozete, ali i ne morate
+navesti. On postoji samo zbog kompatibilnosti s TheBoxom. Ako opseg
+izostavite, SETLIFE ce se odnositi na zadnju citanu poruku.
+
+Primjeri:   SETL BAYCOM 5-10 30    Postavlja novi rok trajanja od 30 dana
+                                   porukama 5-10 u rubrici BAYCOM.
+            SETL #100              Postavlja trajanje zadnje procitane poruke
+                                   na 100 dana (ovdje ne smijemo izostaviti
+                                   znak '#' !)
+
+\\STATUS
+Sintaksa: ST(ATUS) C(PU)|F(ORWARD)|M(EMORY)|S(EMAPHORES)
+
+Pokazuje statisticke podatke.
+Vidi HELP STATUS <term>: CPU, FORWARD, MEMORY, SEMAPHORES
+
+Primjer:   HELP STATUS CPU   Pokazuje upute za STATUS CPU.
+
+\\STATUS.CPU
+Sintaksa: ST(ATUS) C(PU)
+
+Pokazuje srednje opterecenje BBSa. Opterecenje BBSa mjeri se u intervalima
+od 5 sekundi, a pamti 8 mjernih perioda tako da prikazuje opterecenje
+zadnjih 40 sekundi. Opterecenje se prikazuje u postocima. Razlikujemo:
+
+  Running:  Vrijeme rada BBS-cpu. Obicno su to zadace BBSa.
+  Screen:   Vrijeme pisanja BBSa na zaslon. Ako nikoga nema uz kompjutor,
+            vidjecete koliko je potrebno za prozor monitora.
+  Idle:     Vrijeme kada kompjutor nista ne radi ili je zauzet prozivkom
+            (scheduling). Kod velikog opterecenja ova vrijednost ce biti
+            niska. Zbroj sve tri vrijednosti uvijek je 100% .
+
+\\STATUS.FORWARD
+Sintaksa: ST(ATUS) F(ORWARD)
+
+Lista broj poruka koje cekaju da budu poslane.
+Prikazace se slijedece informacije:
+  - pozivna oznaka BBSa na koji se upucuju poruke
+  - Ok: 0 zadnji pokusaj konekta BBSa nije uspio
+        1 zadnji pokusaj konekta BBS je uspio
+        2 BBS sada prima postu
+        3 upravo traje prozivanje drugog BBSa
+        4 BBS upravo salje postu drugom BBSu
+  - Login: period otkada je drugi BBS konektiran
+  - ConOk: period od zadnjeg uspjesnog konektiranja BBSa
+           (ako nista ne pise, konekta jos nije ni bilo)
+  - User:  broj neisporucenih korisnickih poruka
+  - Info:  broj neisporucenih biltena
+  - E/M:   broj neisporucenih informacija o Erase/MYBBS
+
+\\STATUS.MEMORY
+Sintaksa: ST(ATUS) M(EM)
+(naredba za debugging, bez praktickog znacenja. Isto sto i M(EM)  )
+
+Pokazuje stvaran kapacitet memorije kod upravljanja memorijom za zadace (task)
+sadrzi ove podatke:
+- broj blokova memorije
+- duzinu u bajtima (najvise 64k)
+- adresu
+- broj zadace (vidi PS) ili 255 ako nije bilo poziva
+- svrhu (samo ako je bilo poziva)
+
+\\STATUS.SEMAPHORES
+Sintaksa: ST(ATUS) S(EMAPHORES)
+(naredba za debugging, bez praktickog znacenja)
+Isto sto i SEM(APHORES.
+
+Lista datoteke koje se upravo obradjuju.
+Pokazuje ime datoteke i broj procesa, ovisan o njegovu stanju.
+Rd   read       (proces zavrsava u previdljivoj buducnosti)
+LRd  long read  (tj. proces moze trajati proizvoljno dugo)
+Ap   append     (nadovezivanje)
+LAp  long append
+Wr   write      (upis)
+LWr  long write
+Buduci da se procesi upisa kod visekorisnickog rada medjusobno iskljucuju,
+proces poziva ce, ovisno o vremenu pristupa biti ili suspendiran ili ce
+biti odbijen.
+
+\\SPEAK=ALTER.SPEECH
+
+\\TIME
+Sintaksa: T(IME)
+
+Pokazuje trenutacno vrijeme i datum.
+
+\\TALK
+Sintaksa: T(ALK) <pozivna oznaka> <tekst>
+(Isto sto i CHA(T), CO(NVERS), M(SG) ili W(RITE) )
+
+Salje <tekst> postaji <pozivne oznake> uz uvjet da je navedeni korisnik
+konektiran na BBS.
+
+T <pozivna oznaka>
+Sve sto otkucate iza ove naredbe, slace se toj <pozivnoj oznaci>.
+Izlaz iz ovog moda je s:   '/q'.
+
+T ALL <tekst>
+salje <tekst> svim postajama konektiranim na BBS (isto sto i WALL).
+
+Umjesto TALK mozete koristiti CHAT, CONVERS, MSG ili WRITE, tako da svatko
+moze odabrati naredbu po volji. Medjumemorija (buffer) za tekst koji se
+salje na ovaj nacin dovoljna je za jedan redak. Ako saljete u komadu
+previse redaka, medjumemorija se moze prepuniti te ce javiti poruku o greski.
+
+Primjeri:   T 9A6XXX Hi Stefane
+            WALL Gasimo BBS za 5 minuta!
+            M 9A1AAA
+
+\\TRANSFER
+Sintaksa: TR(ANSFER) <rubrika> <opseg> [>] <ciljna rubrika> [@ <bbs>]
+        [# <rok trajanja>] [<naslov>]
+
+Prebacuje poruku u drugu rubriku ili drugom korisniku.
+Pri tom moguce je navesti novi rok trajanja i (ili) novu odredisnu adresu.
+
+Sa TRANSFER TO <rubrika biltena> stare poruke se brisu,
+a sa TRANSFER TO <osobna rubrika> stare poruke se NE brisu. BBS ce ubaciti
+redak 'Transfer izvrsio ...'.  Znak '>' mozete, ali ne morate navesti.
+
+BIN-poruke nije moguce prebacivati!
+
+Pozor:  Ako zelite izmijeniti odredisnu adresu koristite naredbu FORWARD.
+        Za izmjenu roka trajanja koristite naredbu SETLIFE.
+
+Primjeri:   TR BAYCOM 5-6 SOFTWARE           Prebacuje poruke br. 5-6 iz
+                                             rubrike <BAYCOM> u rubriku
+                                             <SOFTWARE>.
+            TR 9A1XXX 1- > 9A2XXX @ 9A0BBS   salje svu postu od 9A1XXX na
+                                             9A2XXX uz prijenos u 9A0BBS.
+
+\\USERS
+Sintaksa: U(SERS) [<pozivna oznaka>]|[[<opcije>] [<kriterij pretrazivanja>]]
+
+Ispisuje korisnike BBS.
+Pokazace sto korisnici trenutacno rade:
+
+Idle     Korisnik nista ne radi, samo glumi na zaslonu (hi)
+Read     Korisnik cita postu iz BBSa
+Send     Korisnik salje postu BBSu
+Cmd      Operacija u DOS-u (izvrsni program)
+Search   Proces trazenja (DIR, LIST ili CHECK)
+FwdTX    S&F - slanje drugom BBSu
+FwdRX    S&F - prijam iz drugog BBSa
+You      Vi osobno
+
+Ako je korisnik prikazan kao 'Idle', mozete mu poslati poruku naredbom TALK.
+
+U <pozivna oznaka>
+pokazuje skup parametara tog korisnika, u skracenom obliku.
+
+moguce su slijedece opcije kod pretrazivanja korisnika:
+-a   pokazuje sve zapise (korisno samo ako nisu navedene druge opcije)
+-c   pokazuje broj odgovarajucih zapisa
+-f   pokazuje prvi odgovarajuci zapis a nakon toga zaustavlja pretragu
+-h   pokazuje sve korisnike s razinom pomoci = 0
+-l   pokazuje korisnike koji su se prijavili na BBS bar jednom
+-m   pokazuje korisnike koji su sami upisali svoj MYBBS
+-n   pokazuje korisnike kojima je MYBBS utvrdjen iz poruke
+-o   pokazuje korisnike koji se do sada nisu prijavili na ovaj BBS
+-r   pokazuje korisnike cije su poruke zasticene (nisu dostupne javnosti)
+-s   pokazuje korisnike ciji je korisnicki status visi od 0
+-t   pokazuje korisnike koji su postavili TTY lozinku
+-u   pokazuje korisnike ciji MYBBS nije poznat
+
+Kriteriji pretrazivanja:
+  ...<pozivna oznaka>    c=...<pozivna oznaka>   n=...<ime>      l=...<datum>
+@=...<maticni BBS>       v=...<via>              s=...<jezik>
+
+Zapis ce se ispisati samo ako su zadovoljeni svi uvjeti pretrazivanja.
+Kriterij l=<datum> znaci ispis svih korisnika koji su se prijavili na BBS
+iza navedenog <datuma>.
+
+Primjeri:  U -LH @=AAB  Lista korisnike koji su se prijavili na BBS bar
+                        jednom, koji su postavili razinu pomoci = 0 i ciji
+                        maticni BBS sadrzi znakovni niz 'AAB'.
+           U CCY        Lista korisnike cija pozivna oznaka sadrzi 'CCY'.
+           U -C 9A      Lista broj korisnika cija pozivna oznaka sadrzi '9A'.
+           U -L N=Ivan  Lista korisnike koji su se prijavili bar jednom
+                         a cije ime je IVAN.
+Oblik ispisa:
+Call   Mybbs               Name         Logs Last via      PTHLRS Spr
+DL8MBT @DB0AAB.#BAY.DEU.EU Flori        1250  26h DB0AAB   000100 DL
+
+Znacenje polja je slijedece:
+call, mybbs korisnika (@:postavljeno, ?:pretpostavljeno)
+name: ime korisnika
+Logs: broj dosadasnjih prijava na BBS (QSOa)
+Last: vrijeme od zadnje prijave u sekundama, minutama, satima i danima
+via:  polazni cvor kod zadnje prijave na BBS
+P:    korisnicka lozinka, 1: korisnik ima lozinku 0: nema lozinku
+T:    TTY-lozinka, 1: korisnik ima lozinku 0: nema lozinku
+H:    trenutacna razina pomoci korisnika
+L:    postavljen broj praznih redaka - razmaka
+R:    0: korisnicke poruke vidljive, 1: vidljive samo procitane poruke,
+      2: nisu vidljive
+S:    0: standardan korisnik, 1: korisnik bez kvote za citanje (download),
+      2: nema pristup BBSu
+Spr:  jezik, npr. HRV (hrvatski), DL (njemacki), GB (engleski), OK (ceski)
+
+Korisnicko ime je definirao sam korisnik ili je utvrdjeno iz poruka.
+
+\\UNERASE
+Sintaksa: UN(ERASE) [<rubrika>] <opseg>
+
+Obrisane poruke cini ponovo citljivima. Samo poruke brisane sa PURGE bice
+stvarno izbrisane i tada ih vise ne mozete uciniti citljivima.
+naredbom ERASE poruke se samo oznace za brisanje te postaju nevidljive.
+
+Obrisane poruke mozete listati sa DIR -KV. Iza broja poruke pise razlog
+zasto je poruka obrisana:
+ E  - obrisano naredbom ERASE ili nakon odzivnog znaka 'Erase message?'.
+ F  - poruka je poslana u drugi BBS pa je ovdje obrisana
+ K  - daljinski obrisao sysop
+ L  - daljinski obrisano
+ T  - poruka je prebacena u drugu rubriku pa je ovdje obrisana
+
+Pomocu naredbe UNERASE mozete obrisane poruke ponovo uciniti vidljivima.
+Pri tome mozete navesti opseg kao u naredbama DIR, LIST, ERASE itd.
+
+Primjer:   UN 9A7XXX 1-  Sve obrisane poruke za 9A7XXX cini ponovo vidljivima.
+
+
+\\UPUTE
+Ovo su osnovne upute, namijenjene prvom kontaktu s BBSom tipa BAYCOM.
+
+1. Predstavi se BBSu:
+    - upisi svoje ime:              A N tvojeime    Npr. A N Marko
+    - upisi svoj maticni BBS:       A F maticniBBS  Npr. A F S50BOX.SVN.EU
+   Na taj nacin ce se sve poruke za tebe slijevati iz svih BBSa u tvoj
+   maticni. Naravno da to moze biti i ovaj BBS. Odabrani BBS mozes upisati
+   i kasnije.
+
+2. BBS je sanducic s porukama, i to:    - osobnim porukama
+                                        - biltenima (javnim porukama)
+   Sve poruke slozene su po rubrikama. Npr. DX informacije trazicemo u
+   rubrici DXNEWS, ili u UKV. Sto pisu tvom susjedu, citaj u rubrici 9A7XXX...
+   Sve poruke unutar jedne rubrike su numerirane. Najstarija ima broj 1.
+
+4. Naredba CHECK (brzi pregled novih biltena)
+   Da vidimo koji su novi bilteni stigli u BBS, bez obzira u koju rubriku
+spadaju (jer jos ne znam ni kojih sve rubrika ima):
+         C 1-20        ce pokazati listu od 20 najnovijih poruka.
+U listi vidimo:
+- #: redni broj (po starosti, tocnije - po mladosti, jer najmladja ima broj 1)
+- Call: pozivna oznaka autora poruke
+- Rubrika  br.: u ovu rubriku poruka spada, i u njoj je to taj redni broj
+- Datum: datum kada je poruka nastala
+- @BBS: kuda je poruka poslana, npr. 9A0YDA - samo u BBS 9A0YDA,
+        HRV - u sve BBSe Hrvatske, EU - u cijelu Europu, WW - cijeli svijet
+- Vri: koliko je dana zivota preostalo ovoj poruci
+- Naslov poruke: poruka ima svoj naslov
+Kako procitati 20 slijedecih, jos starijih poruka?       C 21-40
+
+5. Naredba READ (citanje poruka)
+Kako procitati odabranu poruku?
+Recimo da je 5-ta poruka s naslovom: "Prodajem FT411", u rubrici PRODAM,
+broj 89. Za citanje sluzi naredba READ:    R PRODAM 89.
+Ako imas program GP onda je jos jednostavnije: pritisni tipku F11, u listi
+kurzorom odaberi sto ti se svidja, i pritisni ENTER. Ostalo GP radi sam.
+Mozes zatraziti i dugacku listu, pa sa PageUp i PageDown prebirati po listi
+neovisno o primljenoj poruci.
+Primijeti da BBS odsad stoji na navedenoj rubrici ("PRODAM", u ovom primjeru).
+Svaki put kad u nekoj naredbi navedes rubriku, BBS je dalje pretpostavlja.
+Na koju smo rubriku namjesteni, vidi se u odzivnom znaku (promptu) BBSa.
+
+6. Naredba DIR (pretrazivanje po BBSu)
+Koje sve rubrike postoje u BBSu? Gdje traziti nase, domace informacije,
+kad je vecina poruka na engleskom ili njemackom jeziku?
+Listu svih rubrika u BBSu pogledamo s: DIR BOARDS  ili skraceno:  D B  .
+Ako nas zanima i koliko ima poruka u pojedinoj rubrici, onda:  D B *  .
+U popisu ste vjerojatno prepoznali koje su rubrike domace. Najpoznatija od
+njih je SVIMA. (DIR je mocna naredba, koja omogucava pretrazivanje BBSa na
+razne nacine. Kasnije ne propusti pogledati sve o varijantama DIR sa: H DIR.)
+
+7. Naredba LIST (listanje naslova poruka)
+Kako sada izlistati sve naslove poruka u SVIMA?  Ovako:    L SVIMA
+Ovo ce izlistati sve poruke iz SVIMA koje jos nisi citao(la). Mozes listati
+i detaljnije:
+L SVIMA 1-20 ... izlistaj poruke od 1-20, bez obzira jesu li procitane ili ne,
+L SVIMA 50-  ... listaj od 50 na dalje,
+L SVIMA -10  ... listaj zadnjih 10
+Ako je "SVIMA" spomenuto u nekoj naredbi, onda iza LIST ne treba pisati SVIMA,
+jer se to pretpostavlja. (L 1-20,  L 50-,  L -10 itd.).
+Citanje odabrane poruke u odabranoj rubrici vrsimo pomocu:
+        R brojporuke            Npr. R 142
+Ako imas GP, onda biraj naslov kurzorom iz liste na tipki F12.
+
+8. Trazenje naslova ili dijela naslova
+Zelim pronaci poruke koje u naslovu sadrze tekst "WIN98", a ne znam u kojoj
+su rubrici. Onda cu izvrsiti potragu po cijelom BBSu s:   D M WIN98
+
+9. Naredba SEND (slanje poruke)
+Kako poslati obicnu poruku mojem prijatelju 9A7XXX?
+Za to moram znati adresu njegovog maticnog BBSa, ukoliko to ovaj BBS ne zna.
+Ako ovaj BBS zna, onda ovako:  S 9A7XXX
+Ako ne zna, onda:              S 9A7XXX@HG1KZC.HUN.EU
+"@HG1KZC.HUN.EU" znaci da mu je maticni BBS HG1KZC, u Madjarskoj, u Europi.
+Iza toga me BBS pita za naslov poruke. Napisem npr. "Postavljanje antene".
+Zatim trazi da posaljem (ili ukucam) tekst poruke.
+Kraj poruke oznacava se sa:      nnnn      ili sa CTRL-Z.
+I to je sve. Poruka ce biti poslana dalje, do njegovog maticnog BBSa.
+
+10. Skidanje softvera s BBSa (download).
+Softver se na BBSu moze nalaziti u dva razlicita oblika:
+- binarnom (prirodnom obliku, kao na disku - nije pogodno zbog duzine)
+- kodiranom sa 7plus - datoteka je rasijecena na vise komada i kodirana
+  sa 7plus. Svaki dio se skida pojedinacno, a kada ih sve skupis, onda
+  ih spojis sa 7plus u originalnu datoteku.
+Za tu svrhu je potrebno prvo potraziti programcic 7PLUS.EXE  (D M 7plus).
+Taj je programcic u BBSu u binarnom obliku. Kako ga skinuti, pogledaj s
+HELP BINARY, a treba malo poznavati i PR terminalski program s kojim radis.
+Ako je to GP ili SP, onda ce AUTOBIN izvrsiti vecinu posla automatski.
+Jos lakse je dobiti 7plus.exe od prijatelja, na disketi, a dalje sve
+preuzimati sa 7plus.
+Vecina terminalskih programa ima opciju AUTO7plus, tj. cim s: R xxxx
+zatrazis citanje 7plus datoteke, oni automatski zapocnu i snimanje na disk.
+Kad skupis sve komade, onda ih povezi sa 7plus:      7plus SP650.P01
+Istovremeno ce biti i vraceni u normalan, binarni oblik (mozda komprimiran
+sa ARJ ili ZIP...).
+Ako neki komad ne primis ispravno, (7plus javlja gresku u tom komadu) onda
+je najbolje ponovo procitati taj komad. Ostale komade, naravno, ne treba.
+
+11. Naredba ERASE (brisanje poruka)
+Procitane osobne poruke mozes oznaciti za brisanje. Prvo se namjesti u svoju
+rubriku (npr. CD 9A7XXX), ustanovi koje brojeve imaju poruke za brisanje,
+te ih oznaci pomocu:      E <opseg>    npr.   E 15-17.
+Ako se predomislis, vrati ih s UNERASE. Stvarno i trenutacno brisanje
+vrsi se s PURGE. Vidi upute za H ERASE, H UNERASE i H PURGE.
+
+12. Naredba TALK (cavrljanje s drugim korisnicima BBSa)
+Pogledaj koga jos ima na BBSu:   U
+Mozes s njim cavrljati:          T call tekst    Npr. T 9A1XXX Kako zdravlje?
+
+13. Naredba ALTER (podesavanje parametara BBSa)
+BBS ti moze odgovarati onako kako to zelis. Za to je potrebno prouciti
+skup naredbi ALTER. Pogledaj upute za ALTER s: HELP ALTER.
+Svoj osobni skup parametara vidi s: A <call>, npr. A 9A7XXX.
+
+14. Naredba FS (Filesurf)
+Pomocu FS ulazi se u FILESURF, sustav direktorija i datoteka kao u DOS-u.
+Slicna stvar je FBB DOS. Pogledaj detaljnije s HELP FS.
+
+15. Ako ti dojadi poruka o HELP UPUTE kod svakog konektiranja, iskljuci je s
+A H 1. I donji redak s nabrojenih nekoliko naredbi nestace ako upises A H 0.
+Povratak na staro je s A H 2.
+
+---------
+
+   Nakon prvih koraka, preporucujemo procitati HELP sustav, koji je stupnjevan
+u opsirnosti. Najkraci je HELP, duzi i bolji je HELP CMD. HELP INDEX daje popis
+pojedinih naslova za koje postoji opis (help). Svaku naredbu pojedinacno opsirno
+objasnjava HELP <naredba>. Kompletna (jako dugacka) lista je s HELP ALL.
+
+                                                Ugodan rad na Baycom BBSu!
+
+\\VERSION
+Sintaksa: V(ERSION)
+
+Ispisuje  verziju programa, datum, raspolozivu memoriju i slobodan prostor
+na disku.
+
+Primjer:
+Date: 17.01.95 23:41
+BayCom-Mailbox Version 1.35a (Linux)
+(c) 1992-94 Florian Radlherr, DL8MBT
+Compiled Nov 18 1994 09:04:20
+Runtime: 1.08:15   CPUindex: 147
+Available Memory/Swap           : 11280 kB / 16773 kB
+Info-Path: c:/bcm/info          : 111883 kB (262 MB)
+User-Path: c:/bcm/user          : 111883 kB (262 MB)
+BCM-Home:  c:/bcm               : 111883 kB (262 MB)
+
+'Runtime' pokazuje koliko vec dugo softver radi bez prestanka
+ (dani.sati:minute).
+'CPUindex' naznacuje relativnu brzinu u odnosu na kompjutor. Mjerenje nije tocno.
+'Available Memory' pokazuje slobodan RAM.
+'Swap' je tocan samo kod Linux verzije Baycom BBSa. Kod DOSa postoji samo
+ zbog bolje prenosivosti a pokazan je kao '-'.
+Ostali podaci pokazuju staze datoteka na disku BBSa te ukupan raspolozivi
+prostor na disku.
+
+\\WRITE=TALK
+
+\\WALL
+Sintaksa: WA(LL) <tekst>
+
+Salje tekstualnu poruku svim korisnicima na BBSu.
+
+Primjer:   WALL Ovaj BBS prestaje s radom za 10 minuta
+
+Vidi i HELP TALK

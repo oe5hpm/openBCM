@@ -771,7 +771,7 @@ void printfwdlist (char *box)
 //*************************************************************************
 //
 //  Gibt die Forwardliste aus. Die Ausgabe erfolgt im gleichen
-//  Format wie die Eingabe über das Initialisierungsfile
+//  Format wie die Eingabe ueber das Initialisierungsfile
 //
 //*************************************************************************
 {
@@ -853,7 +853,7 @@ void savefwdlist (void)
 //*************************************************************************
 //
 //  Schreibt die Forwardliste in FWD.BCM. Die Ausgabe erfolgt im gleichen
-//  Format wie die Eingabe über das Initialisierungsfile
+//  Format wie die Eingabe ueber das Initialisierungsfile
 //
 //*************************************************************************
 {
@@ -1342,7 +1342,7 @@ void fwdlistedit (char *befbuf)
 void fwdstat (char *box)
 //*************************************************************************
 //
-//  Gibt die Anzahl der anstehenden Nachrichten für alle Nachbarboxen aus
+//  Gibt die Anzahl der anstehenden Nachrichten fuer alle Nachbarboxen aus
 //
 //*************************************************************************
 {
@@ -1803,7 +1803,7 @@ int scanheader (FILE *f, fwdpara_t *ff)
   } // loop
   if (   b->fwdhold == '!'       // check only if not held before
       && ownbox > (1 + ((! (b->mailtype == 'B') & 1) * 2)))
-      // Pers. mails dürfen 3mal durchlaufen
+      // Pers. mails duerfen 3mal durchlaufen
   {
     s_fclose(f);
     if (b->mailtype == 'P')
@@ -1836,7 +1836,7 @@ static char *fname_aus_path (char *path)
 //  Extrahiert aus einem Pfadnamen den Filenamen (steht am Ende, bis /)
 //
 //  z.B. Eingang:  INFO/GERAETE/YAESU/12DEAD6
-//       Rückgabe: 12DEAD6
+//       Rueckgabe: 12DEAD6
 //
 //*************************************************************************
 {
@@ -1850,10 +1850,10 @@ static char *fname_aus_path (char *path)
 char *board_aus_path (char *path)
 //*************************************************************************
 //
-//  Extrahiert den Namen eines Boards aus dem vollständigen Pfadnamen
+//  Extrahiert den Namen eines Boards aus dem vollstaendigen Pfadnamen
 //
 //  z.B. Eingang:  INFO/GERAETE/YAESU/12DEAD6
-//       Rückgabe: YAESU
+//       Rueckgabe: YAESU
 //
 //*************************************************************************
 {
@@ -2327,7 +2327,7 @@ static void putsid (int tx)
   lastfunc("putsid");
   char pwdfname[20];
   char pwds[30];
-  char sid[40];
+  char sid[60];
   int i;
   FILE *f;
 
@@ -3464,7 +3464,7 @@ void add_fwdfile (char *frombox, short unsigned delaytime, int replace)
 //*************************************************************************
 //
 //  Legt den angegebenen Filenamen in den Forwardlisten ab, die
-//  zu den Nachbarboxen in (boxenliste) gehören.
+//  zu den Nachbarboxen in (boxenliste) gehoeren.
 //
 //*************************************************************************
 {
@@ -3736,7 +3736,7 @@ static int testfwd (char *call, int bulletin)
           && isforwardtime(call, 1)) // only when it is time for bulletins
       {
         fork(P_BACK | P_MAIL, 0, fwdsend, call);
-        wdelay(15012); // erst nach 15s nächste Box
+        wdelay(15012); // erst nach 15s naechste Box
         return OK;
       }
       else
@@ -3761,7 +3761,7 @@ static int testfwd (char *call, int bulletin)
     {
       dofwd:
       fork(P_BACK | P_MAIL, 0, fwdsend, call);
-      wdelay(15012); // erst nach 15s nächste Box
+      wdelay(15012); // erst nach 15s naechste Box
       return OK;
     }
   }

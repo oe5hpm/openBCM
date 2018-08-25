@@ -1,4 +1,4 @@
-#
+
 # Makefile for OpenBCM-Mailbox
 HOSTARCH := $(shell uname -m | \
 	sed -e s/i.86/x86/ \
@@ -17,6 +17,8 @@ GPP_VERSION33 := \
   $(shell $(CROSS_COMPILE)g++-3.3 --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 3)
 GPP_VERSION4 := \
   $(shell $(CROSS_COMPILE)g++ --version | grep g++ | sed 's/.*g++ (.*) //g' | sed 's/\..*//' | grep 4)
+
+GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always --tags || echo "?????")
 
 ifeq "$(GPP_VERSION33)" "3"
   CC = g++-3.3
@@ -56,7 +58,7 @@ LD_OPT = -dynamic $(LFLAGS)
 DEBUG = -g
 #-----------------------------------------------------------
 LD_OPT += -lcrypt
-OPT = -O2 -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
+OPT = -fno-delete-null-pointer-checks -funsigned-char -DGITVERSION=\"$(GIT_VERSION)\" $(ARCHSPEC) -std=gnu++98
 
 OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused \
 	   -Wreturn-type -Wno-write-strings -Wuninitialized -Wswitch -Wshadow
@@ -65,7 +67,7 @@ ifeq "$(GPP_VERSION4)" "4"
   ifeq "$(GPP_VERSION33)" "3"
     override OPT = -O2 -fno-delete-null-pointer-checks -funsigned-char -fwritable-strings $(ARCHSPEC)
   else
-    override OPT = -fno-delete-null-pointer-checks -funsigned-char $(ARCHSPEC)
+    override OPT = -fno-delete-null-pointer-checks -funsigned-char -DGITVERSION=\"$(GIT_VERSION)\" $(ARCHSPEC)
     override OPT_WARN = -Wcomment -Wno-conversion -Wformat -Wno-unused -Wreturn-type -Wno-write-strings 
   endif
 endif

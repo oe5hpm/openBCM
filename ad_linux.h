@@ -5,7 +5,7 @@
   OpenBayCom-Mailbox
 
   ------------------------------------------------
-  Definitionen und Deklarationen für Linux-Version
+  Definitionen und Deklarationen fuer Linux-Version
   ------------------------------------------------
 
 

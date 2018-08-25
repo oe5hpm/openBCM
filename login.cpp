@@ -233,7 +233,7 @@ void putlogauszug (char *selektor)
     double txfiles;
     double rxfiles;
     int logins;
-  } userlog_t;
+  } USERLOG;
   static userlog_t *userlog = NULL;
   char *buf;
   char call[CALLEN+1];

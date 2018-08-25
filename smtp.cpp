@@ -607,7 +607,6 @@ static int rfc2047_decode_word (char *d, const char *s, size_t len)
   char *pd;
   char *tt;
   int enc = 0, filter = 0, count = 0, c1, c2, c3, c4;
-  char *charset = NULL;
 
   lastfunc("rfc2047_decode_word");
   strcpy(buf, s);
@@ -623,7 +622,6 @@ static int rfc2047_decode_word (char *d, const char *s, size_t len)
         // ignore language specification a la RFC 2231
         if ((tt = strchr(pp, '*')))
           *tt = '\0';
-        charset = pp;
         filter = 1;
         break;
       case 3:

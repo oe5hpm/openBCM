@@ -171,7 +171,7 @@ int wx::orgdata (wxdata_t *wx, char *oneline)
  wx->air_pres_qnh = wx->air_pres_qfe + (m.wxqthaltitude /
                      (8.7 - (m.wxqthaltitude * 0.0005)));
 
- // Fühlbare Temperatur (Windchill) in C
+ // Fuehlbare Temperatur (Windchill) in C
  //    FT = (-0.0432 * (SQR(100 * WMS) + 10.45 - WMS) * (33 - T)) + 31.46
  //  adopted: windspeed+1.0 => better results with low speeds,
  //   result must be lower than real temperatur (DerStandard,
@@ -212,7 +212,7 @@ int wx::orgdata (wxdata_t *wx, char *oneline)
    wx->abs_humidity = 0;
 
  // Taupunkt
- //     Taupunkt in °C
+ //     Taupunkt in gradC
  //     TP = (234.67 * (LOG(DAD) / LOG(10)) - 184.2) /
  //          (8.233 - (LOG(DAD) / LOG(10)))
  if (wx->steam_pressure > 0)
@@ -222,13 +222,13 @@ int wx::orgdata (wxdata_t *wx, char *oneline)
    wx->dew_point = 0;
 
  // Kondensationsnivau
- //     Kondensationsniveau (Wolkenuntergrenze für Cumuluswolken) in Meter über NN
+ //     Kondensationsniveau (Wolkenuntergrenze fuer Cumuluswolken) in Meter ueber NN
  //     KON = (T + ((SSH - 2) / 100) - TP) * 120
  wx->kond_niveau = (wx->outdoort + ((m.wxsensoraltitude-2.0)/100.0)-
                                      wx->dew_point)*120.0;
 
  // Schneefallgrenze in m
- //     Schneefallgrenze/Null-Grad-Niveau in KILOMETER über NN
+ //     Schneefallgrenze/Null-Grad-Niveau in KILOMETER ueber NN
  //     SFG = (T / 10) + (HOEHE / 1000)
  //     KHDIF = (KON - HOEHE) / 100
  //     IF (T * 100) > KON THEN SFG = SFG + (KHDIF / 6) - (KHDIF / 10)
@@ -246,7 +246,7 @@ int wx::orgdata (wxdata_t *wx, char *oneline)
 
  // Windstaerke in Beaufort
  //     BEAU = CINT(10 ^ ((LOG(((WMS - 0.07) / 0.834) ^ 2) / LOG(10)) / 3))
- //     Different data from "Zentralanstalt für Metereologie und Geodynamik
+ //     Different data from "Zentralanstalt fuer Metereologie und Geodynamik
  //     Wien" used here
  //     newer data from Willy, oe3wyc
                     //0    1    2    3    4    5     6

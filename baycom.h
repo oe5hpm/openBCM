@@ -37,6 +37,9 @@
   #ifdef _WIN32
     #define __MSDOS__
     #define __FLAT__
+	#define _USE_32BIT_TIME_T
+	#define _CRT_NONSTDC_NO_DEPRECATE
+	#define _CRT_SECURE_NO_WARNINGS
   #endif
 
   #if defined(__MSDOS__) && (!defined(_WIN32))

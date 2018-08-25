@@ -161,7 +161,7 @@ int random_max (int max)
 
               (which uses lower-order bits)."
 
-       Random-number  generation is a complex topic.  The Numeri­
+       Random-number  generation is a complex topic.  The Numeric
        cal Recipes in C book (see reference  above)  provides  an
        excellent discussion of practical random-number generation
        issues in Chapter 7 (Random Numbers).
@@ -528,7 +528,7 @@ char *cpuinfo (void)
   char vendor[30];
   int tsc = NO;
   static char cpuresult[200];
-  char *pk;
+  char *pk, *ptmp;
 
   pk = NULL;
   strcpy(cpu, "??");
@@ -540,10 +540,19 @@ char *cpuinfo (void)
   {
     while (fgets(buf, sizeof(buf) - 1, f))
     {
+      #if defined (__arm__)
+      if (stristr(buf, "model name"))
+      #else
       if (stristr(buf, "cpu"))
+      #endif
       {
         pk = strstr(buf, ": ");
-        if (pk && *cpu == '?') sscanf(pk + 2, "%s", cpu);
+        if (pk && *cpu == '?') {
+            ptmp = strchr(pk + 2, ' ');
+            if (ptmp != NULL)
+            	*ptmp = '\0';
+            sscanf(pk + 2, "%s", cpu);
+        }
       }
       if (stristr(buf, "BogoMips"))
       {
@@ -727,7 +736,7 @@ int setlinuxpasswd (char *calltmp, char *passwort)
     salt[2] = 0;
     /* Definition einer /etc/shadow Zeile
 
-    dgt123:ðHJhpnm5X3kQ:804:0:99999:7:::
+    dgt123:Ã°HJhpnm5X3kQ:804:0:99999:7:::
     ^- usercall
            ^- password (crypted)
                         ^- days since Jan 1, 1970 that password was

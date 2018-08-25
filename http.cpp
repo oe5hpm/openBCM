@@ -154,7 +154,7 @@ void httpd::generate_css (void)
    else
    {
     cssfile = s_fopen("http/style.css", "sat"); //schreibend oeffnen
-    fputs("/* Schriftstil, Abstände */\n", cssfile);
+    fputs("/* Schriftstil, Abstaende */\n", cssfile);
     fputs("body\n", cssfile);
     fputs("{\n", cssfile);
     fputs("margin-top:8px;\n", cssfile);

@@ -1,0 +1,1471 @@
+\\ALTER
+ALTER emri ile mailboxunuzun bazi ayarlarini istege g”re kurabilirsiniz.
+
+ilave olmadan kullanilan ALTER emri, o anki mailbox ayarlarini g”sterir.
+™rnek:    A
+
+Bir €agri isareti ile kullanilan ALTER emri, o <call>'a ait ayarlari verir.
+™rnek:    A DL1KOC
+
+ALTER <Tevcih> ile kendinize ait ayarlari degistirebilirsiniz.
+Detayli bilgiler i‡in kullanilabilen emirler:
+HELP ALTER DEF        HELP ALTER ID       HELP ALTER N       HELP ALTER UD
+HELP ALTER CH         HELP ALTER IL       HELP ALTER P       HELP ALTER UL
+HELP ALTER C          HELP ALTER IR       HELP ALTER PW      HELP ALTER UR
+HELP ALTER F          HELP ALTER LF       HELP ALTER PWL
+HELP ALTER H          HELP ALTER L        HELP ALTER R
+
+\\ALTER.DEFAULT
+O ana kadar degistirilen btn ayarlari yeniden standart ayara alir.
+Kendi yapmis oldugumuz ayarlar kaybolur. 
+
+™rnek:   A DEF
+
+\\ALTER.LINES
+ALTER LINES<#> emri, ekrana msade edilecek azami satir sayisini belirler.
+Belirlenen azami satir sayisindan fazla olan yazilarda, bu en son satirdan
+sonra bir bildiri ile belirtilir. A L 0 ile yazinin durmadan akmasini
+saglayabilirsiniz.
+™rnek:   A L 20
+Detayli bilgi i‡in HELP SEITENSTOP yaziniz.
+
+\\ALTER.LF
+ALTER LF <#> Her iki bildiri arasinda birakilmasi gereken bos satir sayisini
+belirler. A LF 1 ile mailboxun yaptigi her bildirinin arasina BiR bos satir 
+ilave ettirebilirsiniz. Bu sekilde ekran g”rnmn gzellestirebilirsiniz,
+ama ekranda normalden fazla yer kaybina sebeb olursunuz.
+™rnek:   A LF 0
+
+\\ALTER.HELPLEVEL
+ALTER HELP <#> Sistemin yardim seviyesinin ayarlarlanmasinda kullanilir.
+Yeni kullanicilar yardim seviyesini 2'ye ykselterek, sistem bildirileri
+zerine daha detayli bilgi alabilirler. Sistemi iyi taniyanlar seviye 0'i
+se‡ebilirler. Bu sekilde bildirilerin yardimsiz yapilmasi saglanir. Yardim
+seviyesi 1 ile de, baglanti kurulurken yapilan detayli ctext kapatilmis
+olur. Diger bildiriler, ayni Yardim seviyesi 2'de oldugu gibi verilir.
+™rnek:   A H 1
+
+\\ALTER.COMMAND
+ALTER COMMAND <Emir> Bildirmis oldugunuz emri, sistemin bir dahaki
+Login de yerine getirmesini saglar. Birden fazla emride ardi sira
+',' ile ayirarak vermeniz mmkn. (Ek bilgi: Normal olarak emirler
+';'-isareti ile siralanirlar. Ama ALTER COMMAND emrinin kendisininde 
+diger emirlerden ';' ile  ayrilmasi  gerektigi  i‡in, bu emire  ardi 
+sira bildirilmesi gereken emirler burada ','-isareti ile ayrilirlar.)
+Yazilis 'A C D' (Kendi boxunuzun i‡indekileri g”sterir).
+™rnek:   A C U,L
+
+\\ALTER.FORWARD
+ALTER FORWARD [-L] <Adres>  Kendi boxunuzun i‡indekileri bildirilen
+diger adreslere aktarir. Bu Kayit otomatikman diger komsu BCM veya
+DIEBOX BBS'lerinede aktarilir. -L tevcihi bu FORWARD-kaydinin diger
+BBS'lere aktarilmasini men eder.
+™rnek:   A F DB0WDR-8.#NRW.DEU.EU
+
+DIR PATH ile aktel adresleri tesbit edebilirsiniz. Detayli bilgi i‡in:
+HELP FORWARD yaziniz. Bu emir MYBBS-Emrine benzer.
+
+\\ALTER.NAME
+ALTER NAME <isim> Kendi isminizi mailboxa tanitmak i‡in kullanabilirsiniz.
+Verilen bu isim, g”nderilen haberlerin basina eklenir.
+™rnek:      A N Flori
+
+\\ALTER.PROMPT
+ALTER PROMPT <Promptstring> Mailboxun Promptunu tanimlar.
+Bu Prompt'da makrolar kullanilabilir.
+™rnek:   A P (%%b)-->
+HELP MAKROS emrinide inceleyiniz.
+
+\\ALTER.PW
+A PW [<string>|OFF]
+Bu emir ile her kullanici kendine bir sifre dzenliyebilir. <String> 
+”nceden hazir bulunan bir sifreye ilave edilebilir ve bu sekilde sifrenin
+uzunlugu sistematik sekilde byltlebilir. Azami sifre uzunlugu 39 harfdir. 
+Burada login Sysop-modun da oldugu gibi, Ctext yerine :
+DB0NDK> 2 4 34 22 1
+gelir. Verilen sayilar karsiliginda gereken yerde sifrenin verilmesi lazim.
+Sifre A PW (tevcih olmadan) kapatilabilir.
+Sifre, noktali virgl ile virgl ihtiva etmemesi lazim. A PW OFF ile sifre
+fonksiyonu tamamen kapatilabilir. Bu emirin kullanilmasindan sonra sifre
+sadece Sysop tarafindan tekrar "a‡ilabilir". Bir sifre kurulduysa, merkez
+mailboxun yeri sadece, ”nce merkez mailbox olarak bildirdiginiz MyBBS' de 
+degistirebilirsiniz.
+HELP ALTERPWLINE emrinide inceleyiniz.
+
+\\ALTER.PWLINE
+A PWLINE 0 | 1
+Her nevi Terminal programi ile bir kullanici sifresinin retilebilmesini 
+kolaylastirmak i‡in "a pwline 1" verilebilir. Bu sekilde, sifre promptu
+gelmeden evvel kullanicidan belirli bir i‡erige sahip olan satir beklenir.
+(™rnek: PW veya SY veya terminali hazira ge‡irecek baska bir sey olabilir.)
+Bu sekilde mailbox sanki Sysop-baglantisi gibi davranir. Sifre bir ‡ok
+terminal ile otomatik kurulabilir.
+HELP ALTERPW erminede bakiniz.
+
+\\ALTER.REJECT
+ALTER REJECT <Dosya listesi>
+Bu emir ile DIR NEWS ve CHECK emrinde g”sterilmeyen Bulletin isimlerini 
+inceleyebilirsiniz.  Bunun  sayesinde  istenilmeyen  bazi  rubriklerin 
+yayinlanmasini engelliyebilirsiniz.
+Eger bir ana dosya bildirilirse, DIR NEWS emrinde bunun alt dosyalarida 
+yayinlanmazlar. CHECK emrinde dzenin baska olmasi sebebi ile sadece ana
+dosyalar g”sterilmezler, bunlarin altindaki dosyalar ise g”sterilirler.
+-R tevcihi ile belirleme aksine degerlendirilir. Yani SADECE bildirilen
+dosyalar g”sterilir. (a rej -r dxnews satellit) 
+™rnek:   A R MEINUNG HUMOR
+HELP CHECK ve HELP DIR emrini de g”zden ge‡iriniz.
+
+\\ALTER.IDIR
+ALTER IDIR <Tevcih>   Info-Dosyalarinda kullanilan DIR emrinin tevcihlerini
+kurmak i‡in kullanilir. Her harf bir tevcihe delalettir. Eger harf var ise
+tevcih kullanilir. Olmadigi takdirde tevcihe dokunulmaz. Tevcihler + veya -
+isaretleri ile a‡ilip/kapatilabilir.
+™rnek:   A ID +Y
+HELP OPTION emrinide inceleyiniz.
+
+\\ALTER.UDIR
+ALTER UDIR <Tevcih>   Kullanici haberlerinde kullanilan DIR emrindeki 
+tevcihleri degistirir. Her harf bir tevcihe delalettir. Emirde bir harf
+kullanilirsa, buna ait tevcih degistirilir, yoksa bu tevcihe dokunulmaz.
+Tevcihler + veya - isaretleri ile a‡ilip/kapatilabilir.
+™rnek:   A UD +Y.
+HELP OPTION emrinide inceleyiniz.
+
+\\ALTER.ILIST
+ALTER ILIST <Tevcih>  Info dosyalarinda kullanilan LIST emrine ait
+tevcihleri degistirir. Her harf bir tevcihe delalettir. Emirde bir harf
+kullanilirsa, buna ait tevcih degistirilir, yoksa bu tevcihe dokunulmaz.
+Tevcihler + veya - isaretleri ile a‡ilip/kapatilabilir.
+™rnek:   A IL +Y
+HELP OPTION emrinide inceleyiniz.
+
+\\ALTER.ULIST
+ALTER ULIST <Tevcih>  Kullanici haberlerinde kullanilan LIST emrine ait
+tevcihleri degistirir. Her harf bir tevcihe delalettir. Emirde bir harf
+kullanilirsa, buna ait tevcih degistirilir, yoksa bu tevcihe dokunulmaz.
+Tevcihler + veya - isaretleri ile a‡ilip/kapatilabilir.
+™rnek:   A UL +Y
+HELP OPTION emrinide inceleyiniz.
+
+\\ALTER.IREAD
+ALTER IREAD <Tevcih>  Info dosyalarinda kullanilan READ emrine ait
+tevcihleri degistirir. Her harf bir tevcihe delalettir. Emirde bir harf
+kullanilirsa, buna ait tevcih degistirilir, yoksa bu tevcihe dokunulmaz.
+Tevcihler + veya - isaretleri ile a‡ilip/kapatilabilir.
+™rnek:   A IR +Y
+HELP OPTION emrinide inceleyiniz.
+
+\\ALTER.UREAD
+ALTER UREAD <Tevcih>  Kullanici haberlerinde kullanilan READ emrine ait
+tevcihleri degistirir. Her harf bir tevcihe delalettir. Emirde bir harf
+kullanilirsa, buna ait tevcih degistirilir, yoksa bu tevcihe dokunulmaz.
+Tevcihler + veya - isaretleri ile a‡ilip/kapatilabilir.
+™rnek:   A UR +Y
+HELP OPTION emrinide inceleyiniz.
+
+\\ALTER.CHECK
+ALTER CHECK <Tevcih>  Check emrine ait tevcihleri degistirimek i‡in
+kullanilir. Her harf bir tevcihe delalettir. Emirde bir harf kullanilirsa, 
+buna ait tevcih degistirilir, yoksa bu tevcihe dokunulmaz.
+Tevcihler + veya - isaretleri ile a‡ilip/kapatilabilir.
+™rnek:   A CH +Y
+HELP OPTION emrinide inceleyiniz.
+
+\\AKTUELL
+AKTUELL emri ile sysop'a ait aktel bilgileri ‡agirabilirsiniz. Bu 
+haberler sysop tarafindan degistirildigi takdirde, yenilikler size 
+mailboxla baglantiyi kurarken otomatik olarak bildirilirler.
+
+\\BAYCOM
+BayCom, 1990 senesinin subat ayindan beri mevcut olan bir AX.25-yazilimidir.
+Bunun (Hardware kesimi, D”kmanlari ve Testi) DG3RBU'ya ve yazilim kismida
+DL8MBT'ye aittir. Bu sistem kullanicilara ait terminal sistemine, Digipeatere 
+ait bilgi agina ve ayrica yine Digipeatere ait mailbox sistemine sahiptir.
+
+Bilgi agina ait yazilim IBM-AT-uyumlu bilgisayarlarinda ”zel SCC-kartlari ile
+‡alisir. Simdilik, sekize yakin telsiz baglantisi azami 19200Bd transfer hizi 
+ile, ayni anda kurulabilir. Fazla problem olmadan gelistirilmesi mmkn.
+BayCom-Dgm tamamen, hafiza da sabit ‡alistigindan ayni bilgisayar da bir
+baska Mailbox programinin ‡alismasina hi‡ bir engel yoktur.
+
+ilk etapta ‡ ana ”zellik g”ze ‡arpiyor:
+ - G”rnm tipki THENET (Sistemine) benzer
+ - Telsiz baglantisi FLEXNET (Digipeating, Router) sistemine benzer
+ - Ama yukarida bahsedilen sistemlerle yakindan uzaktan hi‡ bir i‡ benzerligi
+   yoktur.
+
+'via' digipeating, yani tasdik yolunu ayirma imkƒni mevcuttur. AUTOROUTER,in,
+baglanti i‡in eksik olan diger Digi ‡agri isaretretlerini tamamla fonksiyonu
+size sadece gereken en ”nemli yollari yazma rahatligini tanir. 
+Burada taninan kolaylik asagi yukari FLEXNET 3.1'de oldugu gibidir.
+
+Kullanicilara (Terminal'lere) olan baglantilar gerektiginde MH-Listesinden 
+temin edilirler. Bu listede en son 2047 ‡agri isareti, gerektiginde baglanti
+yollarini takip etme amacini kolaylastirmak i‡in, kaydedilir. Bunun i‡in 
+baglanti yolu tamamen degil, sadece giris digisi kaydedilir.
+
+Kullaniciya ait ‡alismalar i‡in TNC'nin g”revlerini stlenen, hafiza sabit  
+Layer-2 sistemi mevcuttur. Bu sistemi bilgisayar da diger programlara paralel 
+olarak isletme imkƒnina sahipsiniz. B”ylece gerektiginde terminal programini
+‡alistirip, kullanicilarin btn lazim olan fonksiyonlardan faydalanmalarini
+saglayabilirsiniz.
+
+\\BEREICH
+Bir b”lmn se‡ilebilmesi, bir ka‡ haberin markalanabilecegi emirlerde
+mmkndr (™rnek: DIR, LIST, READ ve ERASE emirleri buna dahildirler).
+B”lmn belirlenmesinden ”nce Board isminin verilmesi sarttir. Eger bu yok
+ise, en son kullanilan BOARD alinir. Belirlenen b”lm kullanilan emrin etken 
+oldugu alan dahilinde, bu BOARD'daki haberleri se‡er. Aktel kullanilan BOARD 
+Prompt dahilinde g”stertilebilir (HELP MAKRO inceleyiniz).
+
+Haberlerin se‡ilmesi haber numaralarinin bildirilmesi ile olur. Bu numaralari
+DIR- veya LIST-Emri ile tesbit edebilirsiniz. Haber numarasi bunun yeniligi  
+nisbetinde byktr. Yani en eski haber numara 1'e sahiptir. Yenileri de 2,3
+ve daha fazlasina sahiptirler.
+
+Belirli bir b”lm asagida bildirildigi gibi se‡ilebilir:
+
+  Se‡ilen b”lm  º  Bunun sayesinde belirlenen haberler
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+    <hi‡ biri>   º  aktel Boardun btn haberleri
+       5         º  Sadece haber no: 5
+      -7         º  En son (=yeni!!!) 7 haber
+      1-7        º  Boardun ilk 7 haberi
+      3-         º  š‡nc haberden sonra gelen btn haberler
+      2-5        º  Haberler 2, 3, 4 ve 5
+   "<Konu>"      º  Basliginda <Konu> kelimesini i‡eren btn haberler
+
+B”lm se‡me konusundaki ”rnekler:
+     r satelliten 1-4   "Satelliten" boardun i‡indeki 1 ile 4 arasi
+                        haberleri okur. 
+
+     l info -10         "Info" boardunun onuncu haberine kadar olanlarini
+                        g”sterir.
+
+     e dx 4             "DX" boardunun d”rdnc haberini siler.
+
+     d ibm "source"     IBM dosyasindaki "Source" kelimesini ihtiva eden
+                        btn haberleri liste halinde bildirir.
+
+Aranan konu List-File kesiminde taranir. Kurulabilen her ‡esit tevcihler
+nisbetinde LIST, DIR, CHECK veya READ emirlerinde yapilan bildiriler az veya
+detayli olarak g”sterilirler. Bu sebepten bazen "yanlis" bir haber bulunmus
+gibi g”zkebilir. Bunun i‡in haberleri tararken ”zellikle BID'nin 
+kullanilmasinin faydasi vardir.
+
+\\BIDLIST
+BIDLIST <Arama kriteri>
+
+Mailboxun Bulletin-ID tablosunu g”sterir. <Arma kriteri> BID'nin veya belirli
+bir tutnagin herhangi bir par‡asi olabilir. BID'nin yaninda haberlerin
+tutanak isimleride kaydedilirlerki, haberlerin uzaktan komandolu silinmesinde
+bunlari ayrica aramaya gerek kalmasin. ™rnek: BID DB0MKA btn DB0MKA boxuna
+yazilmis haberleri g”rntler.
+
+\\BIN
+
+1. Binaer-File'leri Box'a kaydetmek:
+
+- Boxa baglanin (Eger bagli degilseniz)
+- Send-Emrini (bilindigi gibi) kullanin ve haberin, Basligini yaziniz.
+- Mesela programin kullanis tarifesini kisaca anlatabilirsiniz.
+
+---> Buraya kadar her sey bilindigi gibiydi, simdi gelelim esas konuya:
+
+- Terminal programindaki Auto-Bin kayit seklini a‡ip programi aktariniz.
+  Programin aktarilmasi bittikten sonra program otomatikman kapatilir ve
+  program kontrol hesabi ve komando promptu ile BCM bildirilir.
+
+Not : Burada transferi bitirmek i‡in, ***END veya CTRL-Z vermeniz gerekmez!
+
+
+2. Binaer-File'leri Boxdan okumak:
+
+Binaer Fileler LIST-Erminde basligin ”nne getirilien (BIN) ilavesi ile 
+belirlenmistir. Kullanicinin vermis oldugu baslik gerekirese (BIN) kaydindan
+sonra kisaltilir.
+
+- Boxa baglanin (Eger bagli degilseniz)
+- Terminal programindaki AutoBin-Kayit seklini ayarlayiniz.
+- Read-Emrini kullanarak programin aktarilmasini baslatiniz.
+
+BCM otomatikman Binaer-Aktarma sekline ge‡er ve gerektiginde aktarilacak olan
+programin ismini bildirir. Binaer programlarin nasil ve nereye kaydedilme
+sorunu kullanilan terminal programina aittir.
+
+\\BOARD
+BOARD (Anabaslik, Dosya)
+
+Her hangi bir Board, genelde belirli konulara veya kullanicilara ait olan 
+birden fazla haberi i‡erir.
+Bunlari s”ylece ikiye ayirabiliriz:
+
+ - Kullanici-Boardlari: Kullanicilarin ”zel posta kutularina denir.
+                        Buradaki haberler normalde sadece kullanicisi
+                        tarafindan okunur ve silinebilirler.
+                        (™zel haberler).
+
+ - Bulletin-Boardlari : Hekeze a‡ik haberleri ihtiva eden posta kutulari.
+                        Buradaki haberler herkez tarafindan okunabilirler.
+                        Haberler sadece, yazari tarafindan silinebilirler.
+                        Buraya kaydedilen haberlere "Bulletins" denilir.
+
+Her Board kendine ”z bir isime sahiptir. Bunlara bu isimler altinda haber
+g”nderilebilir. Bu User-Boardlarda kullanicinin ‡agri isaretinden ibarettir.
+Bulletin-Boardlarinda bu isimler haberlerin ait oldugu konulardan ibarettir. 
+(Mesela: "DX", "Satelliten", "Netze" gibi.)
+
+Boardun i‡indeki haberler sira ile numaralanmislardir. En eski haber
+birinci numaraya, yenileride kaydedilis sirasina g”re ikinci, ‡nc veya
+daha fazlasina sahiptirler. DIR-Emrini kullanirsaniz bu haberler bu siraya
+g”re birinci haberden baslanmak zere listelenirler.
+
+Bir Board baskalarini ihtiva edebilir. Bu sekilde NODESOFT boardu ”rnegin
+birden fazla baska Boardlardan meydana gelebilir.
+
+Sistemde kayitli olan her Boarda Box-Sysop'u tarafindan belirli bir muhafaza 
+edilme sresi (Lifetime) taninir. Buna g”re bunun i‡inde kalacak olan haberin
+azami kalis sresi ”nceden belirlenmis olur. Bu sre bittikten sonra o haber
+otomatik olarak silinir.
+
+Board ismi bir ‡ok emir tarafindan kullanilir. ™rnek: DIR, LIST, READ, ERASE,
+CHECK gibileri. BayComBox kullanici tarafindan kullanilan en son Board ismini
+aklinda tutar. Eger ona emiri mtakiben belirli bir Board ismi bildirilmezse,
+aklinda tuttugu en son Board ismini verilen emir i‡in kullanir. Yukarida
+bildirilen emirlerin kullanilmasi sonucu veya CD emri ile bu Boardlardan  
+baskalarina ge‡ilebilir. Bir Boardun ismi sadece rakamlardan ibaret oldugu
+takdirde, sadece CD'Emri ile digerlerine ge‡ilebilir.
+
+Board isimlerinin DOS-Sisteminde dosyalar olarak kaydedilmesi sebebi ile 
+bazi sinirlamalar getirilmistir:
+
+- "/" veya "\" isaretlerini ihtiva eden Boardlar kurulmazlar. Bunlar
+  otomatikman "_"-isareti ile degistirilirler.
+
+- COM1, COM2, COM3, COM4, LPT1, LPT2, LPT3, CON, NUL, CLOCK$ gibi isimleri
+  ihtiva eden Boardlarin kurulmasi mmkn degil.
+
+- Kisa sadece, DOS-Sisteminde Dosyalarin kurulmasinda kullanilabilen harfleri
+  Board ismi olarak kullanabilirsiniz. 
+
+AUTO7P, REQ*, 7PSERV, FILSRV, FNDFIL ve WWCALL isimleri Kullanici-File'leri
+gibi islem g”rrler.
+
+\\BULLETIN
+Bulletin "Herkeze yazilmis olan umumi bir haberdir".
+
+Bu haber herkez tarafindan okunabilir, ama "normal olarak" sadece haberi 
+derleyen kisi yada bu haberin bulundugu mailboxun sysop'u tarafindan 
+silinebilir. Haberler ait olduklari konuya g”re belirli Bulletin-Boardlarinda
+("Info-File", Rubrik) muhafaza edilirler. Bu haberler i‡inde bulunduklari
+Boardlarda, o Boardun azami muhafaza etme sresi (Lifetime) nisbetince orada 
+kaldiktan sonra otomatikman silinirler. Bulletinlerin transferinde genelde
+cemiadresler kullanilir (Dagitici sistemini inceleyiniz).
+
+Bulletinler yaninda birde belirli kisilere yazilmis olan haberler vardir.
+Bu (™zel haberler) sadece bu haberi yazan veya haberin g”nderildigi kisi
+tarafindan silinip veya okunabilirler (Normal olarak). Yine bunlarda belirli
+bir Lifetime sresi ile sinirlandirilabilirler.
+
+\\CHECK
+Check [<B”lm>] [[<] <Konu>]
+
+Check-Emri Bulletin-Boardlarina giren btn haberleri (Info-File'leri) Boxa'a
+kaydedilis siralarina g”re listeler. Bu haberler kaydedilis tarihlerine g”re
+en son kaydedilenden baslamak zere siralanirlar. Belirli bir b”lmn 
+verilmesinde sadece buradaki haberler listelenirler. (™rnek: CHECK 5 emri
+ilk bes haberi listeler).
+
+Check-Emri ilavesiz kullanilirsa, boxa girip enson kullanmis oldugunuz Check-
+Emrinden sonra kaydedilen btn haberler listelenir. "<"-isareti ile belirli
+harf zincirinden meyadana gelen ilave ile verilen CHECK-Emri sadece s”zkonusu
+harf zincirini ihtiva eden btn satirlari listeler. Yani belirli bir ‡agri
+isareti veya aranan bir yazi basligi olabilir.
+
+Esasen "<"-isaretini kullanmadan da aranan belirli bir yazi par‡asni ilave
+olarak yazip arattirabilirsiniz. "<"-isareti sadece btn sistemlere uyumlu
+olmak i‡in gereklidir.
+
+Harf zincirindeki yazida Byk/K‡k harfler ayirtedilmezler.  
+CHECK emri yerine DIR NEWS veya DIR MESSAGES emirlerinide kullanabilirsiniz.
+
+CHECK-Emri i‡in ”rnekler:
+  c                 En son Loginden sonra giren kayitlar listelenir.
+  c 10 veya c 1-10  En yeni on haberi listelenir.
+  c 1- dl1koc       DL1KOC tarafindan kaydedilen btn haberler listelenir.
+  c 2-30 dl1koc     DL1KOC tarafindan kaydedilen 2 ile 31. arasindaki btn
+                    haberler listelenir.
+  c ft5100          Basliginda 'FT5100' kelimesini ihitva eden habeler
+                    listelenir.
+
+\\CD
+CD <board ismi>
+
+Aktel Board'dan (Prompt'da g”sterilir) Board isminde bildirilen Boarda ge‡er.
+
+\\CONVERS
+TALK emri gibidir. HELP TALK ile bu emri inceleyiniz.
+
+\\DIR
+DIR emri belirli bir Boardun i‡indekileri listeler.
+ilave olmadan kullanilan DIR emri aktel Boardun i‡inekileri listeler. 
+™rnek:   D
+Sunalrida inceleyiniz:
+HELP DIR BOARD      HELP DIR NEWS      HELP LIST
+HELP DIR MESSAGES   HELP DIR BOARDS    HELP OPTION
+HELP DIR SENT       HELP DIR USERS
+HELP DIR AFTER      HELP DIR PATH
+
+\\DIR.BOARD
+ilave olmadan kullanilan DIR emri aktel Boardun i‡inekileri listeler. 
+(Prompt'da g”sterilen kullanilir).
+™rnek:    D
+
+DIR <Board>
+<Board> i‡in giren btn haberleri listeler. <Board> belirli bir kullanicinin
+‡agri isaretide olabilir. Herhangi bir Bulletin-Boardu da olabilir.
+BOARD ve BULLETIN sistemlerinide inceleyiniz.
+™rnek:    D SATTV
+
+DIR <Board> <B”lm>
+Belirli Boardlarin bazi kesimlerini listeler. HELP BEREICH emrinede bakiniz.
+™rnekler: D SOFTWARE         SOFTWARE i‡indekileri liseler.
+          D SOFTWARE -12     En son 12 YENi haberleri listeler.
+
+DIR <Board> "<Aranan Konu>"
+<Board> i‡inde bulunan <Aranan konu>'nun ihitva edildigi kesimler listelenir.
+™rnek:    D GERAETE "FT470"
+
+\\DIR.MESSAGES
+DIR MESSAGES
+Bulletin-Boardlara kaydedilen btn haberleri listeler. (€ok olabilir).
+™rnek:    D M
+
+DIR MESSAGES "<Yazi>"
+<Yazi> olarak bildirilen a‡iklamayi ihtiva eden Boardlardaki btn haberleri  
+listeler. Burada Byk/K‡k yazi ayirtedilmez.
+™rnek:    D M "FT470"
+
+\\DIR.SENT
+DIR SENT
+Kendi ‡agri isaretinizi ihtiva eden btn haberler listelenir. Yani sizin
+kendi yazdiginiz haberler veya sizin ‡agri isaretin i‡inde oldugu btn
+haberleri g”sterir.
+™rnek:   D S
+
+\\DIR.AFTER
+DIR AFTER <Tarih>
+DIR MESSAGES emri gibidir, ama sadece bildirilen tarihden sonraki haberler
+g”sterilir. Ay ve Sene yazilmadanda kullanilabilir. Bu halde i‡inde bulunulan
+ay kullanilir.
+™rnek:   D A 26.11.
+
+\\DIR.NEWS
+DIR MESSAGES emri gibidir, ama sadece en son DIR NEWS emrinin kullanildigindan
+sonra Boxa giren haberler listelenirler.
+D N <Board ismi> ile belirli bir Boardun yeniliklerini tesbit edebilirsiniz.
+™rnek:   D N
+
+\\DIR.BOARDS
+DIR BOARDS
+O an i‡in kurulmus olan btn Boardlarin listesini verir. Bunlar Ana Board 
+(Birden fazla baska Boardlari i‡erenler) ve  Yavru Board (Ana Board i‡inde
+olanlar) olmak zere ikiye ayrilirlar. 
+™rnek:   D B
+
+DIR BOARDS <isim>
+<isim> kelimesini ihtiva eden btn Boardlar g”sterilir. Burada bir Boardun
+isminin sadece belirli bir par‡asinida bildirmekte yetebilir. Bu bildiri
+seklinde ayrica Boardun i‡inde olan haberlerin sayisi ve bunlara taninan
+azami Lifetime sreside bildirilir. Btn Boardlara ait bir listeyi elde
+etmek i‡in 'D B *' vermeniz yeterlidir.
+™rnek:   D B NOS
+
+\\DIR.USERS
+DIR USERS
+i‡inde haber bulunan btn kullanici dosyalari listelenir. Burada ayni gn
+silinen haberlerde g”sterilir.
+™rnek:   D U
+
+DIR USERS ALL [<Call>]
+Mailbox tarafindan taninan btn kullanicilari listeler (Bu bildiri ‡ok uzun
+olabilir!).  €agri isaretininin belirli bir par‡asinin verilmeside yeterlidir.
+™rnek:   D U OE5
+
+DIR USERS LOCAL [<Call>]
+Mailboxa en azindan bir defa Login yapmis bulunanlar listelenirler. Bu emir
+ayni D U A gibidir.
+™rnek:   D U L
+
+DIR USERS MSG [<Yazi>]
+Btn kullanici haberlerin listeler. (Gerektiginde 'Yazi' vererek baslikta 
+bulunan belirli bir yazinin aranmasini ger‡eklestirebilirsiniz). 
+™rnek:   D U M
+
+D -N USER MSG
+i‡inde bulunulan boxu kendi merkez mailboxu olarak tanitmayan kullanicilarin
+btn haberlerini listeler. Bu sekilde sahiplerinin taninmadiklarindan dolayi 
+nereye transfer edileceklerinin bilinmedigi haberleri listeleyebilirsiniz.
+™rnek:   D -N U M
+HELP OPTION emrinede bakiniz.
+
+\\DIR.PATH
+DIR PATH
+O an ayarlanmis olan transfer adreslerini ve b”lmlerini g”sterir.
+D P <€agri isareti> sadece ilave olarak bidirilen kaydin bilgilerini listeler.  
+
+ilaveler ”nceden ayarlanabilir veya bu emire hemen ilave olarak eklenebilir.
+Bunun i‡in HELP ALTER ve HELP OPTION emirlerini inceleyiniz. ilaveleri '-'
+isaretinin harfin ”nne yerlestirildiginde a‡ilip ardina eklendiginde 
+kapatilabilir. 
+Mesela:  D -G   Hi‡ okunmamis olan haberleri g”sterir.
+         D -L-  Lifetime sresini listelerken g”stermez.
+ilave i‡in kullanilan harflerde BšYšK/Kš€šK harf ayirimi yapilmaz.
+
+\\EL
+
+EL I(nfo)                           - Mailboxun Sysopu tarafindan hazirlanan
+                                      bir yazida, lokal EL-Sistemi hakkindaki
+                                      bilgiler verilir.
+
+EL N(ews)                           - Mailboxun Sysopu tarafindan hazirlanan
+                                      bir yazida, sistem harici disksrcs
+                                      (EL) zerine aktel yenilikler verilir.
+
+EL T(ree)                           - Btn EL-Dosyalarina bagli dosyalarin 
+                                      listesi yazisal bildirilir.
+
+EL T(ree) <DS-Listesi>              - DS => Disk src (C:\ veya D:\ gibi)
+   <DS-Liste>=D:\ bir DS i‡in         Bir Disksrcsne ait DOSYA-Listesi
+   <DS-Liste>=D:\+C:\ Liste olarak    Birden fazla DS'e ait DOSYA-Listesi,
+                                      DS'lerin "+"-isareti ile ilave edilerek
+                                      kullanilmasi ile yapilir.
+
+EL D(ir) D:\EL\                     - D:\EL\ dosyasinin i‡inde bulunan btn 
+                                      dosyalarin ve File'lerim listesi
+                                      
+
+EL D(ir) D:\EL\*.INF                - D:\EL\ dosyasinda bulunan btn *.INF
+                                      ilavesine sahip olan file'lerin listesi.
+                                      Mesela: GP.INF
+
+EL D(ir) IBM\*.INF                  - D:\EL\IBM dosyasinda bulunan btn *.INF
+                                      ilavesine sahip olan INFO file'lerin 
+                                      listesi.
+
+EL S(can) <Aranan Konu>             - Bulunan btn File'ler g”sterilir.
+     <Aranan Konu>=.INF               Btn INFO-File'leri *.INF g”sterir.
+     <Aranan Konu>=7PL                Yazi aranirken: Mesela: 7PLUS kelimesi.
+     <Aranan Konu>=7PLUS.INF          Yazi aranirken: 7PLUS.INF
+
+EL S <DS-Listesi> <Aranan Konu>     - Bildirilen Disk Srcsn Aranan Konu
+                                      zerine tarar.
+     <DS-Listesi>=D:\                 Bir DS taranir. ™rnek: D:\         
+     <DS-Listesi>=D:\+C:\             Liste olarak DS'ler "+" ile ilave edilir.
+                                      ™rnek: EL S D:\+C:\ FT5100
+
+EL R(ead) D:\EL\IBM\7PLUS.INF       - D:\EL\IBM dosyasindaki 7PLUS.INF INFO-
+                                      File'i Userport ‡ikisina verilir.
+
+EL B(in) IBM\7PLUS.EXE              - D:\EL\IBM dosyasindaki 7PLUS.EXE 
+                                      programi BOXBIN-Protokol ile Userport
+                                      ‡ikisina verilir.
+
+EL BS(bin) IBM\7PLUS.EXE            - D:\EL\IBM dosyasindaki 7PLUS.EXE 
+                                      programi BS BIN-par‡alama sekline uygun
+                                      kodlanir ve Userport ‡ikisina verilir.
+
+EL BS(bin) D:\EL\IBM\PR.LZH 5-10    - PR.B05-PR.B0A par‡alar istenir.
+EL BS(bin) IBM\PR.LZH -5            - PR.B01-PR.B05 par‡alar istenir.
+EL BS(bin) IBM\PR.LZH 5-            - PR.B05 dahil sonraki par‡alar istenir.
+                                      
+                                      Hatali okumalarda bozuk okunan par‡alari
+ Hexadezimaldegerler $xx formunda     yeniden okumaniz gerekir.
+ verilmeli ™rnek: $05-$0A
+
+EL 7(PLUS) D:\EL\IBM\PR.LZH         - D:\EL\IBM dosyasindaki PR.LZH tutanagi
+                                      7PLUS UPL-Formunda kodlanir ve Userport
+                                      ‡ikisina verilir.
+
+EL 7(PLUS) D:\EL\IBM\PR.LZH 5-10    - PR.P05-PR.P0A par‡alari istenir.
+EL 7(PLUS) IBM\PR.LZH -5            - PR.P01-PR.P05 par‡alari istenir.
+EL 7(PLUS) IBM\PR.LZH 5-            - PR.P05 dahil sonraki par‡alar istenir.
+
+                                      Hatali okumalarda bozuk okunan par‡alari
+ Hexadezimaldegerler $xx formunda     yeniden okumaniz gerekir.
+ verilmeli ™rnek: $05-$0A
+
+\\ERASE
+ERASE [[<Board>] <B”lm>]
+<B”lm> ‡er‡evesinde bildirilen kesimdeki haberler <Board>'dan silinirler.
+Belirli bir b”lm bildirilmezse ERASE-Emri en son okunan haber siler.
+
+™rnek: E DL1KOC 3-4 veya E 1
+
+Haberleri sadece bu haberin YAZARI veya ALICISI oldugunuz takdirde
+silebilirsiniz. ERASE emri ile haberler sadece silindi diye markalanirlar.
+Bu haberleri UNERASE <B”lm> emri ile tekrar geriye getirebilirsiniz. Bir 
+haberi tamamen silmek istiyorsaniz PURGE emrini kulaniniz. Bazi haberler
+silindi diye sira numaralari degismez.
+
+\\EINGABE
+Bilgisayara verilen bilgiler LF (Return veya Enter tusu) ile kapatilirlar.
+Birden fazla komando bir satir i‡inde (;)-isareti ile ayirt edilemek sarti
+ile yazilabilirler.
+
+MESELA: UNER 3-4;R 3-4
+
+Yapilan bildiriler bos bir satirin ENTER'lenmesi ile yarida kesilebilirler.
+Bin„rfile'lerin transferinin yarida kesilmesi maalesef bu sekilde mmkn
+degildir.
+
+Birden fazla anlasilamiyan emirlerin Boxa verildigi takdirde, mailbox'dan
+atilmaniz s”zkonusudur.
+
+\\FORWARD
+FORWARD [-F] <Board> <B”lm> [ @ ] <G”nderilen adres>
+
+FORWARD-Emri <B”lm>'de bildirilen haberleri baska Boxlara veya dagitici 
+sistemlere aktarir. Bunun yapilabilmesi i‡in kullanicinin bu haberler i‡in
+kullanma izninin olmasi lazim. Yani bu haberler onun tarafindan yazilmis
+olmasi veya ona g”nderilmis olmasi lazim. Hi‡ bir b”lmn se‡ilmemesi halinde,
+FORWARD emri en son okunan haberi aktarir.
+
+Burada haber ilk g”nderildigi adreste kaliyor, sadece bu haberin bir kopyesi 
+bildirlien diger adreslere akatariliyor. -F Tevcihi kullanildigi takdirde,
+haber yeni adrese aktarilip ilk geldigi adresten silinir.
+
+™rnek:  F INFO 5 DL
+        F -F DL1KOC 3-4 @ TA1CEN
+
+HELP ADRESSIERUNG konusunuda inceleyiniz.
+
+\\ADRESSIERUNG
+
+Haberler i‡erikleri, manalari ve kullanilma ama‡lari gibi konulara ayrilarak
+baska mailboxlara aktarilabilirler. Sahsi haberler aktarildiktan sonra
+silinirler. Bulletin'ler ise aktarildiktan sonra ayni Box'ta kalirlar. 
+
+Sahsi haberlerde sadece g”nderilen kisinin bulundugu mailboxun adresi bulunur.
+Bu mailboxun adresinin tamamen bildirilmesinin faydasi var. Alacak kisinin
+sizden olan mesafesi uzak ise, onun adresini a‡ikca yaziniz. Umumi olarak,
+dis lkelerde oturan kisilere g”nderilen haberlerde tam adresin kesin olarak 
+yazilmasi gerektigini s”yleyebiliriz. 
+
+Bir adresin nasil olabilecegine dair ”rnek:
+  DB0WDR.#NRW.DEU.EU
+                  ^ Kita EU (Avrupa i‡in)
+               ^ Devlet, DEU (Almanya i‡in)
+           ^ €esitli eyaletlere g”re kisaltmalar (Nord Rhein Westfalen)   
+     ^ Mailboxun ‡agri isareti
+
+Kitalara ait kisaltmalar:             
+AF   Afrika,    AS Asya,      AU Avustralya,  EU Avrupa,
+MDLE Orta Asya (israil gibi), NA Kuzey USA,   SA Gney USA,  
+
+Devletlere ait kisaltmalar:
+AUT Avusturya,   CHE isvi‡re,     BEL Bel‡ika,    DEU Almanya,    
+DNK Danimarka,   FIN Finlanda,    FRA Fransa,     HUN Macaristan
+ITA Italya,      NLD Hollanda,    SWE isve‡,      SLO Slovenya, 
+SVK Slovakya,    TCH €ekistan,    TUR Trkiye
+
+Bulletin haberlerinde belirli bir bilgi agi dgm bildirilebilir. Bir bilgi
+agi dgm birden fazla mailboxun adresine sahiptir. 
+
+™NEMLi: Almanya sinirlarini tasan transferlerde haberlerin iNGiLiZ lisani ile
+        yazilmasi rica olunur. 
+
+Kullanilmasi mmkn olan bilgi agi dagiticilari:
+BAY Bavyera, DL  Alman dilli b”lgeler,   OE Avusturya,  
+EU  Avrupa,  WW  Dnya ‡apinda,          OK €ekistan;  
+
+ALL ve ALLE rubriklerinin kullanilmamasi rica olunur. Buraya kaydedilen
+haberlerin transferi artik mmkn degildir.
+
+Sahsi haberlerin ve Bulletin'lerin adreslerinin karistirilmamasinin ”nemle
+dikkat edilmesini rica ederiz!
+
+\\HELP
+EMiRLER                Kullanis amaci                      ™rnek (+Kisaltma)
+ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+ALTER <Tevcih>         Tevcilerin G”sterilmesi/Ayari       A F DB0WDR
+DIR <Board>            Box'daki Boardlarin g”sterilmesi    D DL1KOC 1-5
+CHECK <B”lm>          En son CHECK'ten sonraki haberler   C 1-20
+ERASE <Msg>            Haberlerin silinmesi                E DL1KOC 5
+FORWARD <Msg> <box>    Bir haberin aktarilmasi             F DL1KOC 2 TA1CEN
+LIST ...               DIR emri gibi. Baska g”rnm        L DL1KOC 5-10
+LOG                    Logbook-d”km. LOG DL1KFE veya     LOG 17.02.92
+QUIT                   Sistemin terki                      Q  (veya DISCON)
+READ <Msg>             Haberlerin okunmasi                 R DL1KOC 2-4
+REPLY                  En son okunan habere cevap          REP
+SEND <Call> <Konu>     Haber g”ndermek                     S DL1KFE Merhaba 
+TALK <Call> <Msg>      Boxda olan birisine haber g”ndermek T DD5LS  Ben SEBO 
+TRANSFER <Msg> <Board> Haberi baska yere aktarmak          TR DL1KOC 5 DL1KFE
+UNERASE <Msg>          Silinen haberleri kurtarmak         UN DL1KOC 7
+USERS                  Boxa bagli bulunanlarin listesi     U
+
+Emirler zerine detayli bilgi edinmek i‡in HELP <EMiR> yaziniz. HELP DIR, 
+HELP ALTER gibi. Yardim yazilarinin listesini HELP INDEX emri ile, btn 
+yardim tutanaklarinida HELP ALL emri ile ‡ikarabilirsiniz.
+
+\\HEADER
+HELP KOPF emrinede bakiniz.
+\\HVERSION
+? 1.42 1999-11-28
+\\INFO
+INFO emri mailbox zerine bilgi edinmek i‡in kullanilabilir.
+
+\\KOPF
+KOPF <Board> <B”lm>    veya    HEADER <Board> <B”lm>
+
+Belirli bir tutanaga ait basligi bildirir. Yazilis sekli READ'Emrindeki
+gibidir. READ emrinde hangi tevcih ayarlanirsa ayarlansin, bu emir sadece
+haberin basligini g”sterir.
+
+-H Tevcihi ile (R:-Baslik satirlari) haberin geldigi btn mailboxlar zeri
+yolunu takip etme imkƒnina sahipsiniz.
+
+\\LIST
+LIST <Board> <B”lm>
+
+Belirli dosyalari veya bunlarin i‡indekileri listeler.  Sahsa ait ‡agri
+isaretlerinde bunlara ait haberlers listeler. DIR emrine olan fark sadece
+g”rnm tablosunun degisik olmasidir (HELP OPTION emri ilede bakiniz). Bu
+emir DIEBOX-Software'de kullanilan LIST emrine benzer.
+
+Boxa en son baglantidan sonra (Q ile LOGOUT yapilan tarihten sonra) giren 
+haberler g”sterilir. (HELP ALTER emri ile bu ayar degistirilebilir).
+
+™rnek:
+L DL1KOC 1-                   DL1KOC i‡in gelen haberlerin tamamini listeler.
+L BAYCOM -10                  BAYCOM rubrikine kayitli en son 10 haberi
+                              listeler.
+
+\\LIFETIME
+Lifetime (KAYITLARIN BOXTA AZAMi TUTULMA SšRESi)
+
+Lifetime, her BOARD da buraya kaydedilen haberlere kaydedildikleri tarihten
+sonra gn olarak taninan mailboxda birakilis sresine denir. Bu sreden sonra
+haberler otomatik olarak silinirler. 
+
+Bu sre BULLETIN-Boardlari i‡in MAILBOX-Sysopu tarafindan ayarlanir. Kullanici
+Boardlarina kaydedilen haberler i‡in, bu Boardun sahibi tarafindan verilebilen
+bir Lifetime sresi mmkndr.
+
+\\LOG
+LOG [-Tevcih] [<Tarih>] [<Aranan Konu>]
+
+O gn kurulan Kullanicilar ile Mailbox arasindaki baglantilar hakkinda bir
+liste verir. <Aranan Konu> her hangi bir ‡agri isareti yada tarih olabilir. 
+Burada sadece ilk 20 Kayit g”sterilir. 
+
+LOG-Emri i‡in asagidaki Tevcihler ge‡erlidir: 
+  -f   Forward baglantilari ile ilgili kayitlarida g”sterir. (Normalde KAPALI)
+  -s   SADECE Sysop-Baglantilari ile ilgili Kayitlari g”sterir.
+  -w   (7 Gn) Bir hafta gerisine kadar olan kayitlar taranir.
+  -m   (30 Gn) Bir ay gerisine kadar olan kayitlar taranir.
+  -q   (90 Gn) š‡ ay (€eyrek yil) gerisine kadar olan kayitlar taranir.
+  -y   Kayitlar bir yil geriye gidilerek taranir.
+       (Dikkat: m,q ve y tevcihleri uzun zaman srebilir!!)
+  -c   Belirlenen zaman i‡inde bulunan btn baglantilarin sayisi g”sterilir.
+  -a   Bulunan BšTšN kayitlar g”sterilir. (Sadece 20'si degil)
+
+Tevcihlerin beraber kullanilmalari mmkn degildir.
+
+Yazilis sekli:
+TxBytes: Kullaniciya (veya Boxa) g”nderilen Byte sayisi
+RxBytes: Kullanicinin okumus oldugu Byte sayisi
+CPUsec:  kullanilan Hesap zamani
+F:       Flag. Anlami: S=Sysop, Q=Quit ile €ikis, F=Forward-Baglantisi
+TXFi:    Box'dan okunan File adeti  (Boxun g”nderdigi)
+RXFi:    Boxa kaydedilen File adeti (Boxa kaydedilen)
+
+LOG <Call>         <Call>'in bu gnlk baglantisi         z.B. LOG DG3RBU
+LOG <Tarih> <Call> <Call>'in <Tarih>'indeki baglantisi    z.B. LOG 27. DG3RBU
+LOG <Tarih>        <Tarih>'inde ger‡eklesen baglantilar   z.B. LOG 08.09.92
+
+Log emrinden sonra verilmesi mmkn olan liste (max 20) 15.12.92:
+Call   Tarih    Start Ende  TxBytes RxBytes CPUsec F TXFi RXFi
+DD5LS  15.12.92 08:24-08:27    1059       6   0.49      0    0  via DB0KT 
+DG1KMD 15.12.92 08:33-08:49    3936      36   2.47 Q    1    0  via DB0WDR
+DL1KOC 15.12.92 09:13-09:14     888      24   0.16 S    0    0  via DB0WDR
+DB0KCP 15.12.92 08:25-08:31   28647    3240   1.41 F    4    2  via DB0WDR
+46 Kayit bulundu.
+
+™rnek:
+  LOG -Y DL1KOC     DL1KOC'nin en son bir yil i‡indeki baglantilari
+  LOG -WS 1.10.     01.10 tarihinden ”nceki haftadaki Sysop baglantilari
+  LOG -CMF          En son ay i‡inde ger‡eklesen baglantilarin adeti
+
+\\MSG
+MSG <call> <Haber>
+Box da bagli bulunan diger bir kullaniciya haber g”ndermek i‡in kullanilir. 
+HELP TALK emrinide inceleyiniz.
+
+\\MAKRO
+Makro, Prompt-Yazisina eklenebilen ve Promptun her verilisinde belirli bir 
+haberle degistirilen bir kisaltmadir. 
+
+Asagidaki Makrolar Prompt'a eklenmek i‡in kullanilabilir. (CTEXT/CNEW/INFO)
+i‡inde kullanilabilir:
+  %%a   Box bilgisayarinin (en son 40 saniye i‡indeki) kullanilis yzdesi
+  %%b   O an kullanilan Board ismi
+  %%c   Bagli olan kullanicinin €agi isareti
+  %%d   O gnki Tarih
+  %%h   Kullanici tarafindan ayarlanan Yardim seviyesinin derecesi
+  %%i   Box ile kurulan baglanti saati
+  %%l   En son Login (Tarih ve Saat)
+  %%m   Mailboxun ‡agri isareti
+  %%n   Kullanicinin ismi
+  %%o   Boxa bagli bulunan kullanicilarin sayisi (Login'ler)
+  %%p   Baglantidan itibaren kullanilan Bilgisayar hesap zamani
+  %%r   Satir basi (Return)
+  %%t   Aktel Saat
+  %%v   Kullanilan BOX yaziliminin versiyon numarasi
+  %%%%  %% isaretinin yazilmasi i‡in
+
+™rnek:  A PR (%%b) %%c de %%m>         ile belirli bir Prompt retilir.
+                                       DieBox 1.9'da oldugu gibi.
+
+            (BAYCOM) DL8MBT de DB0AAB>
+
+veya    A PR [%%o/%%a%%%%](%%b)-->     Login ve Baglanti yzdesi
+
+             [22/95%%](DL8MBT)-->      ile g”sterilir.
+
+\\MEM
+MEM                   (Debuging-Komandosu, Pratik bir manasi yok)
+
+Task-Hafiza sisteminde mevcut olan aktel hafiza seviyesini g”sterir.
+Burada sunlar bildirilir:
+- Hafiza blokunun sira numarasi
+- Byte olarak byklgn (Azami 64k mmkn)
+- Adresini (Paragraf kesimi)
+- Ait olan Task numarasini (PS'e bakiniz), veya ‡agrinin Tast ‡er‡evesinde
+  ger‡eklesmedigi takdirde 255 rakamini.
+- Kullanis amacini (€agri yapilinca bildirir)
+
+\\MYBBS
+MYBBS <Box ‡agri isareti>
+
+Haberlerin toplanacagi Merkez Mailboxu bildirmek i‡in kullanilir. Bu Emir
+ALTER FORWARD <Box ‡agri isareti> emrine benzer. Forwarding i‡in daha Detayli 
+bilgi alabilmek i‡in HELP FORWARD emrini kullaniniz.
+
+\\OPTION
+READ,LIST,DIR,KOPF,HEADER emirlerinde bazi Tevcihler kullanilabilir.
+READ emri i‡in olan Tevcihleri     HELP OPTIONREAD ile inceleyebilirsiniz.
+DIR emri i‡in                      HELP OPTIONDIR.
+HELP ALTER emrinide inceleyiniz.
+
+\\OPTIONREAD
+READ emri i‡in su tevcihleri kullanabilirsiniz (HELP ALTER emrinede bakiniz):
+  A   G”nderenin hviyetini bildirir
+  B   Okunan Byte adetini bildirir
+  C   Continous, Satir basi emrinin kullanilmamasi
+  D   Tarih bildirir
+  E   Haberi alacak kisinin hviyetini (Boardname) bildirir
+  F   Haberin geldigi mailboxu (Frombox) bildirir
+  H   (R:-Header) Basligi bildirir (P tevcihini iptal eder)
+  I   BID bildirir
+  K   Sira numarasinin bildirilirken Parantez veya R kullanilir
+  L   Lifetime sresini bildirir
+  M   Hedeflenen adres (H-Adresi) bildirilir
+  N   Haberin okunmasindan sonra "Haberi Sileyimmi?" sorusunun sorulmasi
+  O   Hedeflenen adres (H-Adresin sadece ilk par‡asi) bildirilir
+  P   Bulunan Box ‡agri isaretlerini kisa bir sekilde bildirir
+  R   Boxdan haber okuyan kullanicilarin ‡agri isaretlerini bildirir
+  T   Aktel saat bildirilir
+  U   Uplink satiri bildirir
+  W   Haberin konusunu bildirir
+  X   Bin„r kismini vermeden sadece yazi kismini bildirir
+  Y   Tarihi yil ile birlikte bildirir
+  Z   Okunan satir adetini bildirir
+
+\\OPTIONDIR
+LIST, DIR ve CHECK emirlerinde asagidaki tevcihler kullanilabilir:
+  A   G”nderenin hviyetini bildirir
+  B   Okunan Byte adetini bildirir
+  C   Continous, Satir basi emrinin kullanilmamasi
+  D   Tarih bildirir
+  E   Haberi alacak kisinin hviyetini (Boardname) bildirir
+  F   Haberin geldigi mailboxu (Frombox) bildirir
+  G   Okunan haberleri g”stertmez
+  H   Basliklari 'i‡indekiler fihristini' g”stertmez
+  I   BID bildirir
+  J   'DieBox'-Benzeri baslik verir
+  K   Sira numarasinin bildirilirken Parantez veya R kullanilir
+  L   Lifetime sresini bildirir
+  M   Hedeflenen adres (H-Adresi) bildirilir
+  N   SADECE bu mailboxu merkez mailbox (MYBBS) olarak SE€MEYEN kullanicilarin
+      haberlerini g”sterir
+  O   Hedeflenen adres (H-Adresin sadece ilk par‡asi) bildirilir
+  Q   En son QUIT'den sonra giren (Kesim bildirisi olmayan) haberleri verir
+  R   Uzaktan komandolu silinen haberleri g”sterir (CHECK emri i‡in ge‡erli)
+  S   Alt dosyalari g”sterir
+  T   Aktel saat bildirilir
+  V   Silinen haberleri g”sterir (UNERASE emrinin kullanisina bakiniz)
+  W   Haberin konusunu bildirir
+  X   Haberin konusunu vermeden ”nce bir ka‡ Blank daha verir
+  Y   Tarih yil ile birlikte bildirilir
+  Z   Okunan satir adetini bildirir
+
+\\PASSWORT
+
+Kullanicilar bu emir ile bir sifre retebilirler.
+HELP ALTERPW ve HELP ALTERPWLINE emirlerinede bakiniz.
+
+\\PARAMETER
+PARAMETER <Aranan konu>
+
+  Bu emir ile boxun ayarlari kontrol edilebilir. Burada INIT.BCM tutanagi
+  g”sterilir. <Aranan Konu> ile belirli harfler verildigi takdirde, bunlara
+  uyan btn satirlar bildirilir.
+
+  ™rnek: PAR RUNUTILS
+
+           Hangi DOS-Programlarinin mevcut oldugunu bildirir.
+
+
+\\PATH
+PATH [-A] [-S] [-C] <Adres>
+
+Transfer esnasinda gdlecek yolu bildirir. Burada <Adres>'in aktarilacagi
+btn komsu mailboxlar g”sterilir. Bu hem taninan mailbox adresler (Kullanici 
+haberleri) i‡in, hemde bilgi dagitici (Bulletinler) i‡in ge‡erlidir.
+
+™rnekler:
+                P DB0WDR
+                P ALLE
+                P DB0GV.#HES.DEU.EU
+
+
+  P -A <ADR> <ADR> ile ilgili btn bilgileri g”sterir. Tabiiki bu Box'tan 
+             en azindan bir kez haber gelmesi sarttir.
+             
+             Burada sunlar g”sterilir:
+             H-Addr    : H-Adresi komplet (Son dzenlenen sonraki)
+             R-Header  : R-Header'deki bilgiler
+             Last BID  : Bu boxa ait olan haberlerin en son BID'leri
+             Last Board: En son haberin ait oldugu Rubrik
+             Last User : Bu Boxtan en son olarak haber alan kullanici
+             Bulletins : Bu Boxtan gelen Bulletinlerin adeti
+             Usermails : Bu Boxtan gelen kullanici haberlerinin adeti
+
+             Bunlardan sonra 5 Komsu mailboxunun bilgileri verilir. En son
+             dzenlemenin (Update) ne zaman oldugu, ne kadar haberin sayiminin
+             (Count) yapildigi, bu haberlerin transfer sreleri (Delay) ve ka‡
+             box zerinden geldikleri (Hops) gibi bilgiler verilir. Bu bilgiler
+             saysinde haberin gelis yolunun bulunmasi kolaylasir.
+
+  P -S <..>  Btn Boxlarin listesinde belirli bir terim aranir. Bu terim ya
+             bir H-Adesine veya R:Headerin bilgi kismina ait olabilir. 
+
+             ™rnek:  P -S #BAY  Btn Bavyera Boxlari taranir
+                     P -S BCM   Btn BayCom-Boxlari taranir
+
+             S”zkonusu boxun toplam haber adeti, haberin en son yenilendigi
+             zaman birimi, H-Adresi ve R:Header bilgi b”lm gibi bilgiler
+             g”sterilir.
+
+  P -SH <..> Adresleri degil, sadece Header-satirlarini tarar.
+
+  P -SP <..> Header kesimini degil, Adres kesimini (Pfad) tarar.
+
+  P -SC <..> Sadece bulunan kesimlerin adetini sayar ama bunu bildirmez.
+
+\\PURGE
+Eger bir haber ERASE emri ile silinirse, bu sadece "silindi" diye markalanir
+ama hakikaten silinmez. PURGE-Emri ise silinmesi i‡in markalanan btn
+haberleri tamamen sabit hafizadan uzaklastirir (siler).
+Bu sekilde haberlerin numaralarida yeniden dzenlenirler. Yani bu numaralar
+normal olarak PURGE-Emrinin kullanilmasindan sonra degistirilirler.
+PURGE emri ile silinen haberlerin UNERASE emri ile tekrar kurtarilmasi mmkn
+degildir.
+
+\\PS
+PS
+
+'Prozess Status' (islem stats). O an ‡alisan islemleri listeler. Bagli
+bulunan her kullanici ve isleyen her ekran kendine has bir isleme sahiptir.
+Bunun yaninda birde sistem y”netimini slenen ve diger islemlere paralel 
+‡alisan gizli islemler vardir.
+
+PS emrinde ge‡erli olan tevcihler:
+                -A   Wait-Event ve islem tipini g”sterir
+                -B   Gizli islemleri g”sterir
+                -S   Bekleme listesini ve Stack durumunu g”sterir
+                -T   TNC-Kanal numarasinida g”sterir
+
+Btn bildirileri ayni anda g”sterilmesi istenirse:
+
+             PS -ABST
+
+ Bu emirden sonra, ‡alisan btn islemler komando satirinda  * isareti ile 
+ markalanirlar. Yani bu islemler ya Time-slice-modunda ("Tam Devir") 
+ isliyordurlar yada bos bir L2-Dagarciginin bosalmasini (Bildiri yapmak zere) 
+ bekliyordurlar. Bekleyen btn diger islemler * isaretini ihtiva etmezler.
+
+Normal ayar ile PS sadece ‡alisan Haber-islemlerini g”sterir.
+
+™rnek:       PS -ABS
+
+Task Event Kdeb  CPUt Create Input Name      Command
+   0 40     210   0.1   71m        Desktop
+   1 251    210   0.3   71m        Console
+   2 242    210   23s   71m        Monitor
+   3 246    000   28s   71m        logind
+   4 kbhit  711   0.7   71m        Sysop
+   5 514    000   0.3   71m        forwardd
+   6 235    101   3.9   18m   26s  DD5LS     l ibm
+*  7 235    101   81s   71m    0s *DL1KOC    ps -abs
+   8 txf    101   9.2   54m   40m  OE5GOL    r baybox 25-28
+   9 235    101   8.5   26m    5m  TA1CEN    R CONTEST 88
+  12 txf    101   31s   69m  139s *DJ9EI     r gp 218-
+  13 242    101   0.8   11m   35s  DL5RCE    rep
+Wait:  0 13 9 3 2 1 6 5 12 8 4
+Stack: 272 174 446 870 790 530 1108 1080 1158 1720 1204 1720
+
+Task   :  Task numarasi. * ile kendi baglantiniz g”sterilir
+Event  :  islemin bekledigi g”rev.
+kbhit  :  Klavye
+putf   :  TNC-G”nderme dagarcigi bos
+getv   :  TNC'den isaret geldi
+slice  :  islem sresinin tasilmasi sebebi ile islem kesildi. Yani bu islem
+          su an "Tam Devir" isliyor
+<Zahl> :  Bir islemin ka‡ saniye ara ile bekletilmesi gerektigini bildiren
+          rakam. Zaman belirleyicisi (DOS-Ticker) 55ms'lik devire sahiptir. 
+          Bu imkan islem baslangicinin belirlenmesinde kullanilabilir. Bu 
+          rakam ile kullanici bekletilmenin sebebini inceleyebilir. 
+Kdeb   :  islem tipi.
+Kd     :  G”rev alani
+e      :  Ekran ‡er‡evesi
+b      :  Mailbox
+CPUt   :  islemin basladigi andan beri ge‡en zaman birimi
+Create :  Ne zamandan beri islemin srdg
+Input  :  Kullanicinin yaptigi en son kayidin ger‡eklestigi zaman
+Name   :  islem ismi veya Login ‡agri isareti
+Command:  Verilen en son Komando
+Wait   :  Bekleme sirasinda bulunan islemlerin listesinge
+Stack  :  Ger‡eklesen islemler arasindaki en fazla Stack derinligi
+
+Asagidaki islem devamli veya ara sira ‡alisirlar:
+Desktop       Merkez ekran. €alisan btn islemlerin baslica merkezi
+Console       Sistem bildirilerinin verildigi k‡k bir ‡er‡eve. Sistem
+              hatalari ayrica SYSLOG.BCM tutanagina kaydedilirler.
+Monitor       Packet-isleminin g”sterildigi ‡er‡eve
+Sysop         Sysopun mailboxa bagli oldugu ‡er‡eve
+logind        Login-Daemon. Bu islem, sira ile btn TNC-Kanallarini gezer ve
+              sisteme yeni baglananin veya sistemden baglantisini kesenin
+              olup olmadigini tesbit eder. Buradan btn Mailbox-Task'lari
+              retilir.
+forwardd      Forward-Daemon. Bu islem, Aktarmak (Forward) i‡in haberin olup
+              olmadigini ve var ise gn ayarinin Forwardfile'indakinin aynisi
+              olup olmadigini tesbit eder. Ayrica her gnn saat 4'nde PURGE 
+              emri devreye sokulur. Yarim saatta bir BULLETIN.BCM ve INIT.BCM
+              tutanaklari sabit hafizaya kaydedilir.
+purge         Hepsini siler. Btn File sistemi Lifetime sresi biten veya
+              kullanici tarafindan silinen tutanaklari tesbit i‡in taranir ve
+              tamamen hafizadan uzaklastirir (SiLER).
+
+\\QUOTA
+Aktel gn i‡erisinde sagilan Bilgi sayisini ve kontonuzda sagmak i‡in daha ne 
+kadar bilgi kaldigini bildirir. Tabiiki bu Sysop tarafindan sinirlandirildigi
+zaman ge‡erlidir.
+
+\\QUIT
+Mailbox ile olan baglantiyi koparmak i‡indir (Yani: Disconnect manasina)
+
+\\READ
+READ [<Tevcih>] [<Board>] [<B”lm>]
+
+Bulletin-Boardlarindaki umumi veya kendinize ait olan haberleri okuyabilmenize
+yarar. <Board> ilavesi olmadigi takdirde, en son kullanilan Prompt'daki Board
+kullanilir. Bu emirde ayrica ‡esitli tevcihlerin kullanilmasi mmkndr.
+HELP OPTIONENREAD emrinide inceleyiniz.
+
+   ALTER UREAD <Tevcih>               (User-Fileler i‡in ge‡erli)
+   ALTER IREAD <Tevcih>               (Infofiles i‡in ge‡erli)
+
+Yukardaki emirlerle gereken btn tevcihler i‡in bir ”n ayar yapilabilir (HELP
+ALTER) emrinede bakiniz. ™n ayarlar READ-Emrinin yazilmasiyla devreye ge‡erler.
+Belirli bir tevcihin kapatilmasi istendiginde bu tevcihi temsil eden harfin
+ardina "-" isaretini eklemek yeterlidir.
+
+<B”lm> hangi haber numaralarinin verilmesi gerektigini belirler. Bu ilave
+olmadigi takdirde, en son (en yeni) haber bildirilir.
+
+™rnekler:
+
+         R -H DL1KOC 1-5
+
+DL1KOC i‡in kaydedilen ilk 5 haberi g”sterir ve haberlerin hangi boxlar zeri
+geldiklerini detayli olarak listeler. 
+
+         R -P- -F ALLE 200
+
+ALLE rubrikinde bulunan 200 Nolu haberi g”sterir. Burada hangi boxlar zeri
+geldigini bildirmez ama hangi Box tarafindan g”nderildigini bildirilir.
+
+\\REPLY
+REPLY [[<Board>] <B”lm>]
+
+Kendinize yazilmis bir haberi okuduktan sonra ilavesiz olarak REPly emrini
+kullanarak bu haberi ardi sira cevaplandirabilirsiniz. Burada haber yazmak
+i‡in gereken btn bilgiler (€agri isareti, Forward adresi) okumus oldugunuz
+haberden temin edilir. Sizin, g”ndermek istediginiz haberi yazmaniz yeter.
+
+REPLY emri B”lm (Mesela: Board ismi ile) verilirse, bu haber adres olarak
+alinir. Cevabi bu habere yazarsiniz.
+
+Her ikisindede baslik olarak okunan haberin basligina 'RE:' ilavesi eklenerek
+kullanilir.
+
+\\RUN
+BayBox sistemindeki RUN programlari DieBox sisteminden farkli bir sekilde
+‡agrilirlar. BayBox da, programdan ”nce RUN emrinin yazilmasi gerekmez. 
+EL i‡in RUN EL degil, sadece EL yazmaniz yeterlidir.
+
+DB0NDK-8 mailboxunda ‡agrilabilen programlar:
+      CAL        Takvim fonksiyonu
+      EL         DL5FBD'nin Sistem harici dosyalari
+      FREE       Sabit hafizada bulunan bos kapasitenin tesbiti i‡in
+      HAD        Btn dosyalarin durumunun belirlenmesi i‡in.
+      LOC        QRA-Locat”rnn hesaplanmasi i‡in.
+      NETZINFO   Digi aginin g”stertilmesi i‡in kullanilir.
+      NEWS       Yenilikler (OV/DARC/usw.)
+      PREFIX     Bir ‡agri isaretin ait oldugu devleti tesbit etmek i‡in.
+      QSLMGR     ON6VD'nin bilgi bankasina ait QSL-Managerin ‡agrilmasi i‡in.
+      SYSINFO    PC-Sistem bilgilerinin tesbiti i‡in.
+      UHR        Mailboxa ait saatin g”stertilmesi i‡in kullanilir.
+      WHATUHAV   Buda PC-Sistem bilgilerinin tesbiti i‡in kullanilir.
+
+
+\\SEND
+SEND <Board> [@ <Adres>] [# <Lifetime>] <Konu>
+
+Mailboxa belirli bir haberin verilmesinde kullanilir.
+
+<Board>      Haberin g”nderilecegi ‡agri isareti veya Board ismi. Adres olarak
+             se‡ilebilecek Board isimlerini DIR BOARDS emri ile tesbit etmeniz
+             mmkndr. 
+
+<Adres>      Haberin aktarilmasi i‡in verilebilen Forward adresi. Haberin
+             aktarilmasinin istenmemesi halinde veya ‡agri isaretinin hangi
+             mailboxda kayitli oldugu bilinmedigi takdirde, <Adres> ilavesini
+             bos birakiniz. Sahsi haberlerde buraya bilinen merkez mailboxu
+             yaziniz. Yanliz (Dis memleketlere) g”nderilen haberlerde ‡agri
+             isaretin bulundugu adresi tamamen yaziniz.
+             Bulletin haberlerinde ise haberin baska boxlara tasinmasini 
+             saglayan bir bilgi dagitici sistemi bildirilir (DB0AAB.DEU.EU 
+             veya OE5XBL.AUT.EU ”rnegindeki gibi). Tasiyici olarak DL veya 
+             EU kullanilabilir. HELP FORWARD emrinede bakiniz.
+
+<Lifetime>   Haberin belirli rubriklerde ka‡ gn sre muhafaza edilecegi gnn 
+             sayisidir. Bu gn sayisi diger mailboxlarada iletilirki, haber
+             umumi ‡apta hakikaten silinebilsin. Kisa sre i‡in ge‡erli olan 
+             haberlerde bu imkanin kullanilmasi yerindedir (Davetiye gibi
+             haberlerde).
+
+<Konu>       Burada kisa ama kesin anlasilan haberinizle ilgili bir basligin
+             bulunmasi gerekir. "Ltfen okuyunuz" gibi standart basliklar, var
+             olan ‡ok fazla haber denizi arasinda kaybolup, haberin okunmadan
+             yok olmasina sebeb olabilir. Haber basligini orjinel se‡iniz.
+
+™rnekler:
+
+         S DL1KOC YARINKi TOPLANTI i€iN
+         S BAYCOM @ DL #10 NEUE VERSION FERTIG
+         S OE5JDE @ OE3XSR.#OE3.AUT.EU HALLO OM
+
+Bildirilen tam adresin taninmadigi veya hi‡ bildirilmedigi takdirde, bunu
+sistem size bildirir. SEND emri buna ragmen mmkndr. Ama haber baska boxlara
+aktarilmaz (Forward edilmez).
+
+Her sey dogru yapildigi takdirde, sistem sizden haberin i‡erigini yazmanizi 
+ister. Haberinizi yazdiktan sonra:
+
+      NNNN     (4 N ardisira bosluk birakmadan yazarak)
+veya  ***END   (Yine bitisik olarak bosluk birakmadan)
+veya  ^Z       (Kontrol-Z, yani <STRG>-Z veya <CTRL>-Z) ile kapatabilirsiniz.
+
+Haberi her an ^X (Kontrol-X) ile yarida kesebilirsiniz.
+
+\\STATUS
+istatistik bilgileri g”sterir. HELP STFORWAD ve HELP STCPU emirlerinide
+inceleyiniz.
+
+\\STFORWARD
+STATUS FORWARD yapilacak olan Forwarding zerine bilgiler verir.     
+Kisaltma:  ST F
+  Burada asagidaki bildiriler yapilir:
+  - Komsu mailboxlarin ‡agri isaretleri
+  - Ok   : 0 En son denemede komsu ile baglanti kurulamadi
+           1 Komsu ile baglanti kuruldu
+           2 Su an Forward aliniyor
+           3 Su an komsuya baglanti kuruluyor
+           4 Su an Forward g”nderiliyor
+  - Login: Komsunun baglantiyi kurudugundan bu yana ge‡en zaman birimi
+  - ConOk: Baglantiyi kurma denemesinin basarili oldugundan bu yana ge‡en  
+           zaman birimi (Eger burada belirli bir deger yok ise baglanti
+           kurulmamis demektir).
+  - User : Forward yapilmasi gereken kullanici haberlerinin adeti
+  - Info : Beklemede olan Bulletinlerin adeti
+  - E/M  : Beklemede olan Erase/MYBBS-bilgilerinin adeti
+
+\\STCPU
+STATUS CPU  emri ile bilgisayarin ortalama kullanilis degerini ST C olarak
+            tesbit edebilirsiniz. Kullanilis degeri 5-Saniyelik-Aralarla
+            toplam 8 ”l‡ devresinden sonra elde edilen degerin ortalamasi
+            alinarak kaydedilir. Yani, her 40 saniyede bir bilgisayarin
+            kullanilis degerini g”rebilirsiniz. Bu deger yzde olarak verilir.
+
+Ayrica sunlar arasinda fark g”zetilir:
+Running:  Bu zaman i‡inde bilgisayar ‡alismaktadir. Yani mailbox islemi.
+Screen :  Bu zaman i‡inde ekran islemi g”rlr. Kimse olmadigi takdirde,
+          monitorun ekranin istedigi zaman birimini tesbit edebilirsiniz.
+Idle   :  Bu zaman i‡inde bilgisayar, ya hi‡ bir sey yapmamakta yada sistem 
+          isleri ile (scheduling) ugrasmaktadir. Bilgisayar yksek baski
+          altinda oldugu zaman buradaki deger ‡ok k‡k (olduk‡a 0) olur.
+
+Btn hepsinin toplami 100% eder. (Tam devir)
+
+\\SEITENSTOP
+Ekrana aktarilan yazilarin g”rnen kisimdan yukari hemen kaybolmamalari i‡in
+”nceden ayarlanan belli bir satir adeti belirlenebilir. Bu satir adetine
+ulasildigi zaman bildiri dondurulur. Bunun ayarlanmasi:
+
+ALTER LINES <Satir adeti>                       Kisaltma:  A L <Satir adeti>
+
+Eger sayfanin durdurulmasi istenirse, Bu ALTER LINES 0 ile ayarlanmasi lazim.
+Bildiri dondurulduktan sonra, en son satirda '+?>' isareti belirir. Bunu
+g”rdgnzde:
+
+<Return>  yazarsaniz, bildiri ikinci sayfaya devam eder
+C         yazarsaniz, bildiri hi‡ durmadan devam eder
+S         Bildiriyi yarida keser
+Q veya B  Mailboxu tamamen terkeder (disconnect)
+Diger btn harfler bildiriyi yarida keserler.
+
+DIR LIST READ CHECK emirlerinde -C Tevcihi ile bildirinin durmaksizin akmasini
+saglayabilirsiniz.
+
+ALTER LINES 0 olarak ayarlanmis ise veya C tevcihi kapatilmis ise, bildirinin
+<RETURN> (Bos satir) ile yarida kesilmesi mmkndr. Ama <RETURN>'dan ”nce hi‡
+bir baska emir verilmis olmamasi lazim. En iyi fikir baglantiyi koparip, yeni
+baglanti kurmaktir. Normal olarak baglanti ‡ok ‡abuk kurulabilir.
+
+\\SEMAPHORES
+SEMAPHORES                  (Debugging-Komandosu, pratik ”nemi yok)
+
+O anda kullanilan tutanaklarin bir listesini verir. Yapilan bildiride file
+ismi ve kullanilis adeti mevcuttur. 
+Rd   read       (Kullanis belirli bir sre sonra sona erer)
+LRd  long read  (Yani kullanis sresi fazlaca uzun olabilir)
+Ap   append
+LAp  long append
+Wr   write
+LWr  long write
+Bir ‡ok kisili kullanici sistemlerinde kaydetmeler birbirini karsilikli
+engellemesi sebebiyle yeni ‡agrilan islem kullanis orani nisbetinde ya
+yavaslatilir yada tamamen reddedilir.
+
+\\SETLIFE
+SETLIFE <Board> <B”lm> [#] <Gn>
+Bir veya birden fazla haberin ”mr sresini ayarlar. Sre olarak, ayarlanan
+gnden baslanarak verilen <Gn> kadar Lifetime taninir. Lifetime sadece haberi
+(Yazan veya Alacak kisi) tarafindan degistirilebilir. ERASE emrinde oldugu
+gibi. '#'-isareti (DF3AV-Boxuna uyum saglayabilmesi i‡in) yazilabilir, ama 
+verilmesi zorunlu degildir. Belirli bir b”lm bildirisi yapilmaz ise, Lifetime
+emri en son kullanilan haber i‡in uygulanir.
+
+™rnekler:
+
+          SETL BAYCOM 5-10 30
+          SETL DL1KOC 1- #100
+
+\\TALK
+TALK <Call> <Haber>
+<Call> ‡agri isaretine tek satirli bir haber g”ndermek i‡in kullanabilirsiniz.
+Yanliz <Call> o an i‡in mailbox ile baglanti kurmus olmalidir. 
+
+T <Call>
+emirden sonra gelen btn yazilari <Call>'a g”nderir. Bu modu /q ile terk 
+edebilirsiniz.
+
+T ALL <Haber>
+Mailboxa bagli olan btn istasyonlara <Haber>'i g”nderir (WALL emri gibi)
+
+TALK emri yerine MSG, WRITE, CONVERS emirleride kabul edilir. Not: Aktarilacak
+haberler i‡in sadece bir satirlik kayit imkani mevcuttur. €ok fazla satiri
+ihtiva eden kayitlarda bu dagarcik dolmasi sebebiyle sistem tarafindan ikaz
+edilebilirsiniz. Bu sistem gelistiriliyor.
+
+™rnekler:
+            T DL1KFE Merha Ferda Bey
+            W ALL Box wird in 5 Minuten abgeschaltet!
+            M TA1CEN
+
+
+\\TIME
+TIME emri mahalli saat ayarini bildirir.
+
+\\TRANSFER
+TRANSFER <Board> <B”lm> [>] <Hedeflenen Board> [@ <bbs>] [# <life>] [Konu]
+
+Belirlenen haberlerleri bir rubrikten diger birine veya baska bir kullaniciya
+aktarmak i‡in kullanilir. Ayrica haber i‡in aktarildigi yerde belirli bir
+”mr sresi (Lifetime) ayarlanabilir (SEND emrinde oldugu gibi). 
+
+Bulletinlerde eski haber silinip yerine yeni yerlestirilir. Kullanicilara ait
+haberlerde ise eski habere dokunulmaz. Yeni gelen habere 'Transfer ...' yazisi
+ilave edilir. Haber sadece sahibi (Yazan veya Alacak olan) tarafindan transfer
+edilebilir (ERASE emrinde oldugu gibi). '>'-isareti (DF3AV-Box sistemine uyum
+saglayabilmesi i‡in) yazilabilir, kullanilmasi mecburi degildir.
+
+Belirli bir b”lm bildirilmezse, TRANSFER emri en son okunan haberi aktarir.
+
+BoxBin haberlerinin transferi mmkn degildir.
+
+Dikkat: Bir Board (veya €agri isaretinden) ayni Boarda haberin aktarilmasi
+mmkn degil. Forward adresini FORWARD-Emri ile ™mr sresinide SETLIFE-Emri
+ile degistirebilirsiniz.
+
+™rnekler:
+
+         TR BAYCOM 5-6 SOFTWARE
+         TR DL1KOC 1- > TA1CEN @ DB0MKA
+
+\\USERS
+USERS veya U emri sisteme baglanti kurmus olan kullanicilarin listesini verir.
+Ayrica kullanicinin o anda ne yaptigina dair bilgilerde verilir:
+Idle     Kullanici hi‡ bir sey yapmiyor. Ekrana bakiyor (hi)
+Read     Boxdan haber okunuyor
+Send     Boxa haber kaydediliyor
+Search   Detayli arama islemi. Yani DIR, LIST veya CHECK
+FwdTX    Baska bir boxa Forward g”nderiliyor
+FwdRX    Baska bir boxtan Forward geliyor
+You      Siz kendiniz
+
+Hi‡ bir sey yapmiyan kullanicilara 'Idle', TALK emri ile haber g”nderilebilir.
+
+U <Call>
+<Call> ‡agri isaretinin kullanicisinin yapmis oldugu ayarlari kisaca g”sterir.
+
+Kullanicinin aranmasinda gerekebilen tevcihler:
+-a   Elde edilen btn kayitlari bildirir (Hi‡ bir bilgiye sahip degilseniz)
+-c   sadece bulunan Kayitlari sayar, bildiri yapmaz
+-f   sadece ilk benzerligi g”sterir ve sona erdirir
+-h   Kullanici Yardim seviyesini 0 olarak ayarlamis
+-l   Kullanici mailbox ile, en azindan bir kez baglanti kurmus
+-m   Kullanici Mybbs'ini kendi ayarlamis
+-n   Mybbs belli, ama bu kullanici tarafindan bildirilmemis
+-o   Mailbox ile simdiye kadar baglanti kurmamis
+-p   Kullanici keni i‡in belirli bir sifre kurmus
+-r   Kullanicinin sahsi haberlerinin okunmasi normalde yasaktir
+-s   Kullanicinin stats 0'dan byktr
+-t   Kullanici bir TTY-Sifresi kurmus
+-u   Kullanicinin merkez mailboxu (Mybbs) belli degil
+
+Kayitlarin bildirilebilmesi i‡in lazim olan konularin yerine getirilmesi 
+gerekir.
+
+Aranan konular:
+  ... call    c=... call   n=... isim
+@=... Mybbs   v=... via    s=... Lisan
+
+Btn tevcihler ve aranan konular arasinda mantiken VE-Balantisi kurulu. Yani
+verilen btn ek bilgilerin yerine getirilmesi lazimki, kayit yapilabilsin.
+
+™rnek:
+         U -LH @=MKA
+
+Yukardaki emir, en azindan bir kez baglanti kurmus olup Yardim seviyesini 0
+olarak ayarlayan ve merkez mailbox olarak "MKA" ibaresini ihtiva eden boxlari
+ayarlayan kullanicilari bildirir.
+
+Baska ™rnekler:  U MBT       U -C DL       U -L N=HANS
+
+Bildirilerin formu:
+Call   Mybbs               isim         Logs Last via      PTHLRS Spr
+DL1KOC @DB0MKA.#NRW.DEU.EU Sebahattin   1250  26h DB0WDR   000100 TA
+
+Buradaki kolonlarin anlami:
+Call,Mybbs,Kullanicinin ismi @: mybbs ayarlanmis olan, ?: mybbs tahmin edilen
+Logs : Boxun isleme basladigindan bu yana meyadana gelen baglantinin adeti
+Last : En son Loginden bu yana ge‡en zaman birimi (San./Dak./Saat/Gn) olarak
+via  : En son baglantida kullanilan araci Diginin ‡agri isareti
+P    : 0: Sifre kurulmamis
+       1: Kullanici sifreyi kurmus
+       2: Sifre kaldirilmis
+T    : 0: TTY-Sifresi kurulmamis
+       1: TTY-Sifresi kurulmus (Kablo baglantisinda ge‡erli)
+H    : Ayarlanmis olan Yardim seviyesi
+L    : Ayarlanmis olan bos satir adeti
+R    : 0: Sahsi haberlerin okunmasi mmkn
+       1: Okunmus olan haberlerin okunmasi serbest
+       2: Okunmasi tamamen yasak
+S    : 0: Normaler kullanicilar
+       1: Quota sinirlamasi mevcut degil
+       2: Kapali
+Spr  : Lisan,      ™renek: DL, GB veya TA
+
+\\UNERASE
+UNERASE [<Board>] <B”lm>
+
+Silinmis olan haberleri yaniden kurtarir. Gnde bir defa (Sabah saat 4'de)
+haberler hakikaten silinirler. Bu islemden sonra haberler UNERASE emri ilede
+geri getirilemez. Normal olarak haberler tamamen silinmez sadece silindi diye
+markalanir ve g”rkmez hale getirilirler.
+
+LIST -V veya DIR -V  emirleri ilede silinen haberler g”rkr hale getirlip 
+listelenebilirler. Burada, haberlerin sira numaralarindan sonra bunlarin
+silinis sebebleride bildirilir.
+ E  - ERASE emri veya "Haberi sileyimmi?"-Promptunun evet ile tasdiklenmesiyle
+ F  - Haber Forward ile aktarildi ve sonra silindi
+ K  - Sysop tarafindan uzaktan komandolu silindi
+ L  - Haber uzaktan silindi (Erase-Forwarding)
+ S  - Haber mahalli Sysop tarafindan silindi
+ T  - Haber baska bir Boardda aktarildi
+
+Haberin okunulur, yani normal DIR/LIST emirleri i‡inde g”rkr hale getirme
+amacini UNERASE emri ile yerine getirmeniz lazim. B”lmn isaretlenmesi ayni
+DIR, READ vbb. gibidir.
+
+™rnek:   UN DL1KOC 1-             Btn haberleri kurtarir
+
+\\VERSION
+Bilgisayar ve sabit hafizadaki versiyon numarasini, tarih ve bos hafiza 
+kapasitesini bildirir.
+
+Date: 27.10.94 21:12
+BayCom-Mailbox Version 1.35 (DOS)
+(c) 1992-94 Florian Radlherr, DL8MBT
+Compiled Nov 13 1994 18:31:38
+Runtime: 21.03:01   CPUindex: 24
+Available Memory/Swap           : 301 kB / - kB
+Info-Path: c:/bcm/info          : 2533 kB (30 MB)
+User-Path: c:/bcm/user          : 2533 kB (30 MB)
+BCM-Home:  c:/bcm               : 2533 kB (30 MB)
+
+'Runtime' kaydi mailbox sistem yaziliminin ne zamandan beri kapatilmadan
+‡alistigini Gn.Saat:Dakika olarak bildirir.
+
+'CPUindex' kaydi, Boxda isleyen bilgisayarin merkez kontrol biriminin baska 
+MKB (CPU)'lara karsin, ne kadar hizli isledigini bildirir. Buradaki ”l‡mn
+tam olmamasi sebebiyle, bu bildiriye fazla msamaha edilmemesi daha iyi.
+
+"Available Memory" geriye kalan bos RAM-Hafiza kapasitesini bildirir
+
+VERSION-emrindeki "Swap" sadece Linux-Versiyonunda tam isliyor. Sistemin tam
+olmasi i‡in bu fonksiyon DOS-Versiyonundada "-" ilavesiyle msade edilmistir.
+Diger kayitlar ayarlanan dosya pusulalarini (PATH)  ve geriye kalan (Toplam)
+sabit hafiza kapasitesini bildirir. 
+
+\\WALL
+Mailboxda bagli bulunan btn kullanicilara bir haber g”derir.
+™rnek:   WALL  Saat 10'da ATV-Rundspruch basliyor!
+HELP TALK emrinide inceleyiniz.
+
+\\WRITE
+TALK emri gibidir. HELP TALK emrinde bakiniz.

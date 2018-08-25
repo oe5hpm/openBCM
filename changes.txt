@@ -1077,7 +1077,7 @@ obcm 1.05 (02.04.2004):
      "SP W@DBO274 #14" add_fwdfile
      21.03.04 17:05:34l AS1BOX: #W board=MAILBOX/W userjob=13
 - Im HTTP-Interface wird beim Klick auf LOG nun LOG -Z ausgefuehrt,
-  außerdem koennen nun per Mausklick
+  ausserdem koennen nun per Mausklick
   - Current Log: Latest 20 logins, User today, User today without TCPIP,
                  Forward today
   - User-Log:    Today, Last week, Last month, Last year
@@ -1205,7 +1205,7 @@ Allgemein:
   war. Nun wird nicht mehr abgebrochen und die restlichen Mails transferiert
 - Fuer ANSI-Message-File werden ggf. Zeilen > 80 Zeichen benoetigt, dies
   wird nun akzeptiert
-- Fehler in strpos-Funktion in utils.cpp gefunden, konnte dazu führen,
+- Fehler in strpos-Funktion in utils.cpp gefunden, konnte dazu fuehren,
   dass einige Mails u.U. nicht in den Forward gelangten.
 - Ist bei FSPATH zwar ein Pfad definiert, aber existiert dieser gar nicht,
   so wird beim Befehl VERSION nun "not existing" anstelle irgendwelcher
@@ -1258,7 +1258,7 @@ Allgemein:
 - Linux-Version: _AX25K_ONLY geht wieder zu compilieren
 - Sind in einer msg/messages.* Datei ANSI-Escape-Sequenzen enthalten
   (-> farbige Darstellung bei z.B. WinGT/WPP...) so werden diese nun
-  bei HTTP während der Ausgabe herausgefiltert. ANSI-Escape-Sequenzen
+  bei HTTP waehrend der Ausgabe herausgefiltert. ANSI-Escape-Sequenzen
   die in anderen msg-Dateien enthalten sind, werden bei HTTP weiterhin
   mit ANSI-Sequenz ausgegeben, da dies nicht anders machbar ist!
   DG2GGP hat eine msg/messages.dla fuer deutschen ANSI-Text erstellt,
@@ -1323,7 +1323,7 @@ Allgemein:
      08.08.04 19:33:23z 13R
      08.08.04 19:33:23z 13R Forward Port der AP1BOX,
      08.08.04 19:33:23z 13R
-     08.08.04 19:33:23z 13R Es liegen hier fr Dich 4 Mails mit 4 KB vor.
+     08.08.04 19:33:23z 13R Es liegen hier fuer Dich 4 Mails mit 4 KB vor.
      08.08.04 19:33:23z 13R
      08.08.04 19:33:23z 13R (1) AP1BOX >
      08.08.04 19:33:23z 13S [OpenBCM-1.06b24-AB1FHMR$]
@@ -1340,10 +1340,10 @@ Allgemein:
      08.08.04 19:33:35z 13- ---- logout   
    -> Beide Probleme liegen definitiv an FBB bzw. dessen (schlechter)
       Konfiguration. Anscheinend kann man die SID-Erkennung bei FBB komplett 
-      lahmlegen und statt dessen manuell die Optionen für einen Forwardpartner
-      definieren. Und da kann man natürlich dann eine Menge in FBB 
+      lahmlegen und statt dessen manuell die Optionen fuer einen Forwardpartner
+      definieren. Und da kann man natuerlich dann eine Menge in FBB
       VERKONFIGURIEREN! So kann man in der Forward-Datei forward.sys von FBB 
-      die unterstützten Forwardprotokolltypen des Forward-Partners fest 
+      die unterstuetzten Forwardprotokolltypen des Forward-Partners fest
       eintragen (Parameter N). Definitiv geht der Forward nicht, wenn man 
       dort die Option "X-Forward" aktiviert (also den Wert von N auf 8 oder 
       groesser einstellt). Im Zweifelsfall sollte der FBB-Sysop bei sich ein
@@ -1487,7 +1487,7 @@ Allgemein:
 - Beim Empfang von Mails wurde ggf. bei einigen Compilern der Name des
   Absenders falsch uebernommen, was dann dazu fuehrte, dass bei ALTER NAME
   der Name um ein Zeichen versetzt angezeigt wurde, als erstes Zeichen
-  ein 'ÿ'-Zeichen (ANSI 0255) uebernommen wurde, dafuer aber das letzte
+  ein ' '-Zeichen (ANSI 0255) uebernommen wurde, dafuer aber das letzte
   abgeschnitten wurde
 - Fehler beim Empfang einer Mail mit einer #DIDADIT# Textzeile bei SMTP
   und NNTP behoben, der dazu fuehren konnte, das die Mailbox abstuerzt
@@ -1509,7 +1509,7 @@ Allgemein:
    4 DL9GJ  > WETTER.47377 23.01.05 DL      1384 999 Min/Max WX Burgrieden nr.
    9 DO1KDL > ASYNOP.14504 23.01.05 DL       575 999 ASYNOP DO1KDL 23.01.05
   10 PI4WNO > DUTCH....223 23.01.05 WW     10845 999 PI4WNO,Bull.2005/01/23(85
-  13 DO1KDL > WETTER.47376 23.01.05 DL      3044 999 PR-WX-Stn K”ln-Porz JO30N
+  13 DO1KDL > WETTER.47376 23.01.05 DL      3044 999 PR-WX-Stn Koeln-Porz JO30N
   16 DL6KWN > DISTRIK12478 23.01.05 DL     11536 999 MVP-Rundspruch 01-2005
 
   Check mit "x":
@@ -1518,7 +1518,7 @@ Allgemein:
    4 DL9GJ  > WETTER...47377 23.01.05 DL      1384 999 Min/Max WX Burgrieden n
    9 DO1KDL > ASYNOP...14504 23.01.05 DL       575 999 ASYNOP DO1KDL 23.01.05
   10 PI4WNO > DUTCH......223 23.01.05 WW     10845 999 PI4WNO,Bull.2005/01/23(
-  13 DO1KDL > WETTER...47376 23.01.05 DL      3044 999 PR-WX-Stn K”ln-Porz JO3
+  13 DO1KDL > WETTER...47376 23.01.05 DL      3044 999 PR-WX-Stn Koeln-Porz JO3
   16 DL6KWN > DISTRIKT.12478 23.01.05 DL     11536 999 MVP-Rundspruch 01-2005
 - EM/WPROT wurde nicht zum Nachbarn gesendet, wenn dessen Rufzeichen ein 
   Teilstring des Ziel wars (konkretes Beispiel: DB0EA/DB0EAM)
@@ -1594,7 +1594,7 @@ Allgemein:
     (RNR's)
   - DIDADIT-Auslesen bei mehreren READ-Befehlen getrennt durch ; ist dadurch
     ebenfalls moeglich
-- Modifikation der send.cpp für convert-Aufruf bei ASCII-Forward. 
+- Modifikation der send.cpp fuer convert-Aufruf bei ASCII-Forward.
   Ein Test DB0EAM-3 -> DB0NOS-8 verlief erfolgreich.
 - DOS-Version verkraftet kein CBUFLEN in mbmainloop/main.cpp, daher hier
   wieder auf LINELEN reduziert  
@@ -1614,14 +1614,14 @@ Allgemein:
   auf Anregung von DG8NGN:
   Im Amateurfunknetz ist in den letzten 2 Jahren eine Art Backbone-System 
   im Netzrouting entstanden, das sich unter dem Rufzeichen "IGATE" 
-  (=Internet GATEway) connecten lässt. Einige Sysops, mit wackeligen 
+  (=Internet GATEway) connecten laesst. Einige Sysops, mit wackeligen
   Funkverbindungen zu Nachbarboxen, aber mit stabilem Geld- und 
-  Internetzugang haben daraufhin auch ihre Forward-Connectpfade über 
+  Internetzugang haben daraufhin auch ihre Forward-Connectpfade ueber
   IGATE gelegt. OpenBCM ist nun so konzipiert, dass IGATE im Connectpfad 
   nur dann genutzt wird, wenn der vorherige Connectversuche ohne IGATE 
   misslungen ist. Somit wird immer wieder mal versucht, dass Routing 
-  über die Funkstrecken abzuwickeln, ohne das der Sysop dies den evtl. 
-  täglich wechselnden Bedingungen anpassen muss. 
+  ueber die Funkstrecken abzuwickeln, ohne das der Sysop dies den evtl.
+  taeglich wechselnden Bedingungen anpassen muss.
   Falls im Connectpfad einer Partner-Mailbox im fwd.bcm das Rufzeichen
   "IGATE" eingetragen ist, wird dies ignoriert, sofern
   - dies der erste Connectversuch seit Neueinlesen von fwd.bcm ist
@@ -2039,10 +2039,10 @@ obcm 1.07b7 (14.06.2013):
 obcm 1.07b8 (14.06.2013):
 -------------------------
 - Patch von OE5HPM integriert: 
-  "Ich habe vor einiger Zeit eine Erweiterung für die Mailbake eingebaut, damit 
+  "Ich habe vor einiger Zeit eine Erweiterung fuer die Mailbake eingebaut, damit
    diese nicht nur per AX25 ausgegben werden kann, sondern auch als File.
-   Ist dazu gut, um z.B.: auf einer HAMNET Webseite ungelesene Mails für User 
-   anzeigen zu können.
+   Ist dazu gut, um z.B.: auf einer HAMNET Webseite ungelesene Mails fuer User
+   anzeigen zu koennen.
    Siehe auch: http://web.oe5xbl.ampr.at (hamnet)
    http://oe5xbl.hamspirit.at (Internet)"
 
@@ -2068,7 +2068,10 @@ obcm 1.07b12 (03.07.2013):
 - Patch OE5HPM: beseitigt Abstuerze bei "fs h" und "mail h" in help.cpp
   bei Verwendung von GCC 4.x Compiler unter Linux
 
-
+obcm 1.07b13 (19.08.2018):
+-------------------------
+- fix abort on missing header in bulletin and keywords "from, to, ..." within
+  content.
 
 
 dringend TODO fuer naechste Version:

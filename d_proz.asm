@@ -43,7 +43,7 @@ p_80886   equ   8
 p_80786   equ   7
 p_80686   equ   6
 p_80586   equ   5
-p_80486   equ   4                 ;Codes fÅr die verschiedenen Pro-
+p_80486   equ   4                 ;Codes fuer die verschiedenen Pro-
 p_80386   equ   3                 ;zessortypen
 p_80286   equ   2
 p_8086    equ   1
@@ -175,7 +175,7 @@ done     label near              ;die Tests sind abgeschlossen
 	  xor  dh,dh              ;HI-Byte des Prozessorcodes auf 0
 	  mov  ax,dx              ;Prozessorcode ist Return-Wert der Fkt
 
-	  ret                     ;zurÅck zum Aufrufer
+	  ret                     ;zurueck zum Aufrufer
 
 @getproz$qv	endp                    ;Ende der Prozedur
 

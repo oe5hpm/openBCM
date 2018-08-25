@@ -1,0 +1,768 @@
+\\ALTER
+Timto prikazem  je mozno nastavovat parametry  pro vlastni potrebu, prikazy
+se pisi do jedne radky
+
+Prikaz            Vysvetlivka                                   Priklad
+---------------+-----------------------------------------------+----------
+ALTER          ukaze vlastni nastaveni                         A
+
+ALTER <call>   ukaze nastaveni <call>                          A OK1XYZ
+
+ALTER DEFAULT  prepise vsechny  nastavene parametry na sys-
+               temove prednastaveni. Vsechna vlastni nasta-
+               veni se tim zrusi.                              A DEF
+
+ALTER LINES <#>
+               nastaveni poctu radku,ktere jsou nastaveny na
+               RX-monitoru  uzivatele. Ma-li text vice radek,
+               nez je udany pocet, objevi se na konci posled-
+               ni radky vyzva k pokracovani.
+               Viz tez HELP STOP.                              A L 20
+
+ALTER LF <#>   pridani prazdnych radku mezi jednotlivymi
+               oznamenimi boxu, napriklad pred promptem.
+               Zabira vsak vic mista na obrazovce.             A LF 0
+
+ALTER HELP <#> nastavi stupen  podrobnosti  HELPu. Novi uzi-
+               vatele  maji  automaticky nastaven stupen 2,
+               se vsemi pomocnymi texty. Experti nastavuji 0,
+               menu se tim vypne. Pri nastaveni = 1 zustane
+               jen menu, vsechny dalsi pomocne texty vypnuty.  A H 0
+
+ALTER COMMAND  prikazuje systemu, aby pri dalsim spojeni do
+ <prikaz>      boxu provedl zadany prikaz. Mozno zadat i vice
+               prikazu, oddelenych carkou. Default je 'A C D'
+               (obsah vlastniho boxu).                         A C D,D N
+
+ALTER FORWARD  posila obsah vlastniho boxu na zadanou adresu
+ <adresa>      Aktualni adresa viz DIR PATH, podrobnejsi info
+               pomoci HELP FORWARD. Prikaz podobny jako MYBBS.
+                                                               A F OK0PPL.TCH.EU
+                                                               A F OK0PPL
+
+ALTER NAME     oznami boxu jmeno                               A N Vlada
+ <jmeno>
+
+ALTER PROMPT   nastavi prompt boxu. Mozno zadavat i MAKRA      A P (%b)-->
+ <retezec>
+
+ALTER REJECT   mozno zadat seznam bulletinu, ktere se neobje-
+ <adresar>     vi po zadani DIR NEWS a CHECK. Tim se 'odstrani'
+               rubriky, o ktere nemame zajem. Pokud se zada
+               hlavni adresar, pak se neobjevi po DIR NEWS ani
+               podadresare. Pri CHECK se neobjevi explicitne
+               vyloucene adresare, ale jejich podadresare ano.
+               Pridanim -R na zacatku se necha tato selekce
+               obejit, takze se vypisi JEN zadane adresare
+               (napr. A R -R DXNEWS SATELLIT                   A R IBM C64
+
+ALTER SPEECH   Nastavuje jazyk, kterym hovori system s uzivate-
+<prefix>       lem. Seznam moznosti pomoci A L. Pri prvnim vstu-
+               pu do boxu se automaticky nastav¡ jazyk podle
+               prefixu uzivatele.                              A S OK
+
+ALTER IDIR     nastavuje options pro DIR u INFO adresaru
+ <opt>                                                         A ID
+ALTER UDIR     nastavuje options pro DIR u USER zprav
+ <opt>                                                         A UD
+ALTER ILIST    nastavuje options pro LIST u INFO adresaru
+ <opt>                                                         A IL
+ALTER ULIST    nastavuje options pro LIST u USER zprav
+ <opt>                                                         A UL
+ALTER IREAD    nastavuje options pro READ u INFO adresaru
+ <opt>                                                         A IR
+ALTER UREAD    nastavuje options pro READ u USER zprav
+ <opt>                                                         A UR
+ALTER CHECK    nastavuje options pro prikaz CHECK
+ <opt>                                                         A CH
+
+Kazda option se zadava jednim pismenem. Pokud je zadano, option se nastavi,
+pokud  chybi,  option  neni  nastavena.  Options  mohou  byt nastaveny nebo
+smazany zadanim '+' nebo '-', napr.  A ID G+.
+Viz tez HELP OPTION.
+Vsechny  tyto options  mozno zadat  v aktualni  radce. Pak  je tento prikaz
+nadrazen  predchozimu nastaveni  pomoci ALTER.  Nezalezi na  tom, piseme-li
+malymi nebo velkymi pismeny.
+\\AKTUELL
+Timto prikazem mohou byt vyvolany  aktualni informace zadane SysOpem. Pokud
+se  obsah AKTUELL  zmenil od   predchoziho vstupu  do boxu,  automaticky se
+objevi pri novem vstupu do boxu.
+\\BAYCOM
+Baycom je AX.25 software, ktery existuje od unora 1990 a jehoz autory jsou:
+DG3RBU - hardware, dokumentace, test
+DL8MBT - software
+Sestava se z terminalu pro konecneho uzivatele, nodove casti a software pro
+digipeater.
+Nodovy software  bezi na IBM-PC kompatibilnich  pocitacich se specialni SCC
+kartou.
+V soucasne dobe  je mozno provozovat az  8 linek s max.  19200 Bd na kazde,
+ale je mozne i bezproblemove  rozsireni. BayCom-Node bezi zcela rezidentne,
+takze na stejnem pocitaci lze provozovat i box.
+V zasade je mozno sledovat 3 hlavni vlastnosti:
+- vypada podobne jako TheNet (uzivatelska cast)
+- na pasmu se chova podobne jako FlexNet (digipeating, router)
+- uvnitr nema s obema uvedenymi systemy nic spolecneho
+'Via'  - je  mozny digipeating  s oddelenim  potvrzovaci cesty.  Autorouter
+dosazuje chybejici znacky digipeateru, takze  se musi zadat jen nejnutnejsi
+cesty. Chovani v teto oblasti je podobne jako u FlexNetu 3.1.
+Cesty k  cili (terminals) se vybiraji  z MH seznamu, ve  kterem je uchovano
+poslednich 2047 znacek a tim  je umoznena rekonstrukce cesty. Neuchovava se
+ale kompletni cesta, nybrz jen vstupni digi.
+Pro provoz u konecneho uzivatele existuje rezidentni LAYER-2, ktery prebira
+funkce  TNC.  Take  toto  muze  bezet  rezidentne.  Pri  potrebe  muze  byt
+nastartovan jen terminal, ktery nabizi uzivateli vsechny potrebne funkce.
+\\BIDLIST
+<kriterium>    debugging prikaz, v praxi bez vyznamu, listuje v tabulce
+               interniho   ID  bulletinu.   Pritom  muze   byt  <kriteriem>
+               jakykoliv  fragment  BID  nebo  jmena  souboru.  V  BID jsou
+               uchovany  nazvy  zprav,  aby   pri  mazani  zprav  na  dalku
+               nedochazelo  k  zbytecnemu  prohledavani,  napr.  BID OK0PPL
+               prohledava BID vsech zprav, ktere jsou zadany v OK0PPL.
+\\BOARD
+V helpu pouzivame slovo adresar.
+Zpravidla  je  v  adresari  vice  zprav,  ktere  se tykaji urciteho tematu.
+Rozlisujeme:
+User adresare: soukroma  postovni schranka  uzivatele, zde  ulozene zpravy
+               smeji byt  smazany pouze odesilatelem  nebo adresatem
+               (tzv. privatni zpravy)
+Bulletin adr.: verejna  postovni schranka  se zpravami  , ktere  mohou byt
+               cteny kymkoliv, ale mazany  jen odesilatelem. Zpravy v tomto
+               adresari se jmenuji bulletiny.
+
+Kazdy  adresar ma  sve jmeno,  ktere je  nutno zadat  pro komunikaci s nim.
+U USER adresare  je to volaci znacka  uzivatele, u BULLETIN adresare  je to
+nejake typicke oznaceni, ktere se vztahuje k tematu obsahu adresare
+ (napr. DX, Satelit, C64...)
+Zpravy  v kazdem  adresari jsou   cislovany. Nejstarsi  zprava ma  cislo 1.
+Prikazem DIR, popr. LIST se prohlizi obsah adresare.
+Adresar  muze mit  dalsi podadresare.  Tedy je  mozne, aby  adresar C64 byl
+zaroven podadresarem rubriky COMPUTER.
+Kazdemu  adresari  zadava  mailbox-Sysop  urcitou  dobu  zivotnosti,  ktera
+urcuje, po jakou dobu zprava v adresari zustane, nez je automaticky smazana.
+Jmeno  adresare je  soucasti mnoha  prikazu, napr.  DIR, LIST, READ, ERASE,
+CHECK.
+BayComBox  se hlasi  vzdy jmenem  posledne uzivatelem  vyvolaneho adresare,
+dokud neni zadan adresar jiny. To  je umozneno zadanim nazvu adresare primo
+s prikazem, nebo pomoci CD.
+\\BULLETIN
+Bulletin   je   zprava,   kterou   mohou   cist   vsichni   uzivatele  boxu
+(verejna zprava). Mazat ji vsak muze jen ten, kdo ji do boxu zadal a SysOp.
+Podle  tematu,  ke  kteremu  patri  bulletin,  se  zarazuje do jednotlivych
+tematickych  rubrik. Odtamtud  se po  uplynuti doby  zivotnosti automaticky
+vymaze. Pri odesilani bulletinu by mely byt pouzity prislusne adresy (nazvy
+rubrik, oblast, kam ma byt zprava zaslana, viz tez ROZDELENI.
+Vedle  bulletinu existuji  i zpravy  pro urcite  uzivatele (osobni zpravy).
+Mohou  byt  mazany  odesilatelem  i  adresatem  a  take  maji  urcitou dobu
+zivotnosti.
+\\CHECK
+Check <rozsah> <oznaceni>
+Prikaz CHECK listuje vsemi zpravami  bulletinu, v poradi jejich prichodu do
+boxu.
+Zpravy  jsou  trideny  dle  datumu,  nejmladsim  datem pocinaje. Pri zadani
+rozsahu   se  objevi   jen   zpravy,   ktere  tomuto   rozsahu  odpovidaji.
+Napr. CHECK 5 ukaze jen 5 nejnovejsich zprav.
+Pokud se pouzije CHECK bez jakekoli dalsi specifikace, jsou prohledany jen
+ty bulletiny, ktere byly specifikovany  pri poslednim zadani prikazu CHECK.
+Pokud se zada  '<', po dalsim prazdnem znaku je  mozno zadat retezec, podle
+ktereho jsou  prohledavany radky, ktere tento  retezec obsahuji, tedy napr.
+volaci znacku nebo jakykoliv jiny text. Znak '<' je mozno vypustit.
+Nezalezi  na tom,  zda pouzijeme  velka nebo  mala pismena.  Misto CHECK je
+mozne pouzit tez prikaz DIR NEWS nebo DIR MESSAGES.
+Priklady pouziti prikazu:
+C                ukaze nove zpravy od posledniho vstupu do boxu
+C 10 nebo C 1-10 ukaze 10 nejnovejsich zprav
+C 1- OK1XYZ      ukaze vsechny zpravy, ktere pochazeji od OK1XYZ
+C 2-30 OK1XYZ    ukaze 2. - 30. zpravu od OK1XYZ
+C TS140S         ukaze vsechny zpravy, ktere maji v nazvu slovo TS140S
+\\CD
+CD <adresar>
+Meni aktualni adresar (objevuje se v promptu).
+\\CONVERS
+Jako TALK, viz HELP TALK
+\\DIR
+Ukaze obsah adresare. Moznosti pouziti:
+DIR
+               listuje aktualnim adresarem, mozno
+               pouzit i LIST.                                  DIR
+DIR <adresar>
+               listuje  v zadanem  adresari. Adresar  muze
+               byt uzivatelsky, pak je jmenem adresare volaci
+               znak uzivatele, nebo bulletin.
+               Viz tez BULLETIN a BOARD.                       D BAYCOM
+DIR <adresar> <rozsah>
+               listuje adresarem v zadanem rozsahu.
+               Viz tez HELP ROZSAH.
+               Pozor:
+               D SOFTWARE -12 vyhleda 12 nejnovejsich zprav.   D BAYCOM 1-5
+DIR <adresar> <retezec>
+               listuje nazvy zprav, ve kterych je obsazen
+               zadany retezec                                  D IBM 7plus
+DIR MESSAGES   listuje vsemi zpravami vsech bulletinu
+               (je jich mnoho!)                                D M
+DIR MESSAGES <text>
+               listuje zpravami vsech bulletinu, ktere obsa-
+               huji zadany text. Nerozhoduje, je-li psano
+               velkymi nebo malymi pismeny.                    D M TS140S
+DIR SENT       Vypise zpravy, ve kterych se vyskytuje vlastni
+               volaci znak, tedy i ty, ktere jsme sami napsali   D S
+DIR AFTER <datum>
+               jako DIR MESSAGES, ale jsou listovany pouze
+               zpravy, ktere do boxu prisly od zadaneho data.
+               Zadani mesice a roku se muze vynechat, pak je
+               akceptovan momentalni mesic.                    D A 21.10.
+DIR NEWS       jako DIR MESSAGES, s tim rozdilem, ze jsou
+               vylistovany vsechny zpravy, ktere prisly do boxu
+               od posledniho zadani DIR NEWS                   D N
+DIR BOARDS     vypise vsechny adresare, ktere jsou momentalne
+               v boxu zavedeny. Rozlisuje se mezi hlavnimi
+               adresari a podadresari. Tridi se podle hlavnich
+               adresaru (hierarchicky system)                  D B
+DIR BOARDS <jmeno>
+               vypise vsechny adresare, ve kterych se vyskytuje
+               zadane jmeno. Lze zadat take jen cast jmena
+               adresare. V tomto modu jsou uvedeny i pocty zprav
+               v danych adresarich a doba jejich zivotnosti.
+               Takovy seznam pro vsechny adresare
+               se zada: D B *.                                 D B SOFTWARE
+DIR USERS      vypise vsechny uzivatelske adresare, ktere obsahuji
+               zpravy, vcetne zprav vymazanych toho dne.       D U
+DIR USERS ALL [<znacka>]
+               listuje seznamem vsech znamych uzivatelu
+               (muze jich byt velmi mnoho!). Muze byt zadana
+               i jen cast volaci znacky, pak se objevi jen ty
+               zaznamy, ktere tuto cast obsahuji.              D U A OK2
+DIR USERS LOCAL [<znacka>]
+               vypise vsechny uzivatele, kteri alespon jednou
+               v boxu byli. Jinak stejne jako u  D U A.        D U L
+DIR USERS MSG [<text>]
+               listuje vsemi uzivatelskymi adresari, ktere
+               obsahuji zadany text                            D U M
+DIR PATHS
+               vypise momentalne nastavene cesty pro forward
+               a oblasti.
+               D P <znacka> ukaze jen ten urcity zaznam.                  D P
+Options lze nastavit i predbezne, stejne jako je mozno je zada-
+vat zaroven s prikazem. Viz tez HELP ALTER a HELP OPTION. Zadani
+option pomoci '-', vypnuti dalsim '-' na konci prikazu. Napr.:
+D -G            vypise zpravy, ktere jeste nebyly cteny
+D -L-           nevypisuje dobu zivotnosti
+Velka / mala pismena nerozhoduji.
+\\ERASE
+ERASE <adresar> <rozsah>
+vymaze rozsahem vymezene zpravy v adresari. Priklady:
+E OK1XYZ 3-4
+E 1
+Dovoleno je mazat poze zpravy, ktere napsal uzivatel nebo jejich prijemce.
+\\FORWARD
+FORWARD <adresar> <rozsah> [@] <cil>
+posila  rozsahem  vymezene  zpravy  do  jineho  boxu  nebo do jine rubriky.
+Uzivatel musi mit  povoleny pristup ke zprave, tedy zprava  musi byt od nej
+nebo pro nej. Priklady:
+F info 5 ok
+F ok1xyz
+Vseobecne poznamky k forwardovani:
+Zpravy mohou  byt posilanu do  ostatnich boxu podle  obsahu, smyslu, ucelu,
+atd.  Osobni zpravy  jsou po  odeslani do  jineho boxu  vymazany, bulletiny
+zustavaji v boxu a je mozne s nimi dale pracovat.
+U osobnich zprav musi byt zadana adresa jedineho boxu, kam urcena zprava ma
+dojit. Tento  box musi byt jednoznacne  rozpoznatelny, tedy cim vzdalenejsi
+box,  tim presnejsi  musi byt  oznaceni ciloveho  boxu. Vseobecne plati, ze
+zpravy do ciziny musi  obsahovat PLNOHODNOTNOU hierarchickou adresu. Zadani
+takove adresy:
+     DB0AAB.BAY.DEU.EU
+                    ^ kontinent (zde Evropa)
+                ^ stat, zde Nemecko
+            ^ eventualni blizsi oznaceni, zde Bavorsko
+     ^ volaci znacka boxu
+Oznaceni kontinentu:
+AF   - Afrika       AS  - Asie          AU  - Australie       EU  - Evropa
+MDLE - MiddleEast   NA  - Sev. Amerika  SA  - Jizni Amerika
+Oznaceni zemi jsou napr.:
+AUT = Rakousko      CHE = Svycarsko    BEL = Belgie    DEU = Nemecko
+DNK = Dansko        FIN = Finsko       FRA = Francie   HUN = Madarsko
+ITA = Italie        NLD = Holandsko    SWE = Svedsko   SLO = Slovinsko
+TCH = Ceska republika
+U bulletinu  musi  byt  zadana  zemepisna  oblast,  do  ktere ma byt zprava
+odeslana.
+POZOR: zpravy  urcene k odeslani do  ciziny musi byt napsany  v anglictine,
+nebo v jazyce zeme, kde se naleza cilovy box.
+Zemepisne oblasti jsou napriklad:
+BAY = Bavorsko     DL = Nemecko           OEDL/DLOE = Nemecko + Rakousko
+EU  = Evropa       WW/ALL = do celeho sveta    VSEM = ceske boxy
+Adresovani osobnich zprav a bulletinu je rozdilne, nema byt zamenovano.
+\\HELP
+Prikaz--------------Popis---------------------------------------Priklad
+
+ALTER <parametr>    parametr ukazat/nastavit                  A F OK0PPL
+DIR <adresar>       obsah boxu                                D OK1XYZ 1-5
+DIR ...             ma mnoho moznosti, viz HELP DIR
+CHECK <rozsah>      listuje zpravami, ktere pribyly od posled-
+                    niho zadani tohoto prikazu                C 1-20
+ERASE <adresar>     zrusi zpravy                              E OK1XYZ 5
+         <rozsah>
+FORWARD <msg> <box> posle zpravu do zadaneho boxu          F OK1FYL 5 DB0RGB
+HEADER <msg>        vypise udaje o zprave                     K OK1XYZ 1-
+LIST ...            podobne jako DIR                          L OK1XYZ 5-10
+LOG <znacka>        vytah z logu                              LOG OK1XYZ
+                                                              LOG 24.03.1993
+PATH <adresa>       ukaze cestu k adrese forwardu             P DB0RGB
+PARAMETER <adresa>  ukaze systemove nastaveni boxu            PAR
+PURGE               nevratne smaze zpravu                     PU
+QUIT                odchod ze systemu                         Q nebo disconn.
+READ <msg>          cteni zprav                               R OK1XYZ 2-4
+REPLY               odpoved na prectenou zpravu               REP
+SEND <znacka>       zaslani zpravy
+ <nazev zpravy>                                               S OK1XYZ ahoj
+SETLIFE <msg>       zmena doby zivotnosti zpravy
+ <pocet dnu>                                                SETL OK1XYZ 1 365
+TALK <znacka>       zprava stanici pritomne v boxu
+ <sdeleni>                                                T OK1XYZ zdravim te
+TRANSFER <msg>      kopirovani zpravy
+ <adresar>                                                TR OK1XYZ 5 OK1FYL
+UNERASE <msg>       vymazana zprava jde precist               UN OK1XYZ 2
+USERS               vypise prave napojene stanice             U
+VERSION             vypise verzi programu                     V
+Presnejsi informace pomoci HELP <prikaz>, napr. HELP DIR....
+Prehled vsech helpu pomoci HELP INDEX, cely help - HELP ALL
+\\HEADER
+Header <adresar> <rozsah>
+vypise  vsechna  dostupna  data  tykajici  se  adresare.  Syntax  je shodna
+s prikazem  READ,  ale  jsou  vypsany  vsechny  nazvy adresaru nezavisle na
+nastavenych parametrech pri READ.
+S option '-h' se vypise i cela cesta pres vsechny mailboxy.
+\\HESLO
+viz PASSWORD
+\\HVERSION
+? 1.42 1999-11-28
+\\INFO
+Vypise informacni text o mailboxu.
+\\KOPF
+Viz HEADER.
+\\LIST
+LIST <adresar> <rozsah>
+vypise obsah rubriky nebo obsah soukromeho adresare (nikoliv obsah zprav).
+Rozdil mezi DIR a LIST je v tom, ze plati jine standardni nastaveni prikazu.
+Viz tez HELP OPTION. Prikaz je podobny prikazu LIST v DieBox software.
+Jsou  vypsany  pouze  zpravy  od  posledniho  vstupu  (a vzstupu pomoci Q).
+Nastaveni je mozno menit pomoci prikazu ALTER (viz HELP ALTER).
+Priklad:
+L OK1XYZ 1-     listuje vsechny zpravy pro OK1XYZ
+l baycom -10    listuje nejnovejsich 10 zprav v rubrice BayCom
+\\LIFETIME
+Delka zivotnosti  zpravy v boxu. Je  to casovy udaj v  dnech po vlozeni, po
+kterem se zpravy nachazejici se  v prislusnem adresari automaticky vymazou.
+Pro bulletin  zadava mailbox-SysOp, pro  user adresare existuje  standardni
+nastaveni, ktere si muze uzivatel menit sam.
+\\LOG
+LOG [-options] [<datum>] [<znacka>]
+Vypisuje se jen 20 nejnovejsich spojeni, zada-li se jen LOG.
+Je mozno pouzit nasledujici options:
+ -f      vypise tez vstupy forwardovych spojeni (standard je OFF)
+ -s      vypise JEN vstupy SysOpa
+ -w      prohledava o tyden pozpatku (7 dni)
+ -m      prohledava o mesic pozpatku (30 dni)
+ -q      prohledava o ctvrtleti pozpatku (90 dni)
+ -y      prohledava o rok nazpet
+         Pozor! m, q, y  trvaji vecnost!
+ -c      vypise jen pocet spojeni v zadanem casovem obdobi
+ -a      vypise VSECHNY nalezene vstupy
+
+Kombinace options je mozna. Priklady:
+
+LOG <znacka>          vypise dnesni LOG pro zadanou znacku    LOG OK1XYZ
+LOG <datum> <znacka>  vypise LOG dle zadaneho data a znacky   LOG 27. OK1XYZ
+LOG <datum>           vypise LOG pro zadany den               LOG 24.03.93
+LOG -Y OK1XYZ         prohleda poslednich 20 zalogovani v poslednim roce
+LOG -WS 1.10          prohleda vstupy SysOpa v tydnu pred 1. 10.
+LOG -CMF              vypise pocet napojeni za posledni mesic
+Vystupni format:
+Logauszug (max. 20)  24. 3. 93
+Call   Datum    Start Ende  TxBytes RxBytes CPUsec F TXFi RXFi
+OK1IVJ 24.03.93 08:24-08:27   1059       6   0.49      0    0 via OK0PHL
+OK1FYL 24.03.93 08:33-08:49   3936      36   2.47  Q   1    0 via OK0PAB
+OK1DDR 24.03.93 09:13-09:14    888      24   0.16  S   0    0 via OK0PRG
+OK0PRG 24.03.93 08:25-08:31  28647    3240   1.41  F   4    2 via OK0PHL
+46 Eintraege gefunden
+
+TxBytes:    pocet vyslanych Bytes na box nebo uzivatele
+RxBytes:    uzivatelem prijate Byty
+CPUsec:     spotrebovany strojovy cas
+F:          navesti (S = SysOp, Q = vystup pomoci QUIT,
+            F = forwardove spojeni)
+TXFi:       pocet zprav prectenych v boxu (box vysilal)
+RXFi:       pocet zprav zapsanych do boxu (box prijimal)
+\\MSG
+MSG <znacka> <zprava>
+posila zpravu k jinemu napojenemu uzivateli. Viz tez HELP TALK.
+\\MAKRO
+Makro je zkratka, kterou je mozno vestavet  do promptu a ktery se objevi po
+kazdem promptu odeslanem z boxu, da se jim nastavit nejaka informace.
+Nasledujici makra mozno vestavet do promptu (a CTEXT/CNEW/INFO):
+ %v  cislo verze software
+ %t  momentalni cas
+ %d  momentalni datum
+ %i  cas napojeni do boxu
+ %c  znacka napojeneho uzivatele
+ %m  znacka mailboxu
+ %n  jmeno uzivatele
+ %o  pocet napojenych stanic
+ %l  datum a cas posledniho napojeni
+ %h  uroven nastaveni helpu uzivatele
+ %b  momentalne aktivni adresar
+ %r  preruseni na konci radku (return)
+ %p  spotrebovany strojovy cas od napojeni
+ Priklad:  a pr (%b) %c de %m
+            (BAYCOM) OK1XYZ de OK0PPL
+\\MEM
+MEM      debugging prikaz, v praxi bez vyznamu
+Ukazuje momentalni zaplneni pameti. Pritom se vypise:
+ - bezne cislo pametoveho bloku
+ - velikost v Bytech (mozno max. 64k)
+ - adresa (segment paragraf)
+ - prislusne cislo tasku (viz PS), nebo -1, pokud se vyvolani neuskutecnilo
+   v ramci tasku
+ - ucel vyuziti
+\\MYBBS
+nastavuje 'matersky' mailbox.
+Tento prikaz je identicky k ALTER FORWARD <box>.
+Blizsi informace k forwardingu viz HELP FORWARD.
+\\OPTION
+Jsou mozne nasledujici options u prikazu READ, LIST a DIR (viz HELP ALTER):
+ A   vypsat odesilatele
+ B   vypsat pocet bytu
+ C   pokracovani bez preruseni
+ D   vypsat datum
+ E   vypsat prijemce (resp. adresar)
+ F   vypsat vychozi box
+ G   nevypisovat prectene zpravy
+ H   READ:  vypsat R:-haeader (vylucuje P)
+     LIST/DIR: NEvypsat nazev adresare
+ I   vypsat BID
+ J   nadpisy podobne DieBoxu
+ K   zavorka, resp. R za cislem zpravy
+ L   vypsat dobu zivotnosti
+ M   vypsat cilovou adresu (hierarchicky)
+ N   otazka 'Vymazat zpravu?' po cteni (jen READ)
+ O   vypsat cilovou adresu (jen zakladni casti adresy)
+ P   vypsat boxy, jimiz zprava cestou prosla (jen READ)
+ Q   vypsat zpravy (bez zadani rozsahu) jen od posledniho QUITu (LIST/DIR)
+ R   vypsat znacky, ktere cetly zpravu (jen READ)
+ S   vypsat podadresare (LIST/DIR)
+ T   vypsat cas
+ U   vypsat radku uplink (jen READ)
+ V   vypsat vymazane zpravy (viz UNERASE)
+ W   vypsat nadpis zpravy
+ X   poslat prazdnou radku pred nadpisem  (LIST)
+ Y   vypsat v datumu i rok
+ Z   vypsat pocet radek
+\\PATH
+PATH <adresa>
+udava  smer odesilani  pri forwardingu.  Obvykle jsou  to sousedni boxy, ke
+kterym se  adresa zadava. Plati  to vsak i  pro konkretni adresy  boxu (pro
+user zpravy i pro bulletiny)
+Priklady:
+P OK0PHL
+P all
+p dl3rdv.bay.deu.eu
+\\PARAMETER
+PARAMETER <retezec>
+Vypise momentalni nastaveni boxu. Bez parametru se objevi cely konfiguracni
+soubor. Blizsi informace v sysop dokumentaci k boxu. Pomoci <retezce> muze byt
+vyhledan specificky parametr konfiguracniho souboru. Pristup muze byt jakkoliv
+zkracen, pri nejednoznacnosti se objevi vsechny tomu odpovidajici moznosti.
+Priklad:
+par run    vypise vsechny externi programy, vyuzitelne uzivatelem boxu
+\\PASSWORD
+Pomoci A PW <retezec>
+je  mozne  si  zadat  vlastni  password  (heslo),  aby nebylo mozne zneuzit
+znacku. Maximalni delka je 39 znaku. Po zalogovani prijde misto CTEXTu znak
+boxu a 5 cislic, oznacujicich poradi pismen hesla - napr. :
+OK0PPL> 2 4 34 22 1
+Misto  cisla je  dosazeno prislusne  pismeno z  password retezce.  Spravnou
+odpoved lze zaradit na jakekoliv misto do rady max. dalsich 45 znaku. Pokud
+je  tedy spravna  odpoved 'abcde',  pak je  mozno odpovedet  treba i takto:
+'odneufgiedooabcdeookoprekf' a odpoved je akceptovana jako spravna.
+Vypnuti pomoci A PW (bez parametru). Znovu aktivovat heslo vsak muze jen
+sysop.
+\\PURGE
+Pokud je  zrusena zprava pomoci  ERASE, pak je  jako zrusena oznacena,  ale
+neni  tomu  tak  skutecne.  Prikaz  PURGE  odstrani  tyto  zpravy doopravdy
+z disku.  Vzhledem  k  tomu  se  meni  cisla  zprav  az po provedeni tohoto
+prikazu. Po zadani PURGE jiz neni mozny prikaz UNERASE.
+\\PS
+PS         debugging prikaz, v praxi bez vyznamu
+Process status. Listovani vsemi momentalne bezicimi procesy. Kazdy napojeny
+uzivatel a  kazde aktivni okno  obrazovky obdrzi jeden  proces. Mimoto bezi
+tez procesy v pozadi, ktere prebiraji systemove rizeni.
+Options pri PS:
+ -a  ukaze time event a typ procesu
+ -b  ukaze take procesy v pozadi
+ -s  ukaze obsazeni stacku a casovou prodlevu
+Vsechny informace najednou:  ps -abs
+Standardne se vypisuji jen procesy aktivnich zprav.
+Priklad:  ps -abs
+ Task  Event  Kdeb  CPUt  Create  Input  Name       Command
+    0  40      210  0.1     71m          Desktop
+    1  251     210  0.3     71m          Console
+    2  242     210  23s     71m          Monitor
+    3  246     000  28s     71m          Monitor
+    4  kbhit   711  0.7     71m          BayCom-M
+    5  514     000  0.3     71m          forwardd
+    6  235     101  3.9     18m   26s    OK1XYZ     l ibm
+*   7  235     101  81s     71m    0s    OK1IVJ     ps -abs
+    8  txf     101  9.2     54m   40m    OK1FYL     r okbox 1-2
+    9  235     101  8.5     26m    5m    OK1DDR     r CONTEST 1
+   12  txf     101  31s     69m  139s    OK2ZZ      r gp 218-
+   13  242     101  0.8     11m   35s    DL3RDV     rep
+Wait:  0  13  9  3  2  1  6  5  12  8  4
+Stack: 272 174 446 870 790 530 1108 1080 1158 1720 1204 1720
+
+Task:      Cislo tasku. Pomoci '*' je oznacen vlastni proces.
+Event:     Udalost, na kterou ceka proces. Vyznam je interni.
+Kdeb:      Typ procesu. Kd: Pole bitu. e: Okno obrazovky. b: mailbox
+CPUt:      Strojovy cas od pocatku procesu
+Create:    Doba, po jakou existuje proces
+Input:     Doba, kdy prisel prikaz od uzivatele
+Name:      Jmeno procesu nebo znacka operatora
+Command:   Posledne zadany prikaz
+Wait:      Poradi vsech procesu v cekaci fronte
+Stack:     Maximalne dosazene hodnoty stacku vsech procesu
+
+Nasledujici procesy bezi permanentne nebo cyklicky:
+Desktop    Hlavni obrazovka. Je to pradedecek vsech bezicich procesu.
+Console    Male okenko, ve kterem se objevuji vsechna systemova hlaseni.
+           Hlaseni  o  systemovych  chybach  jsou  nasledne  zapisovana do
+           souboru SYSLOG.BCM.
+Monitor    Okno, v kterem se zobrazuje provoz.
+BayCom     Okno, ve kterem je nalogovan sysop na obrazovce.
+  -Mail
+login      Tento proces se cyklicky pta vsech TNC kanalu a zjistuje, zda
+           prisel  novy  login  nebo  zda  skoncilo  bezne  spojeni. Zde se
+           vytvareji vsechny mailbox-tasky.
+forwardd   Zde  je  cyklicky  zjistovano,   zda  se  tu  nachazeji  soubory
+           k forwardu a pokud ano, zda  souhlasi denni doba s nastavenim ve
+           forward-souboru.
+           Krome toho  je zde ve  4 hodiny v  noci startovan PURGE.  Kazdou
+           pulhodinu se zapisuji soubory BULLETIN.BCM a INIT.BCM na disk.
+purge      Vsechno  znici.  System  souboru   je  prohledavan,  zda  se  tu
+           vyskytuji soubory s proslou dobou nebo vymazane soubory. Vsechny
+           tyto soubory jsou pak skutecne vymazany.
+\\QUIT
+Zruseni spojeni k mailboxu
+\\READ
+READ [<options>] [<adresar>] [<rozsah>]
+Cte  vlastni zpravy  nebo zpravy  z bulletinu.  Pokud nezadame  adresar, je
+pouzit ten prave aktualni. Pritom mohou byt zadany nasledujici options:
+-A    vypsat odesilatele
+-E    vypsat prijemce (nebo adresar)
+-D    vypsat datum
+-Y    vypsat datum + rok
+-T    vypsat cas
+-B    vypsat pocet bytu
+-Z    vypsat pocet radek
+-L    vypsat cas zivotnosti
+-F    vypsat vychozi box
+-M    vypsat celou adresu
+-P    vypsat zkracene celou cestu, kudy zprava prosla
+-H    vypsat R:- vypsat hlavicku (header) v cele delce
+-R    vypsat znacky ktere cetly zpravu
+-U    vypsat uplink radku
+-I    vypsat BID
+-W    vypsat tema, ceho se zprava tyka
+-N    zeptat se po precteni zpravy, zda ji zrusit ('Nachricht loeschen?')
+-C    vypis bez preruseni na konci obrazovky (viz ALTER LINES)
+Velka / mala pismena nerozhoduji.
+Prikaz ALTER UREAD <options>     u user souboru
+       ALTER IREAD <options>     u bulletin souboru
+prednastavuje vsechny  options (viz tez HELP  ALTER). Prednastaveni funguje
+s prikazem READ.
+Zadani  rozsahu znaci,  ktera cisla  zprav maji  byt vypsana.  Pokud rozsah
+nezadame, pak se vypise posledni (tedy nejnovejsi) zprava.
+Priklady:
+r -h ok1xyz 1-5
+dava prvnich  5 zprav pro ok1xyz  a listuje vsemi header  radky vsech boxu,
+jimiz zprava prosla.
+
+r -p- -f alle 200
+vyda zpravu  cislo 200 z rubriky  ALLE, NEvypisuje cestu, kudy  prosla, ale
+vypise vychozi box.
+\\REPLY
+Po precteni zpravy, ktera byla urcena  danemu uzivateli se da pomoci tohoto
+prikazu lehce na tuto zpravu  odpovedet. Pritom se prejmou vsechna nezbytna
+data do  zasilaneho souboru. Pak  se v nazvu  zpravy objevi 'RE:'  + nazev,
+jaky zadal uzivatel.
+\\ROZSAH
+Zadani rozsahu je mozne tam, kde muze  byt zvolen pocet zprav, napr. u DIR,
+LIST, READ a  ERASE. Zadani adresare musi predchazet  zadani rozsahu. Pokud
+chybi, pouzije se posledni aktualni  adresar. Rozsah vymezuje v adresari ty
+zpravy,  ktere odpovidaji  zadanemu rozsahu.  Zadany adresar  muze byt udan
+v promptu (viz tez HELP MAKRO).
+Vyber zprav  je urcen cislem zprav,  ktere jsou uvedeny u  prikazu DIR nebo
+LIST.
+Cislo je o to vyssi, oc je zprava novejsi, nejstarsi zprava ma tedy cislo 1.
+Rozsah muze byt zadan nasledovne:
+
+Zadani rozsahu        |      Vybrane zpravy
+---------------------------------------------------------------------------
+<zadne>               |      vsechny v aktualnim adresari
+5                     |      jen zprava c. 5
+-7                    |      poslednich 7 zprav (nejnovejsich 7)
+1-7                   |      prvnich 7 zprav v adresari
+3-                    |      vsechny zpravy od treti vyse
+2-5                   |      zpravy 2, 3, 4, 5
+
+Priklady:
+R satelit 1-4     cte zpravy 1-4 adresare 'satelit'
+L info -10        ukaze poslednich 10, tedy nejnovejsich zprav v adresari
+                  'info'
+E dx 4            vymaze 4. zpravu adresare 'dx'
+\\SEND
+SEND <adresar> [@<adresa>] [#<doba zivotnosti>] <nazev>
+Zadani zpravy do mailboxu.
+<adresar>     Volaci znacka, ktere je zprava urcena, nebo jmeno adresare,
+              ve  kterem  ma  byt  zprava  uchovana.  Prehled  moznych jmen
+              adresaru pomoci prikazu DIR BOARDS.
+<adresa>      Forwardovaci adresa pro zpravu. Pokud nema byt odesilana pryc
+              nebo  pokud  je  cilova  adresa  dotycne  znacky  znama, muze
+              odpadnout.
+              U osobnich zprav se zde  zadava volaci znacka boxu, ve kterem
+              je  adresat  dosazitelny.  Zejmena  u  zprav  adresovanych do
+              zahranici by  mela byt uvedena  kompletni hierarchicka adresa
+              (DB0AAB.DEU.EU nebo OE5XBL.AUT.EU). U bulletinu by misto toho
+              mel byt uveden rozdelovnik, podle ktereho  se zprava  odesila
+              pryc, napriklad DL nebo EU. Viz tez HELP FORWARD.
+<doba         Cas ve dnech, jak dlouho ma byt zprava uchovana. Tato doba je
+ zivotnosti>  sdelena take dalsim boxum, takze po teto dobe je zprava vsude
+              skutecne zrusena. U zprav, ktere jsou i bez toho zajimave jen
+              docasne, by  se tato doba mela  zasadne uvadet (napr. terminy
+              setkani, atd.).
+<nazev>       Zde pouzit kratke, ale vystizne upozorneni, o co se ve zprave
+              jedna.  Pouzijeme-li  jen   povsechne  nazvy,  napr.  'prosim
+              ctete', pak je skoro jiste, ze zpravu skoro nikdo nebude cist.
+Priklady:
+s ok1xyz prijdes dneska?
+s bazcom @ vsem #10 Nova verze hotova
+s dl3rdv @ db0rgb.bay.deu.eu Hallo
+\\STATUS
+Zkratka ST F. Data o budoucim forwardingu. Vypisi se pritom tyto informace:
+-znacka sousedniho boxu
+-Ok: 0  partner nezastizen pri poslednim pokusu
+     1  partner zastizen
+     2  prave je prijiman forward
+     3  prave se sestavuje spojeni k partnerskemu boxu
+     4  prave je vysilan forward
+-Login: casove obdobi, kdy byl naposled partner connectovan
+-ConOk: casove obdobi, kdy byl naposledy uspesny pokus o connect
+        (pokud u techto hodnot neni nic napsano, pak jeste nebylo spojeni)
+-User:  pocet uzivatelskych zprav, ktere zbyva odeslat
+-Info:  pocet zbylych bulletinu
+-E/M:   pocet ERASE/MYBBS informaci, ktere jeste zbyvaji
+\\SEITENSTOP
+Aby  zprava pres  obrazovku jen  neprobehla, lze  nastavit pocet  radek, po
+kterych  se ma  vysilani z  boxu docasne  zastavit. Nastaveni  pomoci ALTER
+LINES, zkratka 'A L <pocet>'. Pokud  tuto funkci nezadame, pak A L nastavit
+na 0. Pokud je nastaveno A L <>  0, pak se na konci posledniho radku objevi
+symbol '+?>'. Pak muzeme udelat nasledovne:
+RETURN:     zprava pokracuje dale
+C:          zprava pokracuje, ale jiz bez pauzy.
+S:          preruseni cteni, dalsi cteni po zadani prikazu READ
+Q nebo B:   ukonceni spojeni s mailboxem
+U prikazu DIR,  LIST, READ, CHECK se  da pomoci option '-C'  projit zpravou
+bez zastaveni.
+Pokud je ALTER  LINES nastaven na 0 nebo zastaveni  po kazde strane vypnuto
+pomoci -C,  pak je mozne prerusit  cinnost i pomoci stisknuti  RETURN, pred
+nimz  nesmi  byt  zadan  zadny  jiny  prikaz.  Lepsi je vlastne disconnect,
+protoze spojeni je zruseno ihned a box muze byt uvolnen pro dalsi spojeni.
+\\SEMAPHORES
+SEMAPHORES Debugging prikaz, jinak v praxi bez vyznamu.
+Vypise sezman souboru,  ktere jsou momentalne v pouziti.  Pritom je vypsano
+jmeno souboru a pocet pristupu, v zavislosti na jejich stavu:
+Rd      read              pristup je v dohledne dobe ukoncen
+LRd     long read         pristup muze trvat jakkoliv dlouho
+Ap      append
+LAp     long append
+Wr      write
+LWr     long write
+Protoze pri multiuser zpracovani se zapisovaci pristupy navzajem vylucuji,
+je v  zavislosti na dobe pristupu  vyvolany proces bud suspendovan  nebo je
+volani provedeno.
+\\SETLIFE
+SETLIFE <adresar> <rozsah> [#] <dny>
+Nastavuje  momentalni zivotnost  jedne nebo  vice zprav.  Pritom se  zadava
+pocet dni pocinaje dnem dnesnim. Tato doba muze byt menena jen odesilatelem
+nebo adresatem  zpravy (stejne jako ERASE).  Znak '#' muze, ale  nemusi byt
+zadan (kvuli kompatibilite s boxem DF3AV).
+Priklady:
+setl baycom 5-10 30
+setl ok1xyz 1- # 100
+\\TALK
+TALK <znacka> <zprava>
+posila jednoradkovou zpravu na jineho  uzivatele, ktery musi byt momentalne
+v boxu napojen.
+T <znacka>
+posila  vse, co  nasleduje, urcenemu  uzivateli. Vystoupeni  z tohoto  modu
+pomoci '/q'.
+T ALL <zprava>
+posila zpravu vsem napojenym stanicim
+Misto TALK mozno dle libosti pouzit prikazy MSG, WRITE, CONVERS.
+Poznamka:
+pro prenasene zpravy  je k dispozici jednoradkovy buffer.  Pri prilis mnoha
+radcich najednou muze tento buffer preteci a nasleduje odpovidajici hlaseni.
+V dalsich prepracovanich software dojde ke zmene.
+Priklady:
+t ok1xyz Ahoj Pepiku
+w all Box bude behem 5 minut vypnut!
+m ok1ivj
+\\TIME
+TIME nebo TI vypise lokalni cas.
+\\TRANSFER
+TRANSFER <adresar> <rozsah> [>] <cilovy adresar> [@<bbs>] [#<life>] [nazev]
+Presune  zpravu do  jine rubriky,  popr. k  jinemu uzivateli.  Mozno pritom
+zadat odpovidajici udaje (jako u  prikazu SEND), take novou dobu zivotnosti
+a/nebo novou forwardovaci adresu.
+U bulletinu  se stara  zprava smaze,  u uzivatelskych  zprav zustava  stara
+zprava  zachovana, nove  vytvorena zprava  dostane dodatek  'Transfer ...'.
+Zprava muze byt presunuta jen prijemcem nebo adresatem (jako u ERASE). Znak
+'>' muze, ale nemusi byt uveden.
+Pozor:  neni  mozne,  delat  TRANSFER  v  ramci  jednoho adresare. Ke zmene
+forwardovaci adresy  nutno pouzit prikaz FORWARD,  ke zmene doby zivotnosti
+prikaz SETLIFETIME.
+Priklady:
+TR baycom 5-6 software
+tr ok1xyz 1- > ok1fyl @ db0rgb
+\\USERS
+USERS  nebo U  ukaze, kdo  je napojen  do systemu.  Pritom je naznaceno, co
+prave dela:
+Idle    uzivatel nedela nic, jen zira na obrazovku
+Read    je ctena zprava z boxu
+Send    je posilana zprava do boxu
+Search  delsi hledani, tedy DIR, LIST nebo CHECK
+FwdTX   posilan forward do jineho boxu
+FwdRX   prijiman forward z jineho boxu
+You     ty sam
+Uzivatele, kteri jsou 'Idle', mohou byt osloveni pomoci TALK.
+U <znacka>
+ukaze nastavene parametry odpovidajiciho uzivatele ve zkracene forme.
+\\UNERASE
+UNERASE <adresar> <rozsah>
+'Zviditelnuje' vymazane zpravy. Jen 1x denne ve 4 hod rano se zpravy z boxu
+skutecne mazou. Jinak  zustanou i po vymazani pomoci ERASE  v boxu, a mohou
+byt  i cteny.  Pomoci LIST  -V  nebo  DIR -V  je mozno  vymazanymi zpravami
+i listovat. Pritom je ze cislem zpravy uveden duvod vymazani zpravy:
+E   - zruseno pomoci ERASE nebo po otazce 'Nachricht loeschen?'
+K   - zruseno SysOpem
+F   - zprava byla forwardovana a proto smazana
+L   - zprava byla zrusena dalkove (ERASE-FORWARDING)
+T   - zprava byla transferovana na jiny adresar
+Aby bylo takove zpravy mozno cist pomoci DIR/LIST, je treba pouzit prikaz
+UNERASE. Zadani rozshau stejne jako u DIR, READ, atd.
+Priklad:   un ok1xyz 1-     'zviditelni' opet vsechny zpravy pro ok1xyz
+\\VERSION
+vypise cislo verze, datum, a velikost volne pameti v pocitaci a na disku.
+Zadani 'Runtime' da cas ve dnech.hodinach:minutach, jak dlouho jiz software
+bezi bez preruseni.
+Zadani  'CPUindex'  zada  pribliznou  srovnavaci  hodnotu,  jak  rychly  je
+procesor  pocitace   provozujiciho  box.  Mereni  je   ale  velmi  nepresne
+a vysledek by proto nemel byt precenovan.
+\\WRITE
+jako TALK, viz HELP TALK.

@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="bcm32" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** NICHT BEARBEITEN **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=bcm32 - Win32 Release
-!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
-!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "bcm32.mak".
 !MESSAGE 
-!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
-!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "bcm32.mak" CFG="bcm32 - Win32 Release"
 !MESSAGE 
-!MESSAGE Für die Konfiguration stehen zur Auswahl:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "bcm32 - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
-!MESSAGE "bcm32 - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "bcm32 - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "bcm32 - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -37,7 +37,7 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "c:\bcm"
+# PROP Output_Dir ".\out-win32"
 # PROP Intermediate_Dir "c:\temp\release"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
@@ -64,7 +64,7 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "c:\bcm"
+# PROP Output_Dir ".\out-win32"
 # PROP Intermediate_Dir "c:\temp\debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""

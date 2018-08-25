@@ -72,18 +72,22 @@
 
 /*---------------------------------------------------------------------------*/
 
+#ifndef GITVERSION
+#if defined(_WIN32) || defined(__MSDOS__)
+ #include "gitver.h"
+#else
+ #warning "no GIT version available, using a dummy g????"
+ #define GITVERSION	"?????"
+#endif
+#endif
+
 #undef  VNUMMER
-#define VNUMMER         "1.07b12"
+#define VNUMMER         GITVERSION
 #define STD_BOXHEADER   "OpenBCM"
 #define LOGINSIGN       STD_BOXHEADER" V"VNUMMER" ("OPSYSTEM")"
-#ifdef __LINUX__
-    #define AUTHOR_ID   "(c) GNU GPL 1992-"YEAR" F. Radlherr, DL8MBT et al.\n" \
-                        "OpenBCM is maintained by Markus Baumann, DH8YMB\n" \
-                        "Sourcecode modified for GCC 4.x compilers by DG4MFN\n"
-#else
-    #define AUTHOR_ID   "(c) GNU GPL 1992-"YEAR" F. Radlherr, DL8MBT et al.\n" \
+#define AUTHOR_ID	"(c) GNU GPL 1992-"YEAR" F. Radlherr, DL8MBT et al.\n" \
                         "OpenBCM is maintained by Markus Baumann, DH8YMB\n"
-#endif
+
 #if ! defined _BCMNET || ! defined _BCMNET_FWD || ! defined _BCMNET_LOGIN
   #define CBMODEID      "(CB)"
   #define CBSUPPORT     "CB-Version, Support by DJJ812/DO1MJJ\n"
@@ -93,7 +97,7 @@
   #define CBSUPPORT     "CB-BCMNET Version, Support by AS1GBF/AT5HPK/HF1BKM\n"
   #define WEBSITE_CB    "http://www.afulinux.de/afulinux/cb-bcmnet"
 #endif
-#define WEBSITE         "http://dnx274.org/baybox"
+#define WEBSITE         "https://github.com/oe5hpm/openbcm"
 
 #ifdef __MSDOS__
   #ifdef __FLAT__
@@ -447,7 +451,7 @@
 #define DAY             86400L      // 60 * 60 * 24
 #define MAXAGE          2529000L    // 60 * 60 * 24 * 30 max. age of incomimg mybbs
 #ifdef _BCMNET
-  #define USERPROTECT   183L * DAY  // Zeitspanne für den Userschutz
+  #define USERPROTECT   183L * DAY  // Zeitspanne fuer den Userschutz
   #define BCMNETID      ".BCMNET"
 #endif
 
@@ -525,7 +529,7 @@ typedef struct user_t
   time_t   lastboxlogin;            //  4 letzter Login (UNIX)
   time_t   lastdirnews;             //  4 letztes DIR NEWS / Check (UNIX)
   time_t   lastquit;                //  4 letztes QUIT
-  time_t   lastload;                //  4 interner Merker für Verwaltung
+  time_t   lastload;                //  4 interner Merker fuer Verwaltung
   long     mailsent;                //  4 gesendete Nachrichten
   long     mailgot;                 //  4 erhaltene Nachrichten
   long     mailread;                //  4 gelesene Nachrichten
@@ -543,8 +547,8 @@ typedef struct user_t
                                     //    2..MD5
                                     //    100..disabled
   char     ttypw[9];                //  9 A TTYPW (TTY-Password)
-  short unsigned fdelay;            //  2 Verzoegerung für eigene Nachrichten
-  short unsigned fhold;             //  2 Verzoegerung für Nachrichten
+  short unsigned fdelay;            //  2 Verzoegerung fuer eigene Nachrichten
+  short unsigned fhold;             //  2 Verzoegerung fuer Nachrichten
   short unsigned status;            //  2 A STATUS (Bit-field)
                                     //    0..default
                                     //    1..no quota-limits
@@ -554,7 +558,7 @@ typedef struct user_t
   char     readlock;                //  1 Privatmails nicht lesbar
   char     rlimit;                  //  1 fremde Privatmails nicht lesbar
   char     pwline;                  //  1 Leerzeile beim Login
-  char     echo;                    //  1 Eigene Eingaben zurückschicken
+  char     echo;                    //  1 Eigene Eingaben zurueckschicken
   short unsigned paclen;            //  2 Packetlength
   char     dirformat;               //  1 Dir/Check/List in new format
   char     binmode;                 //  1 AutoBIN/YAPP/DIDADIT bei BIN-Mails
@@ -619,7 +623,7 @@ typedef struct userold_t
   char     charset;                 //  1 A CHARSET (nicht impl)
   time_t   mybbstime;               //  4 Datum des letzten MYBBS (UNIX)
   char     ttypw[9];                //  9 A TTYPW (TTY-Password)
-  time_t   lastload;                //  4 interner Merker für Verwaltung
+  time_t   lastload;                //  4 interner Merker fuer Verwaltung
   long unsigned  daybytes;          //  4 gelesene Bytes heute
   short unsigned status;            //  2 A STATUS (Bit-field)
                                     //    0..default
@@ -630,9 +634,9 @@ typedef struct userold_t
   char     uplink[CALLSSID+1];      // 10 uplink-Digi
   char     readlock;                //  1 Privatmails nicht lesbar (")
   char     pwline;                  //  1 Leerzeile beim Login
-  char     echo;                    //  1 Eigene Eingaben zurückschicken
-  short unsigned fdelay;            //  2 Verzoegerung für eigene Nachrichten
-  short unsigned fhold;             //  2 Verzoegerung für Nachrichten
+  char     echo;                    //  1 Eigene Eingaben zurueckschicken
+  short unsigned fdelay;            //  2 Verzoegerung fuer eigene Nachrichten
+  short unsigned fhold;             //  2 Verzoegerung fuer Nachrichten
   char     rlimit;                  //  1 fremde Privatmails nicht lesbar
   char     ufwd[40];                // 40 Connect-Path fuer User-forwarding
   char     loginpwtype;             //  1 Password-type for ax-login (DH3MB)
@@ -672,7 +676,7 @@ typedef struct userold_t
   time_t   lastdirnews;                 //  4 letztes DIR NEWS / Check (UNIX)
   time_t   lastquit;                    //  4 letztes QUIT
   time_t   mybbstime;                   //  4 Datum des letzten MYBBS (UNIX)
-  time_t   lastload;                    //  4 interner Merker für Verwaltung
+  time_t   lastload;                    //  4 interner Merker fuer Verwaltung
   long unsigned daybytes;               //  4 gelesene Bytes heute
   long     mailsent;                    //  4 gesendete Nachrichten
   long     mailgot;                     //  4 erhaltene Nachrichten
@@ -686,8 +690,8 @@ typedef struct userold_t
   short unsigned status;                //  2 A STATUS (Bit-Field)
   short unsigned filepos_old;           //  2 (obsolete)Position im Userfile
   short unsigned nextsamehash_old;      //  2 (obsolete)hash list link
-  short unsigned fdelay;                //  2 Verzoegerung für eigene Nachrichten
-  short unsigned fhold;                 //  2 Verzoegerung für Nachrichten
+  short unsigned fdelay;                //  2 Verzoegerung fuer eigene Nachrichten
+  short unsigned fhold;                 //  2 Verzoegerung fuer Nachrichten
   short unsigned paclen;                //  2 packet length
   short unsigned spare_short[19];       //
   char     call[CALLEN+1];              //  7 Rufzeichen des Users
@@ -706,7 +710,7 @@ typedef struct userold_t
   char     uplink[CALLSSID+1];          // 10 uplink-Digi
   char     readlock;                    //  1 Privatmails "nicht lesbar"
   char     pwline;                      //  1 Leerzeile beim Login
-  char     echo;                        //  1 Eigene Eingaben zurückschicken
+  char     echo;                        //  1 Eigene Eingaben zurueckschicken
   char     rlimit;                      //  1 fremde Privatmails nicht lesbar
   char     ufwd[40];                    // 40 Connect-Path fuer User-forwarding
   char     loginpwtype;                 //  1 Password-type for ax-login (DH3MB)
@@ -955,7 +959,7 @@ typedef struct
 typedef enum option_index_t
 //*************************************************************************
 //
-//  Index für das Feld mit den Optionen
+//  Index fuer das Feld mit den Optionen
 //
 //*************************************************************************
 { o_id=0,  // info-dir
@@ -1228,19 +1232,19 @@ typedef struct tvar_t : public task_t
   char     peerip[18];          // IP-Nummer
   char     mycall[CALLSSID+1];  // Connect-Rufzeichen ZUR Box
   int      semalock;            // Flag: File war gesperrt
-  char     bereich;             // Flag für Bereich wurde angegeben
+  char     bereich;             // Flag fuer Bereich wurde angegeben
   bitfeld  optplus;             // gesetzte Optionen der Kommandozeile
-  bitfeld  optminus;            // gelöschte Optionen
-  int      optgroup;            // Index für Option (vom Befehl abhängig)
+  bitfeld  optminus;            // geloeschte Optionen
+  int      optgroup;            // Index fuer Option (vom Befehl abhaengig)
   bitfeld  opt;                 // modifizierte Option (abh. Bef/Opt/U/I)
   char     line[BUFLEN];        // Mehrzweckpuffer
-  long     txbytes;             // Zähler für gesendete Daten
-  long     rxbytes;             // Zähler für empfangene Daten
-  unsigned sentfiles;           // Zähler fuer gesendete Files
-  unsigned readfiles;           // Zähler fuer gelesene Files
-  int      linecount;           // Zähler fuer Zeilenumbruch (Ausgabe)
-  int      abbruch;             // Flag für Ausgabe-Stop
-  int      quit;                // Flag für 1=logout 2=fast logout
+  long     txbytes;             // Zaehler fuer gesendete Daten
+  long     rxbytes;             // Zaehler fuer empfangene Daten
+  unsigned sentfiles;           // Zaehler fuer gesendete Files
+  unsigned readfiles;           // Zaehler fuer gelesene Files
+  int      linecount;           // Zaehler fuer Zeilenumbruch (Ausgabe)
+  int      abbruch;             // Flag fuer Ausgabe-Stop
+  int      quit;                // Flag fuer 1=logout 2=fast logout
   char     eingabefehler;       // counter for input-errors
   char     mailtype;            // type of mail: B(ulletin), P(ersonal), ...
   char     fwdhold;             // mail will not be forwarded automatically
@@ -1299,11 +1303,11 @@ typedef struct tvar_t : public task_t
   FILE     *outputfile;         // Filepointer, wenn Ausgabe umgeleitet ist
   FILE     *oldfile;            // Merker fuer Filepointer
   char     oldoldinput;         // Merker fuer Standardeingabemerker
-  char     oldinput;            // Merker für Standardeingabe
-  char     oldoutput;           // Merker für Standardausgabe
+  char     oldinput;            // Merker fuer Standardeingabe
+  char     oldoutput;           // Merker fuer Standardausgabe
   char     continous;           // Flag: Ausgabe wird nicht angehalten
   time_t   logintime;           // Merker, wann der Login war
-  int      privoffset;          // index in PRIV-File (für Forward-PWD)
+  int      privoffset;          // index in PRIV-File (fuer Forward-PWD)
 #ifdef FEATURE_MDPW
   char     password[33];        // zuletzt aktives Passwort (fuer Fwd)
 #else
@@ -1313,18 +1317,18 @@ typedef struct tvar_t : public task_t
 
   char     prompt[30];          // Call/Boardname im Prompt
   char     mask[FNAMELEN+1];    // momentan aktive Dir-Maske (ende *.*)
-  int      index;               // Index in Board-Tree (nur temporär)
+  int      index;               // Index in Board-Tree (nur temporaer)
   char     mailpath[FNAMELEN+1];// Name der aktiven Mail mit Pfad
   char     mailfname[10];       // nur Filename (=Datum/Uhrzeit) der Mail
   char     listpath[FNAMELEN+1];// Name des akiven Listfiles mit Pfad
-  char     boardpath[FNAMELEN+1]; // Dateipfad für Board (z.B. "info/soft/gp")
+  char     boardpath[FNAMELEN+1]; // Dateipfad fuer Board (z.B. "info/soft/gp")
   char     boardname[10];       // Name des Boards ohne Pfad (z.B. "GP")
   char     boardfullname[FNAMELEN+1]; // Boardname komplett (z.B. "SOFT/GP")
   char     ziel[DIRLEN+1];      // evtl unvollst. Ziel nach SEND
   char     zielboard[DIRLEN+1]; // DH3MB: Board nach convert.bcm
   char     herkunft[CALLEN+1];  // Call des Verfassers der Mail
   char     frombox[CALLEN+1];   // Box, von der WIR die Mail bekommen haben
-  char     at[HADRESSLEN+1];    // vollständige H-Adresse der Nachricht
+  char     at[HADRESSLEN+1];    // vollstaendige H-Adresse der Nachricht
   char     bid[BIDLEN+1];       // BID der letzten Nachricht, evtl neu
   long     binstart;            // Position des BIN-Teils in der Mail-Datei
   char     destboxlist[DESTBOXLEN+1];   // Forward-Liste der Nachricht
@@ -1335,9 +1339,9 @@ typedef struct tvar_t : public task_t
   unsigned lines;               // Anzahl Zeilen der letzten Nachricht
   long     bytes;               // Anzahl Bytes der letzten Nachricht
   char     betreff[BETREFFLEN+1]; // Titel der Nachricht
-  time_t   abwann;              // Zeitangabe für DIR AFTER etc.
-  unsigned long beginn;         // Bereich für DIR READ ERASE CHECK
-  unsigned long ende;           // Bereich für DIR READ ERASE CHECK
+  time_t   abwann;              // Zeitangabe fuer DIR AFTER etc.
+  unsigned long beginn;         // Bereich fuer DIR READ ERASE CHECK
+  unsigned long ende;           // Bereich fuer DIR READ ERASE CHECK
   char     replyboard[10];      // Boardname der zuletzt gelesenen Nachricht
   unsigned replynum;            // Nummer der zuletzt gelesenen Nachricht
   char     tmpbid[5][BIDLEN+1]; // Momentan empfangene BIDs

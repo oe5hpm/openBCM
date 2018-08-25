@@ -230,7 +230,7 @@ static void putmimeheader (char *line, long mimeboundary)
 {
   lastfunc("putmimeheader");
   char s[HADRESSLEN+1];
-
+
   strcpy(s, "");
   get_mybbs(b->herkunft, s, 0);
   if (b->usermail) expand_hadr(s, 2);
@@ -583,7 +583,7 @@ int markerased (char reason, int unerase, int checkerase)
       }
       else
 */
-    fwrite(b->line, len, 1, f); // Forwardzeile zurückschreiben
+    fwrite(b->line, len, 1, f); // Forwardzeile zurueckschreiben
     s_fclose(f);
   }
   else notfound++;
@@ -1437,11 +1437,20 @@ static void read_file (int mode)
 #endif
           if (*line != LF && *line != CR)
           {
+            bodypos = ftell(f);
 #ifdef __FLAT__
             if (! b->headermode || transf)
 #endif
-              putf("%s", line);
-            bodypos = ftell(f);
+            {
+              if (strlen(line) > 80) {
+                trace(serious,
+                      "read",
+                      "expected hdr, already within content.");
+                 bodypos = ftell(f) - strlen(line);
+              } else {
+                 putf("%s", line);
+              }
+            }
           }
           if (! strncasecmp(line, "from", 4)) fromagain = 1;
           if (! strncasecmp(line, "to", 2)) toagain = 1;

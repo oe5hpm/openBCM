@@ -4,7 +4,7 @@
  
 Summary: OpenBCM Packet Radio BBS
 Name: obcm
-Version: 1.07b12
+Version: 1.07b13
 Release: 1
 License: GPL
 Group: unsorted
