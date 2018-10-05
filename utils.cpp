@@ -1049,7 +1049,7 @@ char *makeheader (int full)
 //
 //*************************************************************************
 {
-  static char h[LINELEN];
+  static char h[LINELEN + 1];
   int len;
 
   sprintf(h, "R:%sz @:%s",
