@@ -131,6 +131,8 @@ deploy-github:
     name: openbcm.hamspirit.at {production}
     url: https://github.com/oe5hpm/openBCM
     on_stop: stop_git-branch
+  except:
+    - tags
   when: manual
 
 stop_git-branch:
@@ -153,6 +155,7 @@ stop_git-branch:
   when: manual
   except:
     - master
+    - tags
   environment:
     name: openbcm.hamspirit.at {production}
     url: https://github.com/oe5hpm/openBCM
