@@ -1,0 +1,160 @@
+stages:
+  - build
+  - deploy
+
+before_script:
+
+win32_build:
+    stage: build
+    tags:
+    - win32
+    script:
+    - 'set path=%path%;C:\Programme\VS6\Common\MSDev98\Bin'
+    - mkdir out-win32
+    - set
+    - call ci\build-win32.bat
+    - if not exist out-win32/bcm32.exe exit 1
+    artifacts:
+      paths:
+      - out-win32/*.exe
+      expire_in: 2 week
+
+dos_build:
+    stage: build
+    tags:
+    - win32
+    script:
+    - 'set path=%path%;c:\borlandc\bin'
+    - call gitversion.bat
+    - mkdir out-dos
+    - set
+    - call ci\build-dos.bat
+    - if not exist out-dos/bcm.exe exit 1
+    artifacts:
+      paths:
+      - OUT-DOS/*.EXE
+      expire_in: 2 week
+
+linux_x86-32_build:
+    stage: build
+    image: hpm/ubuntu:xenial-16.04-32
+    tags:
+    - linux
+    script:
+    - OUT=out-x86_32/ make
+    artifacts:
+      paths:
+      - out-x86_32/bcm
+      expire_in: 2 week
+
+linux_x86-64_build:
+    stage: build
+    image: hpm/ubuntu:xenial-16.04-64
+    tags:
+    - linux
+    before_script:
+    - apt-get update
+    - apt-get -y install g++-multilib gcc-multilib
+    script:
+    - OUT=out-x86_64/ make
+    artifacts:
+      paths:
+      - out-x86_64/bcm
+      expire_in: 2 week
+
+linux_armv7_build:
+    stage: build
+    image: hpm/ubuntu:xenial-16.04-64
+    tags:
+    - linux
+    script:
+    - OUT=out-armv7hf/ CROSS_COMPILE=/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- PLATTFORM=armv7hf make
+    artifacts:
+      paths:
+      - out-armv7hf/bcm
+      expire_in: 2 week
+
+linux_armv6_build:
+    stage: build
+    image: hpm/ubuntu:xenial-16.04-32
+    tags:
+    - linux
+    script:
+    - OUT=out-armv6/ CROSS_COMPILE=/opt/rpi-tools/arm-bcm2708/arm-bcm2708hardfp-linux-gnueabi/bin/arm-bcm2708hardfp-linux-gnueabi- PLATTFORM=armv6 make
+    artifacts:
+      paths:
+      - out-armv6/bcm
+      expire_in: 2 week
+
+deploy-github-release:
+  stage: deploy
+  image: hpm/ubuntu:xenial-16.04-64
+  variables:
+    GIT_STRATEGY: clone
+  tags:
+    - linux
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh-add <(echo "$GITHUB_PRIVATE_KEY")
+  script:
+    - git remote add github git@github.com:oe5hpm/openBCM.git
+    - git push github --tags
+    - ci/deploy-release.sh
+  environment:
+    name: openbcm.hamspirit.at {production}
+    url: https://github.com/oe5hpm/openBCM
+  only:
+    - tags
+  when: manual
+
+deploy-github:
+  stage: deploy
+  image: hpm/ubuntu:xenial-16.04-64
+  dependencies: []
+  variables:
+    GIT_STRATEGY: clone
+  tags:
+    - linux
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh-add <(echo "$GITHUB_PRIVATE_KEY")
+  script:
+    - git remote add github git@github.com:oe5hpm/openBCM.git
+    - git push github HEAD:refs/heads/$CI_COMMIT_REF_NAME
+  environment:
+    name: openbcm.hamspirit.at {production}
+    url: https://github.com/oe5hpm/openBCM
+    on_stop: stop_git-branch
+  when: manual
+
+stop_git-branch:
+  stage: deploy
+  image: hpm/ubuntu:xenial-16.04-64
+  dependencies: []
+  variables:
+    GIT_STRATEGY: clone
+  tags:
+    - linux
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh-add <(echo "$GITHUB_PRIVATE_KEY")
+  script:
+    - git remote add github git@github.com:oe5hpm/openBCM.git
+    - git push github --delete $CI_COMMIT_REF_NAME
+  when: manual
+  except:
+    - master
+  environment:
+    name: openbcm.hamspirit.at {production}
+    url: https://github.com/oe5hpm/openBCM
+    action: stop
+
