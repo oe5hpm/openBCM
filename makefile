@@ -164,7 +164,7 @@ else
 endif
 
 $(PROGRAM): prepare $(L2_OBJ) $(BCM_OBJ)
-	@echo Linking OpenBCM version $(VERSION)...
+	@echo Linking OpenBCM version $(GIT_VERSION)...
 	$(LD) -o $(PROGRAM) $(L2_OBJ) $(BCM_OBJ) $(LD_OPT)
 	$(CROSS_COMPILE)strip $(PROGRAM)
 
