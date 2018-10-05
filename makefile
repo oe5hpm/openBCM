@@ -195,5 +195,10 @@ clean:
 
 new: clean all
 
+diag:
+	@echo "Hostarch    : $(HOSTARCH)"
+	@echo "BuildOutput : $(OUT)"
+	@echo "Platform    : $(PLATTFORM)"
+	@echo "Version     : $(GIT_VERSION)"
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
