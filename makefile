@@ -29,17 +29,21 @@ else
 endif
 # ---------------------- armv6 (raspberry) specific ---------------------------
 ifeq ($(PLATTFORM), armv6)
+OUT	:= $(if $(OUT),$(OUT),out-armv6/)
 ARCHSPEC = -march=armv6zk -mfpu=vfp -mfloat-abi=hard -mcpu=arm1176jzf-s
 LFLAGS =
 # ---------------------- armv7hf (bur am335x pp) specific ---------------------
 else ifeq ($(PLATTFORM), armv7hf)
+OUT	:= $(if $(OUT),$(OUT),out-armv7hf/)
 ARCHSPEC = -march=armv7-a -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a8
 LFLAGS = 
 # -------------------------- x86 (default) specific ---------------------------
 else ifeq ($(HOSTARCH), x86_64)
+OUT	:= $(if $(OUT),$(OUT),out-x86_64/)
 ARCHSPEC = -m32
 LFLAGS   = -m32
 endif
+OUT	:= $(if $(OUT),$(OUT),out-x86_32/)
 
 INC =
 LIB =
@@ -104,53 +108,59 @@ VERSION_NO_DOT := $(shell grep VNUM mail.h | tr '"' '\n' | grep "1" | tr -d '.')
 SRCDIR = obcm-$(VERSION)
 TGZ = s$(SRCDIR).tgz
 
-all: $(PROGRAM)
+all: prepare $(OUT)$(PROGRAM)
 
-.cpp.o: $(BCM_OBJ:%.o=%.cpp)
-	@echo Compiling $<
-	@$(CC) $(DEF_BCM) $(CFLAGS) -c $<
+$(OUT)%.o: %.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_BCM) $(CFLAGS) -o $@ -c $<
 
-l1main_l.o: l1main_l.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)ax_util.o: ax_util.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_BCM) $(CFLAGS) -o $@ -c $<
 
-l1kiss_l.o:  l1kiss_l.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l1main_l.o: l1main_l.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l1axip_l.o:  l1axip_l.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l1kiss_l.o:  l1kiss_l.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l2host.o: l2host.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l1axip_l.o: l1axip_l.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l2info.o: l2info.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l2host.o: l2host.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l2interf.o: l2interf.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l2info.o: l2info.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l2main_l.o: l2main_l.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l2interf.o: l2interf.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l2mhlist.o: l2mhlist.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l2main_l.o: l2main_l.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l2proto.o: l2proto.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l2mhlist.o: l2mhlist.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-l2util.o: l2util.cpp
-	@echo Compiling $<
-	@$(CC) $(DEF_L2) $(CFLAGS) -c $<
+$(OUT)l2proto.o: l2proto.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
 
-prepare: 
+$(OUT)l2util.o: l2util.cpp
+	@echo [compiling] $@
+	@$(CC) $(DEF_L2) $(CFLAGS) -o $@ -c $<
+
+prepare:
+	@test -d $(OUT) || mkdir -p $(OUT)
+
 ifeq "$(GPP_VERSION3)" "3"
 	@echo "Usage of GCC 3.x compiler..."  
 else
@@ -163,23 +173,27 @@ else
  endif
 endif
 
-$(PROGRAM): prepare $(L2_OBJ) $(BCM_OBJ)
-	@echo Linking OpenBCM version $(GIT_VERSION)...
-	$(LD) -o $(PROGRAM) $(L2_OBJ) $(BCM_OBJ) $(LD_OPT)
-	$(CROSS_COMPILE)strip $(PROGRAM)
+$(OUT)$(PROGRAM): prepare  $(addprefix $(OUT),$(L2_OBJ)) $(addprefix $(OUT),$(BCM_OBJ))
+	@echo [ linking ] OpenBCM version $(GIT_VERSION)...
+	@$(LD) -o $(OUT)$(PROGRAM) \
+	$(addprefix $(OUT),$(L2_OBJ)) \
+	$(addprefix $(OUT),$(BCM_OBJ)) \
+	$(LD_OPT)
+	@$(CROSS_COMPILE)strip $(OUT)$(PROGRAM)
 
-lib:    libbcm.a
+lib: libbcm.a
 
-libbcm.a: $(L2_OBJ) $(BCM_OBJ)
-	@echo Creating libbcm.a ...
-	@ar r libbcm.a $(L2_OBJ) $(BCM_OBJ)
+libbcm.a: prepare  $(addprefix $(OUT),$(L2_OBJ)) $(addprefix $(OUT),$(BCM_OBJ))
+	@echo [ linking ] libbcm.a ...
+	@$(CROSS_COMPILE)ar r $(OUT)libbcm.a \
+	$(addprefix $(OUT),$(L2_OBJ)) \
+	$(addprefix $(OUT),$(BCM_OBJ))
 
 clean:
 	@echo Removing obsolete files ...
-	rm -f *.o *.obj *~ *.bak *.sym *.ncb *.plg *.rej *.orig $(PROGRAM)
+	rm -r -f *.obj *~ *.bak *.sym *.ncb *.plg *.rej *.orig $(PROGRAM) $(OUT)
 
-new:    clean all
-
+new: clean all
 
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
