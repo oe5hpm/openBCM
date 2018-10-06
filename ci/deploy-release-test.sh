@@ -11,5 +11,5 @@ for i in $ARCHLIST; do
 	cp $i/bcm-$ARCH out/bcm-$ARCH
 done
 
-ci/ghr -t $GITHUB_TOKEN -u oe5hpm -r openBCM $CI_COMMIT_REF_NAME out
+ls -l out/*
 

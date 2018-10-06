@@ -86,6 +86,26 @@ linux_armv6_build:
       - out-armv6/bcm
       expire_in: 2 week
 
+deploy-github-release-test:
+  stage: deploy
+  image: hpm/ubuntu:xenial-16.04-64
+  variables:
+    GIT_STRATEGY: clone
+  tags:
+    - linux
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh-add <(echo "$GITHUB_PRIVATE_KEY")
+  script:
+    - ci/deploy-release-test.sh
+  environment:
+    name: openbcm.hamspirit.at {production}
+    url: https://github.com/oe5hpm/openBCM
+  when: manual
+
 deploy-github-release:
   stage: deploy
   image: hpm/ubuntu:xenial-16.04-64
