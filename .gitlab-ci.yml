@@ -41,6 +41,7 @@ linux_x86-32_build:
     tags:
     - linux
     script:
+    - OUT=out-x86_32/ make diag
     - OUT=out-x86_32/ make
     artifacts:
       paths:
@@ -56,6 +57,7 @@ linux_x86-64_build:
     - apt-get update
     - apt-get -y install g++-multilib gcc-multilib
     script:
+    - OUT=out-x86_64/ make diag
     - OUT=out-x86_64/ make
     artifacts:
       paths:
@@ -68,6 +70,7 @@ linux_armv7_build:
     tags:
     - linux
     script:
+    - OUT=out-armv7hf/ CROSS_COMPILE=/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- PLATTFORM=armv7hf make diag
     - OUT=out-armv7hf/ CROSS_COMPILE=/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- PLATTFORM=armv7hf make
     artifacts:
       paths:
@@ -80,6 +83,7 @@ linux_armv6_build:
     tags:
     - linux
     script:
+    - OUT=out-armv6/ CROSS_COMPILE=/opt/rpi-tools/arm-bcm2708/arm-bcm2708hardfp-linux-gnueabi/bin/arm-bcm2708hardfp-linux-gnueabi- PLATTFORM=armv6 make diag
     - OUT=out-armv6/ CROSS_COMPILE=/opt/rpi-tools/arm-bcm2708/arm-bcm2708hardfp-linux-gnueabi/bin/arm-bcm2708hardfp-linux-gnueabi- PLATTFORM=armv6 make
     artifacts:
       paths:
