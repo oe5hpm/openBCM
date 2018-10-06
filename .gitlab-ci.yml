@@ -44,7 +44,7 @@ linux_x86-32_build:
     - OUT=out-x86_32/ make
     artifacts:
       paths:
-      - out-x86_32/bcm
+      - out-x86_32/bcm*
       expire_in: 2 week
 
 linux_x86-64_build:
@@ -59,7 +59,7 @@ linux_x86-64_build:
     - OUT=out-x86_64/ make
     artifacts:
       paths:
-      - out-x86_64/bcm
+      - out-x86_64/bcm*
       expire_in: 2 week
 
 linux_armv7_build:
@@ -71,7 +71,7 @@ linux_armv7_build:
     - OUT=out-armv7hf/ CROSS_COMPILE=/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- PLATTFORM=armv7hf make
     artifacts:
       paths:
-      - out-armv7hf/bcm
+      - out-armv7hf/bcm*
       expire_in: 2 week
 
 linux_armv6_build:
@@ -83,7 +83,7 @@ linux_armv6_build:
     - OUT=out-armv6/ CROSS_COMPILE=/opt/rpi-tools/arm-bcm2708/arm-bcm2708hardfp-linux-gnueabi/bin/arm-bcm2708hardfp-linux-gnueabi- PLATTFORM=armv6 make
     artifacts:
       paths:
-      - out-armv6/bcm
+      - out-armv6/bcm*
       expire_in: 2 week
 
 deploy-github-release-test:
