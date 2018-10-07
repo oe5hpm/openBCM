@@ -2,6 +2,7 @@
 cd /d "%~dp0"
 
 "C:\Programme\Git\bin\git.exe" describe --tags --abbrev=4 --always --dirty > gitver.h
+ext\_sed -i s/-dirty/D/ gitver.h
 set /p VAR=<gitver.h
 echo #define GITVERSION ^"%VAR%^" > gitver.h
 
