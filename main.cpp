@@ -1781,7 +1781,7 @@ void emptytempdir (void)
   lastfunc("emptytempdir");
   DIR *d;
   struct dirent *di;
-  char filename[80];
+  char filename[256 + 4 + 1 + 1];
   int loeschen_ok;
 
   loeschen_ok = FALSE;

@@ -153,7 +153,7 @@ void mbhelp_t::dohelp (char *subject)
   char linkstr[40];
   char sublinkstr[40];
   int linkcnt = 0;
-  char oldsubject[60];
+  char oldsubject[LINELEN + 2 + 4 + 1];
 
   strcpy(linkstr, "");
   strcpy(sublinkstr, "");

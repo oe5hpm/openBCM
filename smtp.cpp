@@ -204,7 +204,7 @@ int smtp::send_msg (void)
   int j = 0;
   int a = 0;
   int attachments;
-  char subject[256];
+  char subject[290];
   char work_pfad[200];
 
   attachments = smtp_convert(tmpname);
@@ -363,7 +363,7 @@ void smtp::start_smtp (char *name)
   char sendercall[CALLEN+1];
 #ifdef INETMAILGATE
   isinternetmail = 0;
-  char newsubject[81];
+  char newsubject[260];
 #endif
 
   lastfunc("start_smtp");

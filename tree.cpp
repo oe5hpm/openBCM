@@ -77,7 +77,7 @@ static void near intree (struct dirent *p, char *path, char *mask)
 //
 //*************************************************************************
 {
-  char fname[80];
+  char fname[256 + 1 + 1];
 
   sprintf(fname, "%s/%s", mask, p->d_name);
   if (isdir(fname) && *p->d_name != '.')
@@ -316,7 +316,7 @@ int rmboard (char *fullname)
 //*************************************************************************
 {
   unsigned i = 0;
-  char path[40];
+  char path[FNAMELEN + 1 + 1];
   DIR *d;
   struct dirent *di;
 
@@ -448,8 +448,8 @@ int mvboard (char *old, char *sub, char *newboard)
 //
 //*************************************************************************
 {
-  char oldpath[FNAMELEN+1];
-  char newpath[FNAMELEN+1];
+  char oldpath[FNAMELEN + 2 + 1];
+  char newpath[FNAMELEN + 1 + 1];
   char oldbname[30]; // is this save?
   char dirpath[FNAMELEN+1];
   int oldmask, newmask;

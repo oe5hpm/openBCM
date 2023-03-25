@@ -188,7 +188,7 @@ void mbfts (char *selektor, char *rubrik)
   long unsigned numbuf[BUFLINES*2];
   char filename[7];
   char boardname[8];
-  char searchfile[FNAMELEN+1];
+  char searchfile[FNAMELEN + 1 + 1 + 7];
   long flen;
   char era;
   FILE *sf = NULL;

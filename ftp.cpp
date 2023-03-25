@@ -176,7 +176,7 @@ void ftpd::start_ftp (char *name)
   char tempallowed[FSPATHLEN+1];
   char mdtmstr[80];
   char port[16];
-  char test[256];
+  char test[FSPATHLEN + 256];
   bool nlist = false; // NLST-Commando oder LIST-Commando
   FILE *datei;
   b->ftp = 1;

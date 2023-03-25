@@ -863,7 +863,7 @@ void savefwdlist (void)
   FILE *f;
   char eintrag[HADRESSLEN+1];
   fwdpara_t *ff;
-  char buf[LINELEN+1];
+  char buf[FSPATHLEN + CALLEN + 25 + 2];
   char *dest;
 
   xunlink(FWDLISTNAMEBAK);
@@ -1678,7 +1678,7 @@ int scanheader (FILE *f, fwdpara_t *ff)
 {
   lastfunc("scanheader");
   char s[BUFLEN];
-  char sendcmd[LINELEN+1];
+  char sendcmd[DIRLEN + CALLEN + HADRESSLEN + HADRESSLEN + 19 + 1];
   char content[LINELEN+1];
   int i = 3;
   int ownbox = 0;

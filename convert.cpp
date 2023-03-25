@@ -401,7 +401,7 @@ void saveconvnames (void)
 //
 //*************************************************************************
 {
-  char buf[50];
+  char buf[58];
   FILE *f;
 
   f = s_fopen(CONVTMPNAME, "swt");

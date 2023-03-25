@@ -181,7 +181,7 @@ static void near msg_search (void)
 //*************************************************************************
 {
   struct dirent *di;
-  char filename[30];
+  char filename[256 + 3 + 1 + 1];
   FILE *f = NULL;
   FILE *speechfile = NULL;
   DIR *d;

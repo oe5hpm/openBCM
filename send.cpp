@@ -1449,7 +1449,7 @@ void add_unknown (void)
 //*************************************************************************
 {
   lastfunc("add_unknown");
-  char sendcmd[LINELEN+1];
+  char sendcmd[CALLEN + CALLEN + DIRLEN + HADRESSLEN + BETREFFLEN + 11 + 1];
   char content[255];
 
   if (returnmailok())
@@ -1462,7 +1462,7 @@ void add_unknown (void)
             b->ziel, b->at, b->bid, m.boxname);
     genmail(sendcmd, content);
   }
-  snprintf(sendcmd, LINELEN, "%6s: %-6s > %-8s @%-10s %.22s",
+  snprintf(sendcmd, sizeof(sendcmd), "%6s: %-6s > %-8s @%-10s %.22s",
            b->logincall, b->herkunft, b->zielboard, b->at, b->betreff);
   log_entry(UNKNOWNNAME, sendcmd);
 }
@@ -2715,7 +2715,7 @@ void update_mail (void)
   // If user has a new call -> update  at, ziel
   char newcall[CALLEN+1];
   char sendcmd[LINELEN+1];
-  char content[255];
+  char content[260];
 
   if (  (   (b->forwarding != fwd_none && homeadr(b->at))
          || b->forwarding == fwd_none)

@@ -1609,7 +1609,7 @@ void post_mortem_dump (char *problem)
 //
 //*************************************************************************
 {
-  char reason[70];
+  char reason[172];
   extern char lasttrace[];
 
   enable();

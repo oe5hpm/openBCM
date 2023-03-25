@@ -37,9 +37,9 @@ void oldmailimport (char *directory)
   char boardname[8];
   char bid[BIDLEN+1];
   char zeile[LINELEN+1];
-  char sourcefilename[FNAMELEN+1];
-  char destinationfilename[FNAMELEN+1];
-  char boardfilename[FNAMELEN+1];
+  char sourcefilename[FNAMELEN + 256 + 1 + 1];
+  char destinationfilename[FNAMELEN + 256 + 1 + 1];
+  char boardfilename[10 + 256 + 1 + 1];
   int z, y, ret, fehler;
   FILE *mf = NULL;
   struct dirent *di;

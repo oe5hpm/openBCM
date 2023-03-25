@@ -38,7 +38,7 @@ static int near purgeboard (char *name, unsigned *er, unsigned *obs,
 //
 //*************************************************************************
 {
-  char fname[FNAMELEN+1];
+  char fname[FNAMELEN + 2 + 1];
   int npos;
   char timestr[8];
   time_t akt = ad_time();
@@ -159,12 +159,12 @@ static int near purgeboard (char *name, unsigned *er, unsigned *obs,
             if (unr && lt <= 0 && b->usermail && toupper(b->line[22]) != 'R')
             {
               char sendcmd[LINELEN+1];
-              char content[LINELEN+1];
+              char content[DIRLEN + HADRESSLEN + 46 + 10 + 1];
               time_t zeit = dirline_data(b->line);
               //Wichtig: Dies setzt die im folgenden benutzten b-> Werte !
               if (returnmailok())
               {
-                snprintf(content, LINELEN, "%-6s > %-6s @%-6s %.22s",
+                snprintf(content, sizeof(content), "%-6s > %-6s @%-6s %.22s",
                   b->herkunft, b->ziel, b->at, b->betreff);
                 log_entry(OLDUMAILLOGNAME, content);
                 sprintf(sendcmd, "\nSP %s < %s\nNot read: %.30s",

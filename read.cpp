@@ -443,7 +443,7 @@ static void eraselog (char reason, char *eraser)
             break;
   }
   waitfor(e_ticsfull);
-  snprintf(buf, 80, "%6s: #%c %6s>%-8s %s %.40s",
+  snprintf(buf, sizeof(buf), "%6s: #%c %6s>%-8s %s %.40s",
                 eraser, reason, b->herkunft, b->ziel, b->bid, b->betreff);
   log_entry(ERASELOGNAME, buf);
   waitfor(e_ticsfull);
