@@ -471,8 +471,9 @@ char deznib (int dez)
 //
 //*************************************************************************
 {
-  if (dez < 10) return dez + '0';
-  else return dez + ('A' - 10);
+	if (dez < 10)
+		return dez + '0';
+	return dez + ('A' - 10);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1077,36 +1078,35 @@ char *time2filename (time_t unixtime)
 //
 //*************************************************************************
 {
-  static time_t lasttime = 0;
-  static byte name[8];
-  struct tm *tt;
-  static unsigned nextfile = 0;
+	static time_t lasttime = 0;
+	static byte name[8];
+	struct tm *tt;
+	static unsigned nextfile = 0;
 
-  if (! unixtime)
-  {
-    unixtime = ad_time(); // UTC
-    while (nextfile == 35 && (unixtime >> 2) == lasttime)
-    {
-      wdelay(117);
-      unixtime = ad_time();
-    }
-    if ((unixtime >> 2) != lasttime)
-    {
-      nextfile = 0;
-      lasttime = (unixtime >> 2);
-    }
-    else nextfile++;
-  }
-  tt = ad_comtime(unixtime); // UTC
-  name[0] = deznib(tt->tm_year - 90);
-  name[1] = deznib(tt->tm_mon + 1);
-  name[2] = deznib(tt->tm_mday);
-  name[3] = deznib(tt->tm_hour);
-  name[4] = deznib(tt->tm_min >> 1);
-  name[5] = deznib((tt->tm_min & 1) * 15 + (tt->tm_sec >> 2));
-  name[6] = deznib(nextfile);
-  name[7] = 0;
-  return (char *) name;
+	if (!unixtime) {
+		unixtime = ad_time(); // UTC
+		while (nextfile == 35 && (unixtime >> 2) == lasttime) {
+			wdelay(117);
+			unixtime = ad_time();
+		}
+		if ((unixtime >> 2) != lasttime) {
+			nextfile = 0;
+			lasttime = (unixtime >> 2);
+		} else {
+			nextfile++;
+		}
+	}
+	tt = ad_comtime(unixtime); // UTC
+	name[0] = deznib(tt->tm_year - 90);
+	name[1] = deznib(tt->tm_mon + 1);
+	name[2] = deznib(tt->tm_mday);
+	name[3] = deznib(tt->tm_hour);
+	name[4] = deznib(tt->tm_min >> 1);
+	name[5] = deznib((tt->tm_min & 1) * 15 + (tt->tm_sec >> 2));
+	name[6] = deznib(nextfile);
+	name[7] = 0;
+
+	return (char *) name;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1119,26 +1119,28 @@ time_t filename2time (char *name)
 //
 //*************************************************************************
 {
-  struct tm tt;
-  byte s[9];
+	struct tm tt;
+	byte s[9];
 
-  memset(&tt, 0, sizeof(struct tm));
-  if (strlen(name) > 8 || *name == ' ')
-  {
-    trace(fatal, "f2time", "%s too long", name);
-    name[8] = 0;
-  }
-  strcpy((char *) s, name);
-  strupr((char *) s);
-  tt.tm_sec  = nibdez(s[6]); // laufende Nummer als Sekunde interpretieren
-  tt.tm_min  = nibdez(s[5]) / 15;
-  tt.tm_min += nibdez(s[4]) << 1;
-  tt.tm_hour = nibdez(s[3]);
-  tt.tm_mday = nibdez(s[2]);
-  tt.tm_mon  = nibdez(s[1]) - 1;
-  tt.tm_year = nibdez(s[0]) + 90;
-  tt.tm_isdst = -1; //OE3DZW
-  return ad_mktime(&tt); //ANSI time in UTC
+	memset(&tt, 0, sizeof(struct tm));
+	if (strlen(name) > 8 || *name == ' ') {
+		trace(fatal, "f2time", "%s too long", name);
+		name[8] = 0;
+	}
+
+	strcpy((char *)s, name);
+	strupr((char *)s);
+
+	tt.tm_sec = nibdez(s[6]); // laufende Nummer als Sekunde interpretieren
+	tt.tm_min = nibdez(s[5]) / 15;
+	tt.tm_min += nibdez(s[4]) << 1;
+	tt.tm_hour = nibdez(s[3]);
+	tt.tm_mday = nibdez(s[2]);
+	tt.tm_mon = nibdez(s[1]) - 1;
+	tt.tm_year = nibdez(s[0]) + 90;
+	tt.tm_isdst = -1; //OE3DZW
+
+	return ad_mktime(&tt); //ANSI time in UTC
 }
 
 /*---------------------------------------------------------------------------*/
