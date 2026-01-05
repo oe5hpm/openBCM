@@ -299,6 +299,8 @@ char *newbid (void)
 	FILE *bidhf;     // offenes BID-Hashfile
 	char callbuf[7]; // DH3MB
 	short unsigned lbid;
+	byte year_multi;
+	int year_base;
 
 	d = ad_comtime(ad_time());
 	if (!lastday)
@@ -333,15 +335,18 @@ char *newbid (void)
 	do {
 		lbid = ++k.lastbid;
 
+		year_base = d->tm_year - 90;
+		year_multi = (year_base > 35) ? year_base % 35 : 0;
+
 	#ifndef _BCMNET_FWD
 		// format:
 		// <day><month/year_mutli><year><call><num>  <num>.. 0..9,A..Z
 		// DMYCCCCCC123
 		// 012345678901     0  1 2   9 0 1
 		sprintf(bid,
-			"%c%1X%c%s%c%c%c",
+			"%c%c%c%s%c%c%c",
 			deznib(d->tm_mday),
-			d->tm_mon + 1,
+			deznib((year_multi << 4) | (d->tm_mon + 1)),
 			deznib(d->tm_year - 90),
 			callbuf,
 			deznib((lbid / (36 * 36))),
@@ -351,10 +356,10 @@ char *newbid (void)
 		// the BID/MID for the CB-BCMNET is built as following
 		// <day><year><month/year_multi><call>_<num>
 		// DYMCCCCCC_23
-		sprintf(bid, "%c%c%1X%s_%c%c",
+		sprintf(bid, "%c%c%c%s_%c%c",
 		deznib(d->tm_mday),
 		deznib(d->tm_year - 90),
-		d->tm_mon + 1,
+		deznib((year_multi << 4) | (d->tm_mon + 1)),
 		callbuf,
 		deznib((lbid / 36) % 36),
 		deznib((lbid) % 36));
