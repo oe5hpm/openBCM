@@ -102,7 +102,7 @@ deploy-github-release:
   script:
     - git remote add github git@github.com:oe5hpm/openBCM.git
     - git push github --tags
-    - git push github master
+    - git push github master:master
     - ci/deploy-release.sh
   environment:
     name: openbcm.hamspirit.at {production}
