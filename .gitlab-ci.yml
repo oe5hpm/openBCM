@@ -68,7 +68,7 @@ linux_armv7_build:
     tags:
     - linux
     script:
-    - OUT=out-armv7hf/ CROSS_COMPILE=/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- PLATTFORM=armv7hf make
+    - OUT=out-armv7hf/ CROSS_COMPILE=/opt/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- PLATTFORM=armv7hf make
     artifacts:
       paths:
       - out-armv7hf/bcm
