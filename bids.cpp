@@ -291,79 +291,83 @@ char *newbid (void)
 //
 //*************************************************************************
 {
-  static char bid[BIDLEN+1];
-  struct tm *d;
-  static int lastday = 0;
-  static KOPF k = { "", 0, 0 };
-  FILE *bidf;      // offenes BID-File
-  FILE *bidhf;     // offenes BID-Hashfile
-  char callbuf[7]; // DH3MB
-  short unsigned lbid;
+	static char bid[BIDLEN+1];
+	struct tm *d;
+	static int lastday = 0;
+	static KOPF k = { "", 0, 0 };
+	FILE *bidf;      // offenes BID-File
+	FILE *bidhf;     // offenes BID-Hashfile
+	char callbuf[7]; // DH3MB
+	short unsigned lbid;
 
-  d = ad_comtime(ad_time());
-  if (! lastday) lastday = d->tm_mday;
-  tryopen(0, bidf, bidhf);
-  rewind(bidf);
-  fread(&k, sizeof(k), 1, bidf);
-  s_fclose(bidf);
-  s_fclose(bidhf);
-  if (lastday != d->tm_mday)
-  {
-#ifndef _BCMNET_FWD
-    k.lastbid = 36U * 36U * 8U * m.bidoffset;
-#else
-    k.lastbid = 0; //CB-BCMNET: bidoffset not supported
-#endif
-    lastday = d->tm_mday;
-  }
-  else
-  { // on multi-bbs systems:
-    // if more than 10368 bid are needed, bid are no longer unique.
-#ifndef _BCMNET_FWD
-    if (k.lastbid >= (36U * 36U * 36U))
-      k.lastbid = 0; //= 46656 < 65535 (short unsigned) ok
-#else
-    if (k.lastbid >= (36U * 36U))
-      k.lastbid = 0;
-#endif
-  }
-  // DH3MB: Fill up the boxname to 6 characters
-  strcpy(callbuf, m.boxname);
-  while (strlen(callbuf) < 6) strcat(callbuf, "_");
-  do {
-    lbid = ++k.lastbid;
-#ifndef _BCMNET_FWD
-// format:
-// <day><month><year><call><num>  <num>.. 0..9,A..Z
-// DMYCCCCCC123
-// 012345678901     0  1 2   9 0 1
-    sprintf(bid, "%c%1X%c%s%c%c%c",
-               deznib(d->tm_mday),
-                 d->tm_mon + 1,
-                     deznib(d->tm_year - 90), //this is a 2026er bug ;-)
-                       callbuf,
-                         deznib((lbid / (36 * 36))),
-                           deznib((lbid / 36) % 36),
-                             deznib((lbid) % 36));
-#else
-// the BID/MID for the CB-BCMNET is built as following
-// <day><year><month><call>_<num>
-// DYMCCCCCC_23
-    sprintf(bid, "%c%c%1X%s_%c%c",
-                   deznib(d->tm_mday),
-                     deznib(d->tm_year - 90), //this is a 2026er bug ;-)
-                       d->tm_mon + 1,
-                          callbuf,
-                              deznib((lbid / 36) % 36),
-                                deznib((lbid) % 36));
-#endif
-  } while (bidvorhanden(bid));
-  tryopen(0, bidf, bidhf);
-  rewind(bidf);
-  fwrite(&k, sizeof(k), 1, bidf);
-  s_fclose(bidf);
-  s_fclose(bidhf);
-  return bid;
+	d = ad_comtime(ad_time());
+	if (!lastday)
+		lastday = d->tm_mday;
+	tryopen(0, bidf, bidhf);
+	rewind(bidf);
+	fread(&k, sizeof(k), 1, bidf);
+	s_fclose(bidf);
+	s_fclose(bidhf);
+
+	if (lastday != d->tm_mday) {
+	#ifndef _BCMNET_FWD
+		k.lastbid = 36U * 36U * 8U * m.bidoffset;
+	#else
+		k.lastbid = 0; //CB-BCMNET: bidoffset not supported
+	#endif
+		lastday = d->tm_mday;
+	} else { // on multi-bbs systems:
+		 // if more than 10368 bid are needed, bid are no longer unique.
+	#ifndef _BCMNET_FWD
+	if (k.lastbid >= (36U * 36U * 36U))
+		k.lastbid = 0; //= 46656 < 65535 (short unsigned) ok
+	#else
+	if (k.lastbid >= (36U * 36U))
+		k.lastbid = 0;
+	#endif
+	}
+
+	strcpy(callbuf, m.boxname);
+	while (strlen(callbuf) < 6)
+		strcat(callbuf, "_");
+	do {
+		lbid = ++k.lastbid;
+
+	#ifndef _BCMNET_FWD
+		// format:
+		// <day><month/year_mutli><year><call><num>  <num>.. 0..9,A..Z
+		// DMYCCCCCC123
+		// 012345678901     0  1 2   9 0 1
+		sprintf(bid,
+			"%c%1X%c%s%c%c%c",
+			deznib(d->tm_mday),
+			d->tm_mon + 1,
+			deznib(d->tm_year - 90),
+			callbuf,
+			deznib((lbid / (36 * 36))),
+			deznib((lbid / 36) % 36),
+			deznib((lbid) % 36));
+	#else
+		// the BID/MID for the CB-BCMNET is built as following
+		// <day><year><month/year_multi><call>_<num>
+		// DYMCCCCCC_23
+		sprintf(bid, "%c%c%1X%s_%c%c",
+		deznib(d->tm_mday),
+		deznib(d->tm_year - 90),
+		d->tm_mon + 1,
+		callbuf,
+		deznib((lbid / 36) % 36),
+		deznib((lbid) % 36));
+	#endif
+	} while (bidvorhanden(bid));
+
+	tryopen(0, bidf, bidhf);
+	rewind(bidf);
+	fwrite(&k, sizeof(k), 1, bidf);
+	s_fclose(bidf);
+	s_fclose(bidhf);
+
+	return bid;
 }
 
 /*---------------------------------------------------------------------------*/
