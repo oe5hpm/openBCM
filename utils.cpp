@@ -471,6 +471,10 @@ char deznib (int dez)
 //
 //*************************************************************************
 {
+	dez %= 36;
+	if (dez < 0)
+		dez += 36;
+
 	if (dez < 10)
 		return dez + '0';
 	return dez + ('A' - 10);
@@ -1081,6 +1085,8 @@ char *time2filename (time_t unixtime)
 	static time_t lasttime = 0;
 	static byte name[8];
 	struct tm *tt;
+	byte year_multi;
+	int year_base;
 	static unsigned nextfile = 0;
 
 	if (!unixtime) {
@@ -1097,8 +1103,10 @@ char *time2filename (time_t unixtime)
 		}
 	}
 	tt = ad_comtime(unixtime); // UTC
-	name[0] = deznib(tt->tm_year - 90);
-	name[1] = deznib(tt->tm_mon + 1);
+	year_base = tt->tm_year - 90;
+	year_multi = (year_base > 35) ? year_base % 35 : 0;
+	name[0] = deznib(year_base);
+	name[1] = deznib((year_multi << 4) | (tt->tm_mon + 1));
 	name[2] = deznib(tt->tm_mday);
 	name[3] = deznib(tt->tm_hour);
 	name[4] = deznib(tt->tm_min >> 1);
@@ -1106,7 +1114,7 @@ char *time2filename (time_t unixtime)
 	name[6] = deznib(nextfile);
 	name[7] = 0;
 
-	return (char *) name;
+	return (char *)name;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1120,6 +1128,7 @@ time_t filename2time (char *name)
 //*************************************************************************
 {
 	struct tm tt;
+	byte year_multi;
 	byte s[9];
 
 	memset(&tt, 0, sizeof(struct tm));
@@ -1136,8 +1145,9 @@ time_t filename2time (char *name)
 	tt.tm_min += nibdez(s[4]) << 1;
 	tt.tm_hour = nibdez(s[3]);
 	tt.tm_mday = nibdez(s[2]);
-	tt.tm_mon = nibdez(s[1]) - 1;
-	tt.tm_year = nibdez(s[0]) + 90;
+	tt.tm_mon = (nibdez(s[1]) & 0x0F) - 1;
+	year_multi = (nibdez(s[1]) & 0xF0) >> 4;
+	tt.tm_year = nibdez(s[0]) + 90 + (36 * year_multi);
 	tt.tm_isdst = -1; //OE3DZW
 
 	return ad_mktime(&tt); //ANSI time in UTC
