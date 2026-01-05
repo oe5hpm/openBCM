@@ -336,7 +336,7 @@ char *newbid (void)
 		lbid = ++k.lastbid;
 
 		year_base = d->tm_year - 90;
-		year_multi = (year_base > 35) ? year_base % 35 : 0;
+		year_multi = (year_base > 35) ? year_base / 35 : 0;
 
 	#ifndef _BCMNET_FWD
 		// format:

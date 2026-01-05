@@ -1104,7 +1104,7 @@ char *time2filename (time_t unixtime)
 	}
 	tt = ad_comtime(unixtime); // UTC
 	year_base = tt->tm_year - 90;
-	year_multi = (year_base > 35) ? year_base % 35 : 0;
+	year_multi = (year_base > 35) ? year_base / 35 : 0;
 	name[0] = deznib(year_base);
 	name[1] = deznib((year_multi << 4) | (tt->tm_mon + 1));
 	name[2] = deznib(tt->tm_mday);
