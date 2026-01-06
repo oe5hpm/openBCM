@@ -175,7 +175,7 @@ static void near logbuch (void)
       || flag =='H'
       || flag =='S') // z.B. Flexnet-Linktest weg, aber HTTP etc. behalten
   {
-    snprintf(logname, 19, LOGPATH "/log%s.bcm", datestr(ti, 16));
+    snprintf(logname, 19, LOGPATH "/%s.bcm", datestr(ti, 9));
     logf = s_fopen(logname, "sat");
     if (logf)
     {
@@ -297,8 +297,14 @@ void putlogauszug (char *selektor)
     }
     for (i = 0; i < tage; i++)
     {
-      snprintf(logname, 19, LOGPATH "/log%s.bcm", datestr(logtime, 16));
+      snprintf(logname, 19, LOGPATH "/%s.bcm", datestr(logtime, 9));
       f = s_fopen(logname, "lrt");
+      /* try as fallback the old naming scheme */
+      if (f == NULL) {
+	    trace(report, "putlogauszug", "%s not found, fallback", logname);
+  	    snprintf(logname, 19, LOGPATH "/log%s.bcm", datestr(logtime, 16));
+  	    f = s_fopen(logname, "lrt");
+      }
       if (f)
       {
         fgets(s, sizeof(s) - 1, f);
@@ -386,8 +392,14 @@ void putlogauszug (char *selektor)
     userlog = (userlog_t*) t_malloc(sizeof(userlog_t) * MAXLOGSUM, "putlz");
     for (i = 0; i < tage; i++)
     {
-      snprintf(logname, 19, LOGPATH "/log%s.bcm", datestr(logtime, 16));
+      snprintf(logname, 19, LOGPATH "/%s.bcm", datestr(logtime, 9));
       f = s_fopen(logname, "lrt");
+      /* try as fallback the old naming scheme */
+      if (f == NULL) {
+		    trace(report, "putlogauszug", "%s not found, fallback", logname);
+	  	    snprintf(logname, 19, LOGPATH "/log%s.bcm", datestr(logtime, 16));
+	  	    f = s_fopen(logname, "lrt");
+      }
       if (f)
       {
         fgets(s, sizeof(s) - 1, f);
