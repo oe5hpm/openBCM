@@ -355,6 +355,17 @@ error:
 }
 
 /*---------------------------------------------------------------------------*/
+static int cmp_time(const void *a, const void *b)
+{
+	time_t ta = filename2time((char *)a);
+	time_t tb = filename2time((char *)b);
+
+	if (ta < tb)
+		return -1;
+	if (ta > tb)
+		return 1;
+	return 0;
+}
 
 char *dirsort (char *mask, int users)
 //*************************************************************************
@@ -444,8 +455,8 @@ char *dirsort (char *mask, int users)
   {
     list[pos] = 0;
     list = (char *) t_realloc(list, pos + 8);
-    qsort((void *) list, pos >> 3, 8,
-           (int(*) (const void *, const void *)) strcmp);
+    qsort((void *) list, pos >> 3, 8, cmp_time);
+
     return list;
   }
   else
