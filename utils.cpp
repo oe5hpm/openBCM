@@ -1413,48 +1413,55 @@ time_t seek_fname_all (handle fh, char *fname, char *ok)
 //
 //*************************************************************************
 {
-  lastfunc("seek_fname_all");
-  time_t lasttime = 0L;
-  long i = 0;
-  long len = filelength(fh);
+	lastfunc("seek_fname_all");
+	time_t lasttime = 0L;
+	long i = 0;
+	long len = filelength(fh);
 
-  if (fh == EOF)
-  {
-    *ok = NO;
-    trace(serious, "seek_fname_all", "no file");
-      return 0L;                      // kein File offen, Fehler --->
-  }
-  lseek(fh, -(LBLEN), SEEK_END);      // zum letzten Eintrag
-  _read(fh, b->line, BLEN);           // steht auf letztem Eintrag im File
-  b->line[7] = 0;
-  lasttime = filename2time(b->line);  // letzten (neuesten) Eintrag bestimmen
-  if (! strncmp(b->line, fname, 7))
-  {
-    lseek(fh, -(LBLEN), SEEK_CUR);    // Eintrag genau gefunden, eins
-    *ok = OK;                         // zurueck, damit es genau passt
-    return lasttime;
-  }
-  do
-  {
-    lseek(fh, -(2*LBLEN), SEEK_CUR);
-    i = i + LBLEN;
-    _read(fh, b->line, BLEN);
-    b->line[7] = 0;
-//      lasttime = filename2time(b->line);
-    if (! strncmp(b->line, fname, 7))
-    {
-      lseek(fh, -(LBLEN), SEEK_CUR); // Eintrag genau gefunden, eins
-      *ok = OK;                      // zurueck, damit es genau passt
-      return lasttime;
-    }
-  }
-  while (i < len);
-  if (strncmp(b->line, fname, 7) > 0)
-   lseek(fh, -(LBLEN), SEEK_CUR);    // nichts gefunden
-  *ok = NO;                          // Eintrag nicht gefunden
-  return lasttime;
+	if (fh == EOF) {
+		*ok = NO;
+		trace(serious, "seek_fname_all", "no file");
+		return 0L; // kein File offen, Fehler
+	}
+	lseek(fh, -(LBLEN), SEEK_END); // zum letzten Eintrag
+	_read(fh, b->line, BLEN); // steht auf letztem Eintrag im File
+	b->line[7] = 0;
+
+	// letzten (neuesten) Eintrag bestimmen
+	lasttime = filename2time(b->line);
+
+	// Eintrag genau gefunden
+	// eins zurueck, damit es genau passt
+	if (!strncmp(b->line, fname, 7)) {
+		lseek(fh, -(LBLEN), SEEK_CUR);
+		*ok = OK;
+		return lasttime;
+	}
+
+	do {
+		lseek(fh, -(2*LBLEN), SEEK_CUR);
+		i = i + LBLEN;
+		_read(fh, b->line, BLEN);
+		b->line[7] = 0;
+
+		// Eintrag genau gefunden
+		// eins zurueck, damit es genau passt
+		if (!strncmp(b->line, fname, 7)) {
+			lseek(fh, -(LBLEN), SEEK_CUR);
+			*ok = OK;
+			return lasttime;
+		}
+	} while (i < len);
+
+	// nichts gefunden
+	// Eintrag nicht gefunden
+	if (strncmp(b->line, fname, 7) > 0)
+		lseek(fh, -(LBLEN), SEEK_CUR);
+
+	*ok = NO;
+
+	return lasttime;
 }
-
 
 /*---------------------------------------------------------------------------*/
 
@@ -1473,76 +1480,77 @@ time_t seek_fname (handle fh, char *fname, char *ok, int all)
 //
 //*************************************************************************
 {
-  lastfunc("seek_fname");
-  time_t lasttime = 0L;
-  int  vgl;
-  char found = NO;
-  long lastseek;
-  long lindex = 1, step, seekindex;
+	lastfunc("seek_fname");
+	time_t lasttime = 0L;
+	int  vgl;
+	char found = NO;
+	long lastseek;
+	long lindex = 1, step, seekindex;
 
-  if (fh == EOF)
-  {
-    *ok = NO;
-    trace(serious, "seek_fname", "no file");
-      return 0L;                         // kein File offen, Fehler --->
-  }
-  lseek(fh, -(LBLEN), SEEK_END);         // zum letzten Eintrag
-  lastseek = (unsigned) (lseek(fh, 0L, SEEK_CUR) >> 7);
-  while ((lindex - 1) < lastseek) lindex <<= 1; // Filelaenge binaer aufrunden
-  step = lindex / 2;                     // Anfangswerte festlegen
-  if (step) lindex = step - 1;
-  else lindex = 0;
-  _read(fh, b->line, BLEN);              // steht auf letztem Eintrag im File
-  b->line[7] = 0;
-  lasttime = filename2time(b->line);     // neuesten Eintrag bestimmen
-  if (! strncmp(b->line, fname, 7))
-  {
-    lseek(fh, -(LBLEN), SEEK_CUR);       // Eintrag genau gefunden, eins
-    *ok = OK;                            // zurueck, damit es genau passt
-    return lasttime;
-  }
-  if (strncmp(b->line, fname, 7) > 0)
-  {
-    do
-    {
-      if (lindex > lastseek)
-        seekindex = lastseek; // nicht hinter dem Ende lesen
-      else
-        seekindex = lindex;
-      lseek(fh, (long) seekindex << 7, SEEK_SET);
-      _read(fh, b->line, BLEN);
-//      b->line[7] = 0;
-//      lasttime = filename2time(b->line);
-      vgl = strncmp(b->line, fname, 7);
-      if (vgl < 0)
-      {
-        step >>= 1;
-        lindex += step;
-      }
-      else if (vgl > 0)
-      {
-        step >>= 1;
-        lindex -= step;
-      }
-      else
-      {
-        lseek(fh, -(LBLEN), SEEK_CUR);  // Eintrag genau gefunden, eins
-        *ok = OK;                       // zurueck, damit es genau passt
-        return lasttime;
-      }
-    }
-    while (step);
-    if (strncmp(b->line, fname, 7) > 0) lseek(fh, -(LBLEN), SEEK_CUR);
-  }
-  if (all)
-  {
-    // Eintrag nicht gefunden, genauere Suche durchfuehren
-    lasttime = seek_fname_all(fh, fname, &found);
-    *ok = found;
-  }
-  else
-    *ok = NO;
-  return lasttime;
+	if (fh == EOF) {
+		*ok = NO;
+		trace(serious, "seek_fname", "no file");
+		return 0L;  // kein File offen, Fehler
+	}
+	lseek(fh, -(LBLEN), SEEK_END); // zum letzten Eintrag
+	lastseek = (unsigned)(lseek(fh, 0L, SEEK_CUR) >> 7);
+
+	while ((lindex - 1) < lastseek)
+		lindex <<= 1; // Filelaenge binaer aufrunden
+	step = lindex / 2; // Anfangswerte festlegen
+	if (step)
+		lindex = step - 1;
+	else
+		lindex = 0;
+
+	_read(fh, b->line, BLEN); // steht auf letztem Eintrag im File
+	b->line[7] = 0;
+	lasttime = filename2time(b->line); // neuesten Eintrag bestimmen
+
+	// Eintrag genau gefunden
+	// eins zurueck, damit es genau passt
+	if (!strncmp(b->line, fname, 7)) {
+		lseek(fh, -(LBLEN), SEEK_CUR);
+		*ok = OK;
+		return lasttime;
+	}
+	if (strncmp(b->line, fname, 7) > 0) {
+		do {
+			if (lindex > lastseek)
+				seekindex = lastseek; // nicht hinter dem Ende lesen
+			else
+				seekindex = lindex;
+			lseek(fh, (long) seekindex << 7, SEEK_SET);
+			_read(fh, b->line, BLEN);
+
+			vgl = strncmp(b->line, fname, 7);
+			if (vgl < 0) {
+				step >>= 1;
+				lindex += step;
+			} else if (vgl > 0) {
+				step >>= 1;
+				lindex -= step;
+			// Eintrag genau gefunden
+			// eins zurueck, damit es genau passt
+			} else {
+				lseek(fh, -(LBLEN), SEEK_CUR);
+				*ok = OK;
+				return lasttime;
+			}
+		} while (step);
+
+		if (strncmp(b->line, fname, 7) > 0)
+			lseek(fh, -(LBLEN), SEEK_CUR);
+	}
+	// Eintrag nicht gefunden, genauere Suche durchfuehren
+	if (all) {
+		lasttime = seek_fname_all(fh, fname, &found);
+		*ok = found;
+	} else {
+		*ok = NO;
+	}
+
+	return lasttime;
 }
 
 /*---------------------------------------------------------------------------*/
