@@ -1402,8 +1402,18 @@ int seek_lastentry (handle fh, unsigned long anzahl)
 }
 
 /*---------------------------------------------------------------------------*/
+static void seek_fname_preparg(char *a)
+{
+	int x = nibdez(a[2]);
 
-time_t seek_fname_all (handle fh, char *fname, char *ok)
+	a[0] = '0';
+	if (x & 0xF0) {
+		a[0] = deznib(x >> 4);
+		a[2] = deznib(x & 0x0F);
+	}
+}
+
+static time_t seek_fname_all (handle fh, char *fname, char *ok)
 //*************************************************************************
 //
 //  Durchsucht alle Zeilen in einem List-File nach dem uebergebenem
@@ -1417,6 +1427,7 @@ time_t seek_fname_all (handle fh, char *fname, char *ok)
 	time_t lasttime = 0L;
 	long i = 0;
 	long len = filelength(fh);
+	char cmp_a[9];
 
 	if (fh == EOF) {
 		*ok = NO;
@@ -1424,15 +1435,16 @@ time_t seek_fname_all (handle fh, char *fname, char *ok)
 		return 0L; // kein File offen, Fehler
 	}
 	lseek(fh, -(LBLEN), SEEK_END); // zum letzten Eintrag
-	_read(fh, b->line, BLEN); // steht auf letztem Eintrag im File
-	b->line[7] = 0;
-
+	_read(fh, b->line + 1, BLEN); // steht auf letztem Eintrag im File
+	b->line[8] = 0;
 	// letzten (neuesten) Eintrag bestimmen
-	lasttime = filename2time(b->line);
+	lasttime = filename2time(b->line + 1);
+
+	seek_fname_preparg(b->line);
 
 	// Eintrag genau gefunden
 	// eins zurueck, damit es genau passt
-	if (!strncmp(b->line, fname, 7)) {
+	if (!strncmp(b->line, fname, 8)) {
 		lseek(fh, -(LBLEN), SEEK_CUR);
 		*ok = OK;
 		return lasttime;
@@ -1441,12 +1453,12 @@ time_t seek_fname_all (handle fh, char *fname, char *ok)
 	do {
 		lseek(fh, -(2*LBLEN), SEEK_CUR);
 		i = i + LBLEN;
-		_read(fh, b->line, BLEN);
-		b->line[7] = 0;
-
+		_read(fh, b->line + 1, BLEN);
+		b->line[8] = 0;
+		seek_fname_preparg(b->line);
 		// Eintrag genau gefunden
 		// eins zurueck, damit es genau passt
-		if (!strncmp(b->line, fname, 7)) {
+		if (!strncmp(b->line, fname, 8)) {
 			lseek(fh, -(LBLEN), SEEK_CUR);
 			*ok = OK;
 			return lasttime;
@@ -1455,7 +1467,7 @@ time_t seek_fname_all (handle fh, char *fname, char *ok)
 
 	// nichts gefunden
 	// Eintrag nicht gefunden
-	if (strncmp(b->line, fname, 7) > 0)
+	if (strncmp(b->line, fname, 8) > 0)
 		lseek(fh, -(LBLEN), SEEK_CUR);
 
 	*ok = NO;
@@ -1487,6 +1499,8 @@ time_t seek_fname (handle fh, char *fname, char *ok, int all)
 	long lastseek;
 	long lindex = 1, step, seekindex;
 
+	char cmp_a[9];
+
 	if (fh == EOF) {
 		*ok = NO;
 		trace(serious, "seek_fname", "no file");
@@ -1503,27 +1517,35 @@ time_t seek_fname (handle fh, char *fname, char *ok, int all)
 	else
 		lindex = 0;
 
-	_read(fh, b->line, BLEN); // steht auf letztem Eintrag im File
-	b->line[7] = 0;
-	lasttime = filename2time(b->line); // neuesten Eintrag bestimmen
+	_read(fh, b->line + 1, BLEN); // steht auf letztem Eintrag im File
+	b->line[8] = 0;
+	lasttime = filename2time(b->line + 1); // neuesten Eintrag bestimmen
+
+
+	strncpy(&cmp_a[1], fname, sizeof(cmp_a));
+	cmp_a[8] = 0;
+	seek_fname_preparg(cmp_a);
+	seek_fname_preparg(b->line);
 
 	// Eintrag genau gefunden
 	// eins zurueck, damit es genau passt
-	if (!strncmp(b->line, fname, 7)) {
+	if (!strncmp(b->line, cmp_a, 8)) {
 		lseek(fh, -(LBLEN), SEEK_CUR);
 		*ok = OK;
 		return lasttime;
 	}
-	if (strncmp(b->line, fname, 7) > 0) {
+	if (strncmp(b->line, cmp_a, 8) > 0) {
 		do {
 			if (lindex > lastseek)
 				seekindex = lastseek; // nicht hinter dem Ende lesen
 			else
 				seekindex = lindex;
 			lseek(fh, (long) seekindex << 7, SEEK_SET);
-			_read(fh, b->line, BLEN);
+			_read(fh, b->line + 1, BLEN);
+			b->line[8] = 0;
+			seek_fname_preparg(b->line);
 
-			vgl = strncmp(b->line, fname, 7);
+			vgl = strncmp(b->line, cmp_a, 8);
 			if (vgl < 0) {
 				step >>= 1;
 				lindex += step;
@@ -1539,12 +1561,12 @@ time_t seek_fname (handle fh, char *fname, char *ok, int all)
 			}
 		} while (step);
 
-		if (strncmp(b->line, fname, 7) > 0)
+		if (strncmp(b->line, cmp_a, 8) > 0)
 			lseek(fh, -(LBLEN), SEEK_CUR);
 	}
 	// Eintrag nicht gefunden, genauere Suche durchfuehren
 	if (all) {
-		lasttime = seek_fname_all(fh, fname, &found);
+		lasttime = seek_fname_all(fh, cmp_a, &found);
 		*ok = found;
 	} else {
 		*ok = NO;
