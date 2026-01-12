@@ -53,58 +53,64 @@ static int checkmerge (handle lfh, handle cfh, char *outf)
 //
 //*************************************************************************
 {
-  char *lbuf = (char *) t_malloc(CBUFLEN, "ch_l");
-  char *cbuf = (char *) t_malloc(CBUFLEN, "ch_c");
-  unsigned llen = 0, clen = 0, lpos = 0, cpos = 0;
-  FILE *of;
-  char *nextl, *nextc;
+	char *lbuf = (char *)t_malloc(CBUFLEN, "ch_l");
+	char *cbuf = (char *)t_malloc(CBUFLEN, "ch_c");
+	unsigned llen = 0, clen = 0, lpos = 0, cpos = 0;
+	FILE *of;
+	char *nextl, *nextc;
 
-  if (! lbuf || ! cbuf) return NO;
-  if (! (of = s_fopen(outf, "swb")))
-  {
-    trace(serious, "checkmerge", "fopen %s errno=%d %s",
-                                 outf, errno, strerror(errno));
-    return NO;
-  }
-  s_fsetopt(of, 1);
-  setvbuf(of, NULL, _IOFBF, CBUFLEN);
-  do
-  {
-    if (lpos >= llen && lfh != EOF)
-    {
-      llen = _read(lfh, lbuf, CBUFLEN);
-      waitfor(e_ticsfull);
-      lpos = 0;
-    }
-    if (lpos < llen) nextl = lbuf + lpos;
-    else nextl = NULL;
-    if (cpos >= clen && cfh != EOF)
-    {
-      clen = _read(cfh, cbuf, CBUFLEN);
-      waitfor(e_ticsfull);
-      cpos = 0;
-    }
-    if (cpos < clen) nextc = cbuf + cpos;
-    else nextc = NULL;
-    if (   (nextc && ! nextl)
-        || (nextc && nextl && strncmp(nextc, nextl, 7) < 0))
-    {
-      fwrite(nextc, BLEN, 1, of);
-      cpos += BLEN;
-    }
-    else
-    if (   (! nextc && nextl)
-        || (nextc && nextl && strncmp(nextc, nextl, 7) >= 0))
-    {
-      fwrite(nextl, BLEN, 1, of);
-      lpos += BLEN;
-    }
-  }
-  while (nextl || nextc);
-  s_fclose(of);
-  t_free(lbuf);
-  t_free(cbuf);
-  return OK;
+	if (!lbuf || !cbuf)
+		return NO;
+
+	of = s_fopen(outf, "swb");
+	if (!of) {
+		trace(serious, "checkmerge",
+		      "fopen %s errno=%d %s",
+		      outf, errno, strerror(errno));
+
+		return NO;
+	}
+	s_fsetopt(of, 1);
+	setvbuf(of, NULL, _IOFBF, CBUFLEN);
+
+	do {
+		if (lpos >= llen && lfh != EOF) {
+			llen = _read(lfh, lbuf, CBUFLEN);
+			waitfor(e_ticsfull);
+			lpos = 0;
+		}
+		if (lpos < llen)
+			nextl = lbuf + lpos;
+		else
+			nextl = NULL;
+
+		if (cpos >= clen && cfh != EOF) {
+			clen = _read(cfh, cbuf, CBUFLEN);
+			waitfor(e_ticsfull);
+			cpos = 0;
+		}
+
+		if (cpos < clen)
+			nextc = cbuf + cpos;
+		else
+			nextc = NULL;
+
+		if ((nextc && !nextl) ||
+		    (nextc && nextl && strncmp(nextc, nextl, 7) < 0)) {
+			fwrite(nextc, BLEN, 1, of);
+			cpos += BLEN;
+		} else if ((!nextc && nextl) ||
+			   (nextc && nextl && strncmp(nextc, nextl, 7) >= 0)) {
+			fwrite(nextl, BLEN, 1, of);
+			lpos += BLEN;
+		}
+	} while (nextl || nextc);
+
+	s_fclose(of);
+	t_free(lbuf);
+	t_free(cbuf);
+
+	return OK;
 }
 
 /*---------------------------------------------------------------------------*/
