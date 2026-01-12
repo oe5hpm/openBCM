@@ -46,6 +46,20 @@ typedef struct
 } check_typ;
 
 /*---------------------------------------------------------------------------*/
+static int checkmerge_cmp(const char *a, const char *b)
+{
+	char cmpbuf_a[9], cmpbuf_b[9];
+
+	strncpy(cmpbuf_a + 1, a, 7);
+	strncpy(cmpbuf_b + 1, b, 7);
+	cmpbuf_a[8] = '\0';
+	cmpbuf_b[8] = '\0';
+
+	seek_fname_preparg(cmpbuf_a);
+	seek_fname_preparg(cmpbuf_b);
+
+	return strncmp(cmpbuf_a, cmpbuf_b, 8);
+}
 
 static int checkmerge (handle lfh, handle cfh, char *outf)
 //*************************************************************************
@@ -96,11 +110,11 @@ static int checkmerge (handle lfh, handle cfh, char *outf)
 			nextc = NULL;
 
 		if ((nextc && !nextl) ||
-		    (nextc && nextl && strncmp(nextc, nextl, 7) < 0)) {
+		    (nextc && nextl && checkmerge_cmp(nextc, nextl) < 0)) {
 			fwrite(nextc, BLEN, 1, of);
 			cpos += BLEN;
 		} else if ((!nextc && nextl) ||
-			   (nextc && nextl && strncmp(nextc, nextl, 7) >= 0)) {
+			   (nextc && nextl && checkmerge_cmp(nextc, nextl) >= 0)) {
 			fwrite(nextl, BLEN, 1, of);
 			lpos += BLEN;
 		}
