@@ -2239,6 +2239,7 @@ int             fwdcallok(char *call, int fwdcallformat); //JJ
 char            mbmailt(char *ziel,char *hadr);
 int             mbhadrok(char *hadr);
 void            findbereich(char *buf);
+void		seek_fname_preparg(char *a);
 time_t          seek_fname(handle fh, char *fname, char *ok, int alle);
 int             seek_lastentry(handle fh, unsigned long anzahl);
 void            scanoptions(char *buf);

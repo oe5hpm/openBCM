@@ -1402,7 +1402,7 @@ int seek_lastentry (handle fh, unsigned long anzahl)
 }
 
 /*---------------------------------------------------------------------------*/
-static void seek_fname_preparg(char *a)
+void seek_fname_preparg(char *a)
 {
 	int x = nibdez(a[2]);
 
