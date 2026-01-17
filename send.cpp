@@ -2003,26 +2003,34 @@ int is_bcmnet_bid(char *bid, int cflag, char *call)
 //*************************************************************************
 {
 	lastfunc("is_bcmnet_bid");
+	int year;
+	int year_multi;
+	int mon;
 
 	//12 chars long
 	if (strlen(bid) != 12)
 		return NO;
 
-	//year between 2003..2026
-	if (!(bid[1] >= 'D' && bid[1] <= 'Z'))
+	mon = (nibdez(bid[2]) & 0x0F);
+	year_multi = (nibdez(bid[2]) & 0xF0) >> 4;
+	year = nibdez(bid[1]) + 1990 + (36 * year_multi);
+#ifdef _BCMNET_DEBUG
+	trace(report, "is_bcmnet_bid",
+	     "bid %s, cflag: %d, call: %s - mon: %d, ymulti: %d, year %d",
+	      bid, cflag, call, mon, year_multi, year);
+#endif
+	//year starting upon 2003
+	if (year < 2003)
 		return NO;
 
-	//month between 1....12
-	if (!((bid[2] >= '1' && bid[2] <= '9') ||
-	      (bid[2] >= 'A' && bid[2] <= 'C')))
+	//month between 1..12
+	if (mon < 1 || mon > 12)
 		return NO;
 
-	//underscore
-	if (!(cflag == 0 && bid[9] == '_'))
+	//underscore / equalsign
+	if (cflag == 0 && bid[9] != '_')
 		return NO;
-
-	//equal sign
-	if (!(cflag == 1 && bid[9] == '='))
+	else if (cflag == 1 && bid[9] != '=')
 		return NO;
 
 	return YES;
