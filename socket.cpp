@@ -240,7 +240,6 @@ void putflush_sock (void)
 
   if (s->txc)
   {
-    timeout(TIMEOUT);
     while (1)
     {
       fd_set wfds;
@@ -448,7 +447,6 @@ int getv_sock (void)
   lastfunc("getv_sock");
 
   sock_t *s = &so[t->socket];
-  timeout(TIMEOUT);
   t->last_input = ad_time();
   if (s->wasda)
   {
