@@ -410,7 +410,41 @@ int loaduser (char *usercall, user_t *uu, int anlegen)
 }
 
 /*---------------------------------------------------------------------------*/
+static int reorguser_chkfixstr(char *str, int len, char *call, char *fieldname)
+{
+	if (strlen(str) > len) {
+		trace(report, "reorguser",
+		      "%s %s (%s) too long, truncate",
+		      call, fieldname, str);
+		str[len] = 0;
+		return 1;
+	}
+	return 0;
+}
 
+static int reorguser_chkfixchr(char *field, int cmp, int defval, char *call, char *fieldname)
+{
+	if (*field > cmp) {
+		trace(report, "reorguser",
+		      "%s %s (%d) too big, set defval",
+		      call, fieldname, *field);
+		*field = defval;
+		return 1;
+	}
+	return 0;
+}
+
+static int reorguser_chkfixtm(time_t *t, time_t now, char *call, char *fieldname)
+{
+	if (*t > now) {
+		trace(report, "reorguser",
+		      "%s %s (%s) has future time, unset timestamp",
+		      call, fieldname, datestr(*t, 12));
+		*t = 0;
+		return 1;
+	}
+	return 0;
+}
 void reorguser (int delempty)
 //*************************************************************************
 //
@@ -464,141 +498,215 @@ void reorguser (int delempty)
 	}
 
 	hashinit(uhneu, HASH32);
+
 	_read(ualt, &ux, sizeof(user_t));
 	defaultuser("DUMMY", &ux);
 	_write(uneu, &ux, sizeof(user_t));
+
 	while (1) {
 		waitfor(e_ticsfull);
 		if (!_read(ualt, &ux, sizeof(user_t)))
 			break;
+
 		ux.nextsamehash = 0;
-		*ux.restplatz = 0;
-		if (delempty && ! *ux.name) {
-			if ((!ux.mybbsok && ux.mybbstime < (ti - (DAY * maxdays))) ||
-			      ux.mybbstime < (ti - (DAY * 2 * maxdays)))
-			continue;
-		}
-		if (ux.mybbstime > (ti + MAXAGE)) {//remove incorrect mybbs
-			*ux.mybbs = 0;
-			ux.mybbstime = 0;
-			errors++;
-		}
+
 		if (!*ux.call) {
 			ndeleted++;
 			continue;
 		}
-		if (strlen(ux.call) > CALLEN ||
-		    strlen(ux.ttypw) > 8 ||
-		    !mbcallok(ux.call)) {
+
+		if (delempty && !*ux.name) {
+			if ((!ux.mybbsok &&
+			      ux.mybbstime < (ti - (DAY * maxdays))) ||
+			      ux.mybbstime < (ti - (DAY * 2 * maxdays)))
+			continue;
+		}
+		if (!mbcallok(ux.call)) {
+			trace(report, "reorguser",
+			      "%s: invalid callsign, drop it.",
+			      ux.call);
 			errors++;
 			continue;
 		}
-		if (*ux.mybbs && mbhadrok(ux.mybbs) != 1) {
+		if (strlen(ux.ttypw) > 8) {
+			trace(report, "reorguser",
+			      "%s ttypw too long, reset it.",
+			      ux.call);
+			errors++;
+			*ux.ttypw = 0;
+		}
+
+		if (ux.mybbstime > (ti + MAXAGE)) {//remove incorrect mybbs
+			trace(report, "reorguser",
+			      "%s MYBBS of is outdated, clearing mybbs",
+			      ux.call);
 			*ux.mybbs = 0;
 			ux.mybbsok = 0;
+			ux.mybbstime = 0;
 			errors++;
 		}
+
+		if (*ux.mybbs && mbhadrok(ux.mybbs) != 1) {
+			trace(report, "reorguser",
+			      "%s MYBBS (%s) isn't valid, clearing mybbs",
+			      ux.call, ux.mybbs);
+			*ux.mybbs = 0;
+			ux.mybbsok = 0;
+			ux.mybbstime = 0;
+			errors++;
+		}
+
+		errors += reorguser_chkfixstr(ux.name, NAMELEN,
+					      ux.call, "Name");
+		errors += reorguser_chkfixstr(ux.qth, QTHLEN,
+					      ux.call, "QTH");
+		errors += reorguser_chkfixstr(ux.mybbs, MYBBSLEN,
+					      ux.call, "MYBBS");
+		errors += reorguser_chkfixstr(ux.uplink, CALLSSID,
+					      ux.call, "Uplink");
+		errors += reorguser_chkfixstr(ux.newcall, CALLEN,
+					      ux.call, "Newcall");
+		errors += reorguser_chkfixstr(ux.prompt, PROMPTLEN,
+					      ux.call, "Prompt");
+		errors += reorguser_chkfixstr(ux.sprache, 3,
+					      ux.call, "Sprache");
+		errors += reorguser_chkfixstr(ux.notvisible, LINELEN-1,
+					      ux.call, "notvisibile");
+		errors += reorguser_chkfixstr(ux.firstcmd, FIRSTCMDLEN,
+					      ux.call, "Firstcmd");
+		errors += reorguser_chkfixstr(ux.ufwd, HADRESSLEN,
+					      ux.call, "TtyPW");
+		errors += reorguser_chkfixstr(ux.ttypw, 8,
+					      ux.call, "Firstcmd");
+		errors += reorguser_chkfixstr(ux.linuxpw, 8,
+					      ux.call, "LinuxPW");
+		errors += reorguser_chkfixstr(ux.notification, CALLEN,
+					      ux.call, "Notifictation");
+		errors += reorguser_chkfixstr(ux.awaytext, LINELEN-1,
+					      ux.call, "awaytext");
+
+		if (ux.helplevel > 2) {
+			trace(report, "reorguser",
+			      "%s %s (%d) too big, set defval",
+			      ux.call, "HELPLEVEL", ux.helplevel);
+			ux.helplevel = 0;
+			errors++;
+		}
+		if (ux.lf > 6) {
+			trace(report, "reorguser",
+			      "%s %s (%d) too big, set defval",
+			      ux.call, "LF", ux.helplevel);
+			ux.lf = m.deflf;
+			errors++;
+		}
+		if (ux.fdelay > 60) {
+			trace(report, "reorguser",
+			      "%s %s (%d) too big, set defval",
+			      ux.call, "FDELAY", ux.helplevel);
+			ux.fdelay = 0;
+			errors++;
+		}
+		if (ux.fhold > 60) {
+			trace(report, "reorguser",
+			      "%s %s (%d) too big, set defval",
+			      ux.call, "FHOLD", ux.helplevel);
+			ux.fhold = m.defhold;
+			errors++;
+		}
+		if (ux.status > 15) {
+			trace(report, "reorguser",
+			      "%s %s (%d) too big, set defval",
+			      ux.call, "STATUS", ux.helplevel);
+			ux.status = m.defstatus;
+			errors++;
+		}
+		if (ux.paclen > 256) {
+			trace(report, "reorguser",
+			      "%s %s (%d) too big, set defval",
+			      ux.call, "PACLEN", ux.helplevel);
+			ux.status = m.paclen;
+			errors++;
+		}
+
+		errors += reorguser_chkfixchr(&ux.qthok, 1, 0,
+					      ux.call, "QTHOK");
+		errors += reorguser_chkfixchr(&ux.zipok, 1, 0,
+					      ux.call, "ZIPOK");
+		errors += reorguser_chkfixchr(&ux.comp, 1, 0,
+					      ux.call, "COMP");
+		errors += reorguser_chkfixchr(&ux.mybbsok, 1, 0,
+					      ux.call, "MYBBSOK");
+		errors += reorguser_chkfixchr(&ux.nopurge, 1, 0,
+					      ux.call, "NOPURGE");
+		errors += reorguser_chkfixchr(&ux.nameok, 1, 0,
+					      ux.call, "NAMEOK");
+		errors += reorguser_chkfixchr(&ux.readlock, 2, m.defrea,
+					      ux.call, "READLOCK");
+		errors += reorguser_chkfixchr(&ux.rlimit, 1, 0,
+					      ux.call, "RLIMIT");
+		errors += reorguser_chkfixchr(&ux.pwline, 1, 0,
+					      ux.call, "PWLINE");
+		errors += reorguser_chkfixchr(&ux.echo, 1, 0,
+					      ux.call, "ECHO");
+		errors += reorguser_chkfixchr(&ux.dirformat, 1, 0,
+					      ux.call, "DIRFORMAT");
+		errors += reorguser_chkfixchr(&ux.binmode, 4, 0,
+					      ux.call, "BINMODE");
+		errors += reorguser_chkfixchr(&ux.unsecure_smtp, 1, 0,
+					      ux.call, "UNSECURESMTP");
+		errors += reorguser_chkfixchr(&ux.away, 1, 0,
+					      ux.call, "AWAY");
+		errors += reorguser_chkfixchr(&ux.charset, 1, 0,
+					      ux.call, "CHARSET");
+		errors += reorguser_chkfixchr(&ux.ttycharset, 1, 0,
+					      ux.call, "TTYCHARSET");
+#ifdef FBBCHECKREAD
+		errors += reorguser_chkfixchr(&ux.fbbcheckmode,
+					      1, m.deffbbcheckmode,
+					      ux.call, "FBBHCEKMODE");
+#endif
+		errors += reorguser_chkfixchr(&ux.httpsurface,
+					      4, m.defhttpsurface,
+					      ux.call, "HTTPSURFACE");
+
 		ti = ad_time();
-		// --------------------------------------------------------------------
-		// - Strings auf Einhaltung der maximalen Laenge pruefen
-		// - Zahlenwerte auf Einhaltung des Wertebereiches pruefen (nicht alle)
-		// - Fehlerhafte Eintraege werden im Syslog vermerkt
-		//   (nicht geloescht!)                           DG9FDL, 06.05.97
-		if (
-		   (strlen(ux.name)         > NAMELEN)        // Name
-		|| (strlen(ux.qth)          > QTHLEN)         // QTH
-		|| (strlen(ux.zip)          > ZIPLEN)         // ZIP
-		|| (strlen(ux.mybbs)        > MYBBSLEN)       // MyBBS
-		|| (strlen(ux.uplink)       > CALLSSID)       // uplink
-		|| (strlen(ux.newcall)      > CALLEN)         // newcall
-		|| (strlen(ux.prompt)       > PROMPTLEN)      // Prompt
-		|| (strlen(ux.sprache)      > 3)              // Sprache
-		|| (strlen(ux.password)     > 39)             // Passwort
-		|| (strlen(ux.notvisible)   > (LINELEN-1))    // Reject
-		|| (strlen(ux.firstcmd)     > FIRSTCMDLEN)    // Command
-		|| (strlen(ux.ufwd)         > HADRESSLEN)     // ufwd
-		|| (strlen(ux.ttypw)        > 8)              // TTY-PW
-		|| (strlen(ux.linuxpw)      > 8)              // Linux-PW
-		|| (strlen(ux.notification) > CALLEN)         // Notification-Call
-		|| (strlen(ux.awaytext)     > (LINELEN-1))    // Away-Text
-		|| (ux.qthok         > 1)                     // qthok (0..1)
-		|| (ux.zipok         > 1)                     // zipok (0..1)
-		|| (ux.comp          > 1)                     // comp (0..1)
-		|| (ux.mybbsok       > 1)                     // mybbsok (0..1)
-		|| (ux.helplevel     > 2)                     // helplevel (0..2)
-		|| (ux.lf            > 6)                     // lf (0..6) 6 = -1
-		|| (ux.nopurge       > 1)                     // nopurge (0..1)
-		|| (ux.nameok        > 1)                     // nameok (0..1)
-		|| (ux.fdelay        > 60)                    // fdelay (0..60)
-		|| (ux.fhold         > 1)                     // fhold (0..1)
-		|| (ux.status        > 15)                    // status (0..15)
-		|| (ux.readlock      > 2)                     // readlock (0..2)
-		|| (ux.rlimit        > 1)                     // rlimit (0..1)
-		|| (ux.pwline        > 1)                     // pwline (0..1)
-		|| (ux.echo          > 1)                     // echo (0..1)
-		|| (ux.paclen        > 256)                   // paclen (0..256)
-		|| (ux.dirformat     > 1)                     // dirformat (0..1)
-		|| (ux.binmode       > 4)                     // binmode (0..3)
-		|| (ux.unsecure_smtp > 1)                     // unsec.-smtp (0..1)
-		|| (ux.away          > 1)                     // away (0..1)
-		|| (ux.charset       > 1)                     // charset (0..1)
-		|| (ux.ttycharset    > 1)                     // ttycharset (0..1)
-		|| (ux.fbbcheckmode  > 1)                     // fbbcheckmode (0..1)
-		|| (ux.httpsurface   > 2)                     // httpsurface (0..2)
-		|| (ux.mybbstime     > ti)                    // mybbstime
-		|| (ux.lastboxlogin  > ti)                    // lastboxlogin
-		|| (ux.lastdirnews   > ti)                    // lastdirnews
-		|| (ux.lastquit      > ti)                    // lastquit
-		|| (ux.lastload      > ti)                    // lastload
-		/* es fehlen:
-		loginpwtype, sfpwtype, logins, mailsent, mailgot, mailread,
-		daybytes, opt[8], awayendtime
-		*/
-		) {
-			if (errors < 100)
-			trace(replog, "reorguser", "data error %s", ux.call);
-			errors++;
-		}
-		// dh8ymb: div. leere Zellen definiert mit 0x00 fuellen, wenn unbenutzt
-		for (stelle = strlen(ux.name); stelle < NAMELEN; stelle++)
-			if (ux.name[stelle] != 0) ux.name[stelle] = 0;
-		for (stelle = strlen(ux.qth); stelle < QTHLEN; stelle++)
-			if (ux.qth[stelle] != 0) ux.qth[stelle] = 0;
-		for (stelle = strlen(ux.zip); stelle < ZIPLEN; stelle++)
-			if (ux.zip[stelle] != 0) ux.zip[stelle] = 0;
-		for (stelle = strlen(ux.mybbs); stelle < MYBBSLEN; stelle++)
-			if (ux.mybbs[stelle] != 0) ux.mybbs[stelle] = 0;
-		for (stelle = strlen(ux.uplink); stelle < CALLSSID; stelle++)
-			if (ux.uplink[stelle] != 0) ux.uplink[stelle] = 0;
-		for (stelle = strlen(ux.newcall); stelle < CALLEN; stelle++)
-			if (ux.newcall[stelle] != 0) ux.newcall[stelle] = 0;
-		for (stelle = strlen(ux.prompt); stelle < PROMPTLEN; stelle++)
-			if (ux.prompt[stelle] != 0) ux.prompt[stelle] = 0;
-		for (stelle = strlen(ux.password); stelle < 39; stelle++)
-			if (ux.password[stelle] != 0) ux.password[stelle] = 0;
-		if (!*ux.notvisible) { // leeres ux.notvisible definiert mit 0 belegen
-			for (stelle = 1; stelle < LINELEN; stelle++)
-				if (ux.notvisible[stelle] != 0)
-					ux.notvisible[stelle] = 0;
-		} else {
-			for (stelle = strlen(ux.notvisible); stelle < LINELEN; stelle++)
-				if (ux.notvisible[stelle] != 0)
-					ux.notvisible[stelle] = 0;
-		}
-		for (stelle = strlen(ux.firstcmd); stelle < FIRSTCMDLEN; stelle++)
-			if (ux.firstcmd[stelle] != 0) ux.firstcmd[stelle] = 0;
-		for (stelle = strlen(ux.ufwd); stelle < HADRESSLEN; stelle++)
-			if (ux.ufwd[stelle] != 0) ux.ufwd[stelle] = 0;
-		for (stelle = strlen(ux.ttypw); stelle < 8; stelle++)
-			if (ux.ttypw[stelle] != 0) ux.ttypw[stelle] = 0;
-		for (stelle = strlen(ux.linuxpw); stelle < 8; stelle++)
-			if (ux.linuxpw[stelle] != 0) ux.linuxpw[stelle] = 0;
-		for (stelle = strlen(ux.notification); stelle < CALLEN; stelle++)
-			if (ux.notification[stelle] != 0) ux.notification[stelle] = 0;
-		for (stelle = strlen(ux.awaytext); stelle < LINELEN-1; stelle++)
-			if (ux.awaytext[stelle] != 0) ux.awaytext[stelle] = 0;
-		for (stelle = 1; stelle < USERDBREST; stelle++)
-			if (ux.restplatz[stelle] != 0) ux.restplatz[stelle] = 0;
+
+		errors += reorguser_chkfixtm(&ux.mybbstime, ti,
+					     ux.call, "MYBBS time");
+		errors += reorguser_chkfixtm(&ux.lastboxlogin, ti,
+					     ux.call, "Lastlogin time");
+		errors += reorguser_chkfixtm(&ux.lastdirnews, ti,
+					     ux.call, "DirNews time");
+		errors += reorguser_chkfixtm(&ux.lastquit, ti,
+					     ux.call, "LastQuit time");
+		errors += reorguser_chkfixtm(&ux.lastload, ti,
+					     ux.call, "LastLoad time");
+
+#define TERMFIELD(x) memset((x) + strlen((x)), 0, sizeof((x)) - strlen((x)))
+
+		// div. leere Zellen definiert mit 0x00 fuellen
+		TERMFIELD(ux.name);
+		TERMFIELD(ux.qth);
+		TERMFIELD(ux.zip);
+		TERMFIELD(ux.uplink);
+		TERMFIELD(ux.newcall);
+		TERMFIELD(ux.prompt);
+		TERMFIELD(ux.password);
+
+		if (!*ux.notvisible)
+			memset(ux.notvisible, 0, sizeof(ux.notvisible));
+		else
+			TERMFIELD(ux.notvisible);
+
+		TERMFIELD(ux.firstcmd);
+		TERMFIELD(ux.ufwd);
+		TERMFIELD(ux.ttypw);
+		TERMFIELD(ux.linuxpw);
+		TERMFIELD(ux.notification);
+		TERMFIELD(ux.awaytext);
+		TERMFIELD(ux.password);
+
+		memset(ux.restplatz, 0, sizeof(ux.restplatz));
 
 		if (udrin(ux.call, uneu, uhneu)) {
 			trace(replog, "reorguser", "double %s", ux.call);
@@ -606,8 +714,9 @@ void reorguser (int delempty)
 		} else {
 			newuser(&ux, uneu, uhneu);
 		}
+
 		pos++;
-		if (! (pos % 5000)) {
+		if (!(pos % 5000)) {
 			char s[20];
 			sprintf(s, "%lu:%s", pos, ux.call);
 			lastcmd(s);
