@@ -2002,25 +2002,30 @@ int is_bcmnet_bid(char *bid, int cflag, char *call)
 //
 //*************************************************************************
 {
-	char name[20];
-	strcpy(name, "is_bcmnet_bid");
-	lastfunc(name);
+	lastfunc("is_bcmnet_bid");
 
-	if ((strlen(bid) == 12) &&		//12 chars long
-	    (bid[1] >= 'D' && bid[1] <= 'Z') &&	//year between 2003..2026
-	    //month between 1....12
-	   ((bid[2] >= '1' && bid[2] <= '9') || (bid[2] >= 'A' && bid[2] <= 'C')) &&
-	   //underscore
-	   ((cflag == 0 && bid[9] == '_') ||
-	   //equal sign
-	   (cflag == 1 && bid[9] == '='))) {
-		if (call && cflag == 1)
-			trace(report, name,
-			      "correction MyBBS for %s ignored", call);
-		return YES;
-	}
+	//12 chars long
+	if (strlen(bid) != 12)
+		return NO;
 
-	return NO;
+	//year between 2003..2026
+	if (!(bid[1] >= 'D' && bid[1] <= 'Z'))
+		return NO;
+
+	//month between 1....12
+	if (!((bid[2] >= '1' && bid[2] <= '9') ||
+	      (bid[2] >= 'A' && bid[2] <= 'C')))
+		return NO;
+
+	//underscore
+	if (!(cflag == 0 && bid[9] == '_'))
+		return NO;
+
+	//equal sign
+	if (!(cflag == 1 && bid[9] == '='))
+		return NO;
+
+	return YES;
 }
 #endif
 
