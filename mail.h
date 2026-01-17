@@ -2230,6 +2230,7 @@ long            nonlin(long bytes);
 long            inonlin(long bytes);
 long            ascdez(char *s,int stellen);
 char            deznib(int dez);
+int		nibdez (char nibble);
 char            *time2filename(time_t unixtime);
 time_t          filename2time(char *name);
 int             mbcallok(char *call);

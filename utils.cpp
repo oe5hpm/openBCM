@@ -448,7 +448,7 @@ long ascdez (char *sc, int stellen)
 
 /*---------------------------------------------------------------------------*/
 
-static int near nibdez (char nibble)
+int nibdez (char nibble)
 //*************************************************************************
 //
 //  Macht aus einem Zeichen im Zahlensystem zur Basis 36
