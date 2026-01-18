@@ -655,7 +655,7 @@ int wpparse_m (char *buf, wpdata_t *wp)
 #endif
 #ifdef _BCMNET_GW
   //Maybe users MyBBS is protected by the CB-BCMNET login concept?
-  if (is_bcmnet_mybbs(wp->call, b->bid, wp->bbs, wp->mybbstime, wp->origin,
+  if (is_bcmnet_mybbs(wp->call, wp->bid, wp->bbs, wp->mybbstime, wp->origin,
                       wp->name, wp->hops) == 1) return NO;
 #endif
   return OK;
