@@ -1112,9 +1112,11 @@ static void near usersfile_newformat (void)
 	FILE *fo;
 	FILE *fn;
 	int i;
-	long anzahl=0;
+	long anzahl = -1;
 
 	if (file_isreg(USERNAME))
+		return;
+	if (!file_isreg(USERNAMEOLD))
 		return;
 
 	user_t *us = (user_t*)t_malloc(sizeof(user_t), "usnf");
@@ -1125,8 +1127,10 @@ static void near usersfile_newformat (void)
 	if (fo && fn) {
 		trace(serious, "usersfile_newformat",
 		     "start converting");
-		anzahl = 0;
+
 		while (fread(uso, sizeof(userold_t), 1, fo) == 1) {
+			memset(us, 0, sizeof(user_t));
+
 			us->lastboxlogin=uso->lastboxlogin;
 			us->lastdirnews=uso->lastdirnews;
 			us->lastquit=uso->lastquit;
@@ -1165,13 +1169,8 @@ static void near usersfile_newformat (void)
 			us->ttycharset=uso->ttycharset;
 #endif
 			us->away = uso->away;
-			us->awayendtime = 0;
-			*us->awaytext = 0;
 			strcpy(us->qth, "?");
-			us->qthok = 0;
 			strcpy(us->zip, "?");
-			us->zipok = 0;
-			*us->restplatz = 0;
 			strcpy(us->call, uso->call);
 			strcpy(us->name, uso->name);
 			if (*uso->mybbs)
@@ -1206,6 +1205,12 @@ static void near usersfile_newformat (void)
 	t_free(uso);
 	while (!sema_lock("purgereorg"))
 		wdelay(100);
+
+	// Callformat ist zu diesem Zeitpunkt noch nicht gesetzt,
+	// deshalb mit einem sicheren Wert vorbelegen, damit nicht alle
+	// CB-Rufzeichen als ungültig aus der neuen Userdatenbank gleich wieder
+	// gelöscht werden! (db1ras)
+	m.callformat = 2;
 
 	reorguser(0);
 	sema_unlock("purgereorg");
