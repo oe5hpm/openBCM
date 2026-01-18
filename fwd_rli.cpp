@@ -766,11 +766,29 @@ void fwdproc_reply (char reply)
          {
            b->fwdhold = 'N';
            add_hold("already rcvd", 0);
+           //db1ras 16.05.2009: Wir geben dem Absender bescheid, dass die Mail
+           //nicht geforwarded werden konnte!
+           add_hold("already rcvd", 1);
            writemailflags();
          //df3vi: Nachricht bei Partnerbox schon empfangen - auf 7 Tage setzen
          //  marklifetime(7);
          //dh8ymb 02.03.06: ist loeschen bei Usermails nicht besser?
            markerased('F', 0, 0);
+           /*db1ras 14.05.09: "already rcvd" bei Usermails bedeutet, dass die
+             MID der Mail bei der Partnerbox bereits bekannt ist, die Mail also
+             schon einmal darüber geforwardet wurde und die Partnerbox offenbar
+             keinen korrekten Weg zum Ziel kennt. Die Mail ist deshalb aber
+             *nicht* in der Partnerbox vorhanden, da Usermails im Netz nur
+             einmal existieren und aktuell haben wir sie. Wir können die
+             Usermail deshalb nicht still und heimlich einfach löschen!
+
+             Stattdessen informieren wir mit der obigen add_hold()-Änderung den
+             Absender und setzen die Mail auf LT 30, so dass der Absender
+             (oder Empfänger) ausreichend Zeit hat, die Mail ggf. nochmals
+             auszulesen. Mir ist kein Grund bekannt, warum die Zeit kürzer sein
+             sollte als bei "rejected" weiter oben, deshabvl LT 30 und nicht 7.
+           */
+           marklifetime(30);
          }
        }
        if (b->mailtype == 'B' && mbhadrok(b->at) == 1)
