@@ -3594,7 +3594,12 @@ void add_fwdfile (char *frombox, short unsigned delaytime, int replace)
       {
         // forward by size
         if (file_isreg(fwdfname)
-            && (fp[box].options & o_o)) // wieder optional...
+            && (fp[box].options & o_o) // wieder optional...
+#ifdef _BCMNET_FWD
+            && ! b->binstart                      // and no binary mail
+            && (b->conttype < '6' || b->conttype > '9') // and no 7plus mail
+#endif
+           )
         {
           sprintf(entry, "%s", b->mailfname);
 #ifdef DEBUG_FWD
