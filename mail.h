@@ -2105,7 +2105,7 @@ extern int boxinaktiv;
 extern int reorg_noetig;
 extern char abortreason[];
 extern int runterfahren;
-extern char *stopreason;
+extern char stopreason[];
 extern unsigned cvtlen;
 
 /*---------------------------------------------------------------------------*/

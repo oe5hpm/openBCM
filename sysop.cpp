@@ -149,7 +149,6 @@ int sysbef (char *befbuf)
 //
 //*************************************************************************
 {
-  static char shutdown_reason[23];
   char xbuf[20];
   static char *beftab[] =
     {
@@ -931,8 +930,7 @@ int sysbef (char *befbuf)
       if (b->optplus & o_r) atexit((void(*)()) MK_FP(0xffff, 0x0000));
 #endif
       runterfahren = 1;
-      sprintf(shutdown_reason, "shutdown by %s", b->logincall);
-      stopreason = shutdown_reason;
+      sprintf(stopreason, "shutdown by %s", b->logincall);
     } break;
     case cfgflex_:
     {
