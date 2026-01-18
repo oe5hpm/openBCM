@@ -812,15 +812,19 @@ int xrename (char *src, char *dest)
 //
 //*************************************************************************
 {
-  while (sema_access(src)) wdelay(124);
-  while (sema_access(dest)) wdelay(125);
-  resetreadonly(src);
-  if (rename(src, dest))
-  {
-    filecopy(src, dest);
-    return unlink(src);
-  }
-  return 0;
+	while (sema_access(src))
+		wdelay(124);
+	while (sema_access(dest))
+		wdelay(125);
+
+	resetreadonly(src);
+
+	if (rename(src, dest)) {
+		filecopy(src, dest);
+		return unlink(src);
+	}
+
+	return 0;
 }
 
 /*---------------------------------------------------------------------------*/
