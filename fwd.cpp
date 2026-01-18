@@ -3640,6 +3640,8 @@ void add_fwdfile (char *frombox, short unsigned delaytime, int replace)
               xunlink(fwdfname);
               xrename(fwdfnametmp, fwdfname);
             }
+            else if (fwdfile != NULL)
+              s_fclose(fwdfile);
             sema_unlock(fwdfname);
             sema_unlock(fwdfnametmp);
           }
