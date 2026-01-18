@@ -812,6 +812,9 @@ int xrename (char *src, char *dest)
 //
 //*************************************************************************
 {
+	if (!file_isreg(src))
+		return 1;
+
 	while (sema_access(src))
 		wdelay(124);
 	while (sema_access(dest))
