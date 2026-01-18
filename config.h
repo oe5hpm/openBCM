@@ -130,6 +130,7 @@
   #ifdef _BCMNET
   // Special features for CB-BCMNET version
     #define FEATURE_EDITOR // Enable internal editor
+    #undef _BCMNET_GW      // Disable the Gateway Functions for CB-BCMNET
     #undef MAILSERVER      // Disable the mailinglist server
     #undef FILESURF        // Disable the filesurf server
     #undef _TELEPHONE      // Disable DOS Telephone-Forward
@@ -137,6 +138,7 @@
     #undef DF3VI_EXTRACT   // Disable extract 7+/bin (sysop)
     #undef FEATURE_YAPP    // Disable the YAPP file transfer protocol
     #undef _GUEST          // Disable guest-callsign (for telnet/TTY access)
+    #undef _FILEFWD        // Disable file-forwarding
     #undef DF3VI_FWD_EDIT  // Disable editor for fwd.bcm (sysop)
     #undef DF3VI_REJ_EDIT  // Disable editor for reject.bcm (sysop)
     #undef DF3VI_CONV_EDIT // Editor for convert.bcm (sysop)
@@ -144,6 +146,7 @@
     #undef FULLTEXTSEARCH  // Disable full text search (FTS) command
     #undef MACRO           // Disable macro interpreter support
     #undef FEATURE_DIDADIT // Disable the DIDADIT file transfer protocol
+    #undef _USERS4CONVERT  // Disable user database converter
     #undef OLDMAILIMPORT   // Disable import mail files from another Baybox
   #endif
   #ifdef SMALL_DOS
