@@ -1597,6 +1597,7 @@ void lastfunc (char *cmd)
     verify_stack(); //stack overflow detection
 #endif
     strncpy(t->lastfunc, cmd, 39);
+    t->lastfunc[39] = 0;
     t->lastcmd[39] = 0;
   }
 }
