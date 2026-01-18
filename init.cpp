@@ -1224,6 +1224,15 @@ void mbinit (void)
     }
     s_fclose(f);
   }
+  else
+  {
+    /* create default directories on initial startup */
+    xmkdir(m.userpath);
+    xmkdir(m.infopath);
+  #ifdef _WXSTN
+    xmkdir(m.wxpath);
+  #endif
+  }
   mbparsave(); // save new defaults
   if (! m.mycalls && mbcallok(m.boxname))
   {
