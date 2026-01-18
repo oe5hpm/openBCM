@@ -1111,16 +1111,12 @@ void mbinit (void)
   m.addlinuxsystemuser = 0;  // 0 = deaktiviert, 1 = aktiviert
 #endif
 #ifdef _BCMNET_LOGIN
-  m.paclen=80;
+  m.paclen=128;
 #else
   m.paclen = 0;
 #endif
   m.minpaclen=40;
-#ifdef _BCMNET_LOGIN
-  m.maxpaclen=180;
-#else
   m.maxpaclen=256;
-#endif
 #ifdef _BCMNET_LOGIN
   m.mailbeacon = 0;
 #else
@@ -1129,7 +1125,7 @@ void mbinit (void)
   m.altboardinfo = 0;    // 0=Boardinfotext in eigener Zeile (mit Return), 1=ohne Return
   m.timeoutwarning = 1;  // 0=ohne Vorwarnung, 1=mit Vorwarnung
   m.nounknownroute = 0;  // 0=alle Routen annehmen, 1=unknown ablehnen
-#ifdef _BCMNET
+#ifdef _BCMNET_LOGIN
   m.asklogin = 1;
 #else
   m.asklogin = 0;        // 0=ohne Loginabfrage, 1=mit Loginabfrage
