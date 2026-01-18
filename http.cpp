@@ -1493,9 +1493,7 @@ void httpd::start_http (char *name)
       {}
       else if (! stricmp(uri, "/cmd"))
       {
-        if (httpsurface == 0)
-          put_header(head);
-        html_putf("<pre>");
+        put_header(head);
         html_putf("<pre class=\"textfeld\">");
         mblogin(login, login_silent, "HTTP");
         mailbef(cmd, 0);
