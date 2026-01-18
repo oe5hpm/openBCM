@@ -1114,99 +1114,101 @@ static void near usersfile_newformat (void)
 	int i;
 	long anzahl=0;
 
-	if (!file_isreg(USERNAME)) {
-		user_t *us = (user_t*)t_malloc(sizeof(user_t), "usnf");
-		userold_t *uso = (userold_t*)t_malloc(sizeof(userold_t), "usof");
-		fo = s_fopen(USERNAMEOLD, "srb");
-		fn = s_fopen(USERNAMETMP, "swb");
-		if (fo && fn) {
-			trace(serious, "usersfile_newformat",
-			     "start converting");
-			anzahl = 0;
-			while (fread(uso, sizeof(userold_t), 1, fo) == 1) {
-				us->lastboxlogin=uso->lastboxlogin;
-				us->lastdirnews=uso->lastdirnews;
-				us->lastquit=uso->lastquit;
-				us->mybbstime=uso->mybbstime;
-				us->lastload=uso->lastload;
-				us->daybytes=uso->daybytes;
-				us->mailsent=uso->mailsent;
-				us->mailgot=uso->mailgot;
-				us->mailread=uso->mailread;
-				us->logins=uso->logins;
-				for (i = 0; i < 8; i++)
-					us->opt[i]=uso->opt[i];
-				us->helplevel=uso->helplevel;
-				us->zeilen=uso->zeilen;
-				us->lf=uso->lf;
-				us->status=uso->status;
-				us->filepos=uso->filepos;
-				us->nextsamehash=uso->nextsamehash;
-				us->fdelay=uso->fdelay;
-				us->fhold=uso->fhold;
-				us->paclen=uso->paclen;
-				us->readlock=uso->readlock;
-				us->pwline=uso->pwline;
-				us->echo=uso->echo;
-				us->rlimit=uso->rlimit;
-				us->nopurge=uso->nopurge;
-				us->nameok=uso->nameok;
-				us->mybbsok=uso->mybbsok;
-				us->charset=uso->charset;
-				us->loginpwtype=uso->loginpwtype;
-				us->sfpwtype=uso->sfpwtype;
-				us->dirformat=uso->dirformat;
-				us->unsecure_smtp=uso->unsecure_smtp;
-				us->binmode=uso->binmode;
+	if (file_isreg(USERNAME))
+		return;
+
+	user_t *us = (user_t*)t_malloc(sizeof(user_t), "usnf");
+	userold_t *uso = (userold_t*)t_malloc(sizeof(userold_t), "usof");
+	fo = s_fopen(USERNAMEOLD, "srb");
+	fn = s_fopen(USERNAMETMP, "swb");
+
+	if (fo && fn) {
+		trace(serious, "usersfile_newformat",
+		     "start converting");
+		anzahl = 0;
+		while (fread(uso, sizeof(userold_t), 1, fo) == 1) {
+			us->lastboxlogin=uso->lastboxlogin;
+			us->lastdirnews=uso->lastdirnews;
+			us->lastquit=uso->lastquit;
+			us->mybbstime=uso->mybbstime;
+			us->lastload=uso->lastload;
+			us->daybytes=uso->daybytes;
+			us->mailsent=uso->mailsent;
+			us->mailgot=uso->mailgot;
+			us->mailread=uso->mailread;
+			us->logins=uso->logins;
+			for (i = 0; i < 8; i++)
+				us->opt[i]=uso->opt[i];
+			us->helplevel=uso->helplevel;
+			us->zeilen=uso->zeilen;
+			us->lf=uso->lf;
+			us->status=uso->status;
+			us->filepos=uso->filepos;
+			us->nextsamehash=uso->nextsamehash;
+			us->fdelay=uso->fdelay;
+			us->fhold=uso->fhold;
+			us->paclen=uso->paclen;
+			us->readlock=uso->readlock;
+			us->pwline=uso->pwline;
+			us->echo=uso->echo;
+			us->rlimit=uso->rlimit;
+			us->nopurge=uso->nopurge;
+			us->nameok=uso->nameok;
+			us->mybbsok=uso->mybbsok;
+			us->charset=uso->charset;
+			us->loginpwtype=uso->loginpwtype;
+			us->sfpwtype=uso->sfpwtype;
+			us->dirformat=uso->dirformat;
+			us->unsecure_smtp=uso->unsecure_smtp;
+			us->binmode=uso->binmode;
 #ifndef __MSDOS__
-				us->ttycharset=uso->ttycharset;
+			us->ttycharset=uso->ttycharset;
 #endif
-				us->away = uso->away;
-				us->awayendtime = 0;
-				*us->awaytext = 0;
-				strcpy(us->qth, "?");
-				us->qthok = 0;
-				strcpy(us->zip, "?");
-				us->zipok = 0;
-				*us->restplatz = 0;
-				strcpy(us->call, uso->call);
-				strcpy(us->name, uso->name);
-				if (*uso->mybbs)
-					strcpy(us->mybbs, uso->mybbs);
-				else
-					strcpy(us->mybbs, uso->oldmybbs);
-				strcpy(us->prompt, uso->prompt);
-				strcpy(us->sprache, uso->sprache);
-				strcpy(us->password, uso->password);
-				strcpy(us->notvisible, uso->notvisible);
-				strcpy(us->firstcmd, uso->firstcmd);
-				strcpy(us->ttypw, uso->ttypw);
-				strcpy(us->uplink, uso->uplink);
-				strcpy(us->ufwd, uso->ufwd);
-				strcpy(us->newcall, uso->newcall);
+			us->away = uso->away;
+			us->awayendtime = 0;
+			*us->awaytext = 0;
+			strcpy(us->qth, "?");
+			us->qthok = 0;
+			strcpy(us->zip, "?");
+			us->zipok = 0;
+			*us->restplatz = 0;
+			strcpy(us->call, uso->call);
+			strcpy(us->name, uso->name);
+			if (*uso->mybbs)
+				strcpy(us->mybbs, uso->mybbs);
+			else
+				strcpy(us->mybbs, uso->oldmybbs);
+			strcpy(us->prompt, uso->prompt);
+			strcpy(us->sprache, uso->sprache);
+			strcpy(us->password, uso->password);
+			strcpy(us->notvisible, uso->notvisible);
+			strcpy(us->firstcmd, uso->firstcmd);
+			strcpy(us->ttypw, uso->ttypw);
+			strcpy(us->uplink, uso->uplink);
+			strcpy(us->ufwd, uso->ufwd);
+			strcpy(us->newcall, uso->newcall);
 
-				fwrite(us, sizeof(user_t), 1, fn);
+			fwrite(us, sizeof(user_t), 1, fn);
 
-				anzahl++;
-			}
-			trace(serious, "usersfile_newformat",
-			      "%ld users converted", anzahl);
+			anzahl++;
 		}
-		if (fo)
-			s_fclose(fo);
-		if (fn)
-			s_fclose(fn);
-
-		xrename(USERNAMETMP, USERNAME);
-		xunlink(USERNAMETMP);
-		t_free(us);
-		t_free(uso);
-		while (!sema_lock("purgereorg"))
-			wdelay(100);
-
-		reorguser(0);
-		sema_unlock("purgereorg");
+		trace(serious, "usersfile_newformat",
+		      "%ld users converted", anzahl);
 	}
+	if (fo)
+		s_fclose(fo);
+	if (fn)
+		s_fclose(fn);
+
+	xrename(USERNAMETMP, USERNAME);
+	xunlink(USERNAMETMP);
+	t_free(us);
+	t_free(uso);
+	while (!sema_lock("purgereorg"))
+		wdelay(100);
+
+	reorguser(0);
+	sema_unlock("purgereorg");
 }
 #endif
 
