@@ -108,6 +108,10 @@ void read_runfile (void)
     }
     while (fgets(s, sizeof(s) - 1, f))
       if (*s != ';') run_num++;
+    if (run_num == 0) {
+	    s_fclose(f);
+	    return;
+    }
     runs = (struct mbrun_t *) t_malloc(run_num * sizeof(mbrun_t), "*run");
     rewind(f);
     run_num = 0;
