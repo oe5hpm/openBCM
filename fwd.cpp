@@ -3619,6 +3619,10 @@ void add_fwdfile (char *frombox, short unsigned delaytime, int replace)
             {
               while (fgets(b->line, BUFLEN - 1, fwdfile))
               {
+               // nur nicht bereits als geloescht markierte Eintraege
+               // bearbeiten (db1ras)
+               if (*b->line != ' ')
+               {
                 if (strchr(b->line, ' '))
                   length = atol(strchr(b->line, ' ') + 1);
                 else
@@ -3630,6 +3634,7 @@ void add_fwdfile (char *frombox, short unsigned delaytime, int replace)
                   entrywritten = 1;
                 }
                 fputs(b->line, fwdnewfile);
+               }
                 //switch task every 200 lines
                 if (nt++ == 200)
                 {
