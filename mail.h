@@ -451,7 +451,7 @@
 #define DAY             86400L      // 60 * 60 * 24
 #define MAXAGE          2529000L    // 60 * 60 * 24 * 30 max. age of incomimg mybbs
 #ifdef _BCMNET
-  #define USERPROTECT   183L * DAY  // Zeitspanne fuer den Userschutz
+  #define USERPROTECT   365L * DAY  // Zeitspanne für den Userschutz
   #define BCMNETID      ".BCMNET"
 #endif
 
@@ -1136,7 +1136,9 @@ typedef struct mailpara_t
 #endif
   unsigned tracelevel;
   unsigned fwdtrace;
+#ifdef __FLAT__
   unsigned tcpiptrace;
+#endif
 #ifdef HB9EAS_DEBUG
   unsigned hb9eas_debug;
 #endif
