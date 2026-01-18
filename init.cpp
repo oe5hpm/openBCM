@@ -1339,7 +1339,9 @@ void mbparsave (void)
 #endif
     fprintf(f, "tracelevel %u\n", m.tracelevel);
     fprintf(f, "fwdtrace %u\n", m.fwdtrace);
+#ifdef __FLAT__
     fprintf(f, "tcpiptrace %u\n", m.tcpiptrace);
+#endif
     fprintf(f, "eraselog %u\n", m.eraselog);
 //    fprintf(f, "hadrstore %u\n", m.hadrstore); //fix 2
     fprintf(f, "; --- system ---\n");
