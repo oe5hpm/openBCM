@@ -1,3 +1,4 @@
+.settings
 *.o
 bcm
 .cproject
