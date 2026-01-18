@@ -233,6 +233,10 @@ static void putmimeheader (char *line, long mimeboundary)
 
   strcpy(s, "");
   get_mybbs(b->herkunft, s, 0);
+
+  if (b->headermode == _POP)
+    subst1(s, '.', 0);
+  else
   if (b->usermail) expand_hadr(s, 2);
   if (b->headermode == _NNTP)
   {
@@ -248,6 +252,10 @@ static void putmimeheader (char *line, long mimeboundary)
   putf("From: ");
   putmimeaddress(b->herkunft, s);
   strcpy(s, b->at);
+
+  if (b->headermode == _POP)
+    subst1(s, '.', 0);
+  else
   if (b->usermail) expand_hadr(s, 2);
   putf("To: ");
   putmimeaddress(b->ziel, s);
