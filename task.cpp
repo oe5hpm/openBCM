@@ -53,7 +53,7 @@ int keytaskid = 0; // Task-Nummer, zu der die Tastatur geleitet wird.
 int init_off = 0;  // Flag zum stoppen des Schedulers
 
 int runterfahren = 0;
-char *stopreason = " ??";
+char stopreason[60] = " ??";
 char abortreason[60];
 
 /*---------------------------------------------------------------------------*/
