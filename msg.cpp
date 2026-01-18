@@ -90,6 +90,8 @@ static void create_speechbcm (void)
   FILE *speechfile = NULL;
 
   speechfile = s_fopen("speech.bcm", "sat"); //schreibend oeffnen
+#ifndef _BCMNET_LOGIN
+  //TODO m.callformat ist zu diesem Zeitpunkt noch nicht gesetzt (db1ras)
   if (m.callformat == 0)
   {
     fputs("GB A EI G K M N VE VK W\r\n", speechfile);
@@ -148,6 +150,34 @@ static void create_speechbcm (void)
     fputs("DLA\r\n", speechfile);
     trace(serious, "msg_search", "speech.bcm (cb) created");
   }
+#else
+  // Im CB-BCMNET ist Deutsch für alle Rufzeichen der Default
+  fputs("GB\r\n", speechfile);
+  fputs("CT\r\n", speechfile);
+  fputs("DL A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0 1 2 3 4 5 6 7 8 9\r\n", speechfile);
+  fputs("EA\r\n", speechfile);
+  fputs("FF\r\n", speechfile);
+  fputs("HA\r\n", speechfile);
+  fputs("HRV\r\n", speechfile);
+  fputs("I\r\n", speechfile);
+  fputs("JA\r\n", speechfile);
+  fputs("LX\r\n", speechfile);
+  fputs("NL\r\n", speechfile);
+  fputs("OK\r\n", speechfile);
+  fputs("OM\r\n", speechfile);
+  fputs("PL\r\n", speechfile);
+  fputs("RUS\r\n", speechfile);
+  fputs("S5\r\n", speechfile);
+  fputs("TA\r\n", speechfile);
+  fputs("TRK\r\n", speechfile);
+  fputs("BAD\r\n", speechfile);
+  fputs("BAY\r\n", speechfile);
+  fputs("BW\r\n", speechfile);
+  fputs("KL\r\n", speechfile);
+  fputs("PF\r\n", speechfile);
+  fputs("DLA\r\n", speechfile);
+  trace(serious, "msg_search", "speech.bcm (CB-BCMNET) created");
+#endif
   s_fclose(speechfile);
 }
 
@@ -547,12 +577,14 @@ char *ms (MSG_TYP msgnum)
   register int offset;
   static char ext[4];
   unsigned int i;
+#ifdef __FLAT__
   static char tmp1[200];
   static char tmp2[200];
   static char tmp3[200];
   static char tmp4[200];
   static char tmp5[200];
   static int zahl;
+#endif
   char *kl;
 
   if (b->msg_loadnum != msg_loadnum)
