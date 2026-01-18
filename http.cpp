@@ -246,6 +246,11 @@ void httpd::generate_css (void)
     fputs("border-top:solid 1px #000000;\n", cssfile);
     fputs("height:19px;\n", cssfile);
     fputs("}\n", cssfile);
+    fputs("/* Textfeld */\n", cssfile);
+    fputs(".textfeld\n", cssfile);
+    fputs("{\n", cssfile);
+    fputs("white-space:pre-wrap;\n", cssfile);
+    fputs("}\n", cssfile);
     fputs("/* Fuss- und Kopfleiste */\n", cssfile);
     fputs(".leiste\n", cssfile);
     fputs("{\n", cssfile);
@@ -1491,6 +1496,7 @@ void httpd::start_http (char *name)
         if (httpsurface == 0)
           put_header(head);
         html_putf("<pre>");
+        html_putf("<pre class=\"textfeld\">");
         mblogin(login, login_silent, "HTTP");
         mailbef(cmd, 0);
         html_putf("</pre>");
