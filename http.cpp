@@ -1493,6 +1493,7 @@ void httpd::start_http (char *name)
       {}
       else if (! stricmp(uri, "/cmd"))
       {
+        if (httpsurface == 0)
         put_header(head);
         html_putf("<pre class=\"textfeld\">");
         mblogin(login, login_silent, "HTTP");
@@ -1509,8 +1510,7 @@ void httpd::start_http (char *name)
         else if (stristr(uri + 7, ".wav")) mimetype = WAV;
         else mimetype = BIN;
         //  mimetype = TXT;
-        if (httpsurface == 0)
-          put_header(NULL);
+        put_header(NULL);
         mblogin(login, login_silent, "HTTP");
         b->http = 1;
         mbread(read_, 4);
