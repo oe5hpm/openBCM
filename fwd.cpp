@@ -2326,7 +2326,7 @@ static void putsid (int tx)
 {
   lastfunc("putsid");
   char pwdfname[20];
-  char pwds[30];
+  char pwds[33];
   char sid[60];
   int i;
   FILE *f;
